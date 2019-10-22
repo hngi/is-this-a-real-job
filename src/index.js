@@ -2,7 +2,6 @@ const path = require('path');
 const express = require('express');
 const { PORT } = require('./config/constants');
 const { initRoutes } = require('./routes/routes');
-const db = require('./database/db');
 
 const app = express();
 

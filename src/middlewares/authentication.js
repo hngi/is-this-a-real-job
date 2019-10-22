@@ -40,6 +40,6 @@ export const validUser = async (req, res, next) => {
   if (!findUser) {
     return respondWithWarning(res, 401, 'Incorrect email or password');
   }
-  req.user = findUser._doc;
+  req.user = findUser.toJSON();
   return next();
 };
