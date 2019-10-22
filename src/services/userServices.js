@@ -1,4 +1,6 @@
-import UserModel from '../models/userModel';
+import Model from '../models';
+
+const { User } = Model;
 
 
 /**
@@ -7,11 +9,12 @@ import UserModel from '../models/userModel';
  */
 export const findSingleUser = async (queryOption = {}) => {
   try {
-    const user = await UserModel.findOne(queryOption);
+    const user = await User.findOne({
+      where: queryOption,
+      logging: false
+    });
     return user;
   } catch (error) {
-    return {
-      errors: error
-    };
+    console.log(error);
   }
 };

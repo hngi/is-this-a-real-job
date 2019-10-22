@@ -22,8 +22,8 @@ export const signin = async (req, res) => {
   if (!comparePassword) {
     return respondWithWarning(res, 401, 'Incorrect email or password');
   }
-  const { _id } = req.user;
-  const payload = { _id };
+  const { userId, isAdmin } = req.user;
+  const payload = { userId, isAdmin };
   req.user.token = await generateToken(payload);
   return respondWithSuccess(res, 200, 'Login successful', _.omit(req.user, ['password']));
 };

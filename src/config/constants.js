@@ -3,8 +3,11 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 export const {
+  NODE_ENV,
   PORT,
-  DB_URL,
+  DEV_DATABASE_URL,
+  TEST_DATABASE_URL,
+  PROD_DATABASE_URL,
   SALT_ROUNDS,
   SECRET_KEY,
 } = process.env;

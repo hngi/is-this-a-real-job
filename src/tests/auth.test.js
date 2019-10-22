@@ -19,7 +19,7 @@ describe('AUTH CONTROLLER', () => {
         .end((error, res) => {
           expect(res).to.have.status(200);
           expect(res.body.success).to.equal(true);
-          expect(res.body.payload).to.have.property('_id');
+          expect(res.body.payload).to.have.property('userId');
           expect(res.body.payload).to.have.property('email');
           done();
         });
