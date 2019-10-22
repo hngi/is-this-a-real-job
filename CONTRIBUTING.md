@@ -26,7 +26,7 @@ After setting up your fork on github and cloning it locally on your system, you'
     <pre>git remote add upstream git://github.com/TEAM-NAME/REPO-NAME.git</pre>
 PS: *You may get an error saying the `upstream` remote has already been configured. If so, then you are good to go.*   
 
-Now you're all set up.       
+Now you're all set up.      
 __*The following steps must be run periodically to keep your work up-to-date! You can run these commands as often as every hour. You want to fetch any new changes as soon as possible. Each time you want to begin working, or take a break from your work, run these first.*__     
 Be sure to [stash](https://dev.to/neshaz/how-to-git-stash-your-work-the-correct-way-cna) 
 or commit all local changes first. 
