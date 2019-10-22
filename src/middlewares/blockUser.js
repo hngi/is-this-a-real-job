@@ -8,9 +8,12 @@ const { User } = Model;
  * @returns {object} an object containing the information of all the users or null
  */
 
-const getUsers = (req, res)=>{
-    User.findAll().then((users)=>{
-      res.status(200).json(users);
+const blockUser = (req, res)=>{
+    User.update(
+        {isBlocked: true},
+        {where: {_id: req.params.id}}
+        ).then(()=>{
+      res.status(201).json({message: "User blocked"});
     }).catch((error)=>{
         res.status(400).json({
             error
@@ -19,4 +22,4 @@ const getUsers = (req, res)=>{
   }
 
 
-  module.exports = getUsers;
+  module.exports = blockUser;
