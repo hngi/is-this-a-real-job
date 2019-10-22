@@ -14,9 +14,9 @@ export const blockUser = async(req, res)=>{
         {isBlocked: true},
         {where: {userId: req.params.id}}
         ).then(()=>{
-      return respondWithSuccess(res, 200, 'User Blocked')
+      return respondWithSuccess(res, 201, 'User Blocked')
     }).catch((error)=>{
-        return respondWithWarning(res, 400, 'User not found')
+        return respondWithWarning(res, 400, 'User not found', error)
     })
   }
 
@@ -31,9 +31,9 @@ export const blockUser = async(req, res)=>{
 export const getUsers = (req, res)=>{
     User.findAll().then((users)=>{
       
-      return respondWithSuccess(res, 200, users )
+      return respondWithSuccess(res, 200, 'Success', users )
     }).catch((error)=>{
-        return respondWithWarning(res, 400, error)
+        return respondWithWarning(res, 400, 'User not found', error)
     })
   }
 
