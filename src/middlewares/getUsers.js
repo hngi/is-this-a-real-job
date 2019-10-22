@@ -1,6 +1,5 @@
 import Model from '../models';
 
-const db = require('../database/db')
 const { User } = Model;
 
 /**
