@@ -1,25 +1,26 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import app from '../index';
+import uuid from 'uuid';
 
 const { expect } = chai;
 chai.use(chaiHttp);
 
-const blockUserbaseUrl = '/api/v1/users;
+const blockUserbaseUrl = '/api/v1/users';
 
-describe('BLOCK USER', () => {
-  describe('PATCH  ISADMIN', () => {
+describe('ISADMIN', () => {
+  describe('PATCH  BLOCKUSER', () => {
     it('it should block a user by an admin', (done) => {
       chai.request(app)
-        .patch(`${blockUserbaseUrl}/90`)
+        .patch(`${blockUserbaseUrl}/${uuid}`)
         .end((error, res) => {
-          expect(res).to.have.status(201);
+          expect(res).to.have.status(200);
           expect(res.body.payload).to.have.property('message');
           done();
         });
     });
 
-    it('it should return 400 on resource not found', (done) => {
+    it('it should return 404 on resource not found', (done) => {
       chai.request(app)
         .patch(`${blockUserbaseUrl}/MaLf90rMeD_iD`)
         .end((error, res) => {
@@ -29,7 +30,7 @@ describe('BLOCK USER', () => {
         });
     });
 
-    it('it should return 400 if userId missing', (done) => {
+    it('it should return 400 if UUID missing', (done) => {
       chai.request(app)
         .patch(`${blockUserbaseUrl}`)
         .end((error, res) => {

@@ -5,7 +5,11 @@ import {
   signin
 } from '../controllers/authController';
 import { upvoteInvite } from '../controllers/upvoteController';
-import {authenticateAdminToken, validateAdmin} from '../middlewares/validateAdmin'
+import { validateAdmin} from '../middlewares/validateAdmin'
+
+import {authenticateUserToken} from '../middlewares/authentication'
+import { findSingleUser } from '../services/userServices';
+import { findValidUser } from '../services/blockUserServices';
 
 const  {blockUser, getUsers} =  require('../controllers/userController') // import from middleware
 
@@ -16,10 +20,11 @@ export const initRoutes = app => {
 
   //get all Users  
    // must be a valid user, must be signed in also must be an admin
-  app.get('/api/v1/users', signin, authenticateAdminToken, getUsers); 
+  app.get('/api/v1/users', authenticateUserToken, getUsers); 
 
   //block a user
-  app.patch('/api/v1/users/:id', validUser, validateAdmin, authenticateAdminToken, blockUser);
+  app.patch('/api/v1/users/:id', findValidUser, authenticateUserToken, validateAdmin, blockUser)
+  
 
 
 

@@ -12,9 +12,9 @@ const { User } = Model;
 export const blockUser = async(req, res)=>{
     User.update(
         {isBlocked: true},
-        {where: {userId: req.params.id}}
+        {where: {uuid: req.params.id}}
         ).then(()=>{
-      return respondWithSuccess(res, 201, 'User Blocked')
+      return respondWithSuccess(res, 200, 'User Blocked')
     }).catch((error)=>{
         return respondWithWarning(res, 400, 'User not found', error)
     })
