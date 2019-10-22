@@ -7,8 +7,7 @@ import {
 import { upvoteInvite } from '../controllers/upvoteController';
 import {authenticateAdminToken, validateAdmin} from '../middlewares/validateAdmin'
 
-const blockUser = require('../middlewares/blockUser') // import from middleware
-const getUsers = require('../middlewares/getUsers') // import from middleware
+const  {blockUser, getUsers} =  require('../controllers/userController') // import from middleware
 
 export const initRoutes = app => {
   app.get('/', (req, res) => res.status(200).json({ message: 'Welcome' }));
@@ -17,10 +16,10 @@ export const initRoutes = app => {
 
   //get all Users  
    // must be a valid user, must be signed in also must be an admin
-  app.get('/api/v1/users', authenticateAdminToken, validateAdmin, getUsers); 
+  app.get('/api/v1/users', signin, authenticateAdminToken, getUsers); 
 
   //block a user
-  app.patch('/api/v1/users/:id', authenticateAdminToken, validateAdmin, blockUser);
+  app.patch('/api/v1/users/:id', validUser, validateAdmin, authenticateAdminToken, blockUser);
 
 
 
