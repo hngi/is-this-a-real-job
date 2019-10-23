@@ -53,7 +53,7 @@ Tests are written with mocha, chai-http and chai.
 #### Stack:
 * Node
 * Express
-* Mongodb
+* MySQL
 
 
 #### License
