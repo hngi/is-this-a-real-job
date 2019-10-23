@@ -12,14 +12,14 @@ import { respondWithWarning } from '../helpers/responseHandler';
 export const validateUUID = (req, res, next) => {
   const validUUID = /^[0-9a-fA-F]{8}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{12}$/;
   const commentSchema = Joi.object().keys({
-    inviteId: Joi.string().required()
-      .regex(validUUID).error(() => ({ message: 'Enter a valid id' })),
+    inviteId: Joi.string().pattern(validUUID)
+      .required(),
   });
 
-  const errors = joiValidator(req.body, commentSchema);
+  const errors = joiValidator(req.params, commentSchema);
 
   if (!errors) {
     return next();
   }
-  return respondWithWarning(res, 400, 'Bad Input', errors);
+  return respondWithWarning(res, 400, 'Bad Request', errors);
 };

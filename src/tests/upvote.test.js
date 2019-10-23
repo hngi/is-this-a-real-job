@@ -20,7 +20,7 @@ describe('UPVOTE CONTROLLER', () => {
         });
     });
 
-    it('it should return 404 on resource not found', (done) => {
+    it('it should return 400 on invalid UUID', (done) => {
       chai.request(app)
         .patch(`${upvoteBaseUrl}/MaLf90rMeD_iD`)
         .end((error, res) => {
@@ -30,12 +30,12 @@ describe('UPVOTE CONTROLLER', () => {
         });
     });
 
-    it('it should return 400 if inviteId missing', (done) => {
+    it('it should return 404 if inviteId missing', (done) => {
       chai.request(app)
         .patch(`${upvoteBaseUrl}`)
         .end((error, res) => {
-          expect(res).to.have.status(400);
-          expect(res.body.message).to.equal('Bad Request');
+          expect(res).to.have.status(404);
+          expect(res.body.message).to.equal('Not Found');
           done();
         });
     });
