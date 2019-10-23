@@ -11,7 +11,7 @@ import { fetchOneNotification } from '../services/notificationServices';
 export const validateNotification = async (req, res, next) => {
   const { notificationId } = req.params;
 
-  const findNotification = await fetchOneInvite({ inviteId });
+  const findNotification = await fetchOneNotification({ notificationId });
   if (!findNotification) {
     return respondWithWarning(res, 404, 'Notification not found');
   }
@@ -28,7 +28,7 @@ export const validateNotification = async (req, res, next) => {
  * @param {Function} next this is the next function
  * @returns {Function} response
  */
-export const validateInviteOwner = async (req, res, next) => {
+export const validateNotificationOwner = async (req, res, next) => {
     if (req.auth.userId !== req.notification.userId ) {
       return respondWithWarning(res, 401, 'You are not authorized to perform this action');
     }
