@@ -8,6 +8,7 @@ export default {
       name: 'Admin',
       username: 'admin',
       email: 'admin@mail.com',
+      isAdmin: true,
       password: await passwordHash('123456'),
     },
     {
@@ -15,6 +16,7 @@ export default {
       name: 'John Doe',
       username: 'johndoe',
       email: 'johndoe@mail.com',
+      isAdmin: false,
       password: await passwordHash('123456'),
     },
   ], {}),
