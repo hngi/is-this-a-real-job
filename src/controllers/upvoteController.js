@@ -1,6 +1,8 @@
 import { respondWithSuccess } from '../helpers/responseHandler';
-import { Invite } from '../models/invite';
-import { where } from 'sequelize/types';
+import Model from '../models';
+
+const { Invite } = Model;
+
 
 /*
  * Increment upvote count

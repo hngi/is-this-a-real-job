@@ -24,8 +24,8 @@ describe('UPVOTE CONTROLLER', () => {
       chai.request(app)
         .patch(`${upvoteBaseUrl}/MaLf90rMeD_iD`)
         .end((error, res) => {
-          expect(res).to.have.status(404);
-          expect(res.body.message).to.equal('Job Invite not found');
+          expect(res).to.have.status(400);
+          expect(res.body.message).to.equal('Bad Request');
           done();
         });
     });
