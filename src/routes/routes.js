@@ -14,7 +14,9 @@ import {
   validateUserById,
   validateUserId,
   validateUpvoteInput,
-  validateInviteOwner
+  validateInviteOwner,
+  validateNotification,
+  validateNotificationOwner
 } from '../middlewares/middlewares';
 
 import {
@@ -28,9 +30,11 @@ import {
   renderJobInvitesPage,
   editInvite
 } from '../controllers/inviteController';
+import {updateNotification} from '../controllers/notificationController';
 
 import { getComments, createComment } from '../controllers/commentController';
 import { blockUser, getUsers } from '../controllers/userController';
+import { validateNotification, validateNotificationOwner } from '../middlewares/validateNotification';
 
 export const initRoutes = app => {
   // All EJS frontend endpoints below --------------------------------------------------
@@ -124,7 +128,13 @@ export const initRoutes = app => {
     validateInvite,
     upvoteInvite
   );
-
+  //mark notification as Read
+  app.patch('/api/v1/notification/:notificationId', 
+    validateNotification,
+    authenticateUserToken,
+    validateNotificationOwner,
+    updateNotification
+  )
   // Fallback case for unknown URIs.
   app.all('*', (req, res) => res.status(404).json({ message: 'Route Not Found' }));
 };

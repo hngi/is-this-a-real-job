@@ -17,6 +17,7 @@ import {
 } from './validateUUID';
 import { validateAdmin } from './validateAdmin';
 import { validateUserById } from './validateUser';
+import {validateNotification, validateNotificationOwner} from './validateNotification'
 
 export {
   validateSigninFormData,
@@ -33,5 +34,7 @@ export {
   validateUserById,
   validateUserId,
   validateUpvoteInput,
-  validateInviteOwner
+  validateInviteOwner,
+  validateNotification,
+  validateNotificationOwner
 };
