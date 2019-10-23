@@ -55,11 +55,17 @@ export const signup = async (req, res) => {
   });
 
   if (_user.success) {
+    const payload = {
+      userId: _user.user.dataValues.userId,
+      isAdmin: _user.user.dataValues.isAdmin
+    };
+    const token = await generateToken(payload);
     return respondWithSuccess(
       res,
       200,
       "User signup successful",
-      _.omit(_user.user.dataValues, ["password"])
+      _.omit(_user.user.dataValues, ["password"]),
+      token
     );
   } else {
     return respondWithWarning(res, 400, "Error creating User :(");

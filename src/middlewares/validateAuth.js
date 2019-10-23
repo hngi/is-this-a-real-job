@@ -26,7 +26,6 @@ export const validateSigninFormData = (req, res, next) => {
 };
 
 export const validateSignupFormData = async (req, res, next) => {
-  const { username, name, email, password } = req.body;
   const signUpSchema = Joi.object().keys({
     password: Joi.string().required(),
     username: Joi.string().required(),
@@ -37,23 +36,12 @@ export const validateSignupFormData = async (req, res, next) => {
     name: Joi.string().required()
   });
 
-  const validationOptions = {
-    allowUnknown: true, // allow unknown keys that will be ignored
-    stripUnknown: true, // remove unknown keys from the validated data
-    abortEarly: false // validate all inputs before flagging error
-  };
-
-  const { errors } = await signUpSchema.validate(
-    { username, name, email, password },
-    validationOptions
-  );
+  const errors = joiValidator(req.body, signUpSchema);
 
   console.log("Errors", errors);
 
-  if (errors) {
-    message = error.details.map(items => items.message.replace(/['"]/g, ""));
-    return respondWithWarning(res, 400, "Bad Signup Input" + message);
-  } else {
-    next();
+  if (!errors) {
+    return next();
   }
+  return respondWithWarning(res, 400, "Bad Sign up Input", errors);
 };
