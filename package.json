@@ -19,7 +19,7 @@
     "db:seed": "./node_modules/.bin/sequelize db:seed:all",
     "lint": "./node_modules/.bin/eslint src",
     "lint-fix": "./node_modules/.bin/eslint src --ext  .js --fix",
-    "heroku-postbuild": "cross-env NODE_ENV=production npm run build"
+    "heroku-postbuild": "cross-env NODE_ENV=production npm run build && cross-env NODE_ENV=production npm run migration"
 
   },
   "author": "",

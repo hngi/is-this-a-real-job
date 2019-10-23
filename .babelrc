@@ -6,5 +6,6 @@
     [
       "@babel/transform-runtime"
     ]
-  ]
+  ],
+  "ignore": ["./src/views/pageScripts"]
 }
