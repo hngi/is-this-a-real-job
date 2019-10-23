@@ -29,7 +29,6 @@ export default (sequelize, DataTypes) => {
   }, {});
   Invite.associate = models => {
     Invite.belongsTo(models.User, { foreignKey: 'userId', as: 'user', onDelete: 'CASCADE' });
-    Invite.hasMany(models.Comment, { foreignKey: '' });
   };
   return Invite;
 };
