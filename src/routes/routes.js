@@ -1,5 +1,5 @@
 import {
-  validateSigninFormData, validUser, validateCommentData, validateInvite
+  validateSigninFormData, validUser, validateCommentData, validateInvite, validateUUID
 } from '../middlewares/middlewares';
 import {
   signin
@@ -18,7 +18,7 @@ export const initRoutes = app => {
   app.get('/api/v1/comments/:inviteId', getComments);
   app.post('/api/v1/comments/:inviteId', authenticateUserToken, validateCommentData, createComment);
 
-  app.patch('/api/v1/invites/upvote/:inviteId', validateInvite, upvoteInvite);
+  app.patch('/api/v1/invites/upvote/:inviteId', validateUUID, validateInvite, upvoteInvite);
 
 
   app.all('*', (req, res) => res.status(404).json({ message: 'Not Found' }));
