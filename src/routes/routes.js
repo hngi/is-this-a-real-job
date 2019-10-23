@@ -4,7 +4,8 @@ import {
   validateSignupFormData,
   validUser,
   validateCommentData,
-  validateInvite
+  validateInvite,
+  validateUUID
 } from '../middlewares/middlewares';
 
 import { getComments, createComment } from '../controllers/commentController';
@@ -26,7 +27,7 @@ export const initRoutes = app => {
     createComment
   );
 
-  app.patch('/api/v1/invites/upvote/:inviteId', validateInvite, upvoteInvite);
+  app.patch('/api/v1/invites/upvote/:inviteId', validateUUID, validateInvite, upvoteInvite);
 
   app.all('*', (req, res) => res.status(404).json({ message: 'Not Found' }));
 };
