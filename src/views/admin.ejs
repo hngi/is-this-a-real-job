@@ -1,0 +1,52 @@
+<% include partials/header %>
+  <!-- ADMIN DASHBOARD -->
+  <div class="admin-dashboard">
+    <p class="ad-main-text">Dashboard</p>
+<!-- ADMIN DASHBOARD TABS -->
+    <div class="row">
+        <div class="col-3">
+          <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+            <a class="nav-link active mb-3" id="v-pills-users-tab" data-toggle="pill" href="#v-pills-users" role="tab" aria-controls="v-pills-users" aria-selected="true">Users</a>
+            <a class="nav-link mb-3" id="v-pills-admins-tab" data-toggle="pill" href="#v-pills-admins" role="tab" aria-controls="v-pills-admins" aria-selected="false">Admins</a>
+            <a class="nav-link mb-3" id="v-pills-reports-tab" data-toggle="pill" href="#v-pills-reports" role="tab" aria-controls="v-pills-reports" aria-selected="false">Reports</a>
+          </div>
+        </div>
+        <!-- ADMIN DASHBOARD TABS CONTENT -->
+        <div class="col-9">
+          <div class="tab-content" id="v-pills-tabContent">
+            <!-- USERS TAB -->
+            <div class="tab-pane fade show active" id="v-pills-users" role="tabpanel" aria-labelledby="v-pills-home-users">
+                <div class="row">
+                    <div class="col-lg-6">
+                      <img class="user-avatar" src="https://pbs.twimg.com/media/D_y_cTGU8AEHJAI?format=jpg&name=small" alt="avatar">
+                      <div class="user-info">
+                          <p class="user-name">Robyn</p>
+                          <p class="user-handle">@Riri</p>
+                      </div>
+                      
+                    </div>
+                    <div class="col-lg-6">
+                        <button class="pull-right" type="">
+                            Blocked
+                        </button>
+                        
+                    </div>
+                    
+                   
+                </div>
+            </div>
+            <!-- ADMINS TAB -->
+            <div class="tab-pane fade" id="v-pills-admins" role="tabpanel" aria-labelledby="v-pills-admins-tab">
+              Admins List Goes Here
+            </div>
+            <!-- REPORTS TAB -->
+            <div class="tab-pane fade" id="v-pills-reports" role="tabpanel" aria-labelledby="v-pills-reports-tab">
+              Reported Users Goes Here
+            </div>
+          </div>
+        </div> 
+      </div>
+      </div>
+
+ <% include partials/footer %>
+ 

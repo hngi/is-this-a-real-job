@@ -22,18 +22,15 @@ html, body{
 	line-height: 14px;
 }
 .nav-item{
-	margin-left: 10%;
+	margin-right: 50px;
 }
 .navbar-brand{
 	font-weight: 600;
 	font-size: 32px;
 	line-height: 38px;
 }
-.navbar-nav{
-	margin-right: 12%;
-}
 .navbar{
-	background-color: none !important;
+	background-color: #3087D1;
 }
 /* NEW POST PAGE */
 .new_post_heading{
@@ -58,4 +55,41 @@ html, body{
 	width: 206px;
 	height:60px;
 	border-radius: 6px;
+}
+/* ADMIN DASHBOARD */
+.admin-dashboard{
+	padding: 3% 3.5%;
+}
+.ad-main-text{
+	font-weight: 600;
+	font-size: 40px;
+	color: #636B6F;
+}
+.nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+ background-color: #3087D1;
+}
+.tab-content{
+	margin: 0 50px 0 120px;
+
+}
+.user-avatar{
+	width: 102px;
+	height: 102px;
+	border-radius: 50px;
+	margin-right: 10px;
+	float: left;
+}
+.user-info{
+	color: #000000;
+}
+.user-name{
+	font-size: 24px;
+}
+.user-handle{
+	font-size: 16px;
+}
+.tab-content{
+	background-color: #E3E9EF;
+	padding: 20px;
+	border-radius: 10px;
 }
