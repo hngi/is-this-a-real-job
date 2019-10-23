@@ -9,13 +9,11 @@ export default (sequelize, DataTypes) => {
     inviteId: {
       type: DataTypes.UUID,
       allowNull: false,
-      defaultValue: DataTypes.UUIDV4,
       onDelete: 'CASCADE',
     },
     userId: {
       type: DataTypes.UUID,
       allowNull: false,
-      defaultValue: DataTypes.UUIDV4,
       onDelete: 'CASCADE',
     },
     body: {
