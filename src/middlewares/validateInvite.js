@@ -10,10 +10,13 @@ import { findSingleInvite } from '../services/inviteServices';
  */
 export const validateInvite = async (req, res, next) => {
   const { inviteId } = req.params;
+  if (!inviteId) {
+    return respondWithWarning(res, 400, 'Bad Request');
+  }
 
   const findInvite = await findSingleInvite({ inviteId });
   if (!findInvite) {
-    return respondWithWarning(res, 401, 'Job Invite not found');
+    return respondWithWarning(res, 404, 'Job Invite not found');
   }
   req.invite = findInvite.toJSON();
   return next();
