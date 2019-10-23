@@ -1,5 +1,10 @@
-import { validateSigninFormData } from './validateAuth';
+import { validateSigninFormData, validateSignupFormData } from './validateAuth';
 import { validUser } from './authentication';
 import { validateInvite } from './validateInvite';
 
-export { validateSigninFormData, validUser, validateInvite };
+export {
+  validateSigninFormData,
+  validateSignupFormData,
+  validUser,
+  validateInvite
+};

@@ -1,21 +1,21 @@
-import { findSingleUser } from '../services/userServices';
-import { respondWithWarning } from '../helpers/responseHandler';
-import { verifyToken, formatJWTErrorMessage } from '../helpers/jwt';
+import { findSingleUser } from "../services/userServices";
+import { respondWithWarning } from "../helpers/responseHandler";
+import { verifyToken, formatJWTErrorMessage } from "../helpers/jwt";
 
 /**
-   * Method to generate token
-   * @param {object} req
-   * @param {object} res
-   * @param {Function} next
-   * @returns {Function} next middleware
-   */
+ * Method to generate token
+ * @param {object} req
+ * @param {object} res
+ * @param {Function} next
+ * @returns {Function} next middleware
+ */
 export const authenticateUserToken = (req, res, next) => {
   let token = req.headers.authorization;
-  if (token && token.startsWith('Bearer ')) {
+  if (token && token.startsWith("Bearer ")) {
     token = token.slice(7, token.length);
   }
   if (!token) {
-    return respondWithWarning(res, 401, 'Session Expired');
+    return respondWithWarning(res, 401, "Session Expired");
   }
   try {
     const { key } = verifyToken(token);
@@ -38,7 +38,7 @@ export const validUser = async (req, res, next) => {
 
   const findUser = await findSingleUser({ email });
   if (!findUser) {
-    return respondWithWarning(res, 401, 'Incorrect email or password');
+    return respondWithWarning(res, 401, "Incorrect email or password");
   }
   req.user = findUser.toJSON();
   return next();
