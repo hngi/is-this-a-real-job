@@ -16,12 +16,18 @@ import { findCommentsForPost, createCommentForPost } from '../services/commentSe
  * @returns {object} json response
  */
 export const createComment = async (req, res) => {
-  const { body, userId } = req.body;
-  const { inviteId } = req.params;
+  try {
+    const { body, userId } = req.body;
+    const { inviteId } = req.params;
 
-  const comment = await createCommentForPost({ inviteId, body, userId });
+    const comment = await createCommentForPost({ inviteId, body, userId }).catch(e => { throw e; });
 
-  return respondWithSuccess(res, 200, 'Comment added successfully', comment);
+    if (comment) {
+      return respondWithSuccess(res, 200, 'Comment added successfully', comment);
+    }
+  } catch (error) {
+    return respondWithWarning(res, error.status, error.message);
+  }
 };
 
 /**

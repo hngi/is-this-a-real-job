@@ -1,6 +1,6 @@
 import Model from '../models';
 
-const { Comment, Invite } = Model;
+const { Comment, Invite, User } = Model;
 
 
 /**
@@ -13,7 +13,8 @@ export const findCommentsForPost = async (inviteId) => {
       include: [
         { model: Invite, as: 'invites' }
       ],
-      where: { inviteId }
+      where: { inviteId },
+      logging: false
     });
     return comments;
   } catch (error) {
@@ -26,10 +27,31 @@ export const findCommentsForPost = async (inviteId) => {
  * @returns {object} an object containing created comment data
  */
 export const createCommentForPost = async (commentData) => {
-  try {
-    const comment = await Comment.create(commentData);
-    return comment.dataValues;
-  } catch (error) {
-    console.log(error);
+  const e = new Error();
+  const userObj = await User.findOne({
+    where: {
+      userId: commentData.userId
+    },
+    logging: false
+  }).catch(err => {
+    console.log(err);
+    e.status = 500;
+    e.message = 'A technical error occured. Contact support.';
+    throw e;
+  });
+
+  if (!userObj) { // user does not exist
+    e.status = 404;
+    e.message = 'user not found';
+    throw e;
   }
+
+  const comment = await Comment.create(commentData).catch(err => {
+    console.log(err);
+    e.status = 500;
+    e.message = 'A technical error occured. Contact support.';
+    throw e;
+  });
+
+  return comment.dataValues;
 };
