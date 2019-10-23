@@ -15,7 +15,7 @@
     "migration": "./node_modules/.bin/sequelize db:migrate",
     "migration:rollback": "./node_modules/.bin/sequelize db:migrate:undo:all",
     "migration:refresh": "npm run migration:rollback && npm run migration",
-    "migration:refresh:test": "cross-env NODE_ENV=test npm run migration:rollback && cross-env NODE_ENV=test npm run migration",
+    "migration:refresh:test": "cross-env NODE_ENV=test npm run migration:rollback && cross-env NODE_ENV=test npm run migration && cross-env NODE_ENV=test npm run db:seed",
     "db:seed": "./node_modules/.bin/sequelize db:seed:all",
     "heroku-postbuild": "cross-env NODE_ENV=production npm run build"
   },
