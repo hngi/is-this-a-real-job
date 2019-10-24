@@ -33,6 +33,8 @@ export const initRoutes = app => {
     app.get('/register', (req, res) => res.render('register'));
     app.get('/post', (req, res) => res.render('userPost'));
     app.get('/jobInvites', (req, res) => res.render('jobInvites'));
+    app.get('/singlepost', (req, res) => res.render('singlepost'));
+
 
   //All backend API endpoints below -----------------------------------------------------
     // Auth
