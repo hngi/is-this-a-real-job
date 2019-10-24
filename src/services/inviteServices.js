@@ -17,3 +17,15 @@ export const findSingleInvite = async (queryOption = {}) => {
     console.log(error);
   }
 };
+
+export const deleteOneInvite = async (queryOption = {}) => {
+  try {
+    const invite = await Invite.destroy({
+      where: queryOption,
+      logging: false
+    });
+    return invite;
+  } catch (error) {
+    console.log (error);
+  }
+};
