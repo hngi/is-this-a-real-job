@@ -41,5 +41,5 @@ export const getComments = async (req, res) => {
 
   const comments = await findCommentsForPost(inviteId);
 
-  return respondWithSuccess(res, 200, '', comments);
+  return respondWithSuccess(res, 200, 'Successful', comments);
 };
