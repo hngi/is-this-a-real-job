@@ -12,7 +12,8 @@
   * @returns {Object} null
   */
 export const respondWithSuccess = (res, statusCode = 200, message, additionalFields = {}) => {
-  const payload = Array.isArray(additionalFields) ? [ ...additionalFields ] : { ...additionalFields}
+  const payload = Array.isArray(additionalFields) ? [ ...additionalFields ] : { ...additionalFields};
+  //console.log(payload);
   
   return res.status(statusCode).send({ success: true, message, payload });
 } 

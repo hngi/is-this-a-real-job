@@ -17,6 +17,7 @@ export const getOneInvite = async (req, res)=> {
       return respondWithWarning(res, 404, 'Invite not found');
   }
   catch (error) {
+    console.log(error);
     return respondWithWarning(res, 500, 'Server error');
   }
 };
@@ -31,17 +32,16 @@ export const getAllInvites = async (req, res)=> {
       return respondWithWarning(res, 404, 'Failed to fetch invites');
   }
   catch (error) {
+    console.log(error);
     return respondWithWarning(res, 500, 'Server error');
   }
 };
 
 export const saveNewInvite = async (req, res)=> {
   try {
-    const { body, userId } = req.body;
-
-    const invite = await saveInvite({ body, userId }).catch(error => { throw error; });
+    const invite = await saveInvite(req.body).catch(error => { throw error; });
     
-    return respondWithSuccess(res, 200, 'Comment added successfully', invite);
+    return respondWithSuccess(res, 200, 'Job Invite submitted successfully', invite);
   } 
   catch (error) {
     return respondWithWarning(res, error.status, error.message);

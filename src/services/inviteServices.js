@@ -12,8 +12,10 @@ export const fetchOneInvite = async (queryOption = {})=> {
       where: queryOption,
       logging: false
     });
-    return invite;
-  } catch (error) {
+
+    return invite.dataValues;
+  }
+  catch (error) {
     console.log(error);
   }
 };
@@ -24,8 +26,14 @@ export const fetchOneInvite = async (queryOption = {})=> {
 export const fetchAllInvites = async ()=> {
   try {
     const invites = await Invite.findAll({});
-    return invites;
-  } catch (error) {
+
+    for (let i = 0; i < invites.length; i++) {
+      invites[i] = invites[i].dataValues;
+    }
+
+    return  invites;
+  }
+  catch (error) {
     console.log(error);
   }
 };
@@ -50,7 +58,7 @@ export const saveInvite = async (inviteData)=> {
 
   if (!userObj) { // user does not exist
     e.status = 404;
-    e.message = 'user not found';
+    e.message = 'Unknown user.';
     throw e;
   }
 

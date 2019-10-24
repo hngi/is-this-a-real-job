@@ -9,9 +9,11 @@ import { respondWithWarning } from '../helpers/responseHandler';
  * @param {Function} next
  * @returns {Object} error
  */
-export const validateinviteData = (req, res, next) => {
+export const validateInviteData = (req, res, next) => {
   const inviteSchema = Joi.object().keys({
+    title: Joi.string().required().trim(),
     body: Joi.string().required().trim(),
+    media: Joi.string().required().trim(),
     userId: Joi.string().required()
   });
 

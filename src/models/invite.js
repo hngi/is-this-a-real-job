@@ -25,6 +25,7 @@ export default (sequelize, DataTypes) => {
     },
     upVotes: {
       type: DataTypes.INTEGER,
+      defaultValue: 0
     }
   }, {});
   Invite.associate = models => {

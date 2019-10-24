@@ -20,7 +20,7 @@ export const initRoutes = app => {
   app.get('/api/v1/comments/:inviteId', getComments);
   app.post('/api/v1/comments/:inviteId', authenticateUserToken, validateCommentData, createComment);
   
-  app.post('/api/v1/invites', authenticateUserToken, validateInviteData, saveNewInvite);
+  app.post('/api/v1/invites', /*authenticateUserToken,*/ validateInviteData, saveNewInvite);
   app.get('/api/v1/invites', getAllInvites);
   app.get('/api/v1/invites/:inviteId', getOneInvite);
 
