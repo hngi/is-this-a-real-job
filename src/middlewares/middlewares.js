@@ -5,6 +5,7 @@ import {
   authenticateUserToken
 } from './authentication';
 import { validateCommentData } from './validateComment';
+import { validateInviteData } from './validateInviteData';
 import { validateInvite } from './validateInvite';
 import {
   validateInviteId,
@@ -20,6 +21,7 @@ export {
   validUser,
   validateCommentData,
   validateInvite,
+  validateInviteData,
   validateInviteId,
   verifyUniqueUser,
   authenticateUserToken,

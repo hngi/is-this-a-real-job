@@ -6,6 +6,10 @@ const { initRoutes } = require('./routes/routes');
 
 const app = express();
 
+/* const jobInviteRouter = require('./routes/routes');
+
+app.use('/job-invites', jobInviteRouter); */
+
 app.use((req, res, next) => {
   // res.setHeader('Access-Control-Allow-Origin', '*'); //Don't think we need CORS here.
   res.setHeader(

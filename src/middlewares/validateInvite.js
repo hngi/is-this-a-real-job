@@ -1,5 +1,5 @@
 import { respondWithWarning } from '../helpers/responseHandler';
-import { findSingleInvite } from '../services/inviteServices';
+import { fetchOneInvite } from '../services/inviteServices';
 
 /**
  * Function to check if a invite ID is valid
@@ -11,10 +11,12 @@ import { findSingleInvite } from '../services/inviteServices';
 export const validateInvite = async (req, res, next) => {
   const { inviteId } = req.params;
 
-  const findInvite = await findSingleInvite({ inviteId });
+  const findInvite = await fetchOneInvite({ inviteId });
   if (!findInvite) {
     return respondWithWarning(res, 404, 'Job Invite not found');
   }
-  req.invite = findInvite.toJSON();
+  // console.log(findInvite);
+  // req.invite = findInvite.toJSON();
+  req.invite = findInvite;
   return next();
 };
