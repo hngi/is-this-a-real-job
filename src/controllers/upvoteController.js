@@ -16,5 +16,7 @@ export const upvoteInvite = (req, res) => {
     upVotes: upVotes + 1
   }, { where: { inviteId } });
 
-  return respondWithSuccess(res, 200, 'Upvote successful', { upVotes: upVotes + 1 });
+  return respondWithSuccess(res, 200, 'Upvote successful', {
+    upVotes: upVotes + 1
+  });
 };

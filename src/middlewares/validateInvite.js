@@ -10,9 +10,6 @@ import { findSingleInvite } from '../services/inviteServices';
  */
 export const validateInvite = async (req, res, next) => {
   const { inviteId } = req.params;
-  if (!inviteId) {
-    return respondWithWarning(res, 400, 'Bad Request');
-  }
 
   const findInvite = await findSingleInvite({ inviteId });
   if (!findInvite) {
