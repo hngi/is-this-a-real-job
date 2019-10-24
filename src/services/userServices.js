@@ -1,4 +1,5 @@
-import Model from "../models";
+/* eslint-disable no-console */
+import Model from '../models';
 
 const { User } = Model;
 
