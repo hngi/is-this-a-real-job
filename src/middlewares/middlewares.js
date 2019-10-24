@@ -13,8 +13,7 @@ export {
   validateCommentData,
   validateInvite,
   validateInviteId,
-  validateUUID,
-  verifyUniqueUser
+  verifyUniqueUser,
   authenticateUserToken,
   validateAdmin,
   validateUserById,

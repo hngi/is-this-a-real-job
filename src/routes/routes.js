@@ -7,7 +7,7 @@ import {
   validateInvite,
   validateInviteId,
   validateUUID,
-  verifyUniqueUser
+  verifyUniqueUser,
   authenticateUserToken,
   validateAdmin,
   validateUserById,
@@ -15,10 +15,6 @@ import {
 } from '../middlewares/middlewares';
 
 import { getComments, createComment } from '../controllers/commentController';
-import {
-  authenticateUserToken,
-  verifyUniqueUser
-} from '../middlewares/authentication';
 import { upvoteInvite } from '../controllers/upvoteController';
 import { deleteInvite } from '../controllers/inviteController';
 import { blockUser, getUsers } from '../controllers/userController';
@@ -27,6 +23,7 @@ export const initRoutes = app => {
   // All EJS frontend endpoints below --------------------------------------------------
   app.get('/', (req, res) => res.status(200).json({ message: 'Welcome' }));
   app.get('/post', (req, res) => res.render('userPost'));
+  app.get("/admin", (req, res) => res.render('admin'));
 
   // All backend endpoints below -----------------------------------------------------
 
