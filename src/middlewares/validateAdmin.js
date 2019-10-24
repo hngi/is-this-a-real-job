@@ -9,9 +9,9 @@ import { respondWithWarning } from '../helpers/responseHandler';
  */
 
 export const validateAdmin = async (req, res, next) => {
-    const { isAdmin } = req.auth;
-    if (!isAdmin) {
-        return respondWithWarning(res, 403, 'Forbidden access');
-    }
-    return next();
+  const { isAdmin } = req.auth;
+  if (!isAdmin) {
+    return respondWithWarning(res, 403, 'Forbidden access');
+  }
+  return next();
 };

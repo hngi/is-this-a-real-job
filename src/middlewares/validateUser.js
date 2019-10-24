@@ -10,11 +10,11 @@ import { findSingleUser } from '../services/userServices';
  */
 
 export const validateUserById = async (req, res, next) => {
-    const { userId } = req.params;
-    const findUser = await findSingleUser({ userId });
-    if (!findUser) {
-        return respondWithWarning(res, 404, 'User not found');
-    }
-    req.user = findUser.toJSON();
-    return next();
+  const { userId } = req.params;
+  const findUser = await findSingleUser({ userId });
+  if (!findUser) {
+    return respondWithWarning(res, 404, 'User not found');
+  }
+  req.user = findUser.toJSON();
+  return next();
 };
