@@ -1,4 +1,5 @@
 <% include partials/header %>
+<% include partials/nav %>
 
   <style>
     @import url('https://fonts.googleapis.com/css?family=Raleway&display=swap');
@@ -41,14 +42,22 @@
     }
     
     button {
-      /* position: absolute; */
       width: 206px;
-      height: 60px;
+      height: 40px;
       left: 617px;
       top: 745px;
-      /* the-blue */
-      background: #3087D1;
+      line-height: 20px;
       border-radius: 6px
+    }
+    
+    .btn-custom {
+      line-height: 20px;
+      background: #3087D1;
+    }
+    
+    .btn-custom:hover {
+      line-height: 20px;
+      background: rgb(44, 120, 187);
     }
     
     .register {
@@ -83,7 +92,7 @@
       <em><p>Forgot Your password?</p></em>
     </div>
     <div class="form-group">
-      <button class="btn btn-success btn-block">Login</button>
+      <button class="btn btn-success btn-block btn-custom">Login</button>
     </div>
     <div class="register">
       <p><a href="/register">Register</a></p>
