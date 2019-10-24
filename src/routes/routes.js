@@ -22,6 +22,7 @@ export const initRoutes = app => {
   // All EJS frontend endpoints below --------------------------------------------------
   app.get('/', (req, res) => res.status(200).json({ message: 'Welcome' }));
   app.get('/post', (req, res) => res.render('userPost'));
+  app.get('/post', (req, res) => res.render('userPost'));
 
 
   // All backend endpoints below -----------------------------------------------------
