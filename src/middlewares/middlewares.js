@@ -6,7 +6,6 @@ import { validateInvite } from './validateInvite';
 import { validateInviteId, validateUserId, validateUpvoteInput } from './validateUUID';
 import { validateAdmin } from './validateAdmin';
 import { validateUserById } from './validateUser';
-import { validateUUID } from './validateUUID';
 
 export {
   validateSigninFormData,
@@ -22,5 +21,4 @@ export {
   validateUserById,
   validateUserId,
   validateUpvoteInput,
-  validateUUID,
 };
