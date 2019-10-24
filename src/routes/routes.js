@@ -7,7 +7,7 @@ import {
   validateInvite,
   validateInviteId,
   validateUUID,
-  verifyUniqueUser
+  verifyUniqueUser,
   authenticateUserToken,
   validateAdmin,
   validateUserById,
@@ -27,13 +27,9 @@ export const initRoutes = app => {
   // All EJS frontend endpoints below --------------------------------------------------
   app.get('/', (req, res) => res.status(200).json({ message: 'Welcome' }));
   app.get('/post',(req, res) => res.render('userPost'));
-  app.get("/admin", (req, res) => res.render('admin'));
 
-  app.post('/api/v1/auth/signin', validateSigninFormData, validUser, signin);
-  app.get('/post', (req, res) => res.render('userPost'));
-
-  // All backend endpoints below -----------------------------------------------------
-
+    // All backend endpoints below -----------------------------------------------------
+  
   app.post('/api/v1/auth/signin', validateSigninFormData, validUser, signin);
   // get all Users
   app.get('/api/v1/users', authenticateUserToken, validateAdmin, getUsers);
