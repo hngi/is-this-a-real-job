@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import Model from '../models';
 
 const { Comment, Invite, User } = Model;
