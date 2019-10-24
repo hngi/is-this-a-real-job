@@ -1,5 +1,6 @@
 import {
-  validateSigninFormData, validUser, validateCommentData, validateInvite, validateUUID
+  validateSigninFormData, validUser, validateCommentData, validateInvite, validateUUID,
+  authenticateUserToken
 } from '../middlewares/middlewares';
 import {
   signin
@@ -7,7 +8,6 @@ import {
 import {
   getComments, createComment
 } from '../controllers/commentController';
-import { authenticateUserToken } from '../middlewares/authentication';
 import { upvoteInvite } from '../controllers/upvoteController';
 import { validateAdmin} from '../middlewares/validateAdmin'
 
@@ -19,7 +19,7 @@ const  {blockUser, getUsers} =  require('../controllers/userController') // impo
 
 export const initRoutes = app => {
   app.get('/', (req, res) => res.status(200).json({ message: 'Welcome' }));
-  app.get('/post',(req, res) => res.render('userPost'));
+  app.get('/post', (req, res) => res.render('userPost'));
 
   app.post('/api/v1/auth/signin', validateSigninFormData, validUser, signin);
 
