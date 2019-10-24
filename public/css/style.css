@@ -1,9 +1,5 @@
 /* ----------------------------------------------- */
-
-
 /* BASIC SETUP */
-
-
 /* ----------------------------------------------- */
 
 * {
@@ -23,7 +19,20 @@ body {
   overflow-x: hidden;
 }
 
-
+.go_back{
+    color: black;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+}
+.go_back:hover{
+    color: #aaa;
+    text-decoration: none;
+}
+.default-text{
+    font-size: 200px;
+    font-weight: 600;
+}
 /* NAV BAR */
 
 .nav-link {
@@ -93,7 +102,8 @@ body {
 }
 
 .footer-heading {
-  margin-bottom: 7%;
+    margin-bottom: 7%;
+    margin-top: 10%;
 }
 
 .footer_email {
@@ -101,6 +111,10 @@ body {
   font-weight: 600;
   line-height: 18px;
   font-size: 15px;
+}
+.footer_email:hover{
+    color: #aaa; 
+    text-decoration: none; 
 }
 
 .submit-div {
@@ -166,60 +180,70 @@ body {
   color: #000000;
 }
 
-h4 {
-  width: 191px;
-  height: 28px;
-  left: 274px;
-  top: 228px;
-  font-family: Raleway;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 24px;
-  line-height: 28px;
+.job_invite_h4{
+    width: 191px;
+    height: 28px;
+    left: 274px;
+    top: 228px;
+    font-family: Raleway;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 24px;
+    line-height: 28px;
 }
 
 .job-invites {
   margin: 1cm 4.1cm 0 0;
 }
 
+
 .job-invites div:nth-child(odd) {
-  width: 956px;
-  height: 203px;
-  left: 242px;
-  top: 204px;
-  background: #E3E9EF;
-  padding: 20px;
+    width: 956px;
+    /* height: 215px; */
+    height: auto !important;
+    left: 242px;
+    top: 204px;
+    background: #E3E9EF;
+    padding: 20px;
+
 }
 
 .job-invites div:nth-child(even) {
-  width: 956px;
-  height: 203px;
-  left: 242px;
-  top: 393px;
-  background: #FFFFFF;
-  margin-top: 1cm;
+    width: 956px;
+    /* height: 215px;  */
+    height: auto !important;
+    padding: 20px;
+    left: 242px;
+    top: 393px;
+    background: #FFFFFF;
+    margin-top: 1cm;
+}
+/* SIngle Post */
+.post-container{
+    box-sizing: border-box;
+    text-overflow: scroll;
+    height: auto !important;
+
 }
 
 
-/* MATERIAL BUTTON STYLE */
-
-.btn {
-  -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-  -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-  -ms-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-  -o-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-  -webkit-transition: all 0.25s ease-in-out;
-  -moz-transition: all 0.25s ease-in-out;
-  -ms-transition: all 0.25s ease-in-out;
-  -o-transition: all 0.25s ease-in-out;
-  transition: all 0.25s ease-in-out;
+.dropdown-toggle::after {
+    content: none !important;
 }
 
-.btn:hover {
-  -webkit-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-  -moz-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-  -ms-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-  -o-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+.post-body{
+    margin-bottom: 15%;
+}
+.comments{
+     width: 956px;
+     padding-top: 20px ;
+     left: 242px !important;
+     margin-left: 9%;
+}
+.post-date{
+    font-size: 12px;
+    line-height: 14px;
+}
+.comment-btn{
+    margin-top: 20px !important;
 }
