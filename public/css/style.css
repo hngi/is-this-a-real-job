@@ -1,0 +1,53 @@
+/* Invite us section */
+
+[placeholder="Search a keyword or a sentence"] {
+    width: 734px;
+    height: 60px;
+    left: 242px;
+    top: 112px;
+    background: #ECECEC;
+    border-radius: 6px;
+    padding: 2rem;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 19px;
+}
+
+[value="Invite Search"] {
+    width: 206px;
+    height: 60px;
+    left: 992px;
+    top: 112px;
+    background: #3087D1;
+    border-radius: 6px;
+}
+
+h4 {
+    width: 191px;
+    height: 28px;
+    left: 274px;
+    top: 417px;
+    font-family: Raleway;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 24px;
+    line-height: 28px;
+    color: #000000;
+}
+
+section div:nth-child(odd) {
+    width: 956px;
+    height: 189px;
+    left: 242px;
+    top: 204px;
+    background: #E3E9EF;
+}
+
+section div:nth-child(even) {
+    width: 956px;
+    height: 189px;
+    left: 242px;
+    top: 393px;
+    background: #FFFFFF;
+}
