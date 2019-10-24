@@ -1,5 +1,5 @@
 import { validateSigninFormData, validateSignupFormData } from './validateAuth';
-import { validUser } from './authentication';
+import { validUser, verifyUniqueUser } from './authentication';
 import { validateCommentData } from './validateComment';
 import { validateInvite } from './validateInvite';
 import { validateUUID } from './validateUUID';
@@ -10,5 +10,6 @@ export {
   validUser,
   validateCommentData,
   validateInvite,
-  validateUUID
+  validateUUID,
+  verifyUniqueUser
 };

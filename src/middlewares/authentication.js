@@ -28,8 +28,8 @@ export const authenticateUserToken = (req, res, next) => {
 
 /**
  * Function to check if a user email is valid
- * @param {Object} req this is the request object
- * @param {Object} res this is the response object
+ * @param {Express.Request} req this is the request object
+ * @param {Express.Response} res this is the response object
  * @param {Function} next this is the next function
  * @returns {Function} response
  */
@@ -42,4 +42,22 @@ export const validUser = async (req, res, next) => {
   }
   req.user = findUser.toJSON();
   return next();
+};
+
+/**
+ * Check if user already exists
+ *
+ * @param {Express.Request} req
+ * @param {Express.Response} res
+ * @param {Function} next
+ */
+export const verifyUniqueUser = async (req, res, next) => {
+  const { email } = req.body;
+
+  const findUser = await findSingleUser({ email });
+  if (findUser) {
+    return respondWithWarning(res, 409, "User Already exists: Duplicate User");
+  } else {
+    return next();
+  }
 };

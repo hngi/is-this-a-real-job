@@ -45,8 +45,6 @@ export const signup = async (req, res) => {
 
   const hashedPassword = await passwordHash(password);
 
-  console.log("We outchea serving reqs bro");
-
   const _user = await createUser({
     username,
     name,

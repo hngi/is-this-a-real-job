@@ -7,6 +7,12 @@ chai.use(chaiHttp);
 
 const signinUrl = '/api/v1/auth/signin';
 const signupUrl = '/api/v1/auth/signup';
+const regularUser = {
+  name: 'Regualar E. User',
+  username: 'on_a_regs_ting',
+  email: 'regular@regular.com',
+  password: 'password1234'
+};
 
 describe('AUTH CONTROLLER', () => {
   describe('POST SIGN IN', () => {
@@ -52,6 +58,63 @@ describe('AUTH CONTROLLER', () => {
           expect(res.body.payload).to.have.property('createdAt');
           expect(res.body.payload).to.not.have.property('password');
           done();
+        });
+    });
+    it('should respond with 400 error from missing parameter', done => {
+      chai
+        .request(app)
+        .post(signupUrl)
+        .send({
+          name: 'Bad User',
+          email: 'email@email.com',
+          password: '1234%'
+        })
+        .end((error, res) => {
+          expect(res).to.have.status(400);
+          expect(res.body.success).to.equal(false);
+          expect(res.body.message).to.equal('Bad Sign up Input');
+          done();
+        });
+    });
+    it('should respond with validation errors for bad inputs', done => {
+      chai
+        .request(app)
+        .post(signupUrl)
+        .send({
+          name: 'Bad User',
+          username: 'bad_username',
+          email: 'bad email :-p',
+          password: 1234
+        })
+        .end((error, res) => {
+          expect(res).to.have.status(400);
+          expect(res.body.success).to.equal(false);
+          expect(res.body.payload).to.have.members([
+            'password must be a string',
+            'email must be a valid email'
+          ]);
+          expect(res.body.message).to.equal('Bad Sign up Input');
+          done();
+        });
+    });
+    it('should respond with 409 error if user is a duplicate', done => {
+      chai
+        .request(app)
+        .post(signupUrl)
+        .send(regularUser)
+        .end((error, res) => {
+          chai
+            .request(app)
+            .post(signupUrl)
+            .send(regularUser)
+            .end((e, res) => {
+              expect(res).to.have.status(409);
+              expect(res.body.success).to.be.equal(false);
+              expect(res.body.message).to.be.equal(
+                'User Already exists: Duplicate User'
+              );
+              done();
+            });
         });
     });
   });

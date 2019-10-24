@@ -39,7 +39,9 @@ export const respondWithWarning = (
   statusCode = 500,
   message,
   additionalFields = {}
-) =>
-  res
-    .status(statusCode)
-    .send({ success: false, message, payload: { ...additionalFields } });
+) => {
+  const payload = Array.isArray(additionalFields)
+    ? [...additionalFields]
+    : { ...additionalFields };
+  res.status(statusCode).send({ success: false, message, payload });
+};

@@ -38,8 +38,6 @@ export const validateSignupFormData = async (req, res, next) => {
 
   const errors = joiValidator(req.body, signUpSchema);
 
-  console.log("Errors", errors);
-
   if (!errors) {
     return next();
   }

@@ -9,7 +9,10 @@ import {
 } from '../middlewares/middlewares';
 
 import { getComments, createComment } from '../controllers/commentController';
-import { authenticateUserToken } from '../middlewares/authentication';
+import {
+  authenticateUserToken,
+  verifyUniqueUser
+} from '../middlewares/authentication';
 import { upvoteInvite } from '../controllers/upvoteController';
 
 export const initRoutes = app => {
@@ -18,7 +21,12 @@ export const initRoutes = app => {
 
   app.post('/api/v1/auth/signin', validateSigninFormData, validUser, signin);
 
-  app.post('/api/v1/auth/signup', validateSignupFormData, signup);
+  app.post(
+    '/api/v1/auth/signup',
+    validateSignupFormData,
+    verifyUniqueUser,
+    signup
+  );
   app.get('/api/v1/comments/:inviteId', getComments);
   app.post(
     '/api/v1/comments/:inviteId',
@@ -27,7 +35,12 @@ export const initRoutes = app => {
     createComment
   );
 
-  app.patch('/api/v1/invites/upvote/:inviteId', validateUUID, validateInvite, upvoteInvite);
+  app.patch(
+    '/api/v1/invites/upvote/:inviteId',
+    validateUUID,
+    validateInvite,
+    upvoteInvite
+  );
 
   app.all('*', (req, res) => res.status(404).json({ message: 'Not Found' }));
 };
