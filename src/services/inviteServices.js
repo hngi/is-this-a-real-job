@@ -62,6 +62,8 @@ export const upvoteOneInvite = async (upVotes, queryOption = {}) => {
   } catch (error) {
     console.log(error);
   }
+}
+
 /**
  * @param {object} inviteData Data to be stored for the new job invite.
  * @returns {object} an object containing the newly created invite data.

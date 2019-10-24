@@ -13,16 +13,18 @@ import {
   validateUserById,
   validateUserId,
   validateUpvoteInput,
-  validateUUID
 } from '../middlewares/middlewares';
 
+import { 
+  deleteInvite,
+  upvoteInvite,
+  saveNewInvite,
+  getOneInvite,
+  getAllInvites
+} from '../controllers/inviteController';
+
 import { getComments, createComment } from '../controllers/commentController';
-import { deleteInvite, upvoteInvite } from '../controllers/inviteController';
 import { blockUser, getUsers } from '../controllers/userController';
-import { getComments, createComment } from '../controllers/commentController';
-import { authenticateUserToken } from '../middlewares/authentication';
-import { upvoteInvite } from '../controllers/upvoteController';
-import { saveNewInvite, getOneInvite, getAllInvites } from '../controllers/invitesController';
 
 export const initRoutes = app => {
   //All EJS frontend endpoints below --------------------------------------------------
@@ -49,10 +51,10 @@ export const initRoutes = app => {
 
     // Get all job invites in the database.
       app.get('/api/v1/invites', getAllInvites);
-
+      
     // Get a single job invite.
-      app.get('/api/v1/invites/:inviteId', validateUUID, getOneInvite);
-
+      app.get('/api/v1/invites/:inviteId', validateInviteId, getOneInvite);
+      
     // Delete an existing job invite.
       app.delete('/api/v1/invites/:inviteId', validateInviteId, authenticateUserToken, validateAdmin, validateInvite, deleteInvite);
 
