@@ -32,7 +32,7 @@ export const initRoutes = app => {
 
   app.patch('/api/v1/invites/upvote/:inviteId', validateInviteId, validateInvite, upvoteInvite);
 
-  app.delete('/api/v1/invite/:inviteId', validateInviteId, authenticateUserToken, validateAdmin, validateInvite, deleteInvite);
+  app.delete('/api/v1/invites/:inviteId', validateInviteId, authenticateUserToken, validateAdmin, validateInvite, deleteInvite);
 
   app.all('*', (req, res) => res.status(404).json({ message: 'Not Found' }));
 };
