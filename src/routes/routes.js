@@ -17,7 +17,9 @@ import {
   validateInviteOwner,
   passportAuthCallback,
   passportAuthenticate,
-  multerUploads
+  multerUploads,
+  validateNotification,
+  validateNotificationOwner
 } from '../middlewares/middlewares';
 
 import {
@@ -41,7 +43,7 @@ import {
   getUser,
   renderUserProfile
 } from '../controllers/userController';
-import { getNotifications, createNotification } from '../controllers/notificationController';
+import { getNotifications, createNotification, getOneNotification, markAsRead } from '../controllers/notificationController';
 import { validateNotificationData } from '../middlewares/validateNotification';
 import { validateCookies, signUserIn, signUserOut } from '../middlewares/cookieHandler';
 import { getMetrics } from '../controllers/metricsController';
@@ -166,6 +168,17 @@ export const initRoutes = app => {
   // Get all comments for a given Invite.
   app.get('/api/v1/notifications/:userId', validateUserId, getNotifications);
   app.post('/api/v1/notifications', validateNotificationData, createNotification);
+
+
+
+  //mark notification as Read
+  app.patch('/api/v1/notifications/:notificationId', 
+    validateNotification,
+    authenticateUserToken,
+    getOneNotification,
+    validateNotificationOwner,
+    markAsRead
+  )
 
   // Fallback case for unknown URIs.
   app.all('*', (req, res) => res.status(404).json({ message: 'Route Not Found' }));

@@ -20,6 +20,8 @@ import { validateUserById } from './validateUser';
 import { passportAuthenticate, passportAuthCallback } from './twitterLogin';
 import { multerUploads } from './multer';
 
+import {validateNotification, validateNotificationOwner} from './validateNotification';
+
 export {
   validateSigninFormData,
   validateSignupFormData,
@@ -38,5 +40,7 @@ export {
   validateInviteOwner,
   passportAuthCallback,
   passportAuthenticate,
-  multerUploads
+  multerUploads,
+  validateNotification,
+  validateNotificationOwner
 };
