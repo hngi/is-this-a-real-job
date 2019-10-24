@@ -2,12 +2,10 @@ import { signin, signup } from '../controllers/authController';
 import {
   validateSigninFormData,
   validateSignupFormData,
-  validUser,
   validateCommentData,
+  validUser,
   validateInvite,
-  validateInviteId,
-  validateUUID,
-  verifyUniqueUser
+  verifyUniqueUser,
   authenticateUserToken,
   validateAdmin,
   validateUserById,
@@ -15,10 +13,6 @@ import {
 } from '../middlewares/middlewares';
 
 import { getComments, createComment } from '../controllers/commentController';
-import {
-  authenticateUserToken,
-  verifyUniqueUser
-} from '../middlewares/authentication';
 import { upvoteInvite } from '../controllers/upvoteController';
 import { deleteInvite } from '../controllers/inviteController';
 import { blockUser, getUsers } from '../controllers/userController';
@@ -35,20 +29,38 @@ export const initRoutes = app => {
   app.get('/api/v1/users', authenticateUserToken, validateAdmin, getUsers);
 
   // block a user
-  app.patch('/api/v1/users/block/:userId', validateUserId, authenticateUserToken, validateAdmin, validateUserById, blockUser);
-  
+  app.patch(
+    '/api/v1/users/block/:userId',
+    validateUserId,
+    authenticateUserToken,
+    validateAdmin,
+    validateUserById,
+    blockUser
+  );
   app.post(
     '/api/v1/auth/signup',
     validateSignupFormData,
     verifyUniqueUser,
     signup
   );
-  app.get('/api/v1/comments/:inviteId', validateInviteId, getComments);
+  app.get('/api/v1/comments/:inviteId', validateInvite, getComments);
 
-  app.patch('/api/v1/invites/upvote/:inviteId', validateInviteId, validateInvite, upvoteInvite);
-  app.post('/api/v1/comments/:inviteId', validateInviteId, authenticateUserToken, validateCommentData, createComment);
+  app.patch('/api/v1/invites/upvote/:inviteId', validateInvite, upvoteInvite);
+  app.post(
+    '/api/v1/comments/:inviteId',
+    validateInvite,
+    authenticateUserToken,
+    validateCommentData,
+    createComment
+  );
 
-  app.delete('/api/v1/invites/:inviteId', validateInviteId, authenticateUserToken, validateAdmin, validateInvite, deleteInvite);
+  app.delete(
+    '/api/v1/invites/:inviteId',
+    validateInvite,
+    authenticateUserToken,
+    validateAdmin,
+    deleteInvite
+  );
 
   app.all('*', (req, res) => res.status(404).json({ message: 'Not Found' }));
 };
