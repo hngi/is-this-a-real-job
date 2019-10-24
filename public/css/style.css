@@ -62,22 +62,11 @@ html, body{
 }
 .ad-main-text{
 	font-weight: 600;
-	font-size: 40px;
+	font-size: 30px;
 	color:#636B6F;
-	font-style: normal;	
 }
 .nav-pills .nav-link.active, .nav-pills .show>.nav-link {
-	 color: #3087D1;
-	 background-color: #fff;
-}
-
-.nav-pills .nav-link {
-	color: black;
-	font-size: 28px;
-	font-family: Raleway;
-	font-style: normal;
-	font-weight: normal;
-	line-height: 20px
+	 background-color: #3087D1;
 }
 .tab-content{
 	margin: 0 50px 0 120px;
@@ -116,6 +105,31 @@ html, body{
 	padding: 20px;
 	border-radius: 10px;
 }
+
+@media screen and (max-width: 733px){
+  .admin-db-desktop{
+    display: none;
+  }
+  .tab-content{
+    margin-left: 0;
+  }
+}
+@media screen and (min-width: 733px){
+  .admin-db-mobile{
+    display: none;
+  }
+ }
+ @media screen and (max-width: 400px){
+  .navbar-brand{
+    font-size: 25px;
+  }
+}
+  @media screen and (max-width: 380px){
+    .nav-pills li{
+      margin-right: 10px;
+    }
+ }
+ 
 /* Footer */
 .footer{
 	background-color: #24659e;
