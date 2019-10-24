@@ -1,7 +1,6 @@
-import Model from '../models';
+import Model from "../models";
 
 const { User } = Model;
-
 
 /**
  * @param {object} queryOption
@@ -20,6 +19,21 @@ export const findSingleUser = async (queryOption = {}) => {
 };
 
 /**
+ * Used to create a new record in the Users table
+ *
+ * @param {object} userData: username, name, email, password
+ * @returns {object} {success: Boolean, user: any | error: any}
+ */
+export const createUser = async userData => {
+  try {
+    const user = await User.create(userData);
+    return { success: true, user };
+  } catch (error) {
+    console.log(error);
+    return { success: false, error };
+  }
+};
+ /**
  * Get all users
  * @returns {object} an object containing the information of the user or null
  */
