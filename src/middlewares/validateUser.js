@@ -1,4 +1,5 @@
 import { respondWithWarning } from '../helpers/responseHandler';
+import { findSingleUser } from '../services/userServices';
 
 
 /**
@@ -9,10 +10,12 @@ import { respondWithWarning } from '../helpers/responseHandler';
  * @returns {Function} response
  */
 
-export const validateAdmin = async (req, res, next) => {
-  const { isAdmin } = req.auth;
-  if (!isAdmin) {
-    return respondWithWarning(res, 403, 'Forbidden access');
+export const validateUserById = async (req, res, next) => {
+  const { userId } = req.params;
+  const findUser = await findSingleUser({ userId });
+  if (!findUser) {
+    return respondWithWarning(res, 404, 'User not found');
   }
+  req.user = findUser.toJSON();
   return next();
 };
