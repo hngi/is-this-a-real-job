@@ -13,5 +13,5 @@ export const deleteInvite = async (req, res) => {
     return respondWithWarning(res, 400, 'Bad Request');
   }
   await deleteOneInvite({ inviteId });
-  return respondWithSuccess(res, 204, `${title} deleted successfully`);
+  return respondWithSuccess(res, 200, `${title} deleted successfully`);
 };

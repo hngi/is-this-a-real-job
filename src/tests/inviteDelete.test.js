@@ -12,8 +12,8 @@ describe('DELETE INVITE', () => {
     chai.request(app)
       .delete(`${deleteUrl}/1ca46a2e-61bc-4c51-8355-660ba808cae5`)
       .end((error, res) => {
-        expect(res).to.have.status(204);
-        expect(res).to.be.a('object');
+        expect(res).to.have.status(200);
+        expect(res).to.have.property('message');
         done();
       });
   });
