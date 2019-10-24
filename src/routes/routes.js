@@ -1,19 +1,72 @@
+import { signin, signup } from '../controllers/authController';
 import {
-  validateSigninFormData, validUser, validateInvite
+  validateSigninFormData,
+  validateSignupFormData,
+  validUser,
+  validateCommentData,
+  validateInvite,
+  validateInviteId,
+  validateInviteData,
+  verifyUniqueUser,
+  authenticateUserToken,
+  validateAdmin,
+  validateUserById,
+  validateUserId,
+  validateUpvoteInput,
 } from '../middlewares/middlewares';
-import {
-  signin
-} from '../controllers/authController';
-import { upvoteInvite } from '../controllers/upvoteController';
+
+import { 
+  deleteInvite,
+  upvoteInvite,
+  saveNewInvite,
+  getOneInvite,
+  getAllInvites
+} from '../controllers/inviteController';
+
+import { getComments, createComment } from '../controllers/commentController';
+import { blockUser, getUsers } from '../controllers/userController';
 
 export const initRoutes = app => {
-  app.get('/', (req, res) => res.status(200).json({ message: 'Welcome' }));
+  //All EJS frontend endpoints below --------------------------------------------------
+    app.get('/', (req, res) => res.status(200).json({ message: 'Welcome' }));
+    app.get('/post', (req, res) => res.render('userPost'));
 
-  app.post('/api/v1/auth/signin', validateSigninFormData, validUser, signin);
+  //All backend API endpoints below -----------------------------------------------------
+    // Auth
+    app.post('/api/v1/auth/signin', validateSigninFormData, validUser, signin);
+    app.post('/api/v1/auth/signup',
+      validateSignupFormData,
+      verifyUniqueUser,
+      signup
+    );
 
+    // Get all Users
+      app.get('/api/v1/users', authenticateUserToken, validateAdmin, getUsers);
 
-  app.patch('/api/v1/invites/upvote/:inviteId', validateInvite, upvoteInvite);
+    // Block a user
+      app.patch('/api/v1/users/block/:userId', validateUserId, authenticateUserToken, validateAdmin, validateUserById, blockUser);
 
+    // Post a new job invite.
+      app.post('/api/v1/invites', authenticateUserToken, validateInviteData, saveNewInvite);
 
-  app.all('*', (req, res) => res.status(404).json({ message: 'Not Found' }));
+    // Get all job invites in the database.
+      app.get('/api/v1/invites', getAllInvites);
+      
+    // Get a single job invite.
+      app.get('/api/v1/invites/:inviteId', validateInviteId, getOneInvite);
+      
+    // Delete an existing job invite.
+      app.delete('/api/v1/invites/:inviteId', validateInviteId, authenticateUserToken, validateAdmin, validateInvite, deleteInvite);
+
+    // Get all comments for a given Invite.
+      app.get('/api/v1/comments/:inviteId', validateInviteId, getComments);
+
+    // Post a comment on a specific Invite.
+      app.post('/api/v1/comments/:inviteId', validateInviteId, authenticateUserToken, validateCommentData, createComment);
+    
+    // Upvote/Downvote a specific Invite.
+      app.patch('/api/v1/invites/upvote/:inviteId/:voteType', validateUpvoteInput, validateInvite, upvoteInvite);
+
+  //Fallback case for unknown URIs.
+    app.all('*', (req, res) => res.status(404).json({ message: 'Route Not Found' }));
 };
