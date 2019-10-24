@@ -6,24 +6,32 @@ import {
   validateCommentData,
   validateInvite,
   validateInviteId,
+<<<<<<< HEAD
   validateUUID,
+=======
+>>>>>>> gabicle/develop
   verifyUniqueUser,
   authenticateUserToken,
   validateAdmin,
   validateUserById,
-  validateUserId
+  validateUserId,
+  validateUpvoteInput
 } from '../middlewares/middlewares';
 
 import { getComments, createComment } from '../controllers/commentController';
 import { upvoteInvite } from '../controllers/upvoteController';
 import { deleteInvite } from '../controllers/inviteController';
+import { deleteInvite, upvoteInvite } from '../controllers/inviteController';
 import { blockUser, getUsers } from '../controllers/userController';
 
 export const initRoutes = app => {
   // All EJS frontend endpoints below --------------------------------------------------
   app.get('/', (req, res) => res.status(200).json({ message: 'Welcome' }));
+  app.get('/login', (req, res) => res.render('login'));
+  app.get('/register', (req, res) => res.render('register'));
   app.get('/post', (req, res) => res.render('userPost'));
-  app.get("/admin", (req, res) => res.render('admin'));
+  app.get('/jobInvites', (req, res) => res.render('jobInvites'));
+
 
   // All backend endpoints below -----------------------------------------------------
 
@@ -33,7 +41,7 @@ export const initRoutes = app => {
 
   // block a user
   app.patch('/api/v1/users/block/:userId', validateUserId, authenticateUserToken, validateAdmin, validateUserById, blockUser);
-  
+
   app.post(
     '/api/v1/auth/signup',
     validateSignupFormData,
@@ -42,10 +50,10 @@ export const initRoutes = app => {
   );
   app.get('/api/v1/comments/:inviteId', validateInviteId, getComments);
 
-  app.patch('/api/v1/invites/upvote/:inviteId', validateInviteId, validateInvite, upvoteInvite);
+  app.patch('/api/v1/invites/upvote/:inviteId/:voteType', validateUpvoteInput, validateInvite, upvoteInvite);
   app.post('/api/v1/comments/:inviteId', validateInviteId, authenticateUserToken, validateCommentData, createComment);
 
   app.delete('/api/v1/invites/:inviteId', validateInviteId, authenticateUserToken, validateAdmin, validateInvite, deleteInvite);
 
-  app.all('*', (req, res) => res.status(404).json({ message: 'Not Found' }));
+  app.all('*', (req, res) => res.status(404).json({ message: 'Route Not Found' }));
 };
