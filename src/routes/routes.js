@@ -6,10 +6,7 @@ import {
   validateCommentData,
   validateInvite,
   validateInviteId,
-<<<<<<< HEAD
   validateUUID,
-=======
->>>>>>> gabicle/develop
   verifyUniqueUser,
   authenticateUserToken,
   validateAdmin,
@@ -19,8 +16,6 @@ import {
 } from '../middlewares/middlewares';
 
 import { getComments, createComment } from '../controllers/commentController';
-import { upvoteInvite } from '../controllers/upvoteController';
-import { deleteInvite } from '../controllers/inviteController';
 import { deleteInvite, upvoteInvite } from '../controllers/inviteController';
 import { blockUser, getUsers } from '../controllers/userController';
 
@@ -31,6 +26,7 @@ export const initRoutes = app => {
   app.get('/register', (req, res) => res.render('register'));
   app.get('/post', (req, res) => res.render('userPost'));
   app.get('/jobInvites', (req, res) => res.render('jobInvites'));
+  app.get("/admin", (req, res) => res.render('admin'));
 
 
   // All backend endpoints below -----------------------------------------------------
