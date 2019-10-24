@@ -3,7 +3,7 @@ const jobInviteRouter = express.Router();
 
 jobInviteRouter.route('/')
     .get((req, res) => {
-        res.render('job invites', {}
+        res.render('job invites'
 
 
         )
