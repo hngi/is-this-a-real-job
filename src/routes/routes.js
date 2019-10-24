@@ -20,10 +20,9 @@ export const initRoutes = app => {
   app.get('/api/v1/comments/:inviteId', getComments);
   app.post('/api/v1/comments/:inviteId', authenticateUserToken, validateCommentData, createComment);
   
-  //Uncomment /*authenticateUserToken,*/ when authentication is fully implemented.
-  app.post('/api/v1/invites', /*authenticateUserToken,*/ validateInviteData, saveNewInvite);
+  app.post('/api/v1/invites', authenticateUserToken, validateInviteData, saveNewInvite);
   app.get('/api/v1/invites', getAllInvites);
-  app.get('/api/v1/invites/:inviteId', getOneInvite);
+  app.get('/api/v1/invites/:inviteId', validateUUID, getOneInvite);
 
   app.patch('/api/v1/invites/upvote/:inviteId', validateUUID, validateInvite, upvoteInvite);
 

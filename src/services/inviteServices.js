@@ -13,7 +13,7 @@ export const fetchOneInvite = async (queryOption = {})=> {
       logging: false
     });
 
-    return invite.dataValues;
+    return invite ? invite.dataValues : null;
   }
   catch (error) {
     console.log(error);
@@ -31,7 +31,7 @@ export const fetchAllInvites = async ()=> {
       invites[i] = invites[i].dataValues;
     }
 
-    return  invites;
+    return invites;
   }
   catch (error) {
     console.log(error);
@@ -57,7 +57,7 @@ export const saveInvite = async (inviteData)=> {
   });
 
   if (!userObj) { // user does not exist
-    e.status = 404;
+    e.status = 400;
     e.message = 'Unknown user.';
     throw e;
   }
@@ -69,5 +69,5 @@ export const saveInvite = async (inviteData)=> {
     throw e;
   });
 
-  return invite.dataValues;
+  return invite ? invite.dataValues : null;
 };
