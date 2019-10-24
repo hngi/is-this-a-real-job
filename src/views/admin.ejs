@@ -1,0 +1,136 @@
+<% include partials/header %>
+<% include partials/nav %>
+ <!-- ADMIN DASHBOARD -->
+ <div class="admin-dashboard">
+    <p class="ad-main-text">Dashboard</p>
+<!-- ADMIN DASHBOARD TABS -->
+    <div class="row admin-db-desktop">
+        <div class="col-3">
+          <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+            <a class="nav-link active mb-3" id="v-pills-users-tab" data-toggle="pill" href="#v-pills-users" role="tab" aria-controls="v-pills-users" aria-selected="true">Users</a>
+            <a class="nav-link mb-3" id="v-pills-posts-tab" data-toggle="pill" href="#v-pills-posts" role="tab" aria-controls="v-pills-posts" aria-selected="false">Posts</a>
+            <a class="nav-link mb-3" id="v-pills-reports-tab" data-toggle="pill" href="#v-pills-reports" role="tab" aria-controls="v-pills-reports" aria-selected="false">Reports</a>
+          </div>
+        </div>
+        <!-- ADMIN DASHBOARD TABS CONTENT -->
+        <div class="col-9">
+          <div class="tab-content" id="v-pills-tabContent">
+            <!-- USERS TAB -->
+            <div class="tab-pane fade show active" id="v-pills-users" role="tabpanel" aria-labelledby="v-pills-home-users">
+                <div class="row">
+                    <div class="col-lg-6">
+                      <img class="user-avatar" src="https://pbs.twimg.com/media/D_y_cTGU8AEHJAI?format=jpg&name=small" alt="avatar">
+                      <div class="user-info">
+                          <p class="user-name">Robyn</p>
+                          <p class="user-handle">@Riri</p>
+                      </div>
+                      
+                    </div>
+                    <div class="col-lg-4">
+                        <button class="btn btn-outline-danger btn-bg btn-block btn-shift" type="button">
+                            Blocked
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+            <!-- POSTS TAB -->
+            <div class="tab-pane fade" id="v-pills-posts" role="tabpanel" aria-labelledby="v-pills-posts-tab">
+             <div class="row">
+               <div class="col-lg-2">
+                 <img class="user-avatar" src="http://blog.isthisarealjob.com/wp-content/uploads/2019/03/excited-black-man-celebrating-his-success_rednqltwl_thumbnail-full04.png" alt="">
+               </div>
+               <div class="col-lg-8">
+                 <h5>Sidmach Tech Interview</h5>
+                 <small class="text-muted">Invitation for interview at Awolowo, Ikeja</small> <br>
+                 <a href="#">
+                   <small>@Riri</small>
+                 </a>
+               </div>
+               <div class="col-lg-2">
+                 <a href="#">
+                   <button class="btn"><i class="far fa-edit"></i></button>
+                  </a>
+                  <a href="#">
+                      <button class="btn"><i class="fas fa-trash"></i></button>
+                  </a>
+               </div>
+             </div>
+            </div>
+            <!-- REPORTS TAB -->
+            <div class="tab-pane fade" id="v-pills-reports" role="tabpanel" aria-labelledby="v-pills-reports-tab">
+              Reported Users Goes Here
+            </div>
+          </div>
+        </div> 
+      </div>
+      <!-- ADMIN DASHBOARD (MOBILE) -->
+      <div class="admin-db-mobile">
+        <!-- ADMIN DASHBOARD TABS (MOBILE) -->
+      <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+          <li class="nav-item">
+            <a class="nav-link active" id="pills-users-tab" data-toggle="pill" href="#pills-users" role="tab" aria-controls="pills-users" aria-selected="true">Users</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="pills-posts-tab" data-toggle="pill" href="#pills-posts" role="tab" aria-controls="pills-posts" aria-selected="false">Posts</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="pills-reports-tab" data-toggle="pill" href="#pills-reports" role="tab" aria-controls="pills-reports" aria-selected="false">Reports</a>
+          </li>
+        </ul>
+        <!-- USERS TAB -->
+        <div class="tab-content" id="pills-tabContent">
+          <div class="tab-pane fade show active" id="pills-users" role="tabpanel" aria-labelledby="pills-users-tab">
+              <div class="row">
+                  <div class="col-lg-6">
+                    <img class="user-avatar" src="https://pbs.twimg.com/media/D_y_cTGU8AEHJAI?format=jpg&name=small" alt="avatar">
+                    <div class="user-info">
+                        <p class="user-name">Robyn</p>
+                        <p class="user-handle">@Riri</p>
+                    </div>
+                    
+                  </div>
+                  <div class="col-lg-4">
+                      <button class="btn btn-outline-danger btn-bg btn-block btn-shift" type="button">
+                          Blocked
+                      </button>
+                  </div>
+
+              </div>
+          </div>
+          <!-- POSTS TAB -->
+          <div class="tab-pane fade" id="pills-posts" role="tabpanel" aria-labelledby="pills-posts-tab">
+              <div class="row">
+                  <div class="col-lg-2">
+                    <img class="user-avatar" src="http://blog.isthisarealjob.com/wp-content/uploads/2019/03/excited-black-man-celebrating-his-success_rednqltwl_thumbnail-full04.png" alt="">
+                  </div>
+                  <div class="col-lg-8">
+                    <h5>Sidmach Tech Interview</h5>
+                    <small class="text-muted">Invitation for interview at Awolowo, Ikeja</small> <br>
+                    <a href="#">
+                      <small>@Riri</small>
+                    </a>
+                  </div>
+                  <div class="col-lg-2">
+                    <a href="#">
+                      <button class="btn"><i class="far fa-edit"></i></button>
+                     </a>
+                     <a href="#">
+                         <button class="btn"><i class="fas fa-trash"></i></button>
+                     </a>
+                  </div>
+                </div>
+          </div>
+          <!-- REPORTS TAB -->
+          <div class="tab-pane fade" id="pills-reports" role="tabpanel" aria-labelledby="pills-reports-tab">
+            Reports Here
+            
+          </div>
+        </div>
+      </div>
+ </div>
+
+ 
+
+ <% include partials/footer %>
+ 
