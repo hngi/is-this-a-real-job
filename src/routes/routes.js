@@ -9,9 +9,10 @@ import {
 } from '../controllers/commentController';
 import { authenticateUserToken } from '../middlewares/authentication';
 import { upvoteInvite } from '../controllers/upvoteController';
-import { validateAdmin} from '../middlewares/validateAdmin'
+import { validateAdmin } from '../middlewares/validateAdmin';
+import { deleteInvite } from '../controllers/inviteController';
 
-import {authenticateUserToken} from '../middlewares/authentication'
+
 import { findSingleUser } from '../services/userServices';
 import { findValidUser } from '../services/blockUserServices';
 
@@ -31,15 +32,15 @@ export const initRoutes = app => {
   //block a user
   app.patch('/api/v1/users/:id', findValidUser, authenticateUserToken, validateAdmin, blockUser)
   
-
-
-
+  
+  
   app.get('/api/v1/comments/:inviteId', getComments);
   app.post('/api/v1/comments/:inviteId', authenticateUserToken, validateCommentData, createComment);
-
-
+  
+  
   app.patch('/api/v1/invites/upvote/:inviteId', validateUUID, validateInvite, upvoteInvite);
-
+  
+  app.delete('/api/v1/invite/:inviteId', validateUUID, authenticateUserToken, validateAdmin, validateInvite, deleteInvite);
 
   app.all('*', (req, res) => res.status(404).json({ message: 'Not Found' }));
 };

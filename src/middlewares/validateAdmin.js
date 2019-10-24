@@ -16,4 +16,4 @@ export const validateAdmin = async (req, res, next) => {
   }
   // in the end, you still have req.auth.userId and req.auth.isAdmin for the next middleware to use.
   return next();
-  };
+};
