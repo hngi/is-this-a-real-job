@@ -1,101 +1,106 @@
-<style>
-        @import url('https://fonts.googleapis.com/css?family=Raleway&display=swap');
-     
-    form{
-        width: 50%;
-        margin-left: auto;
-        margin-right: auto;
-        font-family: 'Raleway', sans-serif;
-    }
-    
-    h3{
-        text-align: center;
-        color: #636B6F;
-        font-size: 84px;
-        line-height: 90px;
-    }
-        .form-control{
-            width: 100%;
-            background-color: #ECECEC;
-            color: black;
-            padding-left: 20px;
-            height: 40px;
-            border: none;
-            border-radius: 5px;
-            font-size: 16px;
-            line-height: 19px;
-            margin-bottom: 24px;
-        }
-        #password2{
-            margin-bottom: 0px;
-        }
-        em p{
-            color: #3087D1;
-            margin-top: 0px;
-            font-size: 16px;
-            line-height: 19px;
-            text-align: right;
-        }
-        button{
-            width: 200px;
-            background-color: #3087D1;
-            margin-left: auto;
-            margin-right: auto;
-            margin-top: 40px;
-            color: white;
-            display: flex;
-            align-self: center;
-            justify-content: center;
-            border: none;
-            height: 40px;
-            font-size: 16px;
-            line-height: 19px;
-            border-radius: 5px;
-            font-family: 'Raleway', sans-serif;
-        }
-        .register{
-            text-align: center;
-        }
-        .register p a{
-            
-            color: #3087D1;
-            font-size: 16px;
-            line-height: 19px;
-        }
-        @media (max-width: 767px){
-            h3{
-                font-size: 50px;
-            }
-            form{
-                width: 85%;
-            }
-            em p{
-                font-size: 14px;
-            }
-        }
-    </style>
-
 <% include partials/header %>
-<div class="register-container">
-    <div id="register-flex">
-        <div class="register-form-container register-item" id="register-form">
-            <h3>Register</h3>
-            <form class="register-form" action="/register" method="POST">
-                <input type="text" placeholder="Name" name ="name" class="form-control">
-                <input type="email" placeholder="Email Address" name="email" class="form-control" required>
-                <input type="username" placeholder="Username" name="username" class="form-control" required>
-                <input type="password" placeholder="Password" name="password" class="form-control" required>
-                <input type="password" placeholder="Password Confirmation" class="form-control" name="password2" id="password2">
-                <button class="btn btn-success">Register</button>
-                <div class="register">
-                        <p><a href="/login">Login</a></p>
-                    </div>
-            </form>
-        </div>
-    </div>
-    
-</div>
-</div>
 
- <% include partials/footer %>
- 
+  <style>
+    @import url('https://fonts.googleapis.com/css?family=Raleway&display=swap');
+    form {
+      width: 50%;
+      margin-left: auto;
+      margin-right: auto;
+      font-family: 'Raleway', sans-serif;
+    }
+    
+    h3 {
+      text-align: center;
+      color: #636B6F;
+      font-size: 44px;
+      line-height: 90px;
+    }
+    
+    .form-control {
+      width: 100%;
+      background-color: #ECECEC;
+      color: black;
+      padding-left: 20px;
+      height: 40px;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      line-height: 19px;
+      margin-bottom: 24px;
+    }
+    
+    #password2 {
+      margin-bottom: 0px;
+    }
+    
+    em p {
+      color: #3087D1;
+      margin-top: 0px;
+      font-size: 16px;
+      line-height: 19px;
+      text-align: right;
+    }
+    
+    button {
+      width: 200px;
+      background-color: #3087D1;
+      margin-left: auto;
+      margin-right: auto;
+      margin-top: 40px;
+      color: white;
+      display: flex;
+      align-self: center;
+      justify-content: center;
+      border: none;
+      height: 40px;
+      font-size: 16px;
+      line-height: 19px;
+      border-radius: 5px;
+      font-family: 'Raleway', sans-serif;
+    }
+    
+    .register {
+      text-align: center;
+    }
+    
+    .register p a {
+      color: #3087D1;
+      font-size: 16px;
+      line-height: 19px;
+    }
+    
+    @media (max-width: 767px) {
+      h3 {
+        font-size: 50px;
+      }
+      form {
+        width: 85%;
+      }
+      em p {
+        font-size: 14px;
+      }
+    }
+  </style>
+
+  <div class="register-container">
+    <div id="register-flex">
+      <div class="register-form-container register-item" id="register-form">
+        <h3>Register</h3>
+        <form class="register-form" action="/register" method="POST">
+          <input type="text" placeholder="Name" name="name" class="form-control">
+          <input type="email" placeholder="Email Address" name="email" class="form-control" required>
+          <input type="username" placeholder="Username" name="username" class="form-control" required>
+          <input type="password" placeholder="Password" name="password" class="form-control" required>
+          <input type="password" placeholder="Password Confirmation" class="form-control" name="password2" id="password2">
+          <button class="btn btn-success">Register</button>
+          <div class="register">
+            <p><a href="/login">Login</a></p>
+          </div>
+        </form>
+      </div>
+    </div>
+
+  </div>
+  </div>
+
+  <% include partials/footer %>

@@ -21,8 +21,10 @@ import { blockUser, getUsers } from '../controllers/userController';
 export const initRoutes = app => {
   // All EJS frontend endpoints below --------------------------------------------------
   app.get('/', (req, res) => res.status(200).json({ message: 'Welcome' }));
+  app.get('/login', (req, res) => res.render('login'));
+  app.get('/register', (req, res) => res.render('register'));
   app.get('/post', (req, res) => res.render('userPost'));
-  app.get('/post', (req, res) => res.render('userPost'));
+  app.get('/jobInvites', (req, res) => res.render('jobInvites'));
 
 
   // All backend endpoints below -----------------------------------------------------
