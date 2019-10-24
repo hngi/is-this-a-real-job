@@ -12,7 +12,7 @@ import {
   validateAdmin,
   validateUserById,
   validateUserId,
-  validateUpvoteInput,
+  validateUpvoteInput
 } from '../middlewares/middlewares';
 
 import { 
