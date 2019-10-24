@@ -16,7 +16,7 @@ export const respondWithSuccess = (
   statusCode = 200,
   message,
   additionalFields = {},
-  token = ""
+  token = ''
 ) => {
   const payload = Array.isArray(additionalFields)
     ? [...additionalFields]
@@ -24,7 +24,9 @@ export const respondWithSuccess = (
 
   return res
     .status(statusCode)
-    .send({ success: true, message, payload, token });
+    .send({
+      success: true, message, payload, token
+    });
 };
 
 /**

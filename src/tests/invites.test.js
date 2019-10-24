@@ -9,7 +9,7 @@ chai.use(chaiHttp);
 const invitesUrl = '/api/v1/invites';
 const singleInviteUrl = `/api/v1/invites/${SEED_INVITE_ID}`;
 const invalidSingleInviteUrl = '/api/v1/invites/invalidUUID';
-const unknownSingleInviteUrl = `/api/v1/invites/${SEED_INVITE_ID.replace(/\w/, 1)}`; //Create an unknown invite id.
+const unknownSingleInviteUrl = `/api/v1/invites/${SEED_INVITE_ID.replace(/\w/, 1)}`; // Create an unknown invite id.
 const signinUrl = '/api/v1/auth/signin';
 const authDetails = {
   email: 'johndoe@mail.com', // valid login details
@@ -27,9 +27,9 @@ describe('INVITES CONTROLLER', () => {
             .post(invitesUrl)
             .set('Authorization', `Bearer ${res.body.payload.token}`) // add jwt header
             .send({
-              title: "A test title",
-              body: "A test bost sit amet.",
-              media: "https://google.com/favicon.png",
+              title: 'A test title',
+              body: 'A test bost sit amet.',
+              media: 'https://google.com/favicon.png',
               userId: SEED_USER_ID // test user
             })
             .end((err, res) => {
@@ -75,9 +75,9 @@ describe('INVITES CONTROLLER', () => {
             .post(invitesUrl)
             .set('Authorization', `Bearer ${res.body.payload.token}`) // add jwt header
             .send({
-              title: "A test title",
-              body: "A test post sit amet.",
-              media: "https://google.com/favicon.png",
+              title: 'A test title',
+              body: 'A test post sit amet.',
+              media: 'https://google.com/favicon.png',
               userId: 'STRANGE_USER' // invalid user id
             })
             .end((err, res) => {
@@ -117,7 +117,7 @@ describe('INVITES CONTROLLER', () => {
     });
   });
 
-  
+
   describe('GET /api/v1/invites/:inviteId', () => {
     it('it should return the single job invite identified by "inviteId" parameter.', (done) => {
       chai.request(app)
