@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import Model from '../models';
 
 const { Invite } = Model;
@@ -12,6 +13,31 @@ export const findSingleInvite = async (queryOption = {}) => {
       where: queryOption,
       logging: false
     });
+    return invite;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const deleteOneInvite = async (queryOption = {}) => {
+  try {
+    const invite = await Invite.destroy({
+      where: queryOption,
+      logging: false
+    });
+    return invite;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const upvoteOneInvite = async (upVotes, queryOption = {}) => {
+  try {
+    const invite = await Invite.update({ upVotes }, {
+      where: queryOption,
+      logging: false
+    }).then(() => Invite.findOne({ where: queryOption }))
+      .then((updatedInvite) => updatedInvite);
     return invite;
   } catch (error) {
     console.log(error);

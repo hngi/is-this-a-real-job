@@ -1,11 +1,11 @@
 import Joi from '@hapi/joi';
 
 /**
-* @param {Object} data
-* @param {Joi.Schema} schema
-* @param {Function} next
-* @returns {Function} next middleware
-*/
+ * @param {Object} data
+ * @param {Joi.Schema} schema
+ * @param {Function} next
+ * @returns {Function} next middleware
+ */
 export const joiValidator = (data, schema) => {
   let message;
   const validationOptions = {

@@ -1,9 +1,22 @@
-import { validateSigninFormData } from './validateAuth';
-import { validUser } from './authentication';
+import { validateSigninFormData, validateSignupFormData } from './validateAuth';
+import { validUser, authenticateUserToken, verifyUniqueUser } from './authentication';
 import { validateCommentData } from './validateComment';
 import { validateInvite } from './validateInvite';
-import { validateUUID } from './validateUUID';
+import { validateInviteId, validateUserId, validateUpvoteInput } from './validateUUID';
+import { validateAdmin } from './validateAdmin';
+import { validateUserById } from './validateUser';
 
 export {
-  validateSigninFormData, validUser, validateCommentData, validateInvite, validateUUID,
+  validateSigninFormData,
+  validateSignupFormData,
+  validUser,
+  validateCommentData,
+  validateInvite,
+  validateInviteId,
+  verifyUniqueUser,
+  authenticateUserToken,
+  validateAdmin,
+  validateUserById,
+  validateUserId,
+  validateUpvoteInput,
 };
