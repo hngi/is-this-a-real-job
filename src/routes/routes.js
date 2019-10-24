@@ -1,5 +1,5 @@
 import {
-  validateSigninFormData, validUser, validateCommentData, validateInvite, validateUUID
+  validateSigninFormData, validUser, validateCommentData, validateInviteData, validateInvite, validateUUID
 } from '../middlewares/middlewares';
 import {
   signin
@@ -9,6 +9,7 @@ import {
 } from '../controllers/commentController';
 import { authenticateUserToken } from '../middlewares/authentication';
 import { upvoteInvite } from '../controllers/upvoteController';
+import { saveNewInvite, getOneInvite, getAllInvites } from '../controllers/invitesController';
 
 export const initRoutes = app => {
   app.get('/', (req, res) => res.status(200).json({ message: 'Welcome' }));
@@ -19,9 +20,9 @@ export const initRoutes = app => {
   app.get('/api/v1/comments/:inviteId', getComments);
   app.post('/api/v1/comments/:inviteId', authenticateUserToken, validateCommentData, createComment);
   
-  app.post('/api/v1/invites', );
-
-  app.get('/api/v1/invites', );
+  app.post('/api/v1/invites', authenticateUserToken, validateInviteData, saveNewInvite);
+  app.get('/api/v1/invites', getAllInvites);
+  app.get('/api/v1/invites/:inviteId', getOneInvite);
 
   app.patch('/api/v1/invites/upvote/:inviteId', validateUUID, validateInvite, upvoteInvite);
 
