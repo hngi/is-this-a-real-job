@@ -6,7 +6,7 @@ const { initRoutes } = require('./routes/routes');
 
 const app = express();
 
-const jobInviteRouter = require('./routes/jobInvitesRoutes');
+const jobInviteRouter = require('./routes/routes');
 
 app.use('/job-invites', jobInviteRouter);
 

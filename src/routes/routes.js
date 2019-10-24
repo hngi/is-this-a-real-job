@@ -1,54 +1,59 @@
-import { signin, signup } from '../controllers/authController';
-import {
-  validateSigninFormData,
-  validateSignupFormData,
-  validUser,
-  validateCommentData,
-  validateInvite,
-  validateInviteId,
-  validateUUID,
-  verifyUniqueUser
-  authenticateUserToken,
-  validateAdmin,
-  validateUserById,
-  validateUserId
-} from '../middlewares/middlewares';
+const express = require('express');
 
-import { getComments, createComment } from '../controllers/commentController';
 import {
-  authenticateUserToken,
-  verifyUniqueUser
-} from '../middlewares/authentication';
+    validateSigninFormData,
+    validUser,
+    validateCommentData,
+    validateInvite,
+    validateInviteId,
+    authenticateUserToken,
+    validateAdmin,
+    validateUserById,
+    validateUserId
+} from '../middlewares/middlewares';
+import {
+    signin
+} from '../controllers/authController';
+import {
+    getComments,
+    createComment
+} from '../controllers/commentController';
 import { upvoteInvite } from '../controllers/upvoteController';
 import { deleteInvite } from '../controllers/inviteController';
 import { blockUser, getUsers } from '../controllers/userController';
 
+
+
+const jobInviteRouter = express.Router();
+jobInviteRouter.route('/')
+    .get((req, res) => {
+        res.render('jobInvites')
+    })
+module.exports = jobInviteRouter
+
+
+
 export const initRoutes = app => {
-  // All EJS frontend endpoints below --------------------------------------------------
-  app.get('/', (req, res) => res.status(200).json({ message: 'Welcome' }));
-  app.get('/post', (req, res) => res.render('userPost'));
+    // All EJS frontend endpoints below --------------------------------------------------
+    app.get('/', (req, res) => res.status(200).json({ message: 'Welcome' }));
+    app.get('/post', (req, res) => res.render('userPost'));
 
-  // All backend endpoints below -----------------------------------------------------
 
-  app.post('/api/v1/auth/signin', validateSigninFormData, validUser, signin);
-  // get all Users
-  app.get('/api/v1/users', authenticateUserToken, validateAdmin, getUsers);
+    // All backend endpoints below -----------------------------------------------------
 
-  // block a user
-  app.patch('/api/v1/users/block/:userId', validateUserId, authenticateUserToken, validateAdmin, validateUserById, blockUser);
-  
-  app.post(
-    '/api/v1/auth/signup',
-    validateSignupFormData,
-    verifyUniqueUser,
-    signup
-  );
-  app.get('/api/v1/comments/:inviteId', validateInviteId, getComments);
+    app.post('/api/v1/auth/signin', validateSigninFormData, validUser, signin);
+    // get all Users
+    app.get('/api/v1/users', authenticateUserToken, validateAdmin, getUsers);
 
-  app.patch('/api/v1/invites/upvote/:inviteId', validateInviteId, validateInvite, upvoteInvite);
-  app.post('/api/v1/comments/:inviteId', validateInviteId, authenticateUserToken, validateCommentData, createComment);
+    // block a user
+    app.patch('/api/v1/users/block/:userId', validateUserId, authenticateUserToken, validateAdmin, validateUserById, blockUser);
 
-  app.delete('/api/v1/invites/:inviteId', validateInviteId, authenticateUserToken, validateAdmin, validateInvite, deleteInvite);
+    app.get('/api/v1/comments/:inviteId', validateInviteId, getComments);
+    app.post('/api/v1/comments/:inviteId', validateInviteId, authenticateUserToken, validateCommentData, createComment);
 
-  app.all('*', (req, res) => res.status(404).json({ message: 'Not Found' }));
+    app.patch('/api/v1/invites/upvote/:inviteId', validateInviteId, validateInvite, upvoteInvite);
+
+    app.delete('/api/v1/invite/:inviteId', validateInviteId, authenticateUserToken, validateAdmin, validateInvite, deleteInvite);
+
+    app.all('*', (req, res) => res.status(404).json({ message: 'Not Found' }));
 };

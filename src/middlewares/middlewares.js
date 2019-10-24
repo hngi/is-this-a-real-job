@@ -7,16 +7,16 @@ import { validateAdmin } from './validateAdmin';
 import { validateUserById } from './validateUser';
 
 export {
-  validateSigninFormData,
-  validateSignupFormData,
-  validUser,
-  validateCommentData,
-  validateInvite,
-  validateInviteId,
-  validateUUID,
-  verifyUniqueUser
-  authenticateUserToken,
-  validateAdmin,
-  validateUserById,
-  validateUserId
+    validateSigninFormData,
+    validateSignupFormData,
+    validUser,
+    validateCommentData,
+    validateInvite,
+    validateInviteId,
+    validateUUID,
+    verifyUniqueUser,
+    authenticateUserToken,
+    validateAdmin,
+    validateUserById,
+    validateUserId
 };
