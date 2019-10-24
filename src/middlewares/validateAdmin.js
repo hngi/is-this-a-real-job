@@ -1,6 +1,5 @@
 import { respondWithWarning } from '../helpers/responseHandler';
 
-
 /**
  * Function to check if a user ID is valid
  * @param {Object} req this is the request object
@@ -10,9 +9,9 @@ import { respondWithWarning } from '../helpers/responseHandler';
  */
 
 export const validateAdmin = async (req, res, next) => {
-  const { isAdmin } = req.auth;
-  if (!isAdmin) {
-    return respondWithWarning(res, 403, 'Forbidden access');
-  }
-  return next();
+    const { isAdmin } = req.auth;
+    if (!isAdmin) {
+        return respondWithWarning(res, 403, 'Forbidden access');
+    }
+    return next();
 };

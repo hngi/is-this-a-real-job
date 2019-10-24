@@ -12,19 +12,19 @@
  * @returns {Object} null
  */
 export const respondWithSuccess = (
-  res,
-  statusCode = 200,
-  message,
-  additionalFields = {},
-  token = ""
+    res,
+    statusCode = 200,
+    message,
+    additionalFields = {},
+    token = ''
 ) => {
-  const payload = Array.isArray(additionalFields)
-    ? [...additionalFields]
-    : { ...additionalFields };
+    const payload = Array.isArray(additionalFields)
+        ? [...additionalFields]
+        : { ...additionalFields };
 
-  return res
-    .status(statusCode)
-    .send({ success: true, message, payload, token });
+    return res
+        .status(statusCode)
+        .send({ success: true, message, payload, token });
 };
 
 /**
@@ -35,13 +35,13 @@ export const respondWithSuccess = (
  * @returns {Object} null
  */
 export const respondWithWarning = (
-  res,
-  statusCode = 500,
-  message,
-  additionalFields = {}
+    res,
+    statusCode = 500,
+    message,
+    additionalFields = {}
 ) => {
-  const payload = Array.isArray(additionalFields)
-    ? [...additionalFields]
-    : { ...additionalFields };
-  res.status(statusCode).send({ success: false, message, payload });
+    const payload = Array.isArray(additionalFields)
+        ? [...additionalFields]
+        : { ...additionalFields };
+    res.status(statusCode).send({ success: false, message, payload });
 };

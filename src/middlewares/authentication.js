@@ -1,6 +1,6 @@
-import { findSingleUser } from "../services/userServices";
-import { respondWithWarning } from "../helpers/responseHandler";
-import { verifyToken, formatJWTErrorMessage } from "../helpers/jwt";
+import { findSingleUser } from '../services/userServices';
+import { respondWithWarning } from '../helpers/responseHandler';
+import { verifyToken, formatJWTErrorMessage } from '../helpers/jwt';
 
 /**
  * Method to generate token
@@ -10,20 +10,24 @@ import { verifyToken, formatJWTErrorMessage } from "../helpers/jwt";
  * @returns {Function} next middleware
  */
 export const authenticateUserToken = (req, res, next) => {
-  let token = req.headers.authorization;
-  if (token && token.startsWith("Bearer ")) {
-    token = token.slice(7, token.length);
-  }
-  if (!token) {
-    return respondWithWarning(res, 401, "Session Expired");
-  }
-  try {
-    const { key } = verifyToken(token);
-    req.auth = key;
-    return next();
-  } catch (error) {
-    return respondWithWarning(res, 401, formatJWTErrorMessage(error.message));
-  }
+    let token = req.headers.authorization;
+    if (token && token.startsWith('Bearer ')) {
+        token = token.slice(7, token.length);
+    }
+    if (!token) {
+        return respondWithWarning(res, 401, 'Session Expired');
+    }
+    try {
+        const { key } = verifyToken(token);
+        req.auth = key;
+        return next();
+    } catch (error) {
+        return respondWithWarning(
+            res,
+            401,
+            formatJWTErrorMessage(error.message)
+        );
+    }
 };
 
 /**
@@ -34,14 +38,14 @@ export const authenticateUserToken = (req, res, next) => {
  * @returns {Function} response
  */
 export const validUser = async (req, res, next) => {
-  const { email } = req.body;
+    const { email } = req.body;
 
-  const findUser = await findSingleUser({ email });
-  if (!findUser) {
-    return respondWithWarning(res, 401, "Incorrect email or password");
-  }
-  req.user = findUser.toJSON();
-  return next();
+    const findUser = await findSingleUser({ email });
+    if (!findUser) {
+        return respondWithWarning(res, 401, 'Incorrect email or password');
+    }
+    req.user = findUser.toJSON();
+    return next();
 };
 
 /**
@@ -52,12 +56,15 @@ export const validUser = async (req, res, next) => {
  * @param {Function} next
  */
 export const verifyUniqueUser = async (req, res, next) => {
-  const { email } = req.body;
+    const { email } = req.body;
 
-  const findUser = await findSingleUser({ email });
-  if (findUser) {
-    return respondWithWarning(res, 409, "User Already exists: Duplicate User");
-  } else {
+    const findUser = await findSingleUser({ email });
+    if (findUser) {
+        return respondWithWarning(
+            res,
+            409,
+            'User Already exists: Duplicate User'
+        );
+    }
     return next();
-  }
 };

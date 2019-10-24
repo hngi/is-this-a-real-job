@@ -1,8 +1,8 @@
 import { validateSigninFormData, validateSignupFormData } from './validateAuth';
 import {
-  validUser,
-  verifyUniqueUser,
-  authenticateUserToken
+    validUser,
+    verifyUniqueUser,
+    authenticateUserToken,
 } from './authentication';
 import { validateCommentData } from './validateComment';
 import { validateInvite } from './validateInvite';
@@ -11,14 +11,14 @@ import { validateUserById } from './validateUser';
 import { validateAdmin } from './validateAdmin';
 
 export {
-  validateSigninFormData,
-  validateSignupFormData,
-  validUser,
-  validateCommentData,
-  validateInvite,
-  validateUserId,
-  validateUserById,
-  verifyUniqueUser,
-  authenticateUserToken,
-  validateAdmin
+    validateSigninFormData,
+    validateSignupFormData,
+    validUser,
+    validateCommentData,
+    validateInvite,
+    validateUserId,
+    validateUserById,
+    verifyUniqueUser,
+    authenticateUserToken,
+    validateAdmin,
 };
