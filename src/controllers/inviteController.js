@@ -1,8 +1,54 @@
 import { respondWithSuccess, respondWithWarning } from '../helpers/responseHandler';
-import { deleteOneInvite, upvoteOneInvite } from '../services/inviteServices';
+import { 
+  deleteOneInvite,
+  upvoteOneInvite,
+  fetchOneInvite,
+  fetchAllInvites,
+  saveInvite
+} from '../services/inviteServices';
+
+export const getOneInvite = async (req, res)=> {
+  try {
+    const { inviteId } = req.params;
+
+    const invite = await fetchOneInvite({inviteId});
+
+    if (invite)
+      return respondWithSuccess(res, 200, 'Invite found', invite);
+    else
+      return respondWithWarning(res, 404, 'Invite not found');
+  }
+  catch (error) {
+    //console.log(error);
+    return respondWithWarning(res, 500, 'Server error');
+  }
+};
+
+export const getAllInvites = async (req, res)=> {
+  try {
+    const invitesList = await fetchAllInvites();
+
+    return respondWithSuccess(res, 200, 'Retrieved invites', invitesList);
+  }
+  catch (error) {
+    //console.log(error);
+    return respondWithWarning(res, 500, 'Server error');
+  }
+};
+
+export const saveNewInvite = async (req, res)=> {
+  try {
+    const invite = await saveInvite(req.body).catch(error => { throw error; });
+    
+    return respondWithSuccess(res, 201, 'Job Invite submitted successfully', invite);
+  } 
+  catch (error) {
+    return respondWithWarning(res, error.status, error.message);
+  }
+};
 
 /**
- * Increment upvote count
+ * delete Invite
  * @param {object} req
  * @param {object} res
  * @returns {object} json response
@@ -16,7 +62,7 @@ export const deleteInvite = async (req, res) => {
   return respondWithSuccess(res, 200, `${title} deleted successfully`);
 };
 
-/*
+/**
  * Increment upvote count
  * @param {object} req
  * @param {object} res
