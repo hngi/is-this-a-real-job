@@ -1,4 +1,5 @@
 <% include partials/header %>
+<% include partials/nav %>
   <!-- ADMIN DASHBOARD -->
   <div class="admin-dashboard">
     <p class="ad-main-text">Dashboard</p>
@@ -7,13 +8,13 @@
         <div class="col-3">
           <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
             <a class="nav-link active mb-3" id="v-pills-users-tab" data-toggle="pill" href="#v-pills-users" role="tab" aria-controls="v-pills-users" aria-selected="true">Users</a>
-            <a class="nav-link mb-3" id="v-pills-admins-tab" data-toggle="pill" href="#v-pills-admins" role="tab" aria-controls="v-pills-admins" aria-selected="false">Admins</a>
+            <a class="nav-link mb-3" id="v-pills-admins-tab" data-toggle="pill" href="#v-pills-admins" role="tab" aria-controls="v-pills-admins" aria-selected="false">Posts</a>
             <a class="nav-link mb-3" id="v-pills-reports-tab" data-toggle="pill" href="#v-pills-reports" role="tab" aria-controls="v-pills-reports" aria-selected="false">Reports</a>
           </div>
         </div>
         <!-- ADMIN DASHBOARD TABS CONTENT -->
         <div class="col-9">
-          <div class="tab-content" id="v-pills-tabContent">
+          <div class="tab-content shadow p-4 mb-4" id="v-pills-tabContent">
             <!-- USERS TAB -->
             <div class="tab-pane fade show active" id="v-pills-users" role="tabpanel" aria-labelledby="v-pills-home-users">
                 <div class="row">
@@ -23,21 +24,42 @@
                           <p class="user-name">Robyn</p>
                           <p class="user-handle">@Riri</p>
                       </div>
-                      
                     </div>
-                    <div class="col-lg-6">
-                        <button class="pull-right" type="">
+                    <div class="col-lg-4">
+                        <button class="btn btn-outline-danger btn-bg btn-block btn-shift" type="button">
                             Blocked
                         </button>
-                        
                     </div>
-                    
-                   
+                    <div class="col-lg-2">
+                      <div class="dropdown">
+                          <button class="btn btn-shift" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-ellipsis-v"></i></button>
+                          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                              <a class="dropdown-item" href="#">Promote</a>
+                          </div>
+                      </div>
+                    </div>           
                 </div>
             </div>
             <!-- ADMINS TAB -->
             <div class="tab-pane fade" id="v-pills-admins" role="tabpanel" aria-labelledby="v-pills-admins-tab">
-              Admins List Goes Here
+                <div class="row">
+                  <div class="col-lg-2">
+                      <img src="http://blog.isthisarealjob.com/wp-content/uploads/2019/03/excited-black-man-celebrating-his-success_rednqltwl_thumbnail-full04.png" class="user-avatar" alt="post1">
+                      
+                  </div>
+                  <div class="col-lg-8">
+                      <h5>Landing your first job</h5>
+                      <small class="text-muted">The world has made everything possible in....</small><br>
+                      <a href="#"><small>@Riri</small></a>
+                      
+                  </div>
+                  <div class="col-lg-2">
+                      <a href="#"><button class="btn"><i class="far fa-edit"></i></button></a>
+                      <a href="#"><button class="btn"><i class="fas fa-trash"></i></button></a>
+                  </div>
+                </div>
+            </div>
+              </div>
             </div>
             <!-- REPORTS TAB -->
             <div class="tab-pane fade" id="v-pills-reports" role="tabpanel" aria-labelledby="v-pills-reports-tab">
