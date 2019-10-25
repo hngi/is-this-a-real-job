@@ -19,7 +19,7 @@ app.use((req, res, next) => {
   next();
 });
 
-app.set('views', [path.join(__dirname, 'views'), path.join(__dirname, 'views/admin/')]); // Redirect to the views directory inside the src directory
+app.set('views', path.join(__dirname, 'views')); // Redirect to the views directory inside the src directory
 app.use(express.static(path.join(__dirname, '../public'))); // load local css and js files
 app.use(express.static(path.join(__dirname, './views/pageScripts'))); // load page scripts
 app.set('view engine', 'ejs');
