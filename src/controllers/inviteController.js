@@ -88,3 +88,15 @@ export const upvoteInvite = async (req, res) => {
   const invite = await upvoteOneInvite(vote, { inviteId });
   respondWithSuccess(res, 200, 'Upvote successful', invite.toJSON());
 };
+
+/**
+ * Render Edit Invite 
+ * @param {object} req
+ * @param {object} res
+ * @returns {object} json response
+ */
+export const editInvite = async (req, res) => {
+  return res.render('editPost', {
+    invite: req.invite,
+  });
+}

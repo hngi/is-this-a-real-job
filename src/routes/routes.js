@@ -24,6 +24,7 @@ import {
   getOneInvite,
   getAllInvites,
   updateInvite,
+  editInvite,
 } from '../controllers/inviteController';
 
 import { getComments, createComment } from '../controllers/commentController';
@@ -35,6 +36,11 @@ export const initRoutes = app => {
   app.get('/login', (req, res) => res.render('login'));
   app.get('/register', (req, res) => res.render('register'));
   app.get('/post', (req, res) => res.render('userPost'));
+
+  // Edit post endpoint
+  app.get('/post/:inviteId/edit', validateInviteId, validateInvite, editInvite);
+
+  // All EJS fronted endpoints continue
   app.get('/jobInvites', (req, res) => res.render('jobInvites'));
   app.get('/singlepost', (req, res) => res.render('singlepost'));
   app.get('/admin', (req, res) => res.render('admin'));

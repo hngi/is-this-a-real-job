@@ -110,7 +110,7 @@ function ItarjApi(apiBase) {
    * @param {boolean} includeToken specify if this endpoints is `JWT` protected
    * @returns {Promise<{ message: string, data }>}
    *  */
-  const Put = (endpoint, body, includeToken = false) => _fetch('POST', endpoint, body, includeToken);
+  const Put = (endpoint, body, includeToken = false) => _fetch('PUT', endpoint, body, includeToken);
 
   /**
    * @param {string} endpoint the endpoint to `PATCH` excluding slash (`/`)
