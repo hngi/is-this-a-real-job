@@ -1,6 +1,7 @@
 /* eslint-disable max-len */
 /* eslint-disable no-undef */
 /* eslint-disable no-console */
+const httpFetch = fetch, storage = localStorage;
 
 /**
  * ItarjApi is a generic REST Api handler. Set your API base url (`e.g /api/v1`) first.
@@ -45,6 +46,11 @@ function ItarjApi(apiBase) {
       if (!acceptedMethods.includes(method)) {
         e.message = `The '${method}' method you supplied is not accepted.`;
         return reject(e);
+      }
+
+      if (body) {
+        headers.Accept = 'application/json';
+        headers['Content-Type'] = 'application/json';
       }
 
       if (includeToken) {

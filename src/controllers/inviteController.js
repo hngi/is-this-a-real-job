@@ -4,7 +4,8 @@ import {
   upvoteOneInvite,
   fetchOneInvite,
   fetchAllInvites,
-  saveInvite
+  saveInvite,
+  updateOneInvite,
 } from '../services/inviteServices';
 
 export const getOneInvite = async (req, res) => {
@@ -39,6 +40,24 @@ export const saveNewInvite = async (req, res) => {
     respondWithWarning(res, error.status, error.message);
   }
 };
+
+/**
+ * Update Invite
+ * @param {object} req
+ * @param {object} res
+ * @returns {object} json response
+ */
+export const updateInvite = async (req, res) => {
+  const { inviteId } = req.params;
+
+  try {
+    const invite = await updateOneInvite(inviteId, req.body);
+
+    respondWithSuccess(res, 200, 'Job Invite updated successfully', invite);
+  } catch (error) {
+    respondWithWarning(res, error.status, error.message);
+  }
+}
 
 /**
  * delete Invite
