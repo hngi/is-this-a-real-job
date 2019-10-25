@@ -1,5 +1,9 @@
 /* ----------------------------------------------- */
+
+
 /* BASIC SETUP */
+
+
 /* ----------------------------------------------- */
 
 * {
@@ -19,20 +23,24 @@ body {
   overflow-x: hidden;
 }
 
-.go_back{
-    color: black;
-    font-weight: 600;
-    text-decoration: none;
-    cursor: pointer;
+.go_back {
+  color: black;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
 }
-.go_back:hover{
-    color: #aaa;
-    text-decoration: none;
+
+.go_back:hover {
+  color: #aaa;
+  text-decoration: none;
 }
-.default-text{
-    font-size: 200px;
-    font-weight: 600;
+
+.default-text {
+  font-size: 200px;
+  font-weight: 600;
 }
+
+
 /* NAV BAR */
 
 .nav-link {
@@ -40,8 +48,9 @@ body {
   font-size: 12px;
   line-height: 14px;
 }
-.nav-link:hover{
-  color:rgba(0,0,0,.5) !important;
+
+.nav-link:hover {
+  color: rgba(0, 0, 0, .5) !important;
 }
 
 .nav-item {
@@ -52,7 +61,7 @@ body {
   font-weight: 600;
   font-size: 32px;
   line-height: 38px;
-  color: #fff !important; 
+  color: #fff !important;
 }
 
 .navbar {
@@ -90,6 +99,7 @@ body {
   border-radius: 6px;
 }
 
+
 /* Footer */
 
 .footer {
@@ -106,8 +116,8 @@ body {
 }
 
 .footer-heading {
-    margin-bottom: 7%;
-    margin-top: 10%;
+  margin-bottom: 7%;
+  margin-top: 10%;
 }
 
 .footer_email {
@@ -116,9 +126,10 @@ body {
   line-height: 18px;
   font-size: 15px;
 }
-.footer_email:hover{
-    color: #aaa; 
-    text-decoration: none; 
+
+.footer_email:hover {
+  color: #aaa;
+  text-decoration: none;
 }
 
 .submit-div {
@@ -146,16 +157,11 @@ body {
 /* Invite us section */
 
 [placeholder="Search a keyword or a sentence"] {
-  height: 60px;
-  margin-top: 20px;
   background: #ECECEC;
   border-radius: 6px;
-  padding: 2rem;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 16px;
-  line-height: 19px;
+  padding: 1.5rem;
   border: 1px solid #ECECEC;
+  margin: 0.8rem auto;
 }
 
 [value="Invite Search"] {
@@ -175,60 +181,60 @@ body {
   color: #000000;
 }
 
-.job_invite_h4{
-    width: 191px;
-    height: 28px;
-    font-family: Raleway;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 24px;
-    line-height: 28px;
+.job_invite_h4 {
+  width: 191px;
+  height: 28px;
+  font-family: Raleway;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 24px;
+  line-height: 28px;
 }
 
 .job-invites span.dropdown-menu {
   left: -50px !important;
 }
 
-
 .job-invites div:nth-child(odd):not(.form-group) {
-    background: #E3E9EF;
-    padding: 20px;
-    border-radius: 6px;
-
+  background: #E3E9EF;
+  padding: 20px;
+  border-radius: 6px;
 }
 
 .job-invites div:nth-child(even) {
-    padding: 20px;
-    background: #FFFFFF;
-    margin: 1em auto;
+  padding: 20px;
+  background: #FFFFFF;
+  margin: 1em auto;
 }
+
+
 /* SIngle Post */
-.post-container{
-    box-sizing: border-box;
-    text-overflow: scroll;
-    height: auto !important;
 
+.post-container {
+  box-sizing: border-box;
+  text-overflow: scroll;
+  height: auto !important;
 }
-
 
 .dropdown-toggle::after {
-    content: none !important;
+  content: none !important;
 }
 
-.post-body{
-    margin-bottom: 15%;
+.post-body {
+  margin-bottom: 15%;
 }
 
 .post-author {
   font-weight: bold;
 }
 
-.post-date{
-    font-size: 12px;
-    line-height: 14px;
+.post-date {
+  font-size: 12px;
+  line-height: 14px;
 }
-.comment-btn{
-    /* margin-top: 20px !important; */
+
+.comment-btn {
+  /* margin-top: 20px !important; */
 }
 
 .upvote-btn {
@@ -244,40 +250,42 @@ body {
   background-color: var(--success);
   color: #fff !important;
 }
+
+
 /* INDEX */
-.page-desc{
-  color:#636b6f;
+
+.page-desc {
+  color: #636b6f;
   font-weight: 700;
   font-size: 300%;
   margin-top: 10%;
   margin-bottom: 0;
-
 }
-.under-text{
+
+.under-text {
   font-size: 80%;
   font-weight: 600;
-  color:#636b6f;
-
+  color: #636b6f;
 }
-.search{
+
+.search {
   width: 70%;
   margin-left: auto;
   margin-right: auto;
-
 }
-.blog{
+
+.blog {
   margin-top: 5%;
   padding: 3%;
 }
-.blog-desc{
+
+.blog-desc {
   font-weight: 500;
+}
 
-
-  }
-@media (max-width: 1000px) { 
-  .index-search{
+@media (max-width: 1000px) {
+  .index-search {
     width: 80%;
     margin-left: 9%;
   }
- }
-
+}

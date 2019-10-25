@@ -9,6 +9,8 @@ if (inviteBtn) {
   inviteBtn.addEventListener('click', e => {
     e.preventDefault();
 
+    const api = new ItarjApi('/api/v1');
+
     api.Post('invites', JSON.stringify({ title: jobTitle.value, body: jobDetails.value, media: `https://loremflickr.com/320/240/${jobTitle.value.slice(0, 3)}` }), true)
       .then(res => {
         // navigate to somewhere. created post maybe
