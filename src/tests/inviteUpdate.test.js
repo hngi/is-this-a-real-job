@@ -134,6 +134,37 @@ describe('UPDATE INVITES', () => {
         })
     });
 
+    it('it should not update the userId or inviteId', (done) => {
+      chai.request(app)
+        .post(signinUrl)
+        .send(authDetails)
+        .end((err, res) => {
+          chai.request(app)
+            .put(ownedInviteUrl)
+            .set('Authorization', `Bearer ${res.body.payload.token}`)
+            .send({
+              title: "What a day?",
+              body: "No. I refuse vehemently to participate :(",
+              media: "https://cdn.sstatic.net/Sites/stackoverflow/img/favicon.ico?v=4f32ecc8f43d",
+              userId: SEED_USER_ID_2,
+              inviteId: SEED_INVITE_ID_2,
+            })
+            .end((err, res) => {
+              // Assert valid response
+              expect(res).to.have.status(400);
+              expect(res.body.success).to.equal(false);
+
+              // Assert invite is unchanged
+              chai.request(app)
+                .get(ownedInviteUrl)
+                .end((err, res) => {
+                  expect(res.body.payload).to.eql(ownedInvite);
+                });
+              done();
+            });
+        })
+    });
+
     it('it should not update a valid invite they do not own', (done) => {
       chai.request(app)
         .post(signinUrl)

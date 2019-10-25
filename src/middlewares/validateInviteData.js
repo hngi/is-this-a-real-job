@@ -24,3 +24,28 @@ export const validateInviteData = (req, res, next) => {
   }
   return respondWithWarning(res, 400, 'Bad Input', errors);
 };
+
+/**
+ * validate invite update entry
+ * @param {Object} req
+ * @param {Object} res
+ * @param {Function} next
+ * @returns {Object} error
+ */
+export const validateInviteUpdateData = (req, res, next) => {
+  const inviteSchema = Joi.object().keys({
+    title: Joi.string().trim(),
+    body: Joi.string().trim(),
+    media: Joi.string().trim(),
+    userId: Joi.forbidden(),
+    inviteId: Joi.forbidden(),
+  });
+
+  const errors = joiValidator(req.body, inviteSchema);
+  console.log("LOOOGGIGINGG", req.body);
+
+  if (!errors) {
+    return next();
+  }
+  return respondWithWarning(res, 400, 'Bad Input', errors);
+};
