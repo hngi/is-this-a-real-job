@@ -13,8 +13,7 @@ export const validateInviteData = (req, res, next) => {
   const inviteSchema = Joi.object().keys({
     title: Joi.string().required().trim(),
     body: Joi.string().required().trim(),
-    media: Joi.string().required().trim(),
-    userId: Joi.string().required()
+    media: Joi.string().required().trim()
   });
 
   const errors = joiValidator(req.body, inviteSchema);
@@ -42,7 +41,6 @@ export const validateInviteUpdateData = (req, res, next) => {
   });
 
   const errors = joiValidator(req.body, inviteSchema);
-  console.log("LOOOGGIGINGG", req.body);
 
   if (!errors) {
     return next();

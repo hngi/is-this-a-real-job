@@ -308,3 +308,17 @@ body {
 .comment-btn{
     /* margin-top: 20px !important; */
 }
+
+.upvote-btn {
+  padding: 0.5rem;
+  margin-left: 0.5rem;
+  color: var(--success) !important;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: background-color ease-in-out .1s;
+}
+
+.upvote-btn:hover {
+  background-color: var(--success);
+  color: #fff !important;
+}

@@ -24,6 +24,8 @@ import {
   getOneInvite,
   getAllInvites,
   updateInvite,
+  renderSinglePostPage,
+  renderJobInvitesPage
 } from '../controllers/inviteController';
 
 import { getComments, createComment } from '../controllers/commentController';
@@ -35,8 +37,8 @@ export const initRoutes = app => {
   app.get('/login', (req, res) => res.render('login'));
   app.get('/register', (req, res) => res.render('register'));
   app.get('/post', (req, res) => res.render('userPost'));
-  app.get('/jobInvites', (req, res) => res.render('jobInvites'));
-  app.get('/singlepost', (req, res) => res.render('singlepost'));
+  app.get('/jobInvites', renderJobInvitesPage);
+  app.get('/singlepost/:inviteId', renderSinglePostPage);
   app.get('/admin', (req, res) => res.render('admin'));
 
   // All backend API endpoints below -----------------------------------------------------

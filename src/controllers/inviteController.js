@@ -7,6 +7,7 @@ import {
   saveInvite,
   updateOneInvite,
 } from '../services/inviteServices';
+import { findCommentsForPost } from '../services/commentServices';
 
 export const getOneInvite = async (req, res) => {
   try {
@@ -33,6 +34,7 @@ export const getAllInvites = async (req, res) => {
 
 export const saveNewInvite = async (req, res) => {
   try {
+    req.body.userId = req.auth.userId;
     const invite = await saveInvite(req.body).catch(error => { throw error; });
 
     respondWithSuccess(res, 201, 'Job Invite submitted successfully', invite);
@@ -57,7 +59,7 @@ export const updateInvite = async (req, res) => {
   } catch (error) {
     respondWithWarning(res, error.status, error.message);
   }
-}
+};
 
 /**
  * delete Invite
@@ -87,4 +89,27 @@ export const upvoteInvite = async (req, res) => {
   const vote = voteType === 'true' ? upVotes + 1 : upVotes - 1;
   const invite = await upvoteOneInvite(vote, { inviteId });
   respondWithSuccess(res, 200, 'Upvote successful', invite.toJSON());
+};
+
+/**
+ * Render single invite page
+ * @param {object} req
+ * @param {object} res
+ */
+export const renderSinglePostPage = async (req, res) => {
+  const { inviteId } = req.params;
+
+  const data = await Promise.all([findCommentsForPost(inviteId), fetchOneInvite({ inviteId })]);
+  return res.render('singlepost', { comments: data[0], invite: data[1] });
+};
+
+/**
+ * Render job invites page
+ * @param {object} req
+ * @param {object} res
+ */
+export const renderJobInvitesPage = async (req, res) => {
+  const invites = await fetchAllInvites();
+
+  return res.render('jobInvites', { invites: invites || [] });
 };
