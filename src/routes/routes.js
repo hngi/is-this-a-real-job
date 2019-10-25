@@ -12,7 +12,8 @@ import {
   validateAdmin,
   validateUserById,
   validateUserId,
-  validateUpvoteInput
+  validateUpvoteInput,
+  validateInviteOwner,
 } from '../middlewares/middlewares';
 
 import {
@@ -20,7 +21,8 @@ import {
   upvoteInvite,
   saveNewInvite,
   getOneInvite,
-  getAllInvites
+  getAllInvites,
+  updateInvite,
 } from '../controllers/inviteController';
 
 import { getComments, createComment } from '../controllers/commentController';
@@ -58,6 +60,9 @@ export const initRoutes = app => {
 
   // Get a single job invite.
   app.get('/api/v1/invites/:inviteId', validateInviteId, getOneInvite);
+
+  // Update an existing job invite.
+  app.put('/api/v1/invites/:inviteId', authenticateUserToken, validateInviteId, validateInvite, validateInviteOwner, updateInvite);
 
   // Delete an existing job invite.
   app.delete('/api/v1/invites/:inviteId', validateInviteId, authenticateUserToken, validateAdmin, validateInvite, deleteInvite);
