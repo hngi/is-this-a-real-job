@@ -1,31 +1,29 @@
 <% include partials/header %>
 <% include partials/nav %>
 <div class="container">
-    <div class="row">
-        <div class="col">
-            <h4 class="new_post_heading">
-                New Post
-            </h4>
+  <div class="row">
+    <div class="col">
+      <h4 class="new_post_heading">
+        New Post
+      </h4>
+    </div>
+  </div>
+  <div class="row">
+    <div class=" post-form col-md-10">
+        <div class="form-group">
+          <input type="text" class="form-control" name="title" id="jobTitle" placeholder="Title">
+        </div>
+        <div class="form-group">
+          <textarea class="form-control" id="jobDetails" name="jobDetails" rows="5"
+            placeholder="Type Something..."></textarea>
+        </div>
+        <div class="text-right">
+          <button type="reset" class="btn btn-default cancel-button">Cancel</button>
+
+          <button type="button" id="newInviteBtn" class="btn btn-primary post-btn">Post</button>
         </div>
     </div>
-    <div class="row">
-        <div class=" post-form col-md-10">
-            <form>
-                <div class="form-group">
-                    <input type="text" class="form-control" name="title" id="title" placeholder="Title">
-                </div>
-                <div class="form-group">
-                    <textarea class="form-control" id="jobDetails" name="jobDetails" rows="5" placeholder="Type Something..."></textarea>
-                </div>
-                <div class="text-right">
-                        <button type="submit" class="btn btn-default cancel-button">Cancel</button>
-
-                    <button type="submit" class="btn btn-primary post-btn">Post</button>
-
-                </div>
-            </form>
-        </div>
-    </div>
+  </div>
 
 </div>
 <% include partials/footer %>

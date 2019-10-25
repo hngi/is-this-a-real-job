@@ -2,135 +2,79 @@
 <% include partials/header %>
 
 <body>
-    <div class="header">
-        <section class="job-invites">
-            <div class="container post-container">
-                <span class="">
-                    <span class="dropdown float-right">
-                        <span class="post-date">15:30 12 Feb 2018 </span>
-
-                        <i class=" fas fa-ellipsis-h  dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown"
-                            aria-haspopup="true" aria-expanded="false">
-                        </i>
-                        <span class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" href="#">Report</a>
-                            <a class="dropdown-item" href="#">Delete Post </a>
-                        </span>
-                    </span>
-
-                </span>
-                <h4> This is a test Post </h4>
-
-                <p>@SammyJ</p>
-                <p class="post-body">The body of this test post: : Lorem ipsum dolor sit amet, consectetur adipiscing
-                    elit.
-                    Morbi nec lacus erat. Aliquam pulvinar mi quis lorem vulputate trist
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Cupiditate dolores laboriosam
-                    a laudantium rem vero facilis eius perspiciatis accusantium minus nulla atque qui vel, officia,
-                    consequuntur, earum itaque commodi quae.
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Morbi nec lacus erat. Aliquam pulvinar mi quis lorem vulputate trist
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Cupiditate dolores laboriosam
-                    a laudantium rem vero facilis eius perspiciatis accusantium minus nulla atque qui vel, officia,
-                    consequuntur, earum itaque commodi quae.
-                </p>
-                <span>
-                    <a><i class="fas fa-comment"></i> 12 </a>
-                    <a><i class="fas fa-arrow-alt-circle-up"></i></a>
-
-                </span>
-
-                <span class="float-right">
-                    <a href="#"><i class="fab fa-facebook-f"></i></i></a>
-                    <a href="https://www.twitter.com/"><i class="fab fa-twitter"></i></a>
-                    <a href="https://www.instagram.com/"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-linkedin"></i></a>
-                </span>
-
-
-            </div>
-
-            <span>
-                <form class="comments">
-                    <span class="text-left">
-                        <span class="form-group">
-
-                            <textarea class="form-control" placeholder="Type something..." rows="3"></textarea>
-                        </span>
-                    </span>
-                    <br>
-                    <span class="comment-btn">
-                        <button type="submit" class="btn btn-primary post-btn">Comment</button>
-
-                    </span>
-
-
-                </form>
+  <div class="header">
+    <section class="job-invites">
+      <div class="container mt-4">
+        <span class="d-flex flex-row-reverse justify-content-between">
+          <span class="dropdown">
+            <i class=" fas fa-ellipsis-h  dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false">
+            </i>
+            <span class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <a class="dropdown-item" href="#">Report</a>
+              <a class="dropdown-item" href="#">Delete Post </a>
             </span>
-            <br>
+          </span>
+
+          <span class="post-meta" id="<%=invite.inviteId%>">
+            <h4><%=invite.title%></h4>
+            <p class="post-author">
+              Author: @<%=invite.user.username%>
+              <br>
+              <span class="pt-2 d-block">Published: <%=new Date(invite.createdAt).toDateString()%></span>
+            </p>
+          </span>
+        </span>
+
+        <p class="post-body"><%=invite.body%></p>
+        <span>
+          <a><i class="fas fa-comment"></i> <span  id="comment-count"><%=comments.length%> </span></a>
+          <a class="upvote-btn"><i class="fas fa-arrow-alt-circle-up"></i> Upvote</a>
+        </span>
+
+        <span class="float-right">
+          <a href="#"><i class="fab fa-facebook-f"></i></i></a>
+          <a href="https://www.twitter.com/"><i class="fab fa-twitter"></i></a>
+          <a href="https://www.instagram.com/"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-linkedin"></i></a>
+        </span>
+      </div>
+
+      <div class="container p-0">
+        <div class="form-group">
+          <textarea class="form-control" id="comment-field" placeholder="Type something..." rows="3"></textarea>
+        </div>
+        <span class="comment-btn">
+          <button type="button" class="btn btn-primary post-btn">Comment</button>
+        </span>
+      </div>
+
+      <h5 class="container p-0">Comments</h5>
+      <section id="comments">
+        <% if (comments.length === 0) { %>
+        <div id="no-comments" class="bg-transparent container">There no comments for this post.</div>
+        <% } %>
+
+        <% if (comments.length > 0) { %>
+          <% for (comment of comments) { %>
             <div class="container">
-                <h5>Comments</h5>
+              <p>@<%=comment.user.username || 'guest'%></p>
+              <p><%=comment.body%></p>
+              <span>&nbsp;</span>
+
+              <span class="float-right">
+                <a href="#"><i class="fab fa-facebook-f"></i></i></a>
+                <a href="https://www.twitter.com/"><i class="fab fa-twitter"></i></a>
+                <a href="https://www.instagram.com/"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-whatsapp"></i></a>
+              </span>
             </div>
-            <div class="container">
-                <p>@SammyJ</p>
-                <p>The body of this test post: : Lorem ipsum dolor sit amet, consectetur adipiscing elit
-                    . Morbi nec lacus erat. Aliquam pulvinar mi quis lorem vulputate trist</p>
-                <span>
-                    <a><i class="fas fa-arrow-alt-circle-up"></i></a>
+          <% } %>
+        <% } %>
+      </section>
+    </section>
 
-                </span>
-
-                <span class="float-right">
-                    <a href="#"><i class="fab fa-facebook-f"></i></i></a>
-                    <a href="https://www.twitter.com/"><i class="fab fa-twitter"></i></a>
-                    <a href="https://www.instagram.com/"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-whatsapp"></i></a>
-                </span>
-
-
-            </div>
-            <div class="container">
-                <p>@SammyJ</p>
-                <p>The body of this test post: : Lorem ipsum dolor sit amet, consectetur adipiscing elit
-                    . Morbi nec lacus erat. Aliquam pulvinar mi quis lorem vulputate trist</p>
-                <span>
-                    <a><i class="fas fa-arrow-alt-circle-up"></i> </a>
-
-                </span>
-
-                <span class="float-right">
-                    <a href="#"><i class="fab fa-facebook-f"></i></i></a>
-                    <a href="https://www.twitter.com/"><i class="fab fa-twitter"></i></a>
-                    <a href="https://www.instagram.com/"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-whatsapp"></i></a>
-                </span>
-
-
-            </div>
-            <div class="container">
-                <p>@SammyJ</p>
-                <p>The body of this test post: : Lorem ipsum dolor sit amet, consectetur adipiscing elit
-                    . Morbi nec lacus erat. Aliquam pulvinar mi quis lorem vulputate trist</p>
-                <span>
-                    <a><i class="fas fa-arrow-alt-circle-up"></i> 9</a>
-
-                </span>
-
-                <span class="float-right">
-                    <a href="#"><i class="fab fa-facebook-f"></i></i></a>
-                    <a href="https://www.twitter.com/"><i class="fab fa-twitter"></i></a>
-                    <a href="https://www.instagram.com/"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-whatsapp"></i></a>
-                </span>
-
-
-            </div>
-
-
-
-        </section>
-
-    </div>
+  </div>
 </body>
 
 
