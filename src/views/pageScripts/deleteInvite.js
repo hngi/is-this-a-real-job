@@ -3,7 +3,6 @@
 const deleteBtn = document.querySelector('#delete-btn');
 const notification = document.querySelector('.notification');
 deleteBtn.addEventListener('click', () => {
-
   const api = new ItarjApi('/api/v1');
 
   api.Post(`invites/${inviteId}`, true)
