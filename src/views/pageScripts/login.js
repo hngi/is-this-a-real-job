@@ -1,17 +1,11 @@
 /* eslint-disable no-console */
 /* eslint-disable no-undef */
 
-if (localStorage.getItem('token')) {
-  window.location.href = '/jobInvites';
-}
-
 function togglePreloader(state) {
   const preloader = document.querySelector('#cover');
   preloader.style.display = state;
 }
 
-
-const loginForm = document.querySelector('.login-form');
 const loginBtn = document.querySelector('#login-btn');
 const notification = document.querySelector('.notification');
 loginBtn.addEventListener('click', (e) => {
@@ -30,6 +24,7 @@ loginBtn.addEventListener('click', (e) => {
       console.log(res);
       togglePreloader('none');
       localStorage.setItem('token', res.data.token);
+      localStorage.setItem('user', res.data);
       window.location.href = '/jobInvites';
     })
     .catch(error => {

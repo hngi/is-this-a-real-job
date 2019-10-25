@@ -45,7 +45,6 @@ export const initRoutes = app => {
   // Edit post endpoint
   app.get('/post/:inviteId/edit', validateInviteId, validateInvite, editInvite);
 
-  // All EJS fronted endpoints continue
   app.get('/admin/users', (req, res) => res.render('admin/users'));
   app.get('/admin/posts', (req, res) => res.render('admin/posts'));
 
