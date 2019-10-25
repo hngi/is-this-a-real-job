@@ -3,7 +3,7 @@
 
 const upvotePost = (e, index, inviteId) => {
   const api = new ItarjApi('/api/v1');
-  api.Patch(`/api/v1/invites/upvote/${inviteId}/true`)
+  api.Patch(`/invites/upvote/${inviteId}/true`)
     .then(invite => {
       const newUpvote = invite.upVotes;
       // TODO: update upvote count on page
@@ -19,7 +19,7 @@ const uiCanInteract = () => {
   );
   upvoteButtons.forEach((element, index, fields) => {
     // get inviteId from anchor attribute list
-    const inviteId = fields.getAttribute('invite-id');
+    const inviteId = element.getAttribute('invite-id');
     element.addEventListener('click', (e) => upvotePost(e, index, inviteId));
   });
 };
