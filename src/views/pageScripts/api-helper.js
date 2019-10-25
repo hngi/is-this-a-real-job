@@ -1,6 +1,6 @@
 /* eslint-disable max-len */
+/* eslint-disable no-undef */
 /* eslint-disable no-console */
-// eslint-disable-next-line no-undef
 const httpFetch = fetch, storage = localStorage;
 
 /**
@@ -22,11 +22,6 @@ function ItarjApi(apiBase) {
   const headers = {}; // define header object
   const e = new Error(); // define error object
   const acceptedMethods = 'GET POST PUT PATCH DELETE';
-
-  if (!apiBase.startsWith('http')) {
-    e.message = 'API base url must be in the format http(s)://';
-    // throw e;
-  }
 
   if (apiBase.endsWith('/')) {
     e.message = 'API base url must not end with a slash (/)';
@@ -59,13 +54,13 @@ function ItarjApi(apiBase) {
       }
 
       if (includeToken) {
-        headers.Authorization = storage.getItem('token'); // assign the auth header
+        headers.Authorization = localStorage.getItem('token'); // assign the auth header
       }
 
-      return httpFetch(`${url}/${endpoint}`, {
+      return fetch(`${url}/${endpoint}`, {
         headers,
         method,
-        body
+        body: method !== 'GET' ? body : undefined
       })
         .then(async res => {
           if (!res.ok) {
