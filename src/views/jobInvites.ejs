@@ -26,7 +26,7 @@
       <% if (invites.length > 0) { %>
       <% for (invite of invites) { %>
       <div class="container">
-        <h4><a href="<%='/singlepost/'+invite.inviteId%>"><%=invite.title%></a></h4>
+        <h4><a href="<%='/post/'+invite.inviteId%>"><%=invite.title%></a></h4>
         <p>@<%=invite.user.username%></p>
         <p><%=invite.body%></p>
         <span>
