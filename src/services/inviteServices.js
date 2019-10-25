@@ -107,7 +107,7 @@ export const deleteOneInvite = async (queryOption = {}) => {
   }
 };
 
-export const upvoteOneInvite = async (upVotes, queryOption = {}) => {
+export const upvoteAnInvite = async (upVotes, queryOption = {}) => {
   try {
     const invite = await Invite.update({ upVotes }, {
       where: queryOption,
