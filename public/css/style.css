@@ -40,6 +40,9 @@ body {
   font-size: 12px;
   line-height: 14px;
 }
+.nav-link:hover{
+  color:rgba(0,0,0,.5) !important;
+}
 
 .nav-item {
   margin-right: 50px;
@@ -49,6 +52,7 @@ body {
   font-weight: 600;
   font-size: 32px;
   line-height: 38px;
+  color: #fff !important; 
 }
 
 .navbar {
@@ -85,88 +89,6 @@ body {
   height: 60px;
   border-radius: 6px;
 }
-
-
-/* ADMIN DASHBOARD */
-
-.admin-dashboard {
-  padding: 3% 3.5%;
-}
-
-.ad-main-text {
-  font-size: 30px;
-  color: #636B6F;
-}
-
-.nav-pills .nav-link.active,
-.nav-pills .show>.nav-link {
-  background-color: #3087D1;
-}
-
-.btn-shift {
-  height: 60px;
-}
-
-.user-avatar {
-  width: 102px;
-  height: 102px;
-  border-radius: 50px;
-  margin-right: 10px;
-  float: left;
-}
-
-.fa-trash:hover {
-  color: red;
-}
-
-.fa-edit:hover {
-  color: green;
-}
-
-.user-info {
-  color: #000000;
-}
-
-.user-name {
-  font-size: 24px;
-}
-
-.user-handle {
-  font-size: 16px;
-}
-
-.tab-content {
-  margin: 0 50px 0 120px;
-  background-color: #E3E9EF;
-  padding: 20px;
-  border-radius: 10px;
-}
-
-@media screen and (max-width: 733px) {
-  .admin-db-desktop {
-    display: none;
-  }
-  .tab-content {
-    margin-left: 0;
-  }
-}
-
-@media screen and (min-width: 733px) {
-  .admin-db-mobile {
-    display: none;
-  }
-}
-
-@media screen and (max-width: 400px) {
-  
-}
-
-@media screen and (max-width: 380px) {
-  .nav-pills li {
-    margin-right: 10px;
-  }
-}
-
 
 /* Footer */
 
@@ -322,3 +244,40 @@ body {
   background-color: var(--success);
   color: #fff !important;
 }
+/* INDEX */
+.page-desc{
+  color:#636b6f;
+  font-weight: 700;
+  font-size: 300%;
+  margin-top: 10%;
+  margin-bottom: 0;
+
+}
+.under-text{
+  font-size: 80%;
+  font-weight: 600;
+  color:#636b6f;
+
+}
+.search{
+  width: 70%;
+  margin-left: auto;
+  margin-right: auto;
+
+}
+.blog{
+  margin-top: 5%;
+  padding: 3%;
+}
+.blog-desc{
+  font-weight: 500;
+
+
+  }
+@media (max-width: 1000px) { 
+  .index-search{
+    width: 80%;
+    margin-left: 9%;
+  }
+ }
+
