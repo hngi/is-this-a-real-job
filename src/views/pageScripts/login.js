@@ -6,33 +6,39 @@ function togglePreloader(state) {
   preloader.style.display = state;
 }
 
-const loginBtn = document.querySelector('#login-btn');
-const notification = document.querySelector('.notification');
-loginBtn.addEventListener('click', (e) => {
-  e.preventDefault();
-  togglePreloader('block');
+if (document.querySelector('#login-btn')) {
+  if (localStorage.getItem('token')) {
+    window.location.href = '/jobInvites';
+  }
 
-  const email = document.querySelector('#email').value;
-  const password = document.querySelector('#password').value;
+  const loginBtn = document.querySelector('#login-btn');
+  const notification = document.querySelector('.notification');
+  loginBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    togglePreloader('block');
 
-  const formVals = { email, password };
+    const email = document.querySelector('#email').value;
+    const password = document.querySelector('#password').value;
 
-  const api = new ItarjApi('/api/v1');
+    const formVals = { email, password };
 
-  api.Post('auth/signin', JSON.stringify(formVals))
-    .then(res => {
-      console.log(res);
-      togglePreloader('none');
-      localStorage.setItem('token', res.data.token);
-      localStorage.setItem('user', res.data);
-      window.location.href = '/jobInvites';
-    })
-    .catch(error => {
-      togglePreloader('none');
-      notification.innerHTML = error.data.message;
-      notification.className += ' show';
-      setTimeout(() => {
-        notification.className = 'notification';
-      }, 5000);
-    });
-});
+    const api = new ItarjApi('/api/v1');
+
+    api.Post('auth/signin', JSON.stringify(formVals))
+      .then(res => {
+        console.log(res);
+        togglePreloader('none');
+        localStorage.setItem('token', res.data.token);
+        localStorage.setItem('user', res.data);
+        window.location.href = '/jobInvites';
+      })
+      .catch(error => {
+        togglePreloader('none');
+        notification.innerHTML = error.data.message;
+        notification.className += ' show';
+        setTimeout(() => {
+          notification.className = 'notification';
+        }, 5000);
+      });
+  });
+}
