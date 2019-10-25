@@ -14,7 +14,7 @@ import {
   validateUserById,
   validateUserId,
   validateUpvoteInput,
-  validateInviteOwner,
+  validateInviteOwner
 } from '../middlewares/middlewares';
 
 import {
@@ -23,7 +23,7 @@ import {
   saveNewInvite,
   getOneInvite,
   getAllInvites,
-  updateInvite,
+  updateInvite
 } from '../controllers/inviteController';
 
 import { getComments, createComment } from '../controllers/commentController';
@@ -41,25 +41,20 @@ export const initRoutes = app => {
   app.get('/admin/users', (req, res) => res.render('users'));
   app.get('/admin/posts', (req, res) => res.render('posts'));
 
-
-<<<<<<< HEAD
-  // All backend endpoints below -----------------------------------------------------
-
-=======
   // All backend API endpoints below -----------------------------------------------------
   // Auth
->>>>>>> upstream/develop
   app.post('/api/v1/auth/signin', validateSigninFormData, validUser, signin);
-  app.post('/api/v1/auth/signup',
+  app.post(
+    '/api/v1/auth/signup',
     validateSignupFormData,
     verifyUniqueUser,
-    signup);
+    signup
+  );
 
   // Get all Users
   app.get('/api/v1/users', authenticateUserToken, validateAdmin, getUsers);
 
-<<<<<<< HEAD
-  // block a user
+  // Block a user
   app.patch(
     '/api/v1/users/block/:userId',
     validateUserId,
@@ -69,41 +64,13 @@ export const initRoutes = app => {
     blockUser
   );
 
-  app.post(
-    '/api/v1/auth/signup',
-    validateSignupFormData,
-    verifyUniqueUser,
-    signup
-  );
-  app.get('/api/v1/comments/:inviteId', validateInvite, getComments);
-
-  app.patch(
-    '/api/v1/invites/upvote/:inviteId/:voteType',
-    validateUpvoteInput,
-    validateInvite,
-    upvoteInvite
-  );
-  app.post(
-    '/api/v1/comments/:inviteId',
-    validateInviteId,
-    authenticateUserToken,
-    validateCommentData,
-    createComment
-  );
-
-  app.delete(
-    '/api/v1/invites/:inviteId',
-    validateInvite,
-    authenticateUserToken,
-    validateAdmin,
-    deleteInvite
-  );
-=======
-  // Block a user
-  app.patch('/api/v1/users/block/:userId', validateUserId, authenticateUserToken, validateAdmin, validateUserById, blockUser);
-
   // Post a new job invite.
-  app.post('/api/v1/invites', authenticateUserToken, validateInviteData, saveNewInvite);
+  app.post(
+    '/api/v1/invites',
+    authenticateUserToken,
+    validateInviteData,
+    saveNewInvite
+  );
 
   // Get all job invites in the database.
   app.get('/api/v1/invites', getAllInvites);
@@ -112,20 +79,45 @@ export const initRoutes = app => {
   app.get('/api/v1/invites/:inviteId', validateInviteId, getOneInvite);
 
   // Update an existing job invite.
-  app.put('/api/v1/invites/:inviteId', authenticateUserToken, validateInviteId, validateInvite, validateInviteOwner, validateInviteUpdateData, updateInvite);
+  app.put(
+    '/api/v1/invites/:inviteId',
+    authenticateUserToken,
+    validateInviteId,
+    validateInvite,
+    validateInviteOwner,
+    validateInviteUpdateData,
+    updateInvite
+  );
 
   // Delete an existing job invite.
-  app.delete('/api/v1/invites/:inviteId', validateInviteId, authenticateUserToken, validateAdmin, validateInvite, deleteInvite);
+  app.delete(
+    '/api/v1/invites/:inviteId',
+    validateInviteId,
+    authenticateUserToken,
+    validateAdmin,
+    validateInvite,
+    deleteInvite
+  );
 
   // Get all comments for a given Invite.
   app.get('/api/v1/comments/:inviteId', validateInviteId, getComments);
 
   // Post a comment on a specific Invite.
-  app.post('/api/v1/comments/:inviteId', validateInviteId, authenticateUserToken, validateCommentData, createComment);
+  app.post(
+    '/api/v1/comments/:inviteId',
+    validateInviteId,
+    authenticateUserToken,
+    validateCommentData,
+    createComment
+  );
 
   // Upvote/Downvote a specific Invite.
-  app.patch('/api/v1/invites/upvote/:inviteId/:voteType', validateUpvoteInput, validateInvite, upvoteInvite);
->>>>>>> upstream/develop
+  app.patch(
+    '/api/v1/invites/upvote/:inviteId/:voteType',
+    validateUpvoteInput,
+    validateInvite,
+    upvoteInvite
+  );
 
   // Fallback case for unknown URIs.
   app.all('*', (req, res) => res.status(404).json({ message: 'Route Not Found' }));
