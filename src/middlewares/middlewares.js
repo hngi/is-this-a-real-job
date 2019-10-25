@@ -5,8 +5,11 @@ import {
   authenticateUserToken
 } from './authentication';
 import { validateCommentData } from './validateComment';
-import { validateInviteData } from './validateInviteData';
-import { validateInvite } from './validateInvite';
+import {
+  validateInviteData,
+  validateInviteUpdateData
+} from './validateInviteData';
+import { validateInvite, validateInviteOwner } from './validateInvite';
 import {
   validateInviteId,
   validateUserId,
@@ -22,11 +25,13 @@ export {
   validateCommentData,
   validateInvite,
   validateInviteData,
+  validateInviteUpdateData,
   validateInviteId,
   verifyUniqueUser,
   authenticateUserToken,
   validateAdmin,
   validateUserById,
   validateUserId,
-  validateUpvoteInput
+  validateUpvoteInput,
+  validateInviteOwner
 };
