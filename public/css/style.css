@@ -224,11 +224,8 @@ body {
 /* Invite us section */
 
 [placeholder="Search a keyword or a sentence"] {
-  width: 734px;
   height: 60px;
-  left: 242px;
   margin-top: 20px;
-  top: 112px;
   background: #ECECEC;
   border-radius: 6px;
   padding: 2rem;
@@ -242,18 +239,12 @@ body {
 [value="Invite Search"] {
   width: 206px;
   height: 60px;
-  left: 992px;
-  top: 112px;
   background: #3087D1;
   border-radius: 6px;
-  margin-top: 29px;
+  margin: 0.8rem auto;
 }
 
 .job-invites p {
-  width: 892px;
-  height: 38px;
-  left: 274px;
-  top: 299px;
   font-family: Raleway;
   font-style: normal;
   font-weight: normal;
@@ -265,8 +256,6 @@ body {
 .job_invite_h4{
     width: 191px;
     height: 28px;
-    left: 274px;
-    top: 228px;
     font-family: Raleway;
     font-style: normal;
     font-weight: normal;
@@ -274,31 +263,22 @@ body {
     line-height: 28px;
 }
 
-.job-invites {
-  margin: 1cm 4.1cm 0 0;
+.job-invites span.dropdown-menu {
+  left: -50px !important;
 }
 
 
-.job-invites div:nth-child(odd) {
-    width: 956px;
-    /* height: 215px; */
-    height: auto !important;
-    left: 242px;
-    top: 204px;
+.job-invites div:nth-child(odd):not(.form-group) {
     background: #E3E9EF;
     padding: 20px;
+    border-radius: 6px;
 
 }
 
 .job-invites div:nth-child(even) {
-    width: 956px;
-    /* height: 215px;  */
-    height: auto !important;
     padding: 20px;
-    left: 242px;
-    top: 393px;
     background: #FFFFFF;
-    margin-top: 1cm;
+    margin: 1em auto;
 }
 /* SIngle Post */
 .post-container{
@@ -316,16 +296,15 @@ body {
 .post-body{
     margin-bottom: 15%;
 }
-.comments{
-     width: 956px;
-     padding-top: 20px ;
-     left: 242px !important;
-     margin-left: 9%;
+
+.post-author {
+  font-weight: bold;
 }
+
 .post-date{
     font-size: 12px;
     line-height: 14px;
 }
 .comment-btn{
-    margin-top: 20px !important;
+    /* margin-top: 20px !important; */
 }

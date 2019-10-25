@@ -51,6 +51,11 @@ function ItarjApi(apiBase) {
         headers.Authorization = localStorage.getItem('token'); // assign the auth header
       }
 
+      if (body) {
+        headers.Accept = 'application/json';
+        headers['Content-Type'] = 'application/json';
+      }
+
       return fetch(`${url}/${endpoint}`, {
         headers,
         method,
@@ -104,7 +109,7 @@ function ItarjApi(apiBase) {
    * @param {boolean} includeToken specify if this endpoints is `JWT` protected
    * @returns {Promise<{ message: string, data }>}
    *  */
-  const Put = (endpoint, body, includeToken = false) => _fetch('POST', endpoint, body, includeToken);
+  const Put = (endpoint, body, includeToken = false) => _fetch('PUT', endpoint, body, includeToken);
 
   /**
    * @param {string} endpoint the endpoint to `PATCH` excluding slash (`/`)
@@ -112,14 +117,14 @@ function ItarjApi(apiBase) {
    * @param {boolean} includeToken specify if this endpoints is `JWT` protected
    * @returns {Promise<{ message: string, data }>}
    *  */
-  const Patch = (endpoint, body, includeToken = false) => _fetch('POST', endpoint, body, includeToken);
+  const Patch = (endpoint, body, includeToken = false) => _fetch('PATCH', endpoint, body, includeToken);
 
   /**
    * @param {string} endpoint the endpoint to `DELETE` excluding slash (`/`)
    * @param {boolean} includeToken specify if this endpoints is `JWT` protected
    * @returns {Promise<{ message: string, data }>}
    *  */
-  const Delete = (endpoint, includeToken = false) => _fetch('POST', endpoint, null, includeToken);
+  const Delete = (endpoint, includeToken = false) => _fetch('DELETE', endpoint, null, includeToken);
 
   return {
     Get,
