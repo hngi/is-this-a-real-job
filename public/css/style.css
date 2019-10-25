@@ -40,6 +40,9 @@ body {
   font-size: 12px;
   line-height: 14px;
 }
+.nav-link:hover{
+  color:rgba(0,0,0,.5) !important;
+}
 
 .nav-item {
   margin-right: 50px;
@@ -49,6 +52,7 @@ body {
   font-weight: 600;
   font-size: 32px;
   line-height: 38px;
+  color: #fff !important; 
 }
 
 .navbar {
