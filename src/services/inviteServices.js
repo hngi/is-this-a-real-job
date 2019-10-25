@@ -2,7 +2,7 @@
 /* eslint-disable no-console */
 import Model from '../models';
 
-const { Invite, User } = Model;
+const { Invite, User, Comment } = Model;
 
 /**
  * @param {object} queryOption Finds an invite that matches the parameters in this object.
@@ -11,10 +11,16 @@ const { Invite, User } = Model;
 export const fetchOneInvite = async (queryOption = {}) => {
   try {
     const invite = await Invite.findOne({
+      include: [
+        { model: User, as: 'user' }
+      ],
       where: queryOption,
       logging: false
     });
 
+    if (invite) {
+      invite.dataValues.user = invite.dataValues.user.dataValues;
+    }
     return invite ? invite.dataValues : null;
   } catch (error) {
     console.log(error);
@@ -26,13 +32,22 @@ export const fetchOneInvite = async (queryOption = {}) => {
  */
 export const fetchAllInvites = async () => {
   try {
-    const invites = await Invite.findAll({});
+    const invites = await Invite.findAll({
+      include: [
+        { model: User, as: 'user' },
+        { model: Comment, as: 'comments' }
+      ],
+      order: [
+        ['createdAt', 'DESC']
+      ],
+      logging: false
+    });
 
-    for (let i = 0; i < invites.length; i++) {
-      invites[i] = invites[i].dataValues;
-    }
-
-    return invites;
+    return invites.map(invite => {
+      invite = invite.dataValues;
+      invite.user = invite.user ? invite.user.dataValues : {};
+      return invite;
+    });
   } catch (error) {
     console.log(error);
   }
@@ -90,10 +105,10 @@ export const updateOneInvite = async (inviteId, inviteData) => {
   } catch (error) {
     console.log(error);
     error.status = 500;
-    error.message = "A technical error occured. Contact Support";
+    error.message = 'A technical error occured. Contact Support';
     throw error;
   }
-}
+};
 
 export const deleteOneInvite = async (queryOption = {}) => {
   try {

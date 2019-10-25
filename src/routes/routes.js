@@ -24,7 +24,9 @@ import {
   getOneInvite,
   getAllInvites,
   updateInvite,
-  editInvite,
+  renderSinglePostPage,
+  renderJobInvitesPage,
+  editInvite
 } from '../controllers/inviteController';
 
 import { getComments, createComment } from '../controllers/commentController';
@@ -32,17 +34,18 @@ import { blockUser, getUsers } from '../controllers/userController';
 
 export const initRoutes = app => {
   // All EJS frontend endpoints below --------------------------------------------------
-  app.get('/', (req, res) => res.render('index', {logged_in: false})); //Pass true or false to toggle state of navbar....
+  app.get('/', (req, res) => res.render('index', { logged_in: false })); // Pass true or false to toggle state of navbar....
   app.get('/login', (req, res) => res.render('login'));
   app.get('/register', (req, res) => res.render('register'));
   app.get('/post', (req, res) => res.render('userPost'));
+  app.get('/jobInvites', renderJobInvitesPage);
+  app.get('/singlepost/:inviteId', renderSinglePostPage);
+  app.get('/admin', (req, res) => res.render('admin'));
 
   // Edit post endpoint
   app.get('/post/:inviteId/edit', validateInviteId, validateInvite, editInvite);
 
   // All EJS fronted endpoints continue
-  app.get('/jobInvites', (req, res) => res.render('jobInvites'));
-  app.get('/singlepost', (req, res) => res.render('singlepost'));
   app.get('/admin/users', (req, res) => res.render('users'));
   app.get('/admin/posts', (req, res) => res.render('posts'));
 

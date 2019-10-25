@@ -22,11 +22,11 @@ export default (sequelize, DataTypes) => {
     }
   }, {});
   Comment.associate = (models) => {
-    Comment.belongsTo(models.Invite, {
-      foreignKey: 'inviteId', as: 'invites', timestamps: false
-    });
+    // Comment.belongsTo(models.Invite, {
+    //   foreignKey: 'inviteId', as: 'invite', timestamps: false
+    // });
     Comment.belongsTo(models.User, {
-      foreignKey: 'userId', as: 'users', timestamps: false
+      foreignKey: 'userId', as: 'user', timestamps: false
     });
   };
   return Comment;

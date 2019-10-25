@@ -12,12 +12,18 @@ export const findCommentsForPost = async (inviteId) => {
   try {
     const comments = await Comment.findAll({
       include: [
-        { model: Invite, as: 'invites' }
+        { model: User, as: 'user' }
       ],
       where: { inviteId },
       logging: false
     });
-    return comments;
+
+    return comments.map(comment => {
+      comment = comment.dataValues;
+      comment.user = comment.user ? comment.user.dataValues : {};
+      comment.invite = comment.invite ? comment.invite.dataValues : {};
+      return comment;
+    });
   } catch (error) {
     console.log(error);
   }
@@ -53,6 +59,6 @@ export const createCommentForPost = async (commentData) => {
     e.message = 'A technical error occured. Contact support.';
     throw e;
   });
-
+  comment.dataValues.user = userObj;
   return comment.dataValues;
 };
