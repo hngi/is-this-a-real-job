@@ -15,18 +15,17 @@ export const respondWithSuccess = (
   res,
   statusCode = 200,
   message,
-  additionalFields = {},
-  token = ''
+  additionalFields = {}
 ) => {
   const payload = Array.isArray(additionalFields)
     ? [...additionalFields]
     : { ...additionalFields };
 
-  return res
-    .status(statusCode)
-    .send({
-      success: true, message, payload, token
-    });
+  return res.status(statusCode).send({
+    success: true,
+    message,
+    payload
+  });
 };
 
 /**

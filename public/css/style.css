@@ -40,6 +40,9 @@ body {
   font-size: 12px;
   line-height: 14px;
 }
+.nav-link:hover{
+  color:rgba(0,0,0,.5) !important;
+}
 
 .nav-item {
   margin-right: 50px;
@@ -49,6 +52,7 @@ body {
   font-weight: 600;
   font-size: 32px;
   line-height: 38px;
+  color: #fff !important; 
 }
 
 .navbar {
@@ -247,3 +251,40 @@ body {
 .comment-btn{
     margin-top: 20px !important;
 }
+/* INDEX */
+.page-desc{
+  color:#636b6f;
+  font-weight: 700;
+  font-size: 300%;
+  margin-top: 10%;
+  margin-bottom: 0;
+
+}
+.under-text{
+  font-size: 80%;
+  font-weight: 600;
+  color:#636b6f;
+
+}
+.search{
+  width: 70%;
+  margin-left: auto;
+  margin-right: auto;
+
+}
+.blog{
+  margin-top: 5%;
+  padding: 3%;
+}
+.blog-desc{
+  font-weight: 500;
+
+
+  }
+@media (max-width: 1000px) { 
+  .index-search{
+    width: 80%;
+    margin-left: 9%;
+  }
+ }
+
