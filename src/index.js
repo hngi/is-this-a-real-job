@@ -6,10 +6,6 @@ const { initRoutes } = require('./routes/routes');
 
 const app = express();
 
-/* const jobInviteRouter = require('./routes/routes');
-
-app.use('/job-invites', jobInviteRouter); */
-
 app.use((req, res, next) => {
   // res.setHeader('Access-Control-Allow-Origin', '*'); //Don't think we need CORS here.
   res.setHeader(
@@ -25,6 +21,7 @@ app.use((req, res, next) => {
 
 app.set('views', path.join(__dirname, 'views')); // Redirect to the views directory inside the src directory
 app.use(express.static(path.join(__dirname, '../public'))); // load local css and js files
+app.use(express.static(path.join(__dirname, './views/pageScripts'))); // load page scripts
 app.set('view engine', 'ejs');
 
 app.use(express.json());

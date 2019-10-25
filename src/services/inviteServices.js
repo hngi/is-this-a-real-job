@@ -72,6 +72,29 @@ export const saveInvite = async (inviteData) => {
   return invite ? invite.dataValues : null;
 };
 
+/**
+ * Function to update an invite
+ * @param {string} inviteId invite id of the invite to be updated
+ * @param {object} inviteData updated invite fields
+ */
+export const updateOneInvite = async (inviteId, inviteData) => {
+  try {
+    const invite = await Invite.findOne({
+      where: { inviteId },
+      logging: false
+    });
+
+    await invite.update(inviteData, { logging: false });
+
+    return invite ? invite.dataValues : null;
+  } catch (error) {
+    console.log(error);
+    error.status = 500;
+    error.message = "A technical error occured. Contact Support";
+    throw error;
+  }
+}
+
 export const deleteOneInvite = async (queryOption = {}) => {
   try {
     const invite = await Invite.destroy({
