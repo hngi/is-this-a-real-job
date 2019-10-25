@@ -27,7 +27,7 @@ window.addEventListener('load', (ev) => {
     api.Put(`invites/${inviteId}`, JSON.stringify(formData), true)
       .then( (data) => {
         togglePreloader('none');
-        window.location.href = '/singlepost';
+        window.location.href = `/post/${ inviteId }`;
       })
       .catch( (error) => {
         togglePreloader('none');
