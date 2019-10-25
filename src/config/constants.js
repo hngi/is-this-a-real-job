@@ -10,6 +10,7 @@ export const {
   PROD_DATABASE_URL,
   SALT_ROUNDS,
   SECRET_KEY,
+  SITE_URL,
 } = process.env;
 
 export const EXPIRATION_DURATION = 172800;
