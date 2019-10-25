@@ -42,7 +42,6 @@ export const validateInviteUpdateData = (req, res, next) => {
   });
 
   const errors = joiValidator(req.body, inviteSchema);
-  console.log("LOOOGGIGINGG", req.body);
 
   if (!errors) {
     return next();
