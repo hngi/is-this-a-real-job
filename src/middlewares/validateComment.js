@@ -11,8 +11,7 @@ import { respondWithWarning } from '../helpers/responseHandler';
  */
 export const validateCommentData = (req, res, next) => {
   const commentSchema = Joi.object().keys({
-    body: Joi.string().required().trim(),
-    userId: Joi.string().required()
+    body: Joi.string().required().trim()
   });
 
   const errors = joiValidator(req.body, commentSchema);
