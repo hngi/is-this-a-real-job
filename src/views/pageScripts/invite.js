@@ -25,7 +25,7 @@ if (inviteBtn) {
     api.Post('invites', JSON.stringify({ title: jobTitle.value, body: jobDetails.value, media: `https://loremflickr.com/320/240/${jobTitle.value.slice(0, 3)}` }), true)
       .then(res => {
         // navigate to somewhere. created post maybe
-        window.location.href = '/jobInvites';
+        window.location.href = `/post/${res.data.inviteId}`;
         togglePreloader('none');
       })
       .catch(err => {
