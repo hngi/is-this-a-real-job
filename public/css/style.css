@@ -233,24 +233,24 @@ body {
   line-height: 14px;
 }
 
-.comment-btn {
-  /* margin-top: 20px !important; */
-}
-
-.upvote-btn {
+.upvote-btn, .share-buttons a {
   padding: 0.5rem;
   margin-left: 0.5rem;
-  color: var(--success) !important;
   cursor: pointer;
   border-radius: 6px;
   transition: background-color ease-in-out .1s;
 }
-
+.upvote-btn {
+  color: var(--success) !important;
+}
 .upvote-btn:hover {
   background-color: var(--success);
   color: #fff !important;
 }
-
+/* 
+.share-buttons a {
+  padding: ;
+} */
 
 /* INDEX */
 

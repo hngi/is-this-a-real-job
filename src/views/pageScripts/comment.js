@@ -25,13 +25,6 @@ if (commentBtn) {
   const getCommentHTML = (comment) => `<div class="container">
   <p>@${comment.user.username}</p>
   <p>${comment.body}</p> <span>&nbsp;</span>
-
-  <span class="float-right share-icons">
-    <a href="#"><i class="fab fa-facebook-f"></i></i></a>
-    <a href="https://www.twitter.com/"><i class="fab fa-twitter"></i></a>
-    <a href="https://www.instagram.com/"><i class="fab fa-instagram"></i></a>
-    <a href="#"><i class="fab fa-whatsapp"></i></a>
-  </span>
 </div>`;
 
   commentBtn.addEventListener('click', e => {
