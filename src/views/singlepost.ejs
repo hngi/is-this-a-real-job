@@ -18,7 +18,7 @@
             </i>
             <span class="dropdown-menu" aria-labelledby="dropdownMenuButton">
               <a class="dropdown-item" href="/post/<%=invite.inviteId%>/edit">Edit</a>
-              <a class="dropdown-item" href="#">Report</a>
+              <!-- <a class="dropdown-item" href="#">Report</a> -->
               <a class="dropdown-item" href="#">Delete Post </a>
             </span>
             </span>
@@ -41,11 +41,11 @@
             <a class="upvote-btn"><i class="fas fa-arrow-alt-circle-up"></i> Upvote</a>
             </span>
 
-            <span class="float-right">
-          <a href="#"><i class="fab fa-facebook-f"></i></i></a>
-          <a href="https://www.twitter.com/"><i class="fab fa-twitter"></i></a>
-          <a href="https://www.instagram.com/"><i class="fab fa-instagram"></i></a>
-          <a href="#"><i class="fab fa-linkedin"></i></a>
+            <span class="float-right share-buttons">
+          <!-- <a href="#"><i class="fab fa-facebook-f"></i></i></a> -->
+          <a target="_blank" href="https://twitter.com/intent/tweet?text=<%=invite.title+' - Is this a real job? \n Let us know: http://isthisarealjob.ng/post/'+invite.inviteId%>"><i class="fab fa-twitter"></i></a>
+          <!-- <a href="https://www.instagram.com/"><i class="fab fa-instagram"></i></a> -->
+          <a target="_blank" href="https://api.whatsapp.com/send?&text=<%=invite.title+' - Is this a real job? \n Let us know: http://isthisarealjob.ng/post/'+invite.inviteId%>"><i class="fab fa-whatsapp"></i></a>
         </span>
           </div>
 
@@ -73,14 +73,6 @@
                       <p>
                         <%=comment.body%>
                       </p>
-                      <span>&nbsp;</span>
-
-                      <span class="float-right">
-                <a href="#"><i class="fab fa-facebook-f"></i></i></a>
-                <a href="https://www.twitter.com/"><i class="fab fa-twitter"></i></a>
-                <a href="https://www.instagram.com/"><i class="fab fa-instagram"></i></a>
-                <a href="#"><i class="fab fa-whatsapp"></i></a>
-              </span>
                     </div>
                     <% } %>
                       <% } %>
