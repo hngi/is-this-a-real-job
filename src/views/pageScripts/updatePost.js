@@ -33,11 +33,11 @@ if (document.querySelector('.edit-post')) {
       api.Put(`invites/${inviteId}`, JSON.stringify(formData), true)
         .then((data) => {
           togglePreloader('none');
-          window.location.href = '/singlepost';
+          window.location.href = `/post/${inviteId}`;
         })
         .catch((error) => {
           togglePreloader('none');
-          notification.innerHTML = error.data.message;
+          notification.innerHTML = `<strong>${err.data.message}:</strong> ${err.data.payload}`;
           notification.className += ' show';
           setTimeout(() => {
             notification.className = 'notification';

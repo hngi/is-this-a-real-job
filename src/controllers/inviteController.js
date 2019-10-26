@@ -133,7 +133,8 @@ export const renderSinglePostPage = async (req, res) => {
   })]);
   return res.render('singlepost', {
     comments: data[0],
-    invite: data[1]
+    invite: data[1],
+    isAuth: true,
   });
 };
 
@@ -146,7 +147,8 @@ export const renderJobInvitesPage = async (req, res) => {
   const invites = await fetchAllInvites();
 
   return res.render('jobInvites', {
-    invites: invites || []
+    invites: invites || [],
+    isAuth: true,
   });
 };
 
@@ -158,4 +160,5 @@ export const renderJobInvitesPage = async (req, res) => {
  */
 export const editInvite = async (req, res) => res.render('editPost', {
   invite: req.invite,
+  isAuth: true,
 });

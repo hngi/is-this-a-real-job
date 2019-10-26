@@ -1,82 +1,94 @@
-<% include partials/nav %>
 <% include partials/header %>
+  <% include partials/nav %>
+    <div id="cover">
+      <div class="loader"></div>
+    </div>
+    <div class="notification">
+      Simple Notification
+    </div>
 
-<body>
-  <div class="header">
-    <section class="job-invites">
-      <div class="container mt-4">
-        <span class="d-flex flex-row-reverse justify-content-between">
+    <body>
+      <div class="header">
+        <section class="job-invites">
+          <div class="container mt-4">
+            <span class="d-flex flex-row-reverse justify-content-between">
           <span class="dropdown">
             <i class=" fas fa-ellipsis-h  dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown"
               aria-haspopup="true" aria-expanded="false">
             </i>
             <span class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <a class="dropdown-item" href="/post/<%= invite.inviteId %>/edit">Edit</a>
+              <a class="dropdown-item" href="/post/<%=invite.inviteId%>/edit">Edit</a>
               <a class="dropdown-item" href="#">Report</a>
               <a class="dropdown-item" href="#">Delete Post </a>
             </span>
-          </span>
+            </span>
 
-          <span class="post-meta" id="<%=invite.inviteId%>">
+            <span class="post-meta" id="<%=invite.inviteId%>">
             <h4><%=invite.title%></h4>
             <p class="post-author">
               Author: @<%=invite.user.username%>
               <br>
               <span class="pt-2 d-block">Published: <%=new Date(invite.createdAt).toDateString()%></span>
             </p>
-          </span>
-        </span>
+            </span>
+            </span>
 
-        <p class="post-body"><%=invite.body%></p>
-        <span>
+            <p class="post-body">
+              <%=invite.body%>
+            </p>
+            <span>
           <a><i class="fas fa-comment"></i> <span  id="comment-count"><%=comments.length%> </span></a>
-          <a class="upvote-btn"><i class="fas fa-arrow-alt-circle-up"></i> Upvote</a>
-        </span>
+            <a class="upvote-btn"><i class="fas fa-arrow-alt-circle-up"></i> Upvote</a>
+            </span>
 
-        <span class="float-right">
+            <span class="float-right">
           <a href="#"><i class="fab fa-facebook-f"></i></i></a>
           <a href="https://www.twitter.com/"><i class="fab fa-twitter"></i></a>
           <a href="https://www.instagram.com/"><i class="fab fa-instagram"></i></a>
           <a href="#"><i class="fab fa-linkedin"></i></a>
         </span>
-      </div>
+          </div>
 
-      <div class="container p-0">
-        <div class="form-group">
-          <textarea class="form-control" id="comment-field" placeholder="Type something..." rows="3"></textarea>
-        </div>
-        <span class="comment-btn">
+          <div class="container p-0">
+            <div class="form-group">
+              <textarea class="form-control" id="comment-field" placeholder="Type something..." rows="3"></textarea>
+            </div>
+            <span class="comment-btn">
           <button type="button" class="btn btn-primary post-btn">Comment</button>
         </span>
-      </div>
+          </div>
 
-      <h5 class="container p-0">Comments</h5>
-      <section id="comments">
-        <% if (comments.length === 0) { %>
-        <div id="no-comments" class="bg-transparent container">There no comments for this post.</div>
-        <% } %>
+          <h5 class="container p-0">Comments</h5>
+          <section id="comments">
+            <% if (comments.length === 0) { %>
+              <div id="no-comments" class="bg-transparent container">There no comments for this post.</div>
+              <% } %>
 
-        <% if (comments.length > 0) { %>
-          <% for (comment of comments) { %>
-            <div class="container">
-              <p>@<%=comment.user.username || 'guest'%></p>
-              <p><%=comment.body%></p>
-              <span>&nbsp;</span>
+                <% if (comments.length > 0) { %>
+                  <% for (comment of comments) { %>
+                    <div class="container">
+                      <p>@
+                        <%=comment.user.username || 'guest'%>
+                      </p>
+                      <p>
+                        <%=comment.body%>
+                      </p>
+                      <span>&nbsp;</span>
 
-              <span class="float-right">
+                      <span class="float-right">
                 <a href="#"><i class="fab fa-facebook-f"></i></i></a>
                 <a href="https://www.twitter.com/"><i class="fab fa-twitter"></i></a>
                 <a href="https://www.instagram.com/"><i class="fab fa-instagram"></i></a>
                 <a href="#"><i class="fab fa-whatsapp"></i></a>
               </span>
-            </div>
-          <% } %>
-        <% } %>
-      </section>
-    </section>
+                    </div>
+                    <% } %>
+                      <% } %>
+          </section>
+        </section>
 
-  </div>
-</body>
+      </div>
+    </body>
 
 
-<% include partials/footer %>
+    <% include partials/footer %>

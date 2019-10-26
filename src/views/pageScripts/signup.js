@@ -41,7 +41,7 @@ if (document.forms.signup) {
       })
       .catch(error => {
         togglePreloader('none');
-        notification.innerHTML = error.data.message;
+        notification.innerHTML = `<strong>${err.data.message}:</strong> ${err.data.payload}`;
         notification.className += ' show';
         setTimeout(() => {
           notification.className = 'notification';
