@@ -17,10 +17,11 @@ import { findCommentsForPost, createCommentForPost } from '../services/commentSe
  */
 export const createComment = async (req, res) => {
   try {
-    const { body, userId } = req.body;
+    const { body } = req.body;
     const { inviteId } = req.params;
 
-    const comment = await createCommentForPost({ inviteId, body, userId }).catch(e => { throw e; });
+    const comment = await createCommentForPost({ inviteId, body, userId: req.auth.userId })
+      .catch(e => { throw e; });
 
     if (comment) {
       return respondWithSuccess(res, 200, 'Comment added successfully', comment);

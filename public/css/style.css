@@ -1,5 +1,9 @@
 /* ----------------------------------------------- */
+
+
 /* BASIC SETUP */
+
+
 /* ----------------------------------------------- */
 
 * {
@@ -19,26 +23,34 @@ body {
   overflow-x: hidden;
 }
 
-.go_back{
-    color: black;
-    font-weight: 600;
-    text-decoration: none;
-    cursor: pointer;
+.go_back {
+  color: black;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
 }
-.go_back:hover{
-    color: #aaa;
-    text-decoration: none;
+
+.go_back:hover {
+  color: #aaa;
+  text-decoration: none;
 }
-.default-text{
-    font-size: 200px;
-    font-weight: 600;
+
+.default-text {
+  font-size: 200px;
+  font-weight: 600;
 }
+
+
 /* NAV BAR */
 
 .nav-link {
   font-weight: 600;
   font-size: 12px;
   line-height: 14px;
+}
+
+.nav-link:hover {
+  color: rgba(0, 0, 0, .5) !important;
 }
 
 .nav-item {
@@ -49,6 +61,7 @@ body {
   font-weight: 600;
   font-size: 32px;
   line-height: 38px;
+  color: #fff !important;
 }
 
 .navbar {
@@ -86,6 +99,7 @@ body {
   border-radius: 6px;
 }
 
+
 /* Footer */
 
 .footer {
@@ -102,8 +116,8 @@ body {
 }
 
 .footer-heading {
-    margin-bottom: 7%;
-    margin-top: 10%;
+  margin-bottom: 7%;
+  margin-top: 10%;
 }
 
 .footer_email {
@@ -112,9 +126,10 @@ body {
   line-height: 18px;
   font-size: 15px;
 }
-.footer_email:hover{
-    color: #aaa; 
-    text-decoration: none; 
+
+.footer_email:hover {
+  color: #aaa;
+  text-decoration: none;
 }
 
 .submit-div {
@@ -142,36 +157,22 @@ body {
 /* Invite us section */
 
 [placeholder="Search a keyword or a sentence"] {
-  width: 734px;
-  height: 60px;
-  left: 242px;
-  margin-top: 20px;
-  top: 112px;
   background: #ECECEC;
   border-radius: 6px;
-  padding: 2rem;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 16px;
-  line-height: 19px;
+  padding: 1.5rem;
   border: 1px solid #ECECEC;
+  margin: 0.8rem auto;
 }
 
 [value="Invite Search"] {
   width: 206px;
   height: 60px;
-  left: 992px;
-  top: 112px;
   background: #3087D1;
   border-radius: 6px;
-  margin-top: 29px;
+  margin: 0.8rem auto;
 }
 
 .job-invites p {
-  width: 892px;
-  height: 38px;
-  left: 274px;
-  top: 299px;
   font-family: Raleway;
   font-style: normal;
   font-weight: normal;
@@ -180,70 +181,111 @@ body {
   color: #000000;
 }
 
-.job_invite_h4{
-    width: 191px;
-    height: 28px;
-    left: 274px;
-    top: 228px;
-    font-family: Raleway;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 24px;
-    line-height: 28px;
+.job_invite_h4 {
+  width: 191px;
+  height: 28px;
+  font-family: Raleway;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 24px;
+  line-height: 28px;
 }
 
-.job-invites {
-  margin: 1cm 4.1cm 0 0;
+.job-invites span.dropdown-menu {
+  left: -50px !important;
 }
 
-
-.job-invites div:nth-child(odd) {
-    width: 956px;
-    /* height: 215px; */
-    height: auto !important;
-    left: 242px;
-    top: 204px;
-    background: #E3E9EF;
-    padding: 20px;
-
+.job-invites div:nth-child(odd):not(.form-group) {
+  background: #E3E9EF;
+  padding: 20px;
+  border-radius: 6px;
 }
 
 .job-invites div:nth-child(even) {
-    width: 956px;
-    /* height: 215px;  */
-    height: auto !important;
-    padding: 20px;
-    left: 242px;
-    top: 393px;
-    background: #FFFFFF;
-    margin-top: 1cm;
+  padding: 20px;
+  background: #FFFFFF;
+  margin: 1em auto;
 }
+
+
 /* SIngle Post */
-.post-container{
-    box-sizing: border-box;
-    text-overflow: scroll;
-    height: auto !important;
 
+.post-container {
+  box-sizing: border-box;
+  text-overflow: scroll;
+  height: auto !important;
 }
-
 
 .dropdown-toggle::after {
-    content: none !important;
+  content: none !important;
 }
 
-.post-body{
-    margin-bottom: 15%;
+.post-body {
+  margin-bottom: 15%;
 }
-.comments{
-     width: 956px;
-     padding-top: 20px ;
-     left: 242px !important;
-     margin-left: 9%;
+
+.post-author {
+  font-weight: bold;
 }
-.post-date{
-    font-size: 12px;
-    line-height: 14px;
+
+.post-date {
+  font-size: 12px;
+  line-height: 14px;
 }
-.comment-btn{
-    margin-top: 20px !important;
+
+.comment-btn {
+  /* margin-top: 20px !important; */
+}
+
+.upvote-btn {
+  padding: 0.5rem;
+  margin-left: 0.5rem;
+  color: var(--success) !important;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: background-color ease-in-out .1s;
+}
+
+.upvote-btn:hover {
+  background-color: var(--success);
+  color: #fff !important;
+}
+
+
+/* INDEX */
+
+.page-desc {
+  color: #636b6f;
+  font-weight: 700;
+  font-size: 300%;
+  margin-top: 10%;
+  margin-bottom: 0;
+}
+
+.under-text {
+  font-size: 80%;
+  font-weight: 600;
+  color: #636b6f;
+}
+
+.search {
+  width: 70%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.blog {
+  margin-top: 5%;
+  padding: 3%;
+}
+
+.blog-desc {
+  font-weight: 500;
+}
+
+@media (max-width: 1000px) {
+  .index-search {
+    width: 80%;
+    margin-left: 9%;
+  }
 }
