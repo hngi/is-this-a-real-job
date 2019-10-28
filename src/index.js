@@ -3,7 +3,7 @@ const path = require('path');
 const express = require('express');
 const { PORT } = require('./config/constants');
 const { initRoutes } = require('./routes/routes');
-const { connectionTest } = require('./services/connectionTest');
+// const { connectionTest } = require('./services/connectionTest');
 
 const app = express();
 
