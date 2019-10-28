@@ -13,8 +13,10 @@ function togglePreloader(state) {
   preloader.style.display = state;
 }
 
-api.Get('invites', true)
-.then(res => {
+if(invitesBody){
+  togglePreloader('block');
+  api.Get('invites', true)
+  .then(res => {
     const invitesData = res.data
     for (let invite of invitesData) {
       invitesBody.innerHTML += `
@@ -42,6 +44,7 @@ api.Get('invites', true)
         </div>
       </div>`
     }
+    togglePreloader('none');
   })
   .then(deleteInvite=>{
     const deleteBtns = [...document.querySelectorAll('#delete-btn')];
@@ -69,3 +72,5 @@ api.Get('invites', true)
   .catch(err=>{
     console.log(err)
   });
+}
+
