@@ -1,147 +1,199 @@
 <% include ../partials/header %>
-<% include ../partials/nav %>
-     <!-- POSTS TAB -->
-     <style>
-            .post-container{
-              margin-top: 30px;
-              margin-left: 50px;
-            }
-            h3{
-              color: #636B6F;
-            }
-            .dashboard{
-              display: inline-block;
-            }
-            .dashboard-tab li{
-              list-style: none;
-            }
-            .dashboard-tab-items a{
-              text-decoration: none;
-            }
-            .dtab-margin{
-              margin-bottom: 20px;
-            }
-            .posts-list-color{
-              background-color: #E3E9EF;
-              padding: 20px;
-              margin-bottom: 20px;
-            }
-            .posts-list-plain{
-              background-color: #fff;
-              padding: 20px;
-              margin-bottom: 20px;
-            }
-            .fa-trash:hover{
-	            color: red;
-            }
-
-            .fa-edit:hover{
-                color: green;
-            }
-            .post-avatar{
-              width: 110px;
-                height: 105px;
-                border-radius: 50px;
-            }
-            .block a{
-              text-decoration: none;
-            }
-            .block-btn{
-              margin: 30px auto;
-              display: block;
-              text-align: center;
-              width: 50%;
-              padding: 10px;
-              border-radius: 20px;
-              background-color: rgba(255, 255, 255, 0.089);
-              border: 1px solid red;
-              color: red;
-            }
-            .block-btn:hover{
-              background-color: red;
-              color: #fff;
-              transition: .5s ease-out;
-            }
-            @media screen and (max-width: 991px) {
-              .block-btn{
-                margin: 0;
-                width: 40%;
-                margin: 0 auto;
-              }
-              .posts-list{
-                text-align: center;
-              }
-              .dashboard-tab{
-                display: flex;
-                justify-content: space-between;
-              }
-            }
-            @media screen and (max-width: 799px) {
-              .posts-list{
-               width: 500px;
-              }
-              .postr-container{
-                margin-left: 100px;
-              }
-            }
-            @media screen and (max-width: 600px) {
-              .posts-list{
-               width: 400px;
-              }
-            }
-            @media screen and (max-width: 500px) {
-              .posts-list{
-               width: 300px;
-              }
-              .post-container{
-                margin-left: 40px;
-              }
-              .navbar-brand{
-                font-size: 24px;
-              }
-              h3{
-                font-size: 27px;
-              } 
-            }
-            @media screen and (max-width: 400px) {
-              .posts-list{
-               width: 250px;
-              }
-              .post-container{
-                margin-left: 35px;
-              }
-            }
-            </style>
-            <div id="cover">
-                <div class="loader"></div>
-              </div>
-              <div class="notification">
-                Simple Notification
-              </div>
-     <div class="container post-container">
+  <% include ../partials/nav %>
+    <!-- POSTS TAB -->
+    <style>
+      .post-container {
+        margin-top: 30px;
+        margin-left: 50px;
+      }
+      
+      .post-item {
+        width: 100%;
+      }
+      
+      h3 {
+        color: #636B6F;
+      }
+      
+      .dashboard {
+        display: inline-block;
+      }
+      
+      .dashboard-tab li {
+        list-style: none;
+      }
+      
+      .dashboard-tab-items a {
+        text-decoration: none;
+      }
+      
+      .dtab-margin {
+        margin-bottom: 20px;
+      }
+      
+      .posts-list-color {
+        background-color: #E3E9EF;
+        padding: 20px;
+        margin-bottom: 20px;
+      }
+      
+      .posts-list-plain {
+        background-color: #fff;
+        padding: 20px;
+        margin-bottom: 20px;
+      }
+      
+      .fa-trash:hover {
+        color: red;
+      }
+      
+      .fa-edit:hover {
+        color: green;
+      }
+      
+      .post-avatar {
+        width: 110px;
+        height: 105px;
+        border-radius: 50px;
+      }
+      
+      .block a {
+        text-decoration: none;
+      }
+      
+      .block-btn {
+        margin: 30px auto;
+        display: block;
+        text-align: center;
+        width: 50%;
+        padding: 10px;
+        border-radius: 20px;
+        background-color: rgba(255, 255, 255, 0.089);
+        border: 1px solid red;
+        color: red;
+      }
+      
+      .block-btn:hover {
+        background-color: red;
+        color: #fff;
+        transition: .5s ease-out;
+      }
+      
+      @media screen and (max-width: 991px) {
+        .block-btn {
+          margin: 0;
+          width: 40%;
+          margin: 0 auto;
+        }
+        .posts-list {
+          text-align: center;
+        }
+        .dashboard-tab {
+          display: flex;
+          justify-content: space-between;
+        }
+      }
+      
+      @media screen and (max-width: 799px) {
+        .posts-list {
+          width: 500px;
+        }
+        .postr-container {
+          margin-left: 100px;
+        }
+      }
+      
+      @media screen and (max-width: 600px) {
+        .posts-list {
+          width: 400px;
+        }
+      }
+      
+      @media screen and (max-width: 500px) {
+        .posts-list {
+          width: 300px;
+        }
+        .post-container {
+          margin-left: 40px;
+        }
+        .navbar-brand {
+          font-size: 24px;
+        }
+        h3 {
+          font-size: 27px;
+        }
+      }
+      
+      @media screen and (max-width: 400px) {
+        .posts-list {
+          width: 250px;
+        }
+        .post-container {
+          margin-left: 35px;
+        }
+      }
+    </style>
+    <div id="cover">
+      <div class="loader"></div>
+    </div>
+    <div class="notification">
+      Simple Notification
+    </div>
+    <section>
+      <div class="container post-container">
         <div class="row">
           <div class="col-lg-4">
-              <section class="posts">
-                  <div class="dashboard">
-                      <h3 class="dtab-margin">Dashboard</h3>
-                      <!-- DASHBOARD TABS -->
-                      <ul class="dashboard-tab">
-                        <li class="dashboard-tab-items dtab-margin">
-                         <a href="/admin/users">Users</a>
-                        </li>
-                        <li class="dashboard-tab-items dtab-margin">
-                          <a href="/admin/posts">Posts</a>
-                         </li>
-                      </ul>
-                  </div>
+            <section class="posts">
+              <div class="dashboard">
+                <h3 class="dtab-margin">Dashboard</h3>
+                <!-- DASHBOARD TABS -->
+                <ul class="dashboard-tab">
+                  <li class="dashboard-tab-items dtab-margin">
+                    <a href="/admin/users">Users</a>
+                  </li>
+                  <li class="dashboard-tab-items dtab-margin">
+                    <a href="/admin/posts">Posts</a>
+                  </li>
+                </ul>
+              </div>
           </div>
-          <div class="col-lg-8">
-            
-            
-            
-            </div>
+          <div class="col-lg-8 invites-section">
+            <% if (invites.length === 0) { %>
+              <span id="no-invites" class="bg-transparent container">The world is your oyseter. Fill it.</span>
+              <% } %>
+
+                <% if (invites.length > 0) { %>
+                  <% for (invite of invites) { %>
+
+                    <div class="row posts-list posts-list-color shadow p-4 mb-4">
+                      <input type="hidden" class="inviteId" value="<%=invite.inviteId%>" />
+                      <div class="row post-item">
+                        <div class="col-md-3 post-avatar-container">
+                          <img class="post-avatar" src="<%=invite.media%>" alt="">
+                        </div>
+                        <div class="col-md-8">
+                          <h5>
+                            <a href="<%='/post/'+invite.inviteId%>">
+                              <%=invite.title%>
+                            </a>
+                          </h5>
+                          <small class="text-muted"><%=invite.body%></small><br>
+                          <a href="#">
+                            <small style="color:green;">@<%=invite.user.username%></small>
+                          </a>
+                        </div>
+                        <div class="col-md-1">
+                          <a class="far fa-edit" href="/post/<%=invite.inviteId%>/edit"></a>
+                          <a class="fas fa-trash" id="delete-btn" href="#"></a>
+                        </div>
+                      </div>
+                    </div>
+
+                    <% } %>
+                      <% } %>
+          </div>
         </div>
-    </div>
+      </div>
+      </section>
 
-
-<% include ../partials/footer %>
+      <% include ../partials/footer %>
