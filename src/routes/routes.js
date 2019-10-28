@@ -26,6 +26,7 @@ import {
   updateInvite,
   renderSinglePostPage,
   renderJobInvitesPage,
+  searchInvitesByString,
   editInvite
 } from '../controllers/inviteController';
 
@@ -80,6 +81,10 @@ export const initRoutes = app => {
 
   // Get all job invites in the database.
   app.get('/api/v1/invites', getAllInvites);
+
+  // Search invites
+
+  app.get('/api/v1/invites/search', searchInvitesByString);
 
   // Get a single job invite.
   app.get('/api/v1/invites/:inviteId', validateInviteId, getOneInvite);

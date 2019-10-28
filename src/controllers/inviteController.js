@@ -1,7 +1,7 @@
 import {
   respondWithSuccess,
   respondWithWarning
-} from '../helpers/responseHandler';
+} from "../helpers/responseHandler";
 import {
   deleteOneInvite,
   upvoteOneInvite,
@@ -9,27 +9,24 @@ import {
   fetchAllInvites,
   saveInvite,
   updateOneInvite,
-} from '../services/inviteServices';
-import {
-  findCommentsForPost
-} from '../services/commentServices';
+  searchInvites
+} from "../services/inviteServices";
+import { findCommentsForPost } from "../services/commentServices";
 
 export const getOneInvite = async (req, res) => {
   try {
-    const {
-      inviteId
-    } = req.params;
+    const { inviteId } = req.params;
 
     const invite = await fetchOneInvite({
       inviteId
     });
 
     if (invite) {
-      return respondWithSuccess(res, 200, 'Invite found', invite);
+      return respondWithSuccess(res, 200, "Invite found", invite);
     }
-    respondWithWarning(res, 404, 'Invite not found');
+    respondWithWarning(res, 404, "Invite not found");
   } catch (error) {
-    respondWithWarning(res, 500, 'Server error');
+    respondWithWarning(res, 500, "Server error");
   }
 };
 
@@ -37,9 +34,9 @@ export const getAllInvites = async (req, res) => {
   try {
     const invitesList = await fetchAllInvites();
 
-    respondWithSuccess(res, 200, 'Retrieved invites', invitesList);
+    respondWithSuccess(res, 200, "Retrieved invites", invitesList);
   } catch (error) {
-    respondWithWarning(res, 500, 'Server error');
+    respondWithWarning(res, 500, "Server error");
   }
 };
 
@@ -50,9 +47,30 @@ export const saveNewInvite = async (req, res) => {
       throw error;
     });
 
-    respondWithSuccess(res, 201, 'Job Invite submitted successfully', invite);
+    respondWithSuccess(res, 201, "Job Invite submitted successfully", invite);
   } catch (error) {
     respondWithWarning(res, error.status, error.message);
+  }
+};
+
+/**
+ * Search invites
+ * @param {*} req
+ * @param {*} res
+ * @returns Invites
+ */
+export const searchInvitesByString = async (req, res) => {
+  try {
+    const { q } = req.query;
+
+    const invites = await searchInvites(q);
+
+    if (invites) {
+      return respondWithSuccess(res, 200, "Invites found", invites);
+    }
+    respondWithWarning(res, 404, "Invite not found");
+  } catch (error) {
+    respondWithWarning(res, 500, "Server error");
   }
 };
 
@@ -63,14 +81,12 @@ export const saveNewInvite = async (req, res) => {
  * @returns {object} json response
  */
 export const updateInvite = async (req, res) => {
-  const {
-    inviteId
-  } = req.params;
+  const { inviteId } = req.params;
 
   try {
     const invite = await updateOneInvite(inviteId, req.body);
 
-    respondWithSuccess(res, 200, 'Job Invite updated successfully', invite);
+    respondWithSuccess(res, 200, "Job Invite updated successfully", invite);
   } catch (error) {
     respondWithWarning(res, error.status, error.message);
   }
@@ -83,12 +99,9 @@ export const updateInvite = async (req, res) => {
  * @returns {object} json response
  */
 export const deleteInvite = async (req, res) => {
-  const {
-    inviteId,
-    title
-  } = req.invite;
+  const { inviteId, title } = req.invite;
   if (!inviteId) {
-    respondWithWarning(res, 400, 'Bad Request');
+    respondWithWarning(res, 400, "Bad Request");
   }
   await deleteOneInvite({
     inviteId
@@ -103,19 +116,14 @@ export const deleteInvite = async (req, res) => {
  * @returns {object} json response
  */
 export const upvoteInvite = async (req, res) => {
-  const {
-    upVotes,
-    inviteId
-  } = req.invite;
-  const {
-    voteType
-  } = req.params; // ture of false
+  const { upVotes, inviteId } = req.invite;
+  const { voteType } = req.params; // ture of false
   // user vote will determine if upvote or downvote
-  const vote = voteType === 'true' ? upVotes + 1 : upVotes - 1;
+  const vote = voteType === "true" ? upVotes + 1 : upVotes - 1;
   const invite = await upvoteOneInvite(vote, {
     inviteId
   });
-  respondWithSuccess(res, 200, 'Upvote successful', invite.toJSON());
+  respondWithSuccess(res, 200, "Upvote successful", invite.toJSON());
 };
 
 /**
@@ -124,17 +132,18 @@ export const upvoteInvite = async (req, res) => {
  * @param {object} res
  */
 export const renderSinglePostPage = async (req, res) => {
-  const {
-    inviteId
-  } = req.params;
+  const { inviteId } = req.params;
 
-  const data = await Promise.all([findCommentsForPost(inviteId), fetchOneInvite({
-    inviteId
-  })]);
-  return res.render('singlepost', {
+  const data = await Promise.all([
+    findCommentsForPost(inviteId),
+    fetchOneInvite({
+      inviteId
+    })
+  ]);
+  return res.render("singlepost", {
     comments: data[0],
     invite: data[1],
-    isAuth: true,
+    isAuth: true
   });
 };
 
@@ -146,9 +155,9 @@ export const renderSinglePostPage = async (req, res) => {
 export const renderJobInvitesPage = async (req, res) => {
   const invites = await fetchAllInvites();
 
-  return res.render('jobInvites', {
+  return res.render("jobInvites", {
     invites: invites || [],
-    isAuth: true,
+    isAuth: true
   });
 };
 
@@ -158,7 +167,8 @@ export const renderJobInvitesPage = async (req, res) => {
  * @param {object} res
  * @returns {object} json response
  */
-export const editInvite = async (req, res) => res.render('editPost', {
-  invite: req.invite,
-  isAuth: true,
-});
+export const editInvite = async (req, res) =>
+  res.render("editPost", {
+    invite: req.invite,
+    isAuth: true
+  });

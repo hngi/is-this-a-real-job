@@ -1,6 +1,7 @@
 /* eslint-disable no-plusplus */
 /* eslint-disable no-console */
-import Model from '../models';
+import Model from "../models";
+import Sequelize from "sequelize";
 
 const { Invite, User, Comment } = Model;
 
@@ -11,9 +12,7 @@ const { Invite, User, Comment } = Model;
 export const fetchOneInvite = async (queryOption = {}) => {
   try {
     const invite = await Invite.findOne({
-      include: [
-        { model: User, as: 'user' }
-      ],
+      include: [{ model: User, as: "user" }],
       where: queryOption,
       logging: false
     });
@@ -34,12 +33,10 @@ export const fetchAllInvites = async () => {
   try {
     const invites = await Invite.findAll({
       include: [
-        { model: User, as: 'user' },
-        { model: Comment, as: 'comments' }
+        { model: User, as: "user" },
+        { model: Comment, as: "comments" }
       ],
-      order: [
-        ['createdAt', 'DESC']
-      ],
+      order: [["createdAt", "DESC"]],
       logging: false
     });
 
@@ -57,7 +54,7 @@ export const fetchAllInvites = async () => {
  * @param {object} inviteData Data to be stored for the new job invite.
  * @returns {object} an object containing the newly created invite data.
  */
-export const saveInvite = async (inviteData) => {
+export const saveInvite = async inviteData => {
   const e = new Error();
   const userObj = await User.findOne({
     where: {
@@ -67,20 +64,21 @@ export const saveInvite = async (inviteData) => {
   }).catch(err => {
     console.log(err);
     e.status = 500;
-    e.message = 'A technical error occured. Contact support.';
+    e.message = "A technical error occured. Contact support.";
     throw e;
   });
 
-  if (!userObj) { // user does not exist
+  if (!userObj) {
+    // user does not exist
     e.status = 400;
-    e.message = 'Unknown user.';
+    e.message = "Unknown user.";
     throw e;
   }
 
   const invite = await Invite.create(inviteData).catch(err => {
     console.log(err);
     e.status = 500;
-    e.message = 'A technical error occured. Contact support.';
+    e.message = "A technical error occured. Contact support.";
     throw e;
   });
 
@@ -105,7 +103,7 @@ export const updateOneInvite = async (inviteId, inviteData) => {
   } catch (error) {
     console.log(error);
     error.status = 500;
-    error.message = 'A technical error occured. Contact Support';
+    error.message = "A technical error occured. Contact Support";
     throw error;
   }
 };
@@ -124,13 +122,38 @@ export const deleteOneInvite = async (queryOption = {}) => {
 
 export const upvoteOneInvite = async (upVotes, queryOption = {}) => {
   try {
-    const invite = await Invite.update({ upVotes }, {
-      where: queryOption,
-      logging: false
-    }).then(() => Invite.findOne({ where: queryOption }))
-      .then((updatedInvite) => updatedInvite);
+    const invite = await Invite.update(
+      { upVotes },
+      {
+        where: queryOption,
+        logging: false
+      }
+    )
+      .then(() => Invite.findOne({ where: queryOption }))
+      .then(updatedInvite => updatedInvite);
     return invite;
   } catch (error) {
     console.log(error);
+  }
+};
+
+export const searchInvites = async string => {
+  try {
+    const result = await Invite.findAll({
+      where: Sequelize.literal("MATCH (body) AGAINST(:string)"),
+      replacements: {
+        string: string
+      },
+      order: [["createdAt"]],
+      logging: true
+    });
+
+    return result.map(invite => {
+      invite = invite.dataValues;
+      invite.user = invite.user ? invite.user.dataValues : {};
+      return invite;
+    });
+  } catch (error) {
+    console.log("Error! ", error);
   }
 };
