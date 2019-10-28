@@ -10,22 +10,23 @@ function togglePreloader(state) {
   preloader.style.display = state;
 }
 
-if (document.querySelectorAll('.invites-section')) {
+if (document.querySelector('.users-section')) {
   const api = new ItarjApi('/api/v1');
-  const deleteBtns = [...document.querySelectorAll('#delete-btn')];
-  const inviteIds = [...document.querySelectorAll("input[type='hidden']")];
+  const blockBtns = [...document.querySelectorAll('.block-btn')];
+  const userIds = [...document.querySelectorAll("input[type='hidden']")];
   const notification = document.querySelector('.notification');
 
-  const btns = deleteBtns.map(deleteBtn => deleteBtn);
-  const invites = inviteIds.map(invite => invite.value);
+  const btns = blockBtns.map(btn => btn);
+  const users = userIds.map(user => user.value);
 
-  for (let i = 0; i < deleteBtns.length; i++) {
+  for (let i = 0; i < blockBtns.length; i++) {
     btns[i].addEventListener('click', () => {
-      api.Delete(`invites/${invites[i]}`, true)
+      api.Patch(`users/block/${users[i]}`, null, true)
         .then(res => {
-          window.location.href = '/admin/posts';
+          window.location.href = '/admin/users';
         })
         .catch(error => {
+          console.log(error);
           notification.innerHTML = error.data.message;
           notification.className += ' show';
           setTimeout(() => {

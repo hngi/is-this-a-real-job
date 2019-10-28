@@ -29,7 +29,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 initRoutes(app);
-const port = 3001;
+const port = PORT || 3000;
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`);
   // connectionTest();
