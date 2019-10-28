@@ -162,6 +162,21 @@ export const renderJobInvitesPage = async (req, res) => {
 };
 
 /**
+ * Render job invites page for admin
+ * @param {object} req
+ * @param {object} res
+ */
+export const renderAdminJobInvitesPage = async (req, res) => {
+  const invites = await fetchAllInvites();
+
+  return res.render('admin/posts', {
+    invites: invites || [],
+    isAuth: true,
+    isAdmin: true,
+  });
+};
+
+/**
  * Render Edit Invite
  * @param {object} req
  * @param {object} res

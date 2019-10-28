@@ -22,7 +22,13 @@ if (inviteBtn) {
 
     const api = new ItarjApi('/api/v1');
 
-    api.Post('invites', JSON.stringify({ title: jobTitle.value, body: jobDetails.value, media: `https://loremflickr.com/320/240/${jobTitle.value.slice(0, 3)}` }), true)
+    api
+      .Post('invites',
+        JSON.stringify({
+          title: jobTitle.value,
+          body: jobDetails.value,
+          media: `https://loremflickr.com/320/240/${jobTitle.value.slice(0, 3)}`
+        }), true)
       .then(res => {
         // navigate to somewhere. created post maybe
         window.location.href = '/jobInvites';
@@ -39,3 +45,26 @@ if (inviteBtn) {
       });
   });
 }
+
+const upvotePost = (e, index, inviteId) => {
+  const api = new ItarjApi('/api/v1');
+  api.Patch(`invites/upvote/${inviteId}/true`)
+    .then(res => {
+      const upvoteCountElems = document.querySelectorAll(`#${res.data.inviteId} .upvote-count`);
+      upvoteCountElems.forEach((elem, i) => {
+        elem.innerText = Number(elem.innerText) + 1;
+      });
+    }).catch(err => console.log(err));
+};
+
+const uiCanInteract = () => {
+  console.log('upvote script loaded');
+  const postMeta = document.querySelector('.post-meta');
+  const inviteId = postMeta ? postMeta.id : null; // invite id
+  const upvoteButtons = document.querySelectorAll('.upvote-btn');
+  upvoteButtons.forEach((element, index, fields) => {
+    element.addEventListener('click', (e) => upvotePost(e, index, inviteId));
+  });
+};
+
+uiCanInteract();
