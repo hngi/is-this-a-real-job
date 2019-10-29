@@ -137,15 +137,26 @@ export const upvoteOneInvite = async (upVotes, queryOption = {}) => {
   }
 };
 
+/**
+ * searchInvites
+ *
+ * Simple search function that checks the body of all posts to see if any word in
+ * given string matches
+ * Returns the matching posts
+ */
 export const searchInvites = async string => {
   try {
     const result = await Invite.findAll({
-      where: Sequelize.literal("MATCH (body) AGAINST(:string)"),
+      where: Sequelize.literal("MATCH (body) AGAINST(:string) OR MATCH(title) AGAINST(:string)"),
+      // include: [
+      //   { model: User, as: "user" },
+      //   { model: Comment, as: "comments" }
+      // ],
       replacements: {
         string: string
       },
       order: [["createdAt"]],
-      logging: true
+      logging: false
     });
 
     return result.map(invite => {

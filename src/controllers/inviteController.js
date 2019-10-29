@@ -59,7 +59,33 @@ export const saveNewInvite = async (req, res) => {
  * @param {*} res
  * @returns Invites
  */
-export const searchInvitesByString = async (req, res) => {
+export const renderSearchResults = async (req, res) => {
+  const { q } = req.query;
+
+  const invites = await searchInvites(q);
+
+  return res.render("searchResults", {
+    invites: invites || [],
+    isAuth: true
+  });
+
+  //   if (invites) {
+  //     return respondWithSuccess(res, 200, "Invites found", invites);
+  //   }
+  //   respondWithWarning(res, 404, "Invite not found");
+  // } catch (error) {
+  //   respondWithWarning(res, 500, "Server error");
+  // }
+};
+
+/**
+ * REST Api for Invites search
+ * - Returns JSON payload containing Invites results
+ *
+ * @param {*} req
+ * @param {*} res
+ */
+export const searchInvitesApi = async (req, res) => {
   try {
     const { q } = req.query;
 
@@ -169,10 +195,10 @@ export const renderJobInvitesPage = async (req, res) => {
 export const renderAdminJobInvitesPage = async (req, res) => {
   const invites = await fetchAllInvites();
 
-  return res.render('admin/posts', {
+  return res.render("admin/posts", {
     invites: invites || [],
     isAuth: true,
-    isAdmin: true,
+    isAdmin: true
   });
 };
 

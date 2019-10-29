@@ -26,7 +26,8 @@ import {
   updateInvite,
   renderSinglePostPage,
   renderJobInvitesPage,
-  searchInvitesByString,
+  renderSearchResults,
+  searchInvitesApi,
   editInvite,
   renderAdminJobInvitesPage
 } from '../controllers/inviteController';
@@ -87,9 +88,11 @@ export const initRoutes = app => {
   // Get all job invites in the database.
   app.get('/api/v1/invites', getAllInvites);
 
-  // Search invites
+  // Search Invites - Renders view
+  app.get('/api/v1/invites/search', renderSearchResults);
 
-  app.get('/api/v1/invites/search', searchInvitesByString);
+  // Search Invites - Returns JSON payload
+  app.get('/api/v1/invites/search/json', searchInvitesApi);
 
   // Get a single job invite.
   app.get('/api/v1/invites/:inviteId', validateInviteId, getOneInvite);
