@@ -30,8 +30,7 @@ describe('COMMENT CONTROLLER', () => {
             .post(commentUrl)
             .set('Authorization', `${res.body.payload.token}`) // add jwt header
             .send({
-              body: 'A test comment on a nice post?',
-              userId: SEED_USER_ID, // test user
+              body: 'A test comment on a nice post?'
             })
             .end((err, res) => {
               expect(res).to.have.status(200);
@@ -62,12 +61,30 @@ describe('COMMENT CONTROLLER', () => {
         });
     });
 
+    it('it should respond with status 404 when invite is not found', (done) => {
+      chai.request(app)
+        .post(signinUrl)
+        .send(authDetails)
+        .end((error, res) => {
+          chai.request(app)
+            .post('/api/v1/comments/fdbd468a-2976-4f2f-8fe0-ae12dd8d5123')
+            .set('Authorization', `${res.body.payload.token}`) // add jwt header
+            .send({
+              body: 'A test comment on a nice post?'
+            })
+            .end((err, res) => {
+              expect(res).to.have.status(404);
+              expect(res.body.success).to.equal(false);
+              done();
+            });
+        });
+    });
+
     it('it should respond 401 session expired for missing/expired token', (done) => {
       chai.request(app)
         .post(commentUrl) // omit token
         .send({
-          body: 'A test comment on a nice post?',
-          userId: SEED_USER_ID, // test user
+          body: 'A test comment on a nice post?'
         })
         .end((err, res) => {
           expect(res).to.have.status(401);

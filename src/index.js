@@ -35,7 +35,7 @@ const connection = () => {
   }
   return null;
 };
-const port = NODE_ENV === 'development' ? 3002 : PORT;
+const port = PORT || 3000;
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`);
   connection();
