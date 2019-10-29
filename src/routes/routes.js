@@ -32,6 +32,8 @@ import {
 
 import { getComments, createComment } from '../controllers/commentController';
 import { blockUser, getUsers, renderAdminUsersPage } from '../controllers/userController';
+import { getNotifications, createNotification } from '../controllers/notificationController';
+import { validateNotificationData } from '../middlewares/validateNotification';
 
 export const initRoutes = app => {
   // All EJS frontend endpoints below --------------------------------------------------
@@ -126,6 +128,10 @@ export const initRoutes = app => {
     validateInvite,
     upvoteInvite
   );
+
+  // Get all comments for a given Invite.
+  app.get('/api/v1/notifications/:userId', validateUserId, getNotifications);
+  app.post('/api/v1/notifications', validateNotificationData, createNotification);
 
   // Fallback case for unknown URIs.
   app.all('*', (req, res) => res.status(404).json({ message: 'Route Not Found' }));
