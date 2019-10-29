@@ -35,9 +35,9 @@ const connection = () => {
   }
   return null;
 };
-PORT = 3002;
-app.listen(PORT, () => {
-  console.log(`Server listening on port ${PORT}`);
+const port = PORT || 3002
+app.listen(port, () => {
+  console.log(`Server listening on port ${port}`);
   connection();
 });
 
