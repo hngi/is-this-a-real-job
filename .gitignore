@@ -7,3 +7,7 @@ coverage/
 npm-debug.log
 .idea/
 .jshintrc
+
+{
+    "liveServer.settings.port": 5501
+}
