@@ -21,7 +21,6 @@
     "lint": "./node_modules/.bin/eslint src",
     "lint-fix": "./node_modules/.bin/eslint src --ext  .js --fix",
     "heroku-postbuild": "cross-env NODE_ENV=production npm run build"
-
   },
   "author": "",
   "license": "ISC",
@@ -60,6 +59,7 @@
     "lodash": "^4.17.15",
     "morgan": "^1.9.1",
     "mysql2": "^1.7.0",
+    "nodemailer": "^6.3.1",
     "sequelize": "^5.21.1",
     "sequelize-cli": "^5.5.1",
     "uuid": "^3.3.3"
