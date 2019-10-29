@@ -306,3 +306,6 @@ body {
 :-ms-input-placeholder {  
   font-style: italic; 
 }
+.fa-ellipsis-h{
+  transform: rotate(90deg) !important;
+}
