@@ -14,7 +14,9 @@ import {
   validateUserById,
   validateUserId,
   validateUpvoteInput,
-  validateInviteOwner
+  validateInviteOwner,
+  passportAuthCallback,
+  passportAuthenticate
 } from '../middlewares/middlewares';
 
 import {
@@ -37,7 +39,6 @@ export const initRoutes = app => {
   // All EJS frontend endpoints below --------------------------------------------------
   app.get('/', (req, res) => res.render('index', { isAuth: false })); // Pass true or false to toggle state of navbar....
   app.get('/login', (req, res) => res.render('login', { isAuth: false }));
-  // app.get("/auth/twitter", (req,res) => )
   app.get('/register', (req, res) => res.render('register', { isAuth: false }));
   app.get('/post', (req, res) => res.render('userPost', { isAuth: true }));
   app.get('/jobInvites', renderJobInvitesPage);
@@ -58,7 +59,9 @@ export const initRoutes = app => {
     verifyUniqueUser,
     signup
   );
-
+  // Twitter Login
+  app.get("/auth/twitter", passportAuthenticate)
+    app.get("/auth/twitter/callback", passportAuthCallback)
   // Get all Users
   app.get('/api/v1/users', authenticateUserToken, validateAdmin, getUsers);
 
