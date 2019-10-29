@@ -3,10 +3,6 @@
     <div id="cover">
       <div class="loader"></div>
     </div>
-    <div class="notification">
-      Simple Notification
-    </div>
-
     <body>
       <div class="header">
         <section class="job-invites">
@@ -25,6 +21,7 @@
 
             <span>
             <h4><%=invite.title%></h4>
+            <small class="text-muted"><%=invite.company%>, <em><%=invite.location%></em></small><br>
             <p class="post-author">
               Author: @<%=invite.user.username%>
               <br>
