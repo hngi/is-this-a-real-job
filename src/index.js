@@ -1,9 +1,9 @@
 /* eslint-disable no-console */
 const path = require('path');
 const express = require('express');
-const { PORT } = require('./config/constants');
+const { PORT, NODE_ENV } = require('./config/constants');
 const { initRoutes } = require('./routes/routes');
-// const { connectionTest } = require('./services/connectionTest');
+const { connectionTest } = require('./services/connectionTest');
 
 const app = express();
 
@@ -29,10 +29,16 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 initRoutes(app);
-const port = 3002;
+const port = NODE_ENV === 'development' ? 3002 : PORT;
+const connection = () => {
+  if (NODE_ENV === 'development') {
+    return connectionTest();
+  }
+  return null;
+};
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`);
-  // connectionTest();
+  connection();
 });
 
 export default app;

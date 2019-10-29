@@ -1,4 +1,10 @@
 <% include ../partials/header %>
+<script type="text/javascript">
+  const user = JSON.parse(localStorage.getItem('user'))
+  if(!user || !user.isAdmin){
+    window.location.href = '/jobInvites'
+  }
+</script>
   <% include ../partials/nav %>
     <!-- POSTS TAB -->
     <style>

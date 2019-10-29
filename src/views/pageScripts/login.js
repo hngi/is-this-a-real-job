@@ -29,7 +29,7 @@ if (document.querySelector('#login-btn')) {
         console.log(res);
         togglePreloader('none');
         localStorage.setItem('token', res.data.token);
-        localStorage.setItem('user', res.data);
+        localStorage.setItem('user', JSON.stringify(res.data));
         window.location.href = '/jobInvites';
       })
       .catch(err => {
