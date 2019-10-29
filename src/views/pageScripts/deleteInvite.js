@@ -5,11 +5,6 @@
 /* eslint-disable no-undef */
 // fetch all invites for admin
 
-function togglePreloader(state) {
-  const preloader = document.querySelector('#cover');
-  preloader.style.display = state;
-}
-
 if (document.querySelector('.invites-section')) {
   const api = new ItarjApi('/api/v1');
   const deleteBtns = [...document.querySelectorAll('#delete-btn')];
@@ -26,6 +21,14 @@ if (document.querySelector('.invites-section')) {
           window.location.href = '/admin/posts';
         })
         .catch(error => {
+          if (error.data.message.includes('Session is invalid')) {
+            if (window.localStorage.getItem('token')) {
+              window.localStorage.clear();
+            }
+            setTimeout(() => {
+              window.location.href = '/login';
+            }, 3000);
+          }
           notification.innerHTML = error.data.message;
           notification.className += ' show';
           setTimeout(() => {

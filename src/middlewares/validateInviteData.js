@@ -13,6 +13,8 @@ export const validateInviteData = (req, res, next) => {
   const inviteSchema = Joi.object().keys({
     title: Joi.string().required().trim(),
     body: Joi.string().required().trim(),
+    location: Joi.string().required().trim(),
+    company: Joi.string().required().trim(),
     media: Joi.string().required().trim()
   });
 
