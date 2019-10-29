@@ -5,11 +5,6 @@
 /* eslint-disable no-undef */
 // fetch all invites for admin
 
-function togglePreloader(state) {
-  const preloader = document.querySelector('#cover');
-  preloader.style.display = state;
-}
-
 if (document.querySelector('.invites-section')) {
   const api = new ItarjApi('/api/v1');
   const deleteBtns = [...document.querySelectorAll('#delete-btn')];
@@ -19,24 +14,25 @@ if (document.querySelector('.invites-section')) {
   const btns = deleteBtns.map(deleteBtn => deleteBtn);
   const invites = inviteIds.map(invite => invite.value);
 
-    for (let i = 0; i < deleteBtns.length; i++) {
-      btns[i].addEventListener('click', () => {
-        api.Delete(`invites/${invites[i]}`, true)
-          .then(res => {
-            window.location.href = '/admin/posts';
-          })
-          .catch(error => {
-            notification.innerHTML = error.data.message;
-            notification.className += ' show';
-            setTimeout(() => {
-              notification.className = 'notification';
-            }, 5000);
-          });
-      });
-    }
-  })
-  .catch(err=>{
-    console.log(err)
-  });
+  for (let i = 0; i < deleteBtns.length; i++) {
+    btns[i].addEventListener('click', () => {
+      api.Delete(`invites/${invites[i]}`, true)
+        .then(res => {
+          window.location.href = '/admin/posts';
+        })
+        .catch(error => {
+          if (error.data.message.includes('Session is invalid')) {
+            if (window.localStorage.getItem('token')) {
+              window.localStorage.clear();
+            }
+            window.location.href = '/login';
+          }
+          notification.innerHTML = error.data.message;
+          notification.className += ' show';
+          setTimeout(() => {
+            notification.className = 'notification';
+          }, 5000);
+        });
+    });
+  }
 }
-
