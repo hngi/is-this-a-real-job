@@ -44,7 +44,7 @@ if (document.querySelector('#login-btn')) {
 }
 
 if (document.querySelector('#logout')) {
-  let logout = document.querySelector('#logout');
+  const logout = document.querySelector('#logout');
   logout.addEventListener('click', (ev) => {
     ev.preventDefault();
 

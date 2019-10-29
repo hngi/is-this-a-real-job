@@ -21,3 +21,6 @@ export const SEED_USER_ID_2 = 'adcd468a-5466-4f2f-8fe0-ae12dd8d5234';
 export const SEED_INVITE_ID = 'fdbd468a-2976-4f2f-8fe0-ae12dd8d5101';
 export const SEED_INVITE_ID_2 = '449b6232-fad8-40cc-a6d7-1dbbd8cd8a34';
 export const SEED_INVITE_ID_3 = '449b6232-fad8-40cc-a6d7-1dbbd8cd8a35';
+
+// eslint-disable-next-line no-useless-escape
+export const VALID_UUID = /^[0-9a-fA-F]{8}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{12}$/;

@@ -38,6 +38,8 @@ import {
   getUser,
   renderUserProfile
 } from '../controllers/userController';
+import { getNotifications, createNotification } from '../controllers/notificationController';
+import { validateNotificationData } from '../middlewares/validateNotification';
 
 export const initRoutes = app => {
   // All EJS frontend endpoints below --------------------------------------------------
@@ -47,6 +49,7 @@ export const initRoutes = app => {
   app.get('/post', (req, res) => res.render('userPost', { isAuth: true }));
   app.get('/jobInvites', renderJobInvitesPage);
   app.get('/post/:inviteId', renderSinglePostPage);
+  app.get('/admin/reported', (req, res) => res.render('admin/reportedUsers', { isAuth: true, }));
 
   // Edit post endpoint
   app.get('/post/:inviteId/edit', validateInviteId, validateInvite, editInvite);
@@ -137,6 +140,10 @@ export const initRoutes = app => {
     validateInvite,
     upvoteInvite
   );
+
+  // Get all comments for a given Invite.
+  app.get('/api/v1/notifications/:userId', validateUserId, getNotifications);
+  app.post('/api/v1/notifications', validateNotificationData, createNotification);
 
   // Fallback case for unknown URIs.
   app.all('*', (req, res) => res.status(404).json({ message: 'Route Not Found' }));
