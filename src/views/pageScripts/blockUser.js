@@ -10,7 +10,7 @@ function togglePreloader(state) {
   preloader.style.display = state;
 }
 
-if (document.querySelectorAll('.users-section')) {
+if (document.querySelector('.users-section')) {
   const api = new ItarjApi('/api/v1');
   const blockBtns = [...document.querySelectorAll('.block-btn')];
   const userIds = [...document.querySelectorAll("input[type='hidden']")];
@@ -23,12 +23,6 @@ if (document.querySelectorAll('.users-section')) {
     btns[i].addEventListener('click', () => {
       api.Patch(`users/block/${users[i]}`, null, true)
         .then(res => {
-          console.log(res);
-          // notification.innerHTML = res.data.message;
-          // notification.className += ' show';
-          // setTimeout(() => {
-          //   notification.className = 'notification';
-          // }, 5000);
           window.location.href = '/admin/users';
         })
         .catch(error => {

@@ -2,8 +2,7 @@
 /* eslint-disable no-console */
 import Model from '../models';
 
-export const connectionTest = () => {
-  return Model
+export const connectionTest = () => Model
   .sequelize
   .authenticate()
   .then(() => {
@@ -12,4 +11,3 @@ export const connectionTest = () => {
   .catch(err => {
     console.error('Unable to connect to the database:', err);
   });
-}
