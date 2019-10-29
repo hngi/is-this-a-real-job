@@ -18,7 +18,7 @@ body {
   color: #000;
   font-family: 'Raleway', sans-serif;
   font-weight: 300;
-  font-size: 20px;
+  font-size: 15px;
   text-rendering: optimizeLegibility;
   overflow-x: hidden;
 }
@@ -105,19 +105,22 @@ body {
 .footer {
   background-color: #24659e;
   color: #fff;
-  padding: 8%;
+  bottom:0;
   margin-top: 5%;
+  position:absolute;
+  width:100%;
 }
 
 .subscribe {
   border-color: transparent !important;
   height: 100%;
   font-size: 70%;
+
 }
 
 .footer-heading {
-  margin-bottom: 7%;
-  margin-top: 10%;
+  margin-bottom: 1%;
+  margin-top: 5%;
 }
 
 .footer_email {
