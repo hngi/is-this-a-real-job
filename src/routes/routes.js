@@ -1,131 +1,133 @@
 import { signin, signup } from '../controllers/authController';
 import {
-  validateSigninFormData,
-  validateSignupFormData,
-  validateCommentData,
-  validUser,
-  validateInvite,
-  validateInviteId,
-  validateInviteData,
-  validateInviteUpdateData,
-  verifyUniqueUser,
-  authenticateUserToken,
-  validateAdmin,
-  validateUserById,
-  validateUserId,
-  validateUpvoteInput,
-  validateInviteOwner
+    validateSigninFormData,
+    validateSignupFormData,
+    validateCommentData,
+    validUser,
+    validateInvite,
+    validateInviteId,
+    validateInviteData,
+    validateInviteUpdateData,
+    verifyUniqueUser,
+    authenticateUserToken,
+    validateAdmin,
+    validateUserById,
+    validateUserId,
+    validateUpvoteInput,
+    validateInviteOwner
 } from '../middlewares/middlewares';
 
 import {
-  deleteInvite,
-  upvoteInvite,
-  saveNewInvite,
-  getOneInvite,
-  getAllInvites,
-  updateInvite,
-  renderSinglePostPage,
-  renderJobInvitesPage,
-  editInvite,
-  renderAdminJobInvitesPage,
+    deleteInvite,
+    upvoteInvite,
+    saveNewInvite,
+    getOneInvite,
+    getAllInvites,
+    updateInvite,
+    renderSinglePostPage,
+    renderJobInvitesPage,
+    editInvite,
+    renderAdminJobInvitesPage,
 } from '../controllers/inviteController';
 
 import { getComments, createComment } from '../controllers/commentController';
 import { blockUser, getUsers, renderAdminUsersPage } from '../controllers/userController';
 
 export const initRoutes = app => {
-  // All EJS frontend endpoints below --------------------------------------------------
-  app.get('/', (req, res) => res.render('index', { isAuth: false })); // Pass true or false to toggle state of navbar....
-  app.get('/login', (req, res) => res.render('login', { isAuth: false }));
-  app.get('/register', (req, res) => res.render('register', { isAuth: false }));
-  app.get('/post', (req, res) => res.render('userPost', { isAuth: true }));
-  app.get('/jobInvites', renderJobInvitesPage);
-  app.get('/post/:inviteId', renderSinglePostPage);
+    // All EJS frontend endpoints below --------------------------------------------------
+    app.get('/', (req, res) => res.render('index', { isAuth: false })); // Pass true or false to toggle state of navbar....
+    app.get('/login', (req, res) => res.render('login', { isAuth: false }));
+    app.get('/register', (req, res) => res.render('register', { isAuth: false }));
+    app.get('/post', (req, res) => res.render('userPost', { isAuth: true }));
+    app.get('/jobInvites', renderJobInvitesPage);
 
-  // Edit post endpoint
-  app.get('/post/:inviteId/edit', validateInviteId, validateInvite, editInvite);
+    app.get('/post/:inviteId', renderSinglePostPage);
 
-  app.get('/admin/users', renderAdminUsersPage);
-  app.get('/admin/posts', renderAdminJobInvitesPage);
+    // Edit post endpoint
+    app.get('/post/:inviteId/edit', validateInviteId, validateInvite, editInvite);
 
-  // All backend API endpoints below -----------------------------------------------------
-  // Auth
-  app.post('/api/v1/auth/signin', validateSigninFormData, validUser, signin);
-  app.post(
-    '/api/v1/auth/signup',
-    validateSignupFormData,
-    verifyUniqueUser,
-    signup
-  );
+    app.get('/admin/users', renderAdminUsersPage);
+    app.get('/admin/metricsDashboard', (req, res) => res.render('metricsDashboard', { isAuth: false }));
+    app.get('/admin/posts', renderAdminJobInvitesPage);
 
-  // Get all Users
-  app.get('/api/v1/users', authenticateUserToken, validateAdmin, getUsers);
+    // All backend API endpoints below -----------------------------------------------------
+    // Auth
+    app.post('/api/v1/auth/signin', validateSigninFormData, validUser, signin);
+    app.post(
+        '/api/v1/auth/signup',
+        validateSignupFormData,
+        verifyUniqueUser,
+        signup
+    );
 
-  // Block a user
-  app.patch(
-    '/api/v1/users/block/:userId',
-    validateUserId,
-    authenticateUserToken,
-    validateAdmin,
-    validateUserById,
-    blockUser
-  );
+    // Get all Users
+    app.get('/api/v1/users', authenticateUserToken, validateAdmin, getUsers);
 
-  // Post a new job invite.
-  app.post(
-    '/api/v1/invites',
-    authenticateUserToken,
-    validateInviteData,
-    saveNewInvite
-  );
+    // Block a user
+    app.patch(
+        '/api/v1/users/block/:userId',
+        validateUserId,
+        authenticateUserToken,
+        validateAdmin,
+        validateUserById,
+        blockUser
+    );
 
-  // Get all job invites in the database.
-  app.get('/api/v1/invites', getAllInvites);
+    // Post a new job invite.
+    app.post(
+        '/api/v1/invites',
+        authenticateUserToken,
+        validateInviteData,
+        saveNewInvite
+    );
 
-  // Get a single job invite.
-  app.get('/api/v1/invites/:inviteId', validateInviteId, getOneInvite);
+    // Get all job invites in the database.
+    app.get('/api/v1/invites', getAllInvites);
 
-  // Update an existing job invite.
-  app.put(
-    '/api/v1/invites/:inviteId',
-    authenticateUserToken,
-    validateInviteId,
-    validateInvite,
-    validateInviteOwner,
-    validateInviteUpdateData,
-    updateInvite
-  );
+    // Get a single job invite.
+    app.get('/api/v1/invites/:inviteId', validateInviteId, getOneInvite);
 
-  // Delete an existing job invite.
-  app.delete(
-    '/api/v1/invites/:inviteId',
-    validateInviteId,
-    authenticateUserToken,
-    validateAdmin,
-    validateInvite,
-    deleteInvite
-  );
+    // Update an existing job invite.
+    app.put(
+        '/api/v1/invites/:inviteId',
+        authenticateUserToken,
+        validateInviteId,
+        validateInvite,
+        validateInviteOwner,
+        validateInviteUpdateData,
+        updateInvite
+    );
 
-  // Get all comments for a given Invite.
-  app.get('/api/v1/comments/:inviteId', validateInviteId, getComments);
+    // Delete an existing job invite.
+    app.delete(
+        '/api/v1/invites/:inviteId',
+        validateInviteId,
+        authenticateUserToken,
+        validateAdmin,
+        validateInvite,
+        deleteInvite
+    );
 
-  // Post a comment on a specific Invite.
-  app.post(
-    '/api/v1/comments/:inviteId',
-    validateInviteId,
-    authenticateUserToken,
-    validateCommentData,
-    createComment
-  );
+    // Get all comments for a given Invite.
+    app.get('/api/v1/comments/:inviteId', validateInviteId, getComments);
 
-  // Upvote/Downvote a specific Invite.
-  app.patch(
-    '/api/v1/invites/upvote/:inviteId/:voteType',
-    validateUpvoteInput,
-    validateInvite,
-    upvoteInvite
-  );
+    // Post a comment on a specific Invite.
+    app.post(
+        '/api/v1/comments/:inviteId',
+        validateInviteId,
+        authenticateUserToken,
+        validateCommentData,
+        createComment
+    );
 
-  // Fallback case for unknown URIs.
-  app.all('*', (req, res) => res.status(404).json({ message: 'Route Not Found' }));
+    // Upvote/Downvote a specific Invite.
+    app.patch(
+        '/api/v1/invites/upvote/:inviteId/:voteType',
+        validateUpvoteInput,
+        validateInvite,
+        upvoteInvite
+    );
+
+    // Fallback case for unknown URIs.
+    app.all('*', (req, res) => res.status(404).json({ message: 'Route Not Found' }));
 };
