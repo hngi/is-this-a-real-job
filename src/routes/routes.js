@@ -41,6 +41,7 @@ export const initRoutes = app => {
   app.get('/post', (req, res) => res.render('userPost', { isAuth: true }));
   app.get('/jobInvites', renderJobInvitesPage);
   app.get('/post/:inviteId', renderSinglePostPage);
+  app.get('/about', (req, res) => res.render('about', { isAuth: true }))
 
   // Edit post endpoint
   app.get('/post/:inviteId/edit', validateInviteId, validateInvite, editInvite);
