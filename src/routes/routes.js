@@ -127,7 +127,7 @@ export const initRoutes = app => {
   );
 
   // Report User section
-  app.get('/repoetUser', (req, res) => res.render('repoetUser', { isAuth: false }));
+  app.get('/reportUser', (req, res) => res.render('reportUser', { isAuth: false }));
 
 
   // Fallback case for unknown URIs.
