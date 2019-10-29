@@ -40,9 +40,10 @@ export const initRoutes = app => {
   app.get('/register', (req, res) => res.render('register', { isAuth: false }));
   app.get('/post', (req, res) => res.render('userPost', { isAuth: true }));
   app.get('/jobInvites', renderJobInvitesPage);
-  app.get('/post/:inviteId', renderSinglePostPage);
+  app.get('/post/:inviteId', renderSinglePostPage); 
+  app.get('/admin/reported', (req, res) => res.render("admin/reportedUsers", { isAuth: true, }))
 
-  // Edit post endpoint
+    // Edit post endpoint
   app.get('/post/:inviteId/edit', validateInviteId, validateInvite, editInvite);
 
   app.get('/admin/users', renderAdminUsersPage);
