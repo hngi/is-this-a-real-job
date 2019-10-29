@@ -32,9 +32,9 @@ if (document.querySelector('#login-btn')) {
         localStorage.setItem('user', res.data);
         window.location.href = '/jobInvites';
       })
-      .catch(error => {
+      .catch(err => {
         togglePreloader('none');
-        notification.innerHTML = `<strong>${err.data.message}:</strong> ${err.data.payload}`;
+        notification.innerHTML = `<strong>${err.data.message}</strong>`;
         notification.className += ' show';
         setTimeout(() => {
           notification.className = 'notification';

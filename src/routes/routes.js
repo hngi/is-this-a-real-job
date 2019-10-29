@@ -26,11 +26,12 @@ import {
   updateInvite,
   renderSinglePostPage,
   renderJobInvitesPage,
-  editInvite
+  editInvite,
+  renderAdminJobInvitesPage,
 } from '../controllers/inviteController';
 
 import { getComments, createComment } from '../controllers/commentController';
-import { blockUser, getUsers } from '../controllers/userController';
+import { blockUser, getUsers, renderAdminUsersPage } from '../controllers/userController';
 
 export const initRoutes = app => {
   // All EJS frontend endpoints below --------------------------------------------------
@@ -44,8 +45,8 @@ export const initRoutes = app => {
   // Edit post endpoint
   app.get('/post/:inviteId/edit', validateInviteId, validateInvite, editInvite);
 
-  app.get('/admin/users', (req, res) => res.render('admin/users', { isAuth: true, isAdmin: true }));
-  app.get('/admin/posts', (req, res) => res.render('admin/posts', { isAuth: true, isAdmin: true }));
+  app.get('/admin/users', renderAdminUsersPage);
+  app.get('/admin/posts', renderAdminJobInvitesPage);
 
   // All backend API endpoints below -----------------------------------------------------
   // Auth

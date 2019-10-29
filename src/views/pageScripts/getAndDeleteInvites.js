@@ -4,9 +4,6 @@
 /* eslint-disable no-undef */
 /* eslint-disable no-undef */
 // fetch all invites for admin
-const invitesBody = document.querySelector('.col-lg-8')
-const api = new ItarjApi('/api/v1');
-const notification = document.querySelector('.notification');
 
 function togglePreloader(state) {
   const preloader = document.querySelector('#cover');
@@ -50,8 +47,8 @@ if(invitesBody){
     const deleteBtns = [...document.querySelectorAll('#delete-btn')];
     const inviteIds = [...document.querySelectorAll("input[type='hidden']")];
 
-    const btns = deleteBtns.map(deleteBtn => deleteBtn);
-    const invites = inviteIds.map(invite => invite.value);
+  const btns = deleteBtns.map(deleteBtn => deleteBtn);
+  const invites = inviteIds.map(invite => invite.value);
 
     for (let i = 0; i < deleteBtns.length; i++) {
       btns[i].addEventListener('click', () => {
