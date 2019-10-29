@@ -29,13 +29,13 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 initRoutes(app);
-const port = NODE_ENV === 'development' ? 3002 : PORT;
 const connection = () => {
   if (NODE_ENV === 'development') {
     return connectionTest();
   }
   return null;
 };
+const port = PORT || 3000;
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`);
   connection();
