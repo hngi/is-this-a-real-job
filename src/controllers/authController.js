@@ -58,14 +58,13 @@ export const signup = async (req, res) => {
       isAdmin: _user.user.dataValues.isAdmin
     };
     const token = await generateToken(payload);
+    _user.user.dataValues.token = token;
     return respondWithSuccess(
       res,
       200,
       "User signup successful",
-      _.omit(_user.user.dataValues, ["password"]),
-      token
+      _.omit(_user.user.dataValues, ["password"])
     );
-  } else {
-    return respondWithWarning(res, 400, "Error creating User :(");
   }
+  return respondWithWarning(res, 400, "Error creating User :(");
 };

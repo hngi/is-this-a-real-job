@@ -1,21 +1,30 @@
-<style>
-    @import url('https://fonts.googleapis.com/css?family=Raleway&display=swap');
+<% include partials/header %>
+  <% include partials/nav %>
 
 
-form{
-    width: 50%;
-    margin-left: auto;
-    margin-right: auto;
-    font-family: 'Raleway', sans-serif;
-}
-
-h3{
-    text-align: center;
-    color: #636B6F;
-    font-size: 84px;
-    line-height: 90px;
-}
-    .form-control{
+    <script>
+      if (localStorage.getItem('token')) {
+        window.location.href = '/jobInvites';
+      }
+    </script>
+    
+    <style>
+      @import url('https://fonts.googleapis.com/css?family=Raleway&display=swap');
+      form {
+        width: 50%;
+        margin-left: auto;
+        margin-right: auto;
+        font-family: 'Raleway', sans-serif;
+      }
+      
+      h3 {
+        text-align: center;
+        color: #636B6F;
+        font-size: 44px;
+        line-height: 90px;
+      }
+      
+      .form-control {
         width: 100%;
         background-color: #ECECEC;
         color: black;
@@ -25,87 +34,79 @@ h3{
         border-radius: 5px;
         font-size: 16px;
         line-height: 19px;
-    }
-        #email{
-            margin-bottom: 24px;
-        }
-    em p{
+      }
+      
+      #email {
+        margin-bottom: 24px;
+      }
+      
+      em p {
         color: #3087D1;
         margin-top: 0px;
         font-size: 16px;
         line-height: 19px;
         text-align: right;
-    }
-    button{
-        width: 200px;
-        background-color: #3087D1;
-        margin-left: auto;
-        margin-right: auto;
-        margin-top: 40px;
-        color: white;
-        display: flex;
-        align-self: center;
-        justify-content: center;
-        border: none;
+      }
+      
+      .btn-custom {
+        width: 206px;
         height: 40px;
-        font-size: 16px;
-        line-height: 19px;
-        border-radius: 5px;
-        font-family: 'Raleway', sans-serif;
-    }
-    .register{
+        left: 617px;
+        top: 745px;
+        line-height: 20px;
+        border-radius: 6px;
+        line-height: 20px;
+        background: #3087D1;
+      }
+      
+      .btn-custom:hover {
+        line-height: 20px;
+        background: rgb(44, 120, 187);
+      }
+      
+      .register {
         text-align: center;
-    }
-    .register p a{
-        
+      }
+      
+      .register p a {
         color: #3087D1;
         font-size: 16px;
         line-height: 19px;
-    }
-    @media (max-width: 767px){
-        h3{
-            font-size: 50px;
+      }
+      
+      @media (max-width: 767px) {
+        h3 {
+          font-size: 50px;
         }
-        form{
-            width: 85%;
+        form {
+          width: 85%;
         }
-        em p{
-            font-size: 14px;
+        em p {
+          font-size: 14px;
         }
-    }
-</style>
-
-<% include partials/header %>
-<h3>Login</h3>
-<form class = "login-form" action="/login" method="POST">
-        <div class="form-group">
-            <input
-                type="email"
-                name="email"
-                class="form-control"
-                id="email"
-                placeholder="Email Address"
-                required
-            />
-        </div>
-        <div class="form-group">
-            <input
-                type="password"
-                name="password"
-                class="form-control"
-                id="password"
-                placeholder="Password"
-                required
-            />
-            <em><p>Forgot Your password?</p></em>
-        </div>
-        <div class="form-group">
-            <button class="btn btn-success btn-block">Login</button>
-        </div>
-        <div class="register">
-            <p><a href="/register">Register</a></p>
-        </div>
+      }
+    </style>
+    <div id="cover">
+      <div class="loader"></div>
+    </div>
+    <div class="notification">
+      Simple Notification
+    </div>
+    <h3>Login</h3>
+    <form class="login-form" method="POST" action="javascript:void(0);">
+      <div class="form-group">
+        <input type="email" name="email" class="form-control" id="email" placeholder="Email Address" required />
+      </div>
+      <div class="form-group">
+        <input type="password" name="password" class="form-control" id="password" placeholder="Password" required />
+        <em><p>Forgot Your password?</p></em>
+      </div>
+      <div class="form-group">
+        <button id="login-btn" class="btn btn-success btn-block btn-custom">Login</button>
+      </div>
+      <div class="register">
+        <p><a href="/register">Register</a></p>
+      </div>
     </form>
 
- <% include partials/footer %>
- 
+    <% include partials/footer %>

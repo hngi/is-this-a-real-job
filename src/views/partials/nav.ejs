@@ -1,28 +1,60 @@
+<style>
+  text-white {
+    color: #fff;
+  }
+  
+  nav.navbar.navbar-expand-lg.navbar-light {
+    margin-bottom: 2em;
+  }
+</style>
+
 <nav class="navbar navbar-expand-lg navbar-light">
-  <a class="navbar-brand" href="#">isthisarealjob</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+  <a class="navbar-brand" href="/" class="text-white">isthisarealjob</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav ml-auto">
+
       <li class="nav-item">
-        <a class="nav-link" href="#">POST</a>
+        <a class="nav-link text-white" href="/">HOME</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">BLOG</a>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-          aria-haspopup="true" aria-expanded="false">
+      <!-- Pass login status here to determine naavbarstatus -->
+      <% if(isAuth){ %>
+        <li class="nav-item">
+          <a class="nav-link text-white" href="/jobInvites">POSTS</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" href="/post">NEW POST</a>
+        </li>
+        <% if(typeof isAdmin !== 'undefined'){ %>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="/admin/users">ADMIN</a>
+          </li>
+          <% } %>
+            <% } else{ %>
+              <li class="nav-item">
+                <a class="nav-link text-white" href="register">REGISTER</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-white" href="/login">LOG IN</a>
+              </li>
+              <% } %>
+
+
+
+                <!-- <li class="nav-item">
+                  <a class="nav-link text-white" href="#">BLOG</a>
+                </li> -->
+                <!-- <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           SAM
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="#">Profile</a>
-
-        </div>
-      </li>
+        </div> -->
+                </li>
 
     </ul>
 
