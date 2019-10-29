@@ -42,3 +42,13 @@ if (document.querySelector('#login-btn')) {
       });
   });
 }
+
+if (document.querySelector('#logout')) {
+  let logout = document.querySelector('#logout');
+  logout.addEventListener('click', (ev) => {
+    ev.preventDefault();
+
+    localStorage.removeItem('token');
+    window.location.href = '/';
+  });
+}
