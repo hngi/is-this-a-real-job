@@ -1,5 +1,26 @@
 <% include ../partials/header %>
   <% include ../partials/nav %>
+  <script type="text/javascript">
+    const user = JSON.parse(localStorage.getItem('user'))
+    const notification = document.querySelector('.notification');
+    if(!user || !user.isAdmin){
+      notification.innerHTML = `<strong>Contact the site administrator to complete this operation</strong>`;
+      notification.className += ' show';
+      if (/*@cc_on!@*/false || !!document.documentMode) {
+        console.log('Got here yay')
+        document.execCommand("Stop");
+      }else{
+        window.stop()
+      };
+      setTimeout(() => {
+        notification.className = 'notification';
+      }, 2500);
+
+      setTimeout(()=>{
+        window.location.href = '/jobInvites'
+      },3000)
+    }
+  </script>
     <!-- POSTS TAB -->
     <style>
       .post-container {
@@ -136,9 +157,6 @@
     <div id="cover">
       <div class="loader"></div>
     </div>
-    <div class="notification">
-      Simple Notification
-    </div>
     <section>
       <div class="container post-container">
         <div class="row">
@@ -177,6 +195,7 @@
                               <%=invite.title%>
                             </a>
                           </h5>
+                          <small class="text-muted"><%=invite.company%>, <em><%=invite.location%></em></small><br>
                           <small class="text-muted"><%=invite.body%></small><br>
                           <a href="#">
                             <small style="color:green;">@<%=invite.user.username%></small>

@@ -16,6 +16,14 @@ export default {
       type: Sequelize.STRING,
       allowNull: false,
     },
+    company: {
+      type: Sequelize.STRING,
+      allowNull: false,
+    },
+    location: {
+      type: Sequelize.STRING,
+      allowNull: false,
+    },
     body: {
       type: Sequelize.TEXT,
       allowNull: false,

@@ -14,6 +14,8 @@ if (inviteBtn) {
 
   const jobDetails = document.querySelector('#jobDetails');
   const jobTitle = document.querySelector('#jobTitle');
+  const jobLocation = document.querySelector('#jobLocation');
+  const companyName = document.querySelector('#companyName');
   const notification = document.querySelector('.notification');
 
   inviteBtn.addEventListener('click', e => {
@@ -27,6 +29,8 @@ if (inviteBtn) {
         JSON.stringify({
           title: jobTitle.value,
           body: jobDetails.value,
+          company: companyName.value,
+          location: jobLocation.value,
           media: `https://loremflickr.com/320/240/${jobTitle.value.slice(0, 3)}`
         }), true)
       .then(res => {
