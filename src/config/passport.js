@@ -21,7 +21,7 @@ export const authenticateWithTwitter = (passport)=> {
             done(err, user);
         });
     });
-    passport.use(new TwitterStrategy({
+    passport.use("twitter", new TwitterStrategy({
 
         consumerKey     : configTwitter.twitterAuth.consumerKey,
         consumerSecret  : configTwitter.twitterAuth.consumerSecret,
