@@ -1,42 +1,48 @@
-const editForm = document.querySelector('.edit-post');
-const updateButton = editForm.querySelector("button[type='submit']");
-const notification = document.querySelector('.notification');
+/* eslint-disable no-undef */
 
 function togglePreloader(state) {
   const preloader = document.querySelector('#cover');
   preloader.style.display = state;
 }
 
-window.addEventListener('load', (ev) => {
+if (document.querySelector('.edit-post')) {
+  if (!localStorage.getItem('token')) {
+    window.location.href = '/login';
+  }
 
-  const api = new ItarjApi('/api/v1');
-  const inviteId = editForm.querySelector("input[name='inviteId']").value;
+  const editForm = document.querySelector('.edit-post');
+  const updateButton = editForm.querySelector("button[type='submit']");
+  const notification = document.querySelector('.notification');
 
-  editForm.addEventListener('submit', (ev) => {
-    ev.preventDefault();
+  window.addEventListener('load', (ev) => {
+    const api = new ItarjApi('/api/v1');
+    const inviteId = editForm.querySelector("input[name='inviteId']").value;
 
-    togglePreloader('block');
+    editForm.addEventListener('submit', (e) => {
+      e.preventDefault();
 
-    updateButton.disabled = true;
+      togglePreloader('block');
 
-    const formData = {
-      title: editForm.querySelector("input[name='title']").value,
-      body: editForm.querySelector("textarea[name='body']").value,
-    };
+      updateButton.disabled = true;
 
-    api.Put(`invites/${inviteId}`, JSON.stringify(formData), true)
-      .then( (data) => {
-        togglePreloader('none');
-        window.location.href = '/singlepost';
-      })
-      .catch( (error) => {
-        togglePreloader('none');
-        notification.innerHTML = error.data.message;
-        notification.className += ' show';
-        setTimeout(() => {
-          notification.className = 'notification';
-        }, 5000);
-      });
+      const formData = {
+        title: editForm.querySelector("input[name='title']").value,
+        body: editForm.querySelector("textarea[name='body']").value,
+      };
 
+      api.Put(`invites/${inviteId}`, JSON.stringify(formData), true)
+        .then((data) => {
+          togglePreloader('none');
+          window.location.href = `/post/${inviteId}`;
+        })
+        .catch((error) => {
+          togglePreloader('none');
+          notification.innerHTML = `<strong>${err.data.message}:</strong> ${err.data.payload}`;
+          notification.className += ' show';
+          setTimeout(() => {
+            notification.className = 'notification';
+          }, 5000);
+        });
+    });
   });
-});
+}

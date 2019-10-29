@@ -133,7 +133,8 @@ export const renderSinglePostPage = async (req, res) => {
   })]);
   return res.render('singlepost', {
     comments: data[0],
-    invite: data[1]
+    invite: data[1],
+    isAuth: true,
   });
 };
 
@@ -146,7 +147,23 @@ export const renderJobInvitesPage = async (req, res) => {
   const invites = await fetchAllInvites();
 
   return res.render('jobInvites', {
-    invites: invites || []
+    invites: invites || [],
+    isAuth: true,
+  });
+};
+
+/**
+ * Render job invites page for admin
+ * @param {object} req
+ * @param {object} res
+ */
+export const renderAdminJobInvitesPage = async (req, res) => {
+  const invites = await fetchAllInvites();
+
+  return res.render('admin/posts', {
+    invites: invites || [],
+    isAuth: true,
+    isAdmin: true,
   });
 };
 
@@ -158,4 +175,5 @@ export const renderJobInvitesPage = async (req, res) => {
  */
 export const editInvite = async (req, res) => res.render('editPost', {
   invite: req.invite,
+  isAuth: true,
 });

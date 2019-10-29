@@ -26,28 +26,27 @@ import {
   updateInvite,
   renderSinglePostPage,
   renderJobInvitesPage,
-  editInvite
+  editInvite,
+  renderAdminJobInvitesPage,
 } from '../controllers/inviteController';
 
 import { getComments, createComment } from '../controllers/commentController';
-import { blockUser, getUsers } from '../controllers/userController';
+import { blockUser, getUsers, renderAdminUsersPage } from '../controllers/userController';
 
 export const initRoutes = app => {
   // All EJS frontend endpoints below --------------------------------------------------
-  app.get('/', (req, res) => res.render('index', { logged_in: false })); // Pass true or false to toggle state of navbar....
-  app.get('/login', (req, res) => res.render('login'));
-  app.get('/register', (req, res) => res.render('register'));
-  app.get('/post', (req, res) => res.render('userPost'));
+  app.get('/', (req, res) => res.render('index', { isAuth: false })); // Pass true or false to toggle state of navbar....
+  app.get('/login', (req, res) => res.render('login', { isAuth: false }));
+  app.get('/register', (req, res) => res.render('register', { isAuth: false }));
+  app.get('/post', (req, res) => res.render('userPost', { isAuth: true }));
   app.get('/jobInvites', renderJobInvitesPage);
-  app.get('/singlepost/:inviteId', renderSinglePostPage);
-  app.get('/admin', (req, res) => res.render('admin'));
+  app.get('/post/:inviteId', renderSinglePostPage);
 
   // Edit post endpoint
   app.get('/post/:inviteId/edit', validateInviteId, validateInvite, editInvite);
 
-  // All EJS fronted endpoints continue
-  app.get('/admin/users', (req, res) => res.render('users'));
-  app.get('/admin/posts', (req, res) => res.render('posts'));
+  app.get('/admin/users', renderAdminUsersPage);
+  app.get('/admin/posts', renderAdminJobInvitesPage);
 
   // All backend API endpoints below -----------------------------------------------------
   // Auth
