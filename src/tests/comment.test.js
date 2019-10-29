@@ -53,31 +53,9 @@ describe('COMMENT CONTROLLER', () => {
           chai.request(app)
             .post(commentUrl)
             .set('Authorization', `${res.body.payload.token}`) // add jwt header
-            .send({
-              body: 'A test comment on a nice post?' // omitted userId
-            })
+            .send({}) // omitted body
             .end((err, res) => {
               expect(res).to.have.status(400);
-              expect(res.body.success).to.equal(false);
-              done();
-            });
-        });
-    });
-
-    it('it should respond with status 404 when user is not found', (done) => {
-      chai.request(app)
-        .post(signinUrl)
-        .send(authDetails)
-        .end((error, res) => {
-          chai.request(app)
-            .post(commentUrl)
-            .set('Authorization', `${res.body.payload.token}`) // add jwt header
-            .send({
-              body: 'A test comment on a nice post?',
-              userId: 'STRANGE_USER' // invalid user id
-            })
-            .end((err, res) => {
-              expect(res).to.have.status(404);
               expect(res.body.success).to.equal(false);
               done();
             });
