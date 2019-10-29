@@ -27,11 +27,17 @@ import {
   renderSinglePostPage,
   renderJobInvitesPage,
   editInvite,
-  renderAdminJobInvitesPage,
+  renderAdminJobInvitesPage
 } from '../controllers/inviteController';
 
 import { getComments, createComment } from '../controllers/commentController';
-import { blockUser, getUsers, renderAdminUsersPage } from '../controllers/userController';
+import {
+  blockUser,
+  getUsers,
+  renderAdminUsersPage,
+  getUser,
+  renderUserProfile
+} from '../controllers/userController';
 
 export const initRoutes = app => {
   // All EJS frontend endpoints below --------------------------------------------------
@@ -60,6 +66,12 @@ export const initRoutes = app => {
 
   // Get all Users
   app.get('/api/v1/users', authenticateUserToken, validateAdmin, getUsers);
+
+  // Get single User - return JSON
+  app.get('/api/v1/users/json/:username', getUser);
+
+  // Render user profile
+  app.get('/api/v1/users/:username', renderUserProfile);
 
   // Block a user
   app.patch(
