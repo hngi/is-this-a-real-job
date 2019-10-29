@@ -102,7 +102,7 @@ body {
   color: #fff;
   bottom:0;
   margin-top: 5%;
-  position:absolute;
+  position:relative;
   width:100%;
 }
 
@@ -380,6 +380,7 @@ div.heading p {
   transform: rotate(90deg) !important;
 }
 
+
 /* style for how-it-works page  */
 .heading {
   text-align: center;
@@ -450,3 +451,4 @@ div.heading p {
     text-align: center;
   }
 }
+
