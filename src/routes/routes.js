@@ -28,14 +28,18 @@ import {
   renderJobInvitesPage,
   editInvite,
   renderAdminJobInvitesPage
-} from "../controllers/inviteController";
+} from '../controllers/inviteController';
 
-import { getComments, createComment } from "../controllers/commentController";
+import { getComments, createComment } from '../controllers/commentController';
 import {
   blockUser,
   getUsers,
-  renderAdminUsersPage
-} from "../controllers/userController";
+  renderAdminUsersPage,
+  getUser,
+  renderUserProfile
+} from '../controllers/userController';
+import { getNotifications, createNotification } from '../controllers/notificationController';
+import { validateNotificationData } from '../middlewares/validateNotification';
 
 export const initRoutes = app => {
   // All EJS frontend endpoints below --------------------------------------------------
@@ -70,6 +74,12 @@ export const initRoutes = app => {
 
   // Get all Users
   app.get("/api/v1/users", authenticateUserToken, validateAdmin, getUsers);
+
+  // Get single User - return JSON
+  app.get('/api/v1/users/json/:username', getUser);
+
+  // Render user profile
+  app.get('/api/v1/users/:username', renderUserProfile);
 
   // Block a user
   app.patch(
@@ -135,6 +145,10 @@ export const initRoutes = app => {
     validateInvite,
     upvoteInvite
   );
+
+  // Get all comments for a given Invite.
+  app.get('/api/v1/notifications/:userId', validateUserId, getNotifications);
+  app.post('/api/v1/notifications', validateNotificationData, createNotification);
 
   // Fallback case for unknown URIs.
   app.all("*", (req, res) =>
