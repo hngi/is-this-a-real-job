@@ -57,12 +57,16 @@ export const findUsers = async (queryOption = {}) => {
  */
 export const updateOneUser = async (data, queryOption = {}) => {
   try {
-    const user = await User.update({ ...data }, {
-      where: queryOption,
-      returning: true,
-      logging: false
-    }).then(() => User.findOne({ where: queryOption }))
-      .then((updatedUser) => updatedUser);
+    const user = await User.update(
+      { ...data },
+      {
+        where: queryOption,
+        returning: true,
+        logging: false
+      }
+    )
+      .then(() => User.findOne({ where: queryOption }))
+      .then(updatedUser => updatedUser);
     return user;
   } catch (error) {
     console.log(error);
