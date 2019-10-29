@@ -25,7 +25,9 @@ if (document.querySelector('.invites-section')) {
             if (window.localStorage.getItem('token')) {
               window.localStorage.clear();
             }
-            window.location.href = '/login';
+            setTimeout(() => {
+              window.location.href = '/login';
+            }, 3000);
           }
           notification.innerHTML = error.data.message;
           notification.className += ' show';
