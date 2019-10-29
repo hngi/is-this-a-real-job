@@ -292,3 +292,17 @@ body {
     margin-left: 9%;
   }
 }
+
+/* Make Placeholder Texts appear in italics */
+::-webkit-input-placeholder {
+  font-style: italic;
+}
+:-moz-placeholder {
+  font-style: italic;  
+}
+::-moz-placeholder {
+  font-style: italic;  
+}
+:-ms-input-placeholder {  
+  font-style: italic; 
+}

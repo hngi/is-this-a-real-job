@@ -29,7 +29,7 @@ if (document.querySelector('#login-btn')) {
         console.log(res);
         togglePreloader('none');
         localStorage.setItem('token', res.data.token);
-        localStorage.setItem('user', res.data);
+        localStorage.setItem('user', JSON.stringify(res.data)); // convert from [object object]
         window.location.href = '/jobInvites';
       })
       .catch(err => {
@@ -40,5 +40,15 @@ if (document.querySelector('#login-btn')) {
           notification.className = 'notification';
         }, 5000);
       });
+  });
+}
+
+if (document.querySelector('#logout')) {
+  let logout = document.querySelector('#logout');
+  logout.addEventListener('click', (ev) => {
+    ev.preventDefault();
+
+    localStorage.removeItem('token');
+    window.location.href = '/';
   });
 }
