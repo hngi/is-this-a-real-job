@@ -37,6 +37,7 @@ export const initRoutes = app => {
   // All EJS frontend endpoints below --------------------------------------------------
   app.get('/', (req, res) => res.render('index', { isAuth: false })); // Pass true or false to toggle state of navbar....
   app.get('/login', (req, res) => res.render('login', { isAuth: false }));
+  // app.get("/auth/twitter", (req,res) => )
   app.get('/register', (req, res) => res.render('register', { isAuth: false }));
   app.get('/post', (req, res) => res.render('userPost', { isAuth: true }));
   app.get('/jobInvites', renderJobInvitesPage);

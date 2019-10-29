@@ -21,7 +21,6 @@
     "lint": "./node_modules/.bin/eslint src",
     "lint-fix": "./node_modules/.bin/eslint src --ext  .js --fix",
     "heroku-postbuild": "cross-env NODE_ENV=production npm run build"
-
   },
   "author": "",
   "license": "ISC",
