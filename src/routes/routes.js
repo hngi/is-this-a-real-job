@@ -126,6 +126,10 @@ export const initRoutes = app => {
     upvoteInvite
   );
 
+  // Report User section
+  app.get('/repoetUser', (req, res) => res.render('repoetUser', { isAuth: false }));
+
+
   // Fallback case for unknown URIs.
   app.all('*', (req, res) => res.status(404).json({ message: 'Route Not Found' }));
 };
