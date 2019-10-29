@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
+  <title>Report A User | Is this a real job</title>
+  <style>
+    html {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Raleway', sans-serif;
+      width: 70%;
+      margin: 0 auto;
+    }
+
+    .wrapper {
+      display: grid;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: #000000;
+    }
+
+    #reportUser {
+      display: block;
+      margin: 1rem 0;
+      padding: 1rem 2rem;
+      border-radius: 5px;
+      background: #ECECEC;
+    }
+
+    input#victim {
+      border-radius: 5px;
+      background: #ECECEC;
+      padding: 1rem;
+      font-weight: bold;
+    }
+
+    input[type="submit"] {
+      padding: 1.3rem;
+      width: 25%;
+      border: 0.5px solid red;
+      color: #EB5757;
+      border-radius: 10px;
+      background: #fff;
+    }
+    input[type="reset"] {
+      padding: 1.3rem;
+      width: 25%;
+      border: 0.5px solid red;
+      color: #EB5757;
+      border-radius: 10px;
+      background: #fff;
+    }
+
+
+    input:valid {
+      border-color: green;
+    }
+
+    input:invalid {
+      border-color: red;
+    }
+    input:required:valid { border-color: green; }
+
+    @media screen and (max-width: 700px) {
+      body {
+        height: vw;
+        margin: 0 auto;
+        text-align: center;
+        overflow: auto;
+      }
+
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrapper">
+    <h1>Report a User</h1>
+    <form method="POST" action="" id="reportUser" name="reportUserForm" onsubmit="return validateForm()">
+      <p> Provide the person's Username/ID
+      </p>
+      <label for="victim">
+      </label>
+      <input type="text" name="victim" id="victim" required>
+      <p> Write you complain here </p>
+      <textarea name="reportUser" id="reportUser" cols="50" rows="10" required>
+        </textarea>
+      <input type="submit" name="submit" id="submit" value="Yes, Report">
+      <!-- <input type="reset" name="submit" id="submit" value="Clear"> -->
+    </form>
+
+  </div>
+
+</body>
+
+</html>
