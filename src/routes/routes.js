@@ -39,15 +39,18 @@ import {
 
 export const initRoutes = app => {
   // All EJS frontend endpoints below --------------------------------------------------
-  app.get("/", (req, res) => res.render("index", { isAuth: false })); // Pass true or false to toggle state of navbar....
-  app.get("/login", (req, res) => res.render("login", { isAuth: false }));
-  app.get("/register", (req, res) => res.render("register", { isAuth: false }));
-  app.get("/post", (req, res) => res.render("userPost", { isAuth: true }));
+
+  app.get('/', (req, res) => res.render('index', { isAuth: false })); // Pass true or false to toggle state of navbar....
+  app.get('/login', (req, res) => res.render('login', { isAuth: false }));
+  app.get('/register', (req, res) => res.render('register', { isAuth: false }));
+  app.get('/post', (req, res) => res.render('userPost', { isAuth: true }));
   app.get("/howitworks", (req, res) =>
     res.render("howitworks", { isAuth: false })
   );
-  app.get("/jobInvites", renderJobInvitesPage);
-  app.get("/post/:inviteId", renderSinglePostPage);
+  app.get('/jobInvites', renderJobInvitesPage);
+  app.get('/post/:inviteId', renderSinglePostPage);
+  app.get('/admin/reported', (req, res) => res.render('admin/reportedUsers', { isAuth: true, }));
+
 
   // Edit post endpoint
   app.get("/post/:inviteId/edit", validateInviteId, validateInvite, editInvite);

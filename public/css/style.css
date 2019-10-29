@@ -16,7 +16,7 @@ body {
   color: #000;
   font-family: "Raleway", sans-serif;
   font-weight: 300;
-  font-size: 20px;
+  font-size: 15px;
   text-rendering: optimizeLegibility;
   overflow-x: hidden;
 }
@@ -100,19 +100,22 @@ body {
 .footer {
   background-color: #24659e;
   color: #fff;
-  padding: 8%;
+  bottom:0;
   margin-top: 5%;
+  position:absolute;
+  width:100%;
 }
 
 .subscribe {
   border-color: transparent !important;
   height: 100%;
   font-size: 70%;
+
 }
 
 .footer-heading {
-  margin-bottom: 7%;
-  margin-top: 10%;
+  margin-bottom: 1%;
+  margin-top: 5%;
 }
 
 .footer_email {
@@ -299,6 +302,85 @@ body {
 }
 
 /* style for how-it-works-page */
+.heading {
+  text-align: center;
+}
+div.heading h2 {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 40px;
+  line-height: 47px;
+}
+
+div.heading p {
+  color: #636b6f;
+  font-weight: 600;
+  font-size: 25px;
+  line-height: 29px;
+}
+.container {
+  width: 90%;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+.cards {
+  margin-top: 50px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.card {
+  width: 280px;
+  padding: 0.5em;
+}
+
+.card div.content h3 {
+  text-align: center;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 25px;
+  line-height: 29px;
+}
+
+.cards div.card div.content p {
+  font-style: normal;
+  font-size: 15px;
+  line-height: 18px;
+}
+
+.cards div.card button {
+  margin: 0 auto;
+  display: block;
+  background: #3087d1;
+  color: #fff;
+  padding: 15px 40px;
+  border-radius: 10px;
+}
+
+@media (max-width: 850px) {
+  .cards {
+    flex-direction: column;
+    align-items: center;
+  }
+  .card {
+    margin-bottom: 50px;
+    width: 80%;
+  }
+
+  div.card div.img {
+    text-align: center;
+  }
+}
+
+
+:-ms-input-placeholder {  
+  font-style: italic; 
+}
+.fa-ellipsis-h{
+  transform: rotate(90deg) !important;
+}
+
+/* style for how-it-works page  */
 .heading {
   text-align: center;
 }
