@@ -7,7 +7,6 @@
       notification.innerHTML = `<strong>Contact the site administrator to complete this operation</strong>`;
       notification.className += ' show';
       if (/*@cc_on!@*/false || !!document.documentMode) {
-        console.log('Got here yay')
         document.execCommand("Stop");
       }else{
         window.stop()
@@ -17,7 +16,7 @@
       }, 2500);
 
       setTimeout(()=>{
-        window.location.href = '/jobInvites'
+        window.location.href = '/posts'
       },3000)
     }
   </script>

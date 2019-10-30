@@ -1,5 +1,6 @@
 /* eslint-disable no-plusplus */
 /* eslint-disable no-console */
+import Sequelize from 'sequelize';
 import Model from '../models';
 
 const { Invite, User, Comment } = Model;
@@ -11,9 +12,7 @@ const { Invite, User, Comment } = Model;
 export const fetchOneInvite = async (queryOption = {}) => {
   try {
     const invite = await Invite.findOne({
-      include: [
-        { model: User, as: 'user' }
-      ],
+      include: [{ model: User, as: 'user' }],
       where: queryOption,
       logging: false
     });
@@ -37,9 +36,7 @@ export const fetchAllInvites = async () => {
         { model: User, as: 'user' },
         { model: Comment, as: 'comments' }
       ],
-      order: [
-        ['createdAt', 'DESC']
-      ],
+      order: [['createdAt', 'DESC']],
       logging: false
     });
 
@@ -57,7 +54,7 @@ export const fetchAllInvites = async () => {
  * @param {object} inviteData Data to be stored for the new job invite.
  * @returns {object} an object containing the newly created invite data.
  */
-export const saveInvite = async (inviteData) => {
+export const saveInvite = async inviteData => {
   const e = new Error();
   const userObj = await User.findOne({
     where: {
@@ -71,7 +68,8 @@ export const saveInvite = async (inviteData) => {
     throw e;
   });
 
-  if (!userObj) { // user does not exist
+  if (!userObj) {
+    // user does not exist
     e.status = 400;
     e.message = 'Unknown user.';
     throw e;
@@ -124,13 +122,50 @@ export const deleteOneInvite = async (queryOption = {}) => {
 
 export const upvoteOneInvite = async (upVotes, queryOption = {}) => {
   try {
-    const invite = await Invite.update({ upVotes }, {
-      where: queryOption,
-      logging: false
-    }).then(() => Invite.findOne({ where: queryOption }))
-      .then((updatedInvite) => updatedInvite);
+    const invite = await Invite.update(
+      { upVotes },
+      {
+        where: queryOption,
+        logging: false
+      }
+    )
+      .then(() => Invite.findOne({ where: queryOption }))
+      .then(updatedInvite => updatedInvite);
     return invite;
   } catch (error) {
     console.log(error);
+  }
+};
+
+/**
+ * searchInvites
+ *
+ * Simple search function that checks the body of all posts to see if any word in
+ * given string matches
+ * Returns the matching posts
+ */
+export const searchInvites = async string => {
+  try {
+    const result = await Invite.findAll({
+      where: Sequelize.literal('MATCH (body, title, company, location) AGAINST(:string)'),
+      include: [
+        { model: User, as: 'user' },
+        // { model: Comment, as: "comments" }
+      ],
+      replacements: {
+        string
+      },
+      order: [['createdAt']],
+      logging: false
+    });
+
+    return result.map(invite => {
+      invite = invite.dataValues;
+      invite.user = invite.user ? invite.user.dataValues : {};
+      return invite;
+    });
+  } catch (error) {
+    console.log('Error! ', error);
+    return error;
   }
 };

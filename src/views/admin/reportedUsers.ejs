@@ -1,5 +1,25 @@
 <% include ../partials/header %>
 <% include ../partials/nav %>
+    <script type="text/javascript">
+    const user = JSON.parse(localStorage.getItem('user'))
+    const notification = document.querySelector('.notification');
+    if(!user || !user.isAdmin){
+      notification.innerHTML = `<strong>Contact the site administrator to complete this operation</strong>`;
+      notification.className += ' show';
+      if (/*@cc_on!@*/false || !!document.documentMode) {
+        document.execCommand("Stop");
+      }else{
+        window.stop()
+      };
+      setTimeout(() => {
+        notification.className = 'notification';
+      }, 2500);
+
+      setTimeout(()=>{
+        window.location.href = '/jobInvites'
+      },3000)
+    }
+  </script>
 <style>
     ul {
         list-style: none;
