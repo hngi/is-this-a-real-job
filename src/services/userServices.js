@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import Model from "../models";
+import Model from '../models';
 
 const { User, Invite } = Model;
 
@@ -55,7 +55,7 @@ export const findUsers = async (queryOption = {}) => {
 export const fetchSingleUser = async query => {
   try {
     const user = await User.findOne({
-      include: [{ model: Invite, as: "Invites" }],
+      include: [{ model: Invite, as: 'Invites' }],
       where: query,
       logging: false
     });

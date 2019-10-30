@@ -32,7 +32,7 @@ describe('AUTH CONTROLLER', () => {
           done();
         });
     });
-    it('it should return 400 error if creden', done =>{
+    it('it should return 400 error if creden', done => {
       chai
         .request(app)
         .post(signinUrl)
@@ -46,25 +46,24 @@ describe('AUTH CONTROLLER', () => {
           expect(res.body.message).to.equal('Bad Input');
           done();
         });
-    })
+    });
 
-    it("it should return 401 error if login credentials are incorrect", done =>{
+    it('it should return 401 error if login credentials are incorrect', done => {
       chai
-      .request(app)
-      .post(signinUrl)
-      .send({
+        .request(app)
+        .post(signinUrl)
+        .send({
           email: 'wrong@email.com',
           password: '1234'
-        
-      })
-      .end((error, res) => {
-        expect(res).to.have.status(401);
-        expect(res.body.success).to.equal(false);
-        expect(res.body.message).to.equal('Incorrect email or password');
-        done();
-      });
-    })
-    
+
+        })
+        .end((error, res) => {
+          expect(res).to.have.status(401);
+          expect(res.body.success).to.equal(false);
+          expect(res.body.message).to.equal('Incorrect email or password');
+          done();
+        });
+    });
   });
 
   describe('POST REGULAR USER SIGN UP', () => {
