@@ -50,7 +50,7 @@ export const initRoutes = app => {
   // Cookie handlers before all
   app.use(validateCookies);
   app.use(signUserIn);
-  app.use(signUserOut)
+  app.use(signUserOut);
 
   // All EJS frontend endpoints below --------------------------------------------------
 
@@ -62,9 +62,8 @@ export const initRoutes = app => {
   app.get('/jobInvites', renderJobInvitesPage);
   app.get('/post/:inviteId', renderSinglePostPage);
   app.get('/about', (req, res) => res.render('about', { isAuth: req.isAuth, isAdmin: req.auth.isAdmin }));
-  app.get('/admin/reported', (req, res) => res.render('admin/reportedUsers', { isAuth: req.isAuth,isAdminh: req.aut.isAdminh }));
+  app.get('/admin/reported', (req, res) => res.render('admin/reportedUsers', { isAuth: req.isAuth, isAdminh: req.aut.isAdminh }));
   app.get('/reportUser', (req, res) => res.render('reportUser', { isAuth: false }));
-
 
 
   // Edit post endpoint
@@ -83,8 +82,8 @@ export const initRoutes = app => {
     signup
   );
   // Twitter Login
-  app.get("/auth/twitter", passportAuthenticate)
-    app.get("/auth/twitter/callback", passportAuthCallback)
+  app.get('/auth/twitter', passportAuthenticate);
+  app.get('/auth/twitter/callback', passportAuthCallback);
   // Get all Users
   app.get('/api/v1/users', authenticateUserToken, validateAdmin, getUsers);
 
@@ -167,7 +166,7 @@ export const initRoutes = app => {
   // Get all comments for a given Invite.
   app.get('/api/v1/notifications/:userId', validateUserId, getNotifications);
   app.post('/api/v1/notifications', validateNotificationData, createNotification);
-  
+
   // Fallback case for unknown URIs.
   app.all('*', (req, res) => res.status(404).json({ message: 'Route Not Found' }));
 };

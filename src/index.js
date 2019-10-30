@@ -3,13 +3,13 @@ const path = require('path');
 const express = require('express');
 const Cookies = require('cookies');
 const Keygrip = require('keygrip');
-const { PORT, NODE_ENV, SECRET_KEY } = require('./config/constants');
 const cors = require('cors');
+const passport = require('passport');
+const { PORT, NODE_ENV, SECRET_KEY } = require('./config/constants');
 const { initRoutes } = require('./routes/routes');
 
 const { cloudinaryConfig } = require('./config/cloudinaryConfig');
 
-const passport = require("passport")
 
 const keys = Keygrip([SECRET_KEY]);
 
