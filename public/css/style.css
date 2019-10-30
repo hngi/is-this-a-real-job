@@ -18,7 +18,7 @@ body {
   font-weight: 300;
   font-size: 15px;
   text-rendering: optimizeLegibility;
-  overflow-x: hidden;
+  /* overflow-x: hidden; */
 }
 
 .go_back {
@@ -36,33 +36,6 @@ body {
 .default-text {
   font-size: 200px;
   font-weight: 600;
-}
-
-/* NAV BAR */
-
-.nav-link {
-  font-weight: 600;
-  font-size: 12px;
-  line-height: 14px;
-}
-
-.nav-link:hover {
-  color: rgba(0, 0, 0, 0.5) !important;
-}
-
-.nav-item {
-  margin-right: 50px;
-}
-
-.navbar-brand {
-  font-weight: 600;
-  font-size: 32px;
-  line-height: 38px;
-  color: #fff !important;
-}
-
-.navbar {
-  background-color: #3087d1;
 }
 
 /* NEW POST PAGE */
