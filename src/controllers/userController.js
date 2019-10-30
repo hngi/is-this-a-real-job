@@ -51,11 +51,10 @@ export const getUser = async (req, res) => {
 
   try {
     const user = await fetchSingleUser({ username });
-    if (user) {
-      return respondWithSuccess(res, 200, 'User found', user);
-    } else {
+    if (!user) {
       return respondWithWarning(res, 404, 'User not found');
     }
+    return respondWithSuccess(res, 200, 'User found', user);
   } catch (error) {
     return respondWithWarning(res, 400, 'Error fetching User');
   }
@@ -71,11 +70,10 @@ export const renderUserProfile = async (req, res) => {
   const { username } = req.params;
 
   const user = await fetchSingleUser({ username });
-  if (user) {
-    return res.render('userProfile', { user });
-  } else {
+  if (!user) {
     return res.render('404', { status: 404 });
   }
+  return res.render("userProfile", { user, isAuth: req.isAuth, isAdmin: req.auth.isAdmin });
 };
 
 /**
@@ -88,7 +86,7 @@ export const renderAdminUsersPage = async (req, res) => {
 
   return res.render('admin/users', {
     users: users || [],
-    isAuth: true,
-    isAdmin: true
+    isAuth: req.isAuth,
+    isAdmin: req.auth.isAdmin
   });
 };

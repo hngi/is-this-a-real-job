@@ -12,27 +12,37 @@ if (inviteBtn) {
     window.location.href = '/login';
   }
 
+
   const jobDetails = document.querySelector('#jobDetails');
   const jobTitle = document.querySelector('#jobTitle');
   const jobLocation = document.querySelector('#jobLocation');
   const companyName = document.querySelector('#companyName');
+  const media = document.querySelector('#media');
   const notification = document.querySelector('.notification');
-
   inviteBtn.addEventListener('click', e => {
     e.preventDefault();
     togglePreloader('block');
 
     const api = new ItarjApi('/api/v1');
+    const formData = new FormData();
 
-    api
-      .Post('invites',
-        JSON.stringify({
-          title: jobTitle.value,
-          body: jobDetails.value,
-          company: companyName.value,
-          location: jobLocation.value,
-          media: `https://loremflickr.com/320/240/${jobTitle.value.slice(0, 3)}`
-        }), true)
+    formData.append('title', jobTitle.value);
+    formData.append('location', jobLocation.value);
+    formData.append('body', jobDetails.value);
+    formData.append('company', companyName.value);
+    formData.append('media', media.files[0]);
+
+    const options = {
+      method: 'POST',
+      body: formData,
+      headers: {
+        // If you add this, upload won't work
+        // 'Content-Type': 'multipart/form-data',
+        Authorization: localStorage.getItem('token')
+      }
+    };
+
+    fetch('api/v1/invites', options)
       .then(res => {
         // navigate to somewhere. created post maybe
         window.location.href = '/posts';
