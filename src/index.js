@@ -6,7 +6,10 @@ const Keygrip = require('keygrip');
 const { PORT, NODE_ENV, SECRET_KEY } = require('./config/constants');
 const cors = require('cors');
 const { initRoutes } = require('./routes/routes');
+
 const { cloudinaryConfig } = require('./config/cloudinaryConfig');
+
+const passport = require("passport")
 
 const keys = Keygrip([SECRET_KEY]);
 
@@ -35,6 +38,8 @@ app.set('view engine', 'ejs');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(Cookies.express(keys));
 
 initRoutes(app);
