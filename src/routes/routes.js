@@ -1,23 +1,23 @@
 import { signin, signup } from '../controllers/authController';
 import {
-  validateSigninFormData,
-  validateSignupFormData,
-  validateCommentData,
-  validUser,
-  validateInvite,
-  validateInviteId,
-  validateInviteData,
-  validateInviteUpdateData,
-  verifyUniqueUser,
-  authenticateUserToken,
-  validateAdmin,
-  validateUserById,
-  validateUserId,
-  validateUpvoteInput,
-  validateInviteOwner,
-  passportAuthCallback,
-  passportAuthenticate,
-  multerUploads
+    validateSigninFormData,
+    validateSignupFormData,
+    validateCommentData,
+    validUser,
+    validateInvite,
+    validateInviteId,
+    validateInviteData,
+    validateInviteUpdateData,
+    verifyUniqueUser,
+    authenticateUserToken,
+    validateAdmin,
+    validateUserById,
+    validateUserId,
+    validateUpvoteInput,
+    validateInviteOwner,
+    passportAuthCallback,
+    passportAuthenticate,
+    multerUploads
 } from '../middlewares/middlewares';
 
 import {
@@ -29,17 +29,19 @@ import {
   updateInvite,
   renderSinglePostPage,
   renderJobInvitesPage,
+  renderSearchResults,
+  searchInvitesApi,
   renderEditInvitePage,
   renderAdminJobInvitesPage
 } from '../controllers/inviteController';
 
 import { getComments, createComment } from '../controllers/commentController';
 import {
-  blockUser,
-  getUsers,
-  renderAdminUsersPage,
-  getUser,
-  renderUserProfile
+    blockUser,
+    getUsers,
+    renderAdminUsersPage,
+    getUser,
+    renderUserProfile
 } from '../controllers/userController';
 import { getNotifications, createNotification } from '../controllers/notificationController';
 import { validateNotificationData } from '../middlewares/validateNotification';
@@ -65,6 +67,9 @@ export const initRoutes = app => {
   app.get('/admin/reported', (req, res) => res.render('admin/reportedUsers', { isAuth: req.isAuth, isAdminh: req.aut.isAdminh }));
   app.get('/reportUser', (req, res) => res.render('reportUser', { isAuth: false }));
   app.get('/users/:username', renderUserProfile);
+  // Search Invites - Renders view
+  app.get('/invites/search', renderSearchResults);
+  app.get('/admin', (req, res) => res.render('./admin/index', { isAuth: false }));
 
 
   // Edit post endpoint
@@ -112,6 +117,9 @@ export const initRoutes = app => {
 
   // Get all job invites in the database.
   app.get('/api/v1/invites', getAllInvites);
+
+  // Search Invites - Returns JSON payload
+  app.get('/api/v1/invites/search/json', searchInvitesApi);
 
   // Get a single job invite.
   app.get('/api/v1/invites/:inviteId', validateInviteId, getOneInvite);
