@@ -31,6 +31,7 @@ import {
 
 import { getComments, createComment } from '../controllers/commentController';
 import { blockUser, getUsers } from '../controllers/userController';
+import { getMetrics } from '../controllers/metricsController';
 
 export const initRoutes = app => {
   // All EJS frontend endpoints below --------------------------------------------------
@@ -40,6 +41,7 @@ export const initRoutes = app => {
   app.get('/post', (req, res) => res.render('userPost', { isAuth: true }));
   app.get('/jobInvites', renderJobInvitesPage);
   app.get('/post/:inviteId', renderSinglePostPage);
+
 
   // Edit post endpoint
   app.get('/post/:inviteId/edit', validateInviteId, validateInvite, editInvite);
@@ -125,6 +127,9 @@ export const initRoutes = app => {
     upvoteInvite
   );
 
+  // Get the number of users, invites and comments in the database.
+  app.get('/api/v1/metrics', getMetrics);
+  
   // Fallback case for unknown URIs.
   app.all('*', (req, res) => res.status(404).json({ message: 'Route Not Found' }));
 };
