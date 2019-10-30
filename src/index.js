@@ -4,8 +4,9 @@ const express = require('express');
 const Cookies = require('cookies');
 const Keygrip = require('keygrip');
 const { PORT, NODE_ENV, SECRET_KEY } = require('./config/constants');
+const cors = require('cors');
 const { initRoutes } = require('./routes/routes');
-const { connectionTest } = require('./services/connectionTest');
+const { cloudinaryConfig } = require('./config/cloudinaryConfig');
 
 const keys = Keygrip([SECRET_KEY]);
 
@@ -23,6 +24,9 @@ app.use((req, res, next) => {
   );
   next();
 });
+// Handle image upload
+app.use(cors());
+app.use('*', cloudinaryConfig);
 
 app.set('views', path.join(__dirname, 'views')); // Redirect to the views directory inside the src directory
 app.use(express.static(path.join(__dirname, '../public'))); // load local css and js files
@@ -34,16 +38,10 @@ app.use(express.urlencoded({ extended: true }));
 app.use(Cookies.express(keys));
 
 initRoutes(app);
-const connection = () => {
-  if (NODE_ENV === 'development') {
-    return connectionTest();
-  }
-  return null;
-};
+
 const port = PORT || 3000;
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`);
-  connection();
 });
 
 export default app;
