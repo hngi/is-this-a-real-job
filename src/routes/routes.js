@@ -66,6 +66,8 @@ export const initRoutes = app => {
   app.get('/about', (req, res) => res.render('about', { isAuth: req.isAuth, isAdmin: req.auth.isAdmin }));
   app.get('/admin/reported', (req, res) => res.render('admin/reportedUsers', { isAuth: req.isAuth, isAdminh: req.aut.isAdminh }));
   app.get('/reportUser', (req, res) => res.render('reportUser', { isAuth: false }));
+  // Search Invites - Renders view
+  app.get('/invites/search', renderSearchResults);
 
 
   // Edit post endpoint
@@ -116,9 +118,6 @@ export const initRoutes = app => {
 
   // Get all job invites in the database.
   app.get('/api/v1/invites', getAllInvites);
-
-  // Search Invites - Renders view
-  app.get('/api/v1/invites/search', renderSearchResults);
 
   // Search Invites - Returns JSON payload
   app.get('/api/v1/invites/search/json', searchInvitesApi);

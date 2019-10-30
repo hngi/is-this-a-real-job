@@ -53,7 +53,7 @@ export default {
     }
   }).then(() => {
     queryInterface.addIndex("Invites", {
-      fields: ["body", "title"],
+      fields: ["body", "title", "company", "location"],
       type: "FULLTEXT"
     });
 

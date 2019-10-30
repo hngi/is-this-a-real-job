@@ -147,11 +147,11 @@ export const upvoteOneInvite = async (upVotes, queryOption = {}) => {
 export const searchInvites = async string => {
   try {
     const result = await Invite.findAll({
-      where: Sequelize.literal("MATCH (body) AGAINST(:string) OR MATCH(title) AGAINST(:string)"),
-      // include: [
-      //   { model: User, as: "user" },
-      //   { model: Comment, as: "comments" }
-      // ],
+      where: Sequelize.literal("MATCH (body, title, company, location) AGAINST(:string)"),
+      include: [
+        { model: User, as: "user" },
+        // { model: Comment, as: "comments" }
+      ],
       replacements: {
         string: string
       },
@@ -166,5 +166,6 @@ export const searchInvites = async string => {
     });
   } catch (error) {
     console.log("Error! ", error);
+    return error;
   }
 };

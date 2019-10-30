@@ -61,22 +61,19 @@ export const saveNewInvite = async (req, res) => {
  * @returns Invites
  */
 export const renderSearchResults = async (req, res) => {
-  const { q } = req.query;
+  try {
+    const { q } = req.query;
 
-  const invites = await searchInvites(q);
+    const invites = await searchInvites(q);
 
-  return res.render("searchResults", {
-    invites: invites || [],
-    isAuth: true
-  });
-
-  //   if (invites) {
-  //     return respondWithSuccess(res, 200, "Invites found", invites);
-  //   }
-  //   respondWithWarning(res, 404, "Invite not found");
-  // } catch (error) {
-  //   respondWithWarning(res, 500, "Server error");
-  // }
+    return res.render("searchResults", {
+      invites: invites || [],
+      isAuth: req.isAuth,
+      isAdmin: req.auth.isAdmin,
+    });
+  } catch (error) {
+    respondWithWarning(res, 500, "Server error");
+  }
 };
 
 /**
