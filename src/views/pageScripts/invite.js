@@ -36,7 +36,7 @@ if (inviteBtn) {
       method: 'POST',
       body: formData,
       headers: {
-      // If you add this, upload won't work
+        // If you add this, upload won't work
         // 'Content-Type': 'multipart/form-data',
         Authorization: localStorage.getItem('token')
       }
@@ -44,7 +44,8 @@ if (inviteBtn) {
 
     fetch('api/v1/invites', options)
       .then(res => {
-        window.location.href = '/jobInvites';
+        // navigate to somewhere. created post maybe
+        window.location.href = '/posts';
         togglePreloader('none');
       })
       .catch(err => {
