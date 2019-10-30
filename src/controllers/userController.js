@@ -2,12 +2,12 @@
 import {
   respondWithSuccess,
   respondWithWarning
-} from "../helpers/responseHandler";
+} from '../helpers/responseHandler';
 import {
   updateOneUser,
   findUsers,
   fetchSingleUser
-} from "../services/userServices";
+} from '../services/userServices';
 
 /**
  * @param {object} req
@@ -22,7 +22,7 @@ export const blockUser = async (req, res) => {
     const user = await updateOneUser({ isBlocked }, { userId }).catch(e => {
       throw e;
     });
-    respondWithSuccess(res, 200, "User successfully blocked", user.toJSON());
+    respondWithSuccess(res, 200, 'User successfully blocked', user.toJSON());
   } catch (error) {
     return respondWithWarning(res, error.status, error.message);
   }
@@ -37,7 +37,7 @@ export const blockUser = async (req, res) => {
 export const getUsers = async (req, res) => {
   const users = await findUsers();
 
-  return respondWithSuccess(res, 200, "Successful", users);
+  return respondWithSuccess(res, 200, 'Successful', users);
 };
 
 /**
@@ -52,12 +52,12 @@ export const getUser = async (req, res) => {
   try {
     const user = await fetchSingleUser({ username });
     if (user) {
-      return respondWithSuccess(res, 200, "User found", user);
+      return respondWithSuccess(res, 200, 'User found', user);
     } else {
-      return respondWithWarning(res, 404, "User not found");
+      return respondWithWarning(res, 404, 'User not found');
     }
   } catch (error) {
-    return respondWithWarning(res, 400, "Error fetching User");
+    return respondWithWarning(res, 400, 'Error fetching User');
   }
 };
 
@@ -72,9 +72,9 @@ export const renderUserProfile = async (req, res) => {
 
   const user = await fetchSingleUser({ username });
   if (user) {
-    return res.render("userProfile", { user });
+    return res.render('userProfile', { user });
   } else {
-    return res.render("404", { status: 404 });
+    return res.render('404', { status: 404 });
   }
 };
 
@@ -86,7 +86,7 @@ export const renderUserProfile = async (req, res) => {
 export const renderAdminUsersPage = async (req, res) => {
   const users = await findUsers();
 
-  return res.render("admin/users", {
+  return res.render('admin/users', {
     users: users || [],
     isAuth: true,
     isAdmin: true
