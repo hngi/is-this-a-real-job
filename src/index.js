@@ -4,7 +4,7 @@ const express = require('express');
 const { PORT, NODE_ENV } = require('./config/constants');
 const { initRoutes } = require('./routes/routes');
 const { connectionTest } = require('./services/connectionTest');
-
+const passport = require("passport")
 const app = express();
 
 app.use((req, res, next) => {
@@ -27,7 +27,8 @@ app.set('view engine', 'ejs');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
+app.use(passport.initialize());
+app.use(passport.session());
 initRoutes(app);
 const connection = () => {
   if (NODE_ENV === 'development') {
