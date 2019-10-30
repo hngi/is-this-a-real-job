@@ -38,6 +38,8 @@ export const validateInviteUpdateData = (req, res, next) => {
     title: Joi.string().trim(),
     body: Joi.string().trim(),
     media: Joi.string().trim(),
+    company: Joi.string().trim(),
+    location: Joi.string().trim(),
     userId: Joi.forbidden(),
     inviteId: Joi.forbidden(),
   });
