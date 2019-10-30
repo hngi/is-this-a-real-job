@@ -30,6 +30,8 @@ if (document.querySelector('#login-btn')) {
         togglePreloader('none');
         localStorage.setItem('token', res.data.token);
         localStorage.setItem('user', JSON.stringify(res.data)); // convert from [object object]
+
+        document.cookie = `login=${res.data.token}`;
         window.location.href = '/jobInvites';
       })
       .catch(err => {
@@ -50,6 +52,8 @@ if (document.querySelector('#logout')) {
     ev.preventDefault();
 
     localStorage.removeItem('token');
+    document.cookie = "signOut=true";
+
     window.location.href = '/';
   });
 }

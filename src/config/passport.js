@@ -1,60 +1,50 @@
 import passport from 'passport';
-let TwitterStrategy  = require('passport-twitter').Strategy;
-import { updateOneUser, findUsers } from '../services/userServices'
-import User from "../models/user"
-// load up the user model
-var User       = require('../app/models/user');
+import Model from '../models';
+import { consumerKey, consumerSecret, SITE_URL } from './constants';
 
-// load the auth variables
-import configTwitter from './twitterAuth';
+const TwitterStrategy = require('passport-twitter').Strategy;
 
-module.exports = ()=> {
+const { User } = Model;
 
-    passport.serializeUser(function(user, done) {
-        done(null, user.id);
+module.exports = () => {
+  passport.serializeUser((user, done) => {
+    done(null, user.id);
+  });
+
+  // used to deserialize the user
+  passport.deserializeUser((id, done) => {
+    User.findUsers(id, (err, user) => {
+      done(err, user);
     });
+  });
+  passport.use('twitter', new TwitterStrategy({
 
-    // used to deserialize the user
-    passport.deserializeUser(function(id, done) {
-        User.findUsers(id, function(err, user) {
-            done(err, user);
+    consumerKey,
+    consumerSecret,
+    callbackURL: `${SITE_URL}/auth/twitter/callback`
+
+  }, (token, tokenSecret, profile, done) => {
+    process.nextTick(() => {
+      User.findOne({ 'twitter.id': profile.id }, (err, user) => {
+        if (err) { return done(err); }
+
+        // if the user is found then log them in
+        if (user) {
+          return done(null, user); // user found, return that user
+        }
+        // if there is no user, create them
+        const newUser = new User();
+        // set all of the user data that we need
+        newUser.twitter.id = profile.id;
+        newUser.twitter.username = profile.username;
+        newUser.twitter.displayName = profile.displayName;
+
+        // save our user into the database
+        newUser.save((err) => {
+          if (err) { throw err; }
+          return done(null, newUser);
         });
+      });
     });
-    passport.use("twitter", new TwitterStrategy({
-
-        consumerKey     : configTwitter.twitterAuth.consumerKey,
-        consumerSecret  : configTwitter.twitterAuth.consumerSecret,
-        callbackURL     : configTwitter.twitterAuth.callbackURL
-
-    },(token, tokenSecret, profile, done)=> {
-         process.nextTick(function() {
-            User.findOne({ 'twitter.id' : profile.id }, function(err, user) {
-                if (err)
-                    return done(err);
-
-                // if the user is found then log them in
-                if (user) {
-                    return done(null, user); // user found, return that user
-                } else {
-                    // if there is no user, create them
-                    var newUser                 = new User();
-                    // set all of the user data that we need
-                    newUser.twitter.id          = profile.id;
-                    newUser.twitter.username    = profile.username;
-                    newUser.twitter.displayName = profile.displayName;
-
-                    // save our user into the database
-                    newUser.save(function(err) {
-                        if (err)
-                            throw err;
-                        return done(null, newUser);
-                    });
-                }
-            });
-
-    });
-
-    }));
-
+  }));
 };
-
