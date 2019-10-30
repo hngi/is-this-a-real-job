@@ -31,7 +31,7 @@ if (document.querySelector('#login-btn')) {
         localStorage.setItem('token', res.data.token);
         localStorage.setItem('user', JSON.stringify(res.data)); // convert from [object object]
 
-        document.cookie = `login=${res.data.token}`;
+        document.cookie = `login=${res.data.token};path=/`; // path required so cookie always sends.
         window.location.href = '/jobInvites';
       })
       .catch(err => {
@@ -52,7 +52,7 @@ if (document.querySelector('#logout')) {
     ev.preventDefault();
 
     localStorage.removeItem('token');
-    document.cookie = "signOut=true";
+    document.cookie = "signOut=true;path=/"; // Path required so cookie always sends
 
     window.location.href = '/';
   });
