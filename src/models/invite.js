@@ -9,10 +9,19 @@ export default (sequelize, DataTypes) => {
     userId: {
       type: DataTypes.UUID,
       allowNull: false,
-      defaultValue: DataTypes.UUIDV4,
+      // eslint-disable-next-line max-len
+      // defaultValue: DataTypes.UUIDV4, // there shouldn't be a default value here so an error will pop when it is not provided
       onDelete: 'CASCADE',
     },
     title: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    company: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    location: {
       type: DataTypes.STRING,
       allowNull: false,
     },

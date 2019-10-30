@@ -28,11 +28,12 @@
         <li class="nav-item">
           <a class="nav-link text-white" href="/post">NEW POST</a>
         </li>
-        <% if(typeof isAdmin !== 'undefined'){ %>
+        <% if(isAdmin){ %>
           <li class="nav-item">
             <a class="nav-link text-white" href="/admin/users">ADMIN</a>
           </li>
           <% } %>
+          <li><a href="javascript:void(0)" id="logout" class="nav-link text-white">LOGOUT</a></li>
             <% } else{ %>
               <li class="nav-item">
                 <a class="nav-link text-white" href="register">REGISTER</a>
@@ -60,3 +61,6 @@
 
   </div>
 </nav>
+<div class="notification">
+  Simple Notification
+</div>

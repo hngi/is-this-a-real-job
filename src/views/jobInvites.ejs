@@ -3,10 +3,6 @@
 <div id="cover">
   <div class="loader"></div>
 </div>
-<div class="notification">
-  Simple Notification
-</div>
-
 <body>
   <div class="header">
     <div class="container">
@@ -37,8 +33,11 @@
             <%=invite.title%>
           </a>
         </h4>
-        <p>@
-          <%=invite.user.username%>
+        <small class="text-muted"><%=invite.company%>, <em><%=invite.location%></em></small><br>
+        <p>
+          <a href="/api/v1/users/<%=invite.user.username%>">
+            @<%=invite.user.username%>
+          </a>
         </p>
         <p>
           <%=invite.body%>

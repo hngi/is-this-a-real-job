@@ -1,11 +1,11 @@
-import _ from "lodash";
-import { generateToken } from "../helpers/jwt";
+import _ from 'lodash';
+import { generateToken } from '../helpers/jwt';
 import {
   respondWithWarning,
   respondWithSuccess
-} from "../helpers/responseHandler";
-import { comparePasswords, passwordHash } from "../helpers/hash";
-import { createUser } from "../services/userServices";
+} from '../helpers/responseHandler';
+import { comparePasswords, passwordHash } from '../helpers/hash';
+import { createUser } from '../services/userServices';
 
 /**
  * class handles user authentication
@@ -21,7 +21,7 @@ export const signin = async (req, res) => {
   const { password } = req.body;
   const comparePassword = await comparePasswords(password, req.user.password);
   if (!comparePassword) {
-    return respondWithWarning(res, 401, "Incorrect email or password");
+    return respondWithWarning(res, 401, 'Incorrect email or password');
   }
   const { userId, isAdmin } = req.user;
   const payload = { userId, isAdmin };
@@ -29,8 +29,8 @@ export const signin = async (req, res) => {
   return respondWithSuccess(
     res,
     200,
-    "Login successful",
-    _.omit(req.user, ["password"])
+    'Login successful',
+    _.omit(req.user, ['password'])
   );
 };
 
@@ -41,7 +41,9 @@ export const signin = async (req, res) => {
  * @returns json body containing user data
  */
 export const signup = async (req, res) => {
-  const { username, name, email, password } = req.body;
+  const {
+    username, name, email, password
+  } = req.body;
 
   const hashedPassword = await passwordHash(password);
 
@@ -62,9 +64,9 @@ export const signup = async (req, res) => {
     return respondWithSuccess(
       res,
       200,
-      "User signup successful",
-      _.omit(_user.user.dataValues, ["password"])
+      'User signup successful',
+      _.omit(_user.user.dataValues, ['password'])
     );
   }
-  return respondWithWarning(res, 400, "Error creating User :(");
+  return respondWithWarning(res, 400, 'Error creating User :(');
 };
