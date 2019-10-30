@@ -73,7 +73,7 @@ export const renderUserProfile = async (req, res) => {
   if (!user) {
     return res.render('404', { status: 404 });
   }
-  return res.render("userProfile", { user, isAuth: req.isAuth, isAdmin: req.auth.isAdmin });
+  return res.render('userProfile', { user, isAuth: req.isAuth, isAdmin: req.auth.isAdmin });
 };
 
 /**
