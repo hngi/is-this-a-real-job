@@ -1,10 +1,14 @@
 /* eslint-disable no-console */
 const path = require('path');
 const express = require('express');
+const Cookies = require('cookies');
+const Keygrip = require('keygrip');
+const { PORT, NODE_ENV, SECRET_KEY } = require('./config/constants');
 const cors = require('cors');
-const { PORT } = require('./config/constants');
 const { initRoutes } = require('./routes/routes');
 const { cloudinaryConfig } = require('./config/cloudinaryConfig');
+
+const keys = Keygrip([SECRET_KEY]);
 
 const app = express();
 
@@ -31,6 +35,7 @@ app.set('view engine', 'ejs');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(Cookies.express(keys));
 
 initRoutes(app);
 

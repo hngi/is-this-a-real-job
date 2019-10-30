@@ -29,7 +29,7 @@ import {
   updateInvite,
   renderSinglePostPage,
   renderJobInvitesPage,
-  editInvite,
+  renderEditInvitePage,
   renderAdminJobInvitesPage
 } from '../controllers/inviteController';
 
@@ -43,23 +43,29 @@ import {
 } from '../controllers/userController';
 import { getNotifications, createNotification } from '../controllers/notificationController';
 import { validateNotificationData } from '../middlewares/validateNotification';
+import { validateCookies, signUserIn, signUserOut } from '../middlewares/cookieHandler';
 
 export const initRoutes = app => {
+  // Cookie handlers before all
+  app.use(validateCookies);
+  app.use(signUserIn);
+  app.use(signUserOut)
+
   // All EJS frontend endpoints below --------------------------------------------------
 
-  app.get('/', (req, res) => res.render('index', { isAuth: false })); // Pass true or false to toggle state of navbar....
-  app.get('/login', (req, res) => res.render('login', { isAuth: false }));
-  app.get('/register', (req, res) => res.render('register', { isAuth: false }));
-  app.get('/post', (req, res) => res.render('userPost', { isAuth: true }));
-  app.get('/howitworks', (req, res) => res.render('howitworks', { isAuth: false }));
+  app.get('/', (req, res) => res.render('index', { isAuth: req.isAuth, isAdmin: req.auth.isAdmin })); // Pass true or false to toggle state of navbar....
+  app.get('/login', (req, res) => res.render('login', { isAuth: req.isAuth, isAdmin: req.auth.isAdmin }));
+  app.get('/register', (req, res) => res.render('register', { isAuth: req.isAuth, isAdmin: req.auth.isAdmin }));
+  app.get('/post', (req, res) => res.render('userPost', { isAuth: req.isAuth, isAdmin: req.auth.isAdmin }));
+  app.get('/howitworks', (req, res) => res.render('howitworks', { isAuth: req.isAuth, isAdmin: req.auth.isAdmin }));
   app.get('/jobInvites', renderJobInvitesPage);
   app.get('/post/:inviteId', renderSinglePostPage);
-  app.get('/about', (req, res) => res.render('about', { isAuth: true }));
-  app.get('/admin/reported', (req, res) => res.render('admin/reportedUsers', { isAuth: true }));
+  app.get('/about', (req, res) => res.render('about', { isAuth: req.isAuth, isAdmin: req.auth.isAdmin }));
+  app.get('/admin/reported', (req, res) => res.render('admin/reportedUsers', { isAuth: req.isAuth,isAdminh: req.aut.isAdminh }));
 
 
   // Edit post endpoint
-  app.get('/post/:inviteId/edit', validateInviteId, validateInvite, editInvite);
+  app.get('/post/:inviteId/edit', validateInviteId, validateInvite, renderEditInvitePage);
 
   app.get('/admin/users', renderAdminUsersPage);
   app.get('/admin/posts', renderAdminJobInvitesPage);
