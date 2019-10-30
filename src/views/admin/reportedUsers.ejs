@@ -1,6 +1,6 @@
 <% include ../partials/header %>
 <% include ../partials/nav %>
-    <script type="text/javascript">
+<script type="text/javascript">
     const user = JSON.parse(localStorage.getItem('user'))
     const notification = document.querySelector('.notification');
     if(!user || !user.isAdmin){
@@ -57,6 +57,13 @@
         width: auto;
     }
 
+    .small_user_img {
+        height: auto !important;
+        width: 120px;
+        margin: auto;
+
+    }
+
     .name-div,
     .button-div {
         padding-left: 0 !important;
@@ -84,8 +91,13 @@
         background: #FFFFFF;
     }
 
-    .block-btn, .unblock-btn {
+    .block-btn,
+    .unblock-btn {
         margin-right: 19px;
+    }
+
+    .small_screen {
+        display: none;
     }
 
     button {
@@ -95,6 +107,18 @@
     .padding-nav {
         margin-top: 10%;
     }
+
+    .small_all_users {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .small_all_users div {
+        display: inline-flex;
+        margin-left: 3%;
+        margin-top: 2%;
+    }
+
 
     @media only screen and (max-width: 1000px) {
         .whole {
@@ -119,21 +143,50 @@
         }
 
         @media only screen and (max-width: 900px) {
-           h4{
-            font-size: 150% !important;
-           }
+            h4 {
+                font-size: 150% !important;
+            }
 
             .block-btn {
                 margin-right: 7px !important;
             }
-            .single_user{
+
+            .single_user {
                 width: 85% !important;
                 margin: auto !important;
             }
-            .button-div{
+
+            .button-div {
                 margin-left: -10% !important;
                 width: 120% !important;
             }
+
+            .large_screen {
+                display: none;
+            }
+            .small_screen {
+                display: inline;
+            }
+        }
+
+        @media only screen and (max-width: 846px) {
+            .card {
+                width: 14rem !important;
+            }
+
+            ul li {
+                display: inline;
+                margin-left: 5%;
+                font-size: 120%;
+            }
+
+        }
+
+        @media only screen and (max-width: 524px) {
+            .card {
+                width: 20rem !important;
+            }
+
         }
     }
 </style>
@@ -142,12 +195,12 @@
 <div class="container-fluid whole">
     <div class="row">
         <div class="col-md-2  admin-nav">
-          
+
             <div class="row padding-nav">
                 <div class="col">
-                        <h4 class="">
-                                Dashboard
-                            </h4>
+                    <h4 class="">
+                        Dashboard
+                    </h4>
                     <ul>
                         <li class="li-item"><a class="admin-nav-link" href="/admin/users"> Users</a></li>
                         <li class="li-item"><a class="admin-nav-link" href="#"> Admins</a></li>
@@ -159,7 +212,7 @@
             </div>
         </div>
 
-        <div class="col-md-10 listed_users">
+        <div class="col-md-10 listed_users large_screen">
             <div class="all_users">
                 <div class="single_user">
                     <span class="row">
@@ -198,7 +251,7 @@
                         </span>
                         <span class="col-md-3 name-div">
                             <button type="reset" class="btn btn-primary unblock-btn">Unblock</button>
-                            
+
                             <span class="dropdown">
                                 <i class=" fas fa-ellipsis-h  rotate dropdown-toggle" id="dropdownMenuButton"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -234,6 +287,151 @@
                 </div>
 
 
+            </div>
+        </div>
+        <div class="col-md-10 listed_users small_screen">
+            <div class="small_all_users">
+
+                <div>
+                    <span class="card" style="width: 18rem;">
+                        <span class="dropdown">
+                            <i class=" fas fa-ellipsis-h  rotate dropdown-toggle" id="dropdownMenuButton"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            </i>
+                            <span class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" href="#">Promote</a>
+                            </span>
+                        </span>
+                        <img class=" rounded-circle  card-img-top small_user_img"
+                            src="https://randomuser.me/api/portraits/women/77.jpg" alt="...">
+                        <span class=" text-center card-body">
+                            <span class="name text-center">Goldin</span> <br>
+                            <span class="text-center">@goldin</span>
+                            <br><br><br>
+                            <btn class="btn btn-primary">Unblock</btn>
+
+
+                        </span>
+                    </span>
+                </div>
+
+
+                <div>
+                    <span class="card" style="width: 18rem;">
+                        <span class="dropdown ">
+                            <i class=" fas fa-ellipsis-h  rotate dropdown-toggle" id="dropdownMenuButton"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            </i>
+                            <span class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" href="#">Promote</a>
+                            </span>
+                        </span>
+                        <img class=" rounded-circle  card-img-top small_user_img"
+                            src="https://randomuser.me/api/portraits/women/77.jpg" alt="...">
+                        <span class=" text-center card-body">
+                            <span class="name text-center">Goldin</span> <br>
+                            <span class="text-center">@goldin</span>
+                            <br><br><br>
+                            <button type="reset" class="btn btn-danger block_btn block-btn">Block</button>
+
+
+                        </span>
+                    </span>
+                </div>
+
+
+                <div>
+                    <span class="card" style="width: 18rem;">
+                        <span class="dropdown ">
+                            <i class=" fas fa-ellipsis-h  rotate dropdown-toggle" id="dropdownMenuButton"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            </i>
+                            <span class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" href="#">Promote</a>
+                            </span>
+                        </span>
+                        <img class=" rounded-circle  card-img-top small_user_img"
+                            src="https://randomuser.me/api/portraits/women/77.jpg" alt="...">
+                        <span class=" text-center card-body">
+                            <span class="name text-center">Goldin</span> <br>
+                            <span class="text-center">@goldin</span>
+                            <br><br><br>
+                            <button type="reset" class="btn btn-danger block_btn block-btn">Block</button>
+
+
+                        </span>
+                    </span>
+                </div>
+
+
+                <div>
+                    <span class="card" style="width: 18rem;">
+                        <span class="dropdown ">
+                            <i class=" fas fa-ellipsis-h  rotate dropdown-toggle" id="dropdownMenuButton"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            </i>
+                            <span class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" href="#">Promote</a>
+                            </span>
+                        </span>
+                        <img class=" rounded-circle  card-img-top small_user_img"
+                            src="https://randomuser.me/api/portraits/women/77.jpg" alt="...">
+                        <span class=" text-center card-body">
+                            <span class="name text-center">Goldin</span> <br>
+                            <span class="text-center">@goldin</span>
+                            <br><br><br>
+                            <button type="reset" class="btn btn-danger block_btn block-btn">Block</button>
+
+
+                        </span>
+                    </span>
+                </div>
+
+
+                <div>
+                    <span class="card" style="width: 18rem;">
+                        <span class="dropdown ">
+                            <i class=" fas fa-ellipsis-h  rotate dropdown-toggle" id="dropdownMenuButton"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            </i>
+                            <span class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" href="#">Promote</a>
+                            </span>
+                        </span>
+                        <img class=" rounded-circle  card-img-top small_user_img"
+                            src="https://randomuser.me/api/portraits/women/77.jpg" alt="...">
+                        <span class=" text-center card-body">
+                            <span class="name text-center">Goldin</span> <br>
+                            <span class="text-center">@goldin</span>
+                            <br><br><br>
+                            <button type="reset" class="btn btn-danger block_btn block-btn">Block</button>
+
+
+                        </span>
+                    </span>
+                </div>
+                <div>
+                    <span class="card" style="width: 18rem;">
+                        <span class="dropdown">
+                            <i class=" fas fa-ellipsis-h  rotate dropdown-toggle" id="dropdownMenuButton"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            </i>
+                            <span class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" href="#">Promote</a>
+                            </span>
+                        </span>
+                        <img class=" rounded-circle  card-img-top small_user_img"
+                            src="https://randomuser.me/api/portraits/women/77.jpg" alt="...">
+                        <span class=" text-center card-body">
+                            <span class="name text-center">Goldin</span> <br>
+                            <span class="text-center">@goldin</span>
+                            <br><br><br>
+                            <btn class="btn btn-primary">Unblock</btn>
+
+
+                        </span>
+                    </span>
+                </div>
             </div>
         </div>
 
