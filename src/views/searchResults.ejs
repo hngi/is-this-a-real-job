@@ -1,8 +1,9 @@
-
-<% include partials/header %>
-<% include partials/nav2 %>
+<% include partials/header %> <% include partials/nav %>
 <div id="cover">
   <div class="loader"></div>
+</div>
+<div class="notification">
+  Simple Notification
 </div>
 
 <body>
@@ -21,9 +22,27 @@
       </form>
     </div>
 
+    <!-- Small small -->
+    <% if (invites.length > 0) { %>
+
+    <div class="container">
+      <p class="text-muted" style="font-size: smaller;">
+        Found <span class="badge badge-info"><%= invites.length %></span> <%=
+        invites.length > 1 ? 'posts' : 'post' %>
+      </p>
+    </div>
+
+    <% } %>
+
     <section class="job-invites">
       <% if (invites.length === 0) { %>
-      <span id="no-comments" class="bg-transparent container">The world is your oyseter. Fill it.</span>
+
+      <!-- No invites -->
+      <div class="card card-secondary text-center container my-4">
+        No invites found :(
+        <p>Create a new invite <a href="/">here</a></p>
+      </div>
+
       <% } %> <% if (invites.length > 0) { %> <% for (invite of invites) { %>
       <div class="container post-meta" id="<%=invite.inviteId%>">
         <h4>
@@ -31,20 +50,9 @@
             <%=invite.title%>
           </a>
         </h4>
-        <small class="text-muted"><%=invite.company%>, <em><%=invite.location%></em></small><br>
-        <p>
-          <a href="/api/v1/users/<%=invite.user.username%>">
-            @<%=invite.user.username%>
-          </a>
-        </p>
         <p>
           <%=invite.body%>
         </p>
-        <span>
-          <a><i class="fas fa-comment"></i> <%=invite.comments.length%></a>
-          <a class="upvote-btn"><span class="upvote-count"><%=invite.upVotes || 0 %></span>
-            Upvotes</a>
-        </span>
 
         <span class="float-right share-buttons">
           <!-- <a href="#"><i class="fab fa-facebook-f"></i></i></a> -->
@@ -60,6 +68,6 @@
       <% } %> <% } %>
     </section>
   </div>
-
+</body>
 
 <% include partials/footer %>
