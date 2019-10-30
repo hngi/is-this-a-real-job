@@ -21,7 +21,6 @@
     "lint": "./node_modules/.bin/eslint src",
     "lint-fix": "./node_modules/.bin/eslint src --ext  .js --fix",
     "heroku-postbuild": "cross-env NODE_ENV=production npm run build"
-
   },
   "author": "",
   "license": "ISC",
@@ -53,7 +52,7 @@
     "bcryptjs": "^2.4.3",
     "cross-env": "^6.0.3",
     "debug": "^4.1.1",
-    "dotenv": "^8.1.0",
+    "dotenv": "^8.2.0",
     "ejs": "^2.7.1",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",

@@ -16,7 +16,6 @@
       <div class="col span-md-4" style="text-align: right;">
         <h6 class="footer-heading">Contact Us</h6>
         <p><a href="mailto:info@isthisarealjob.ng" class="footer_email"> info@isthisarealjob.ng</a></p>
-
       </div>
 
     </div>
@@ -37,7 +36,16 @@
 <script type="text/javascript" src="/invite.js"></script>
 <script type="text/javascript" src="/blockUser.js"></script>
 <script type="text/javascript" src="/deleteInvite.js"></script>
-
+<script>
+  // do not delete. This is used to make the footer stick to bottom on pages with little content
+  // Until you have a better solution, do not rock the ship
+  const footer = document.querySelector('.footer');
+  if (document.querySelector('.bottom-footer')) {
+    footer.style.position = 'absolute';
+  } else {
+    footer.style.position = 'relative';
+  }
+</script>
 </body>
 
 </html>
