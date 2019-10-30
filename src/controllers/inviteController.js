@@ -177,6 +177,7 @@ export const renderSinglePostPage = async (req, res) => {
     invite: data[1],
     isAuth: req.isAuth,
     isAdmin: req.auth.isAdmin,
+    userId: req.auth.userId,
   });
 };
 
@@ -216,8 +217,17 @@ export const renderAdminJobInvitesPage = async (req, res) => {
  * @param {object} res
  * @returns {object} json response
  */
-export const renderEditInvitePage = async (req, res) => res.render('editPost', {
-  invite: req.invite,
-  isAuth: req.isAuth,
-  isAdmin: req.auth.isAdmin,
-});
+export const renderEditInvitePage = async (req, res) => {
+  if (req.invite.userId !== req.auth.userId && !req.auth.isAdmin) {
+    return res.render('401', {
+      isAuth: req.isAuth,
+      isAdmin: req.auth.isAdmin,
+    });
+  }
+
+  return res.render('editPost', {
+    invite: req.invite,
+    isAuth: req.isAuth,
+    isAdmin: req.auth.isAdmin,
+  })
+};
