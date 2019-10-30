@@ -5,6 +5,10 @@
 /* eslint-disable no-undef */
 // fetch all invites for admin
 
+if (!window.localStorage.getItem('token')) {
+  window.localStorage.clear();
+}
+
 if (document.querySelector('.invites-section')) {
   const api = new ItarjApi('/api/v1');
   const deleteBtns = [...document.querySelectorAll('#delete-btn')];
@@ -22,9 +26,7 @@ if (document.querySelector('.invites-section')) {
         })
         .catch(error => {
           if (error.data.message.includes('Session is invalid')) {
-            if (window.localStorage.getItem('token')) {
-              window.localStorage.clear();
-            }
+            window.localStorage.clear();
             setTimeout(() => {
               window.location.href = '/login';
             }, 3000);
