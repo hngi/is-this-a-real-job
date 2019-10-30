@@ -3,7 +3,7 @@ let TwitterStrategy  = require('passport-twitter').Strategy;
 import { updateOneUser, findUsers } from '../services/userServices'
 import User from "../models/user"
 // load up the user model
-var User       = require('../app/models/user');
+
 
 // load the auth variables
 import configTwitter from './twitterAuth';

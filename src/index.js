@@ -4,7 +4,11 @@ const express = require('express');
 const cors = require('cors');
 const { PORT } = require('./config/constants');
 const { initRoutes } = require('./routes/routes');
+
 const { cloudinaryConfig } = require('./config/cloudinaryConfig');
+
+const { connectionTest } = require('./services/connectionTest');
+const passport = require("passport")
 
 const app = express();
 
@@ -31,7 +35,8 @@ app.set('view engine', 'ejs');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
+app.use(passport.initialize());
+app.use(passport.session());
 initRoutes(app);
 
 const port = PORT || 3000;
