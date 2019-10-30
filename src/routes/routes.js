@@ -145,7 +145,6 @@ export const initRoutes = app => {
     upvoteInvite
   );
 
-  // Get all comments for a given Invite.
   app.get('/api/v1/notifications/:userId', validateUserId, getNotifications);
   app.post('/api/v1/notifications', validateNotificationData, createNotification);
 

@@ -4,6 +4,28 @@ import {
   respondWithSuccess
 } from '../helpers/responseHandler';
 import { findNotificationsForUser, createNotificationForUser } from '../services/notificationServices';
+import { sendMail } from '../services/emailServices';
+import { getSingleComment } from '../services/commentServices';
+import { findSingleUser } from '../services/userServices';
+
+const notifyByEmail = async (res, notif)=> {
+  if (notif.type == 'comment') {
+    notif.comment = await getSingleComment(notif.commentId);
+    notif.comment.author = notif.comment.user || {};
+    notif.targetPost = notif.comment.invite || {};
+    notif.title = 'One New Comment On Your Job Invite';
+  }
+  else
+    notif.title = 'Your Job Invite Was Upvoted';
+
+  notif.recipient = await findSingleUser({userId: notif.userId});
+
+  res.render('notificationEmail', notif, (err, renderedEmail)=> {
+    if (err) throw err;
+    
+    sendMail(notif.recipient.email, notif.title, renderedEmail);
+  });
+}
 
 /**
  * class handles notifications
@@ -24,6 +46,7 @@ export const createNotification = async (req, res) => {
       .catch(e => { throw e; });
 
     if (notification) {
+      notifyByEmail(res, notification);
       return respondWithSuccess(res, 200, 'Notification added successfully', notification);
     }
   } catch (error) {

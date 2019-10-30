@@ -11,6 +11,8 @@ export const {
   SALT_ROUNDS,
   SECRET_KEY,
   SITE_URL,
+  EMAIL_ADDR,
+  EMAIL_PASSWORD
 } = process.env;
 
 export const EXPIRATION_DURATION = 172800;
