@@ -55,7 +55,7 @@ export const initRoutes = app => {
   app.get('/post/:inviteId', renderSinglePostPage);
   app.get('/about', (req, res) => res.render('about', { isAuth: true }));
   app.get('/admin/reported', (req, res) => res.render('admin/reportedUsers', { isAuth: true }));
-
+  app.get('/users/:username', renderUserProfile);
 
   // Edit post endpoint
   app.get('/post/:inviteId/edit', validateInviteId, validateInvite, editInvite);
@@ -80,9 +80,6 @@ export const initRoutes = app => {
 
   // Get single User - return JSON
   app.get('/api/v1/users/json/:username', getUser);
-
-  // Render user profile
-  app.get('/api/v1/users/:username', renderUserProfile);
 
   // Block a user
   app.patch(

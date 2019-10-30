@@ -3,6 +3,7 @@
 <div id="cover">
   <div class="loader"></div>
 </div>
+
 <body>
   <div class="header">
     <div class="container">
@@ -35,7 +36,7 @@
         </h4>
         <small class="text-muted"><%=invite.company%>, <em><%=invite.location%></em></small><br>
         <p>
-          <a href="/api/v1/users/<%=invite.user.username%>">
+          <a href="/users/<%=invite.user.username%>">
             @<%=invite.user.username%>
           </a>
         </p>
@@ -48,16 +49,16 @@
         </span>
 
         <span class="float-right share-buttons">
-            <!-- <a href="#"><i class="fab fa-facebook-f"></i></i></a> -->
-            <a target="_blank"
-              href="https://twitter.com/intent/tweet?text=<%=invite.title+' - Is this a real job? \n Let us know: http://isthisarealjob.ng/post/'+invite.inviteId%>"><i
-                class="fab fa-twitter"></i></a>
-            <!-- <a href="https://www.instagram.com/"><i class="fab fa-instagram"></i></a> -->
-            <a target="_blank"
-              href="https://api.whatsapp.com/send?&text=<%=invite.title+' - Is this a real job? \n Let us know: http://isthisarealjob.ng/post/'+invite.inviteId%>"><i
-                class="fab fa-whatsapp"></i></a>
+          <!-- <a href="#"><i class="fab fa-facebook-f"></i></i></a> -->
+          <a target="_blank"
+             href="https://twitter.com/intent/tweet?text=<%=invite.title+' - Is this a real job? \n Let us know: http://isthisarealjob.ng/post/'+invite.inviteId%>"><i
+               class="fab fa-twitter"></i></a>
+          <!-- <a href="https://www.instagram.com/"><i class="fab fa-instagram"></i></a> -->
+          <a target="_blank"
+             href="https://api.whatsapp.com/send?&text=<%=invite.title+' - Is this a real job? \n Let us know: http://isthisarealjob.ng/post/'+invite.inviteId%>"><i
+               class="fab fa-whatsapp"></i></a>
 
-          </span>
+        </span>
       </div>
       <% } %>
       <% } %>
