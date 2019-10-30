@@ -47,7 +47,7 @@ export const initRoutes = app => {
     app.get('/post/:inviteId/edit', validateInviteId, validateInvite, editInvite);
 
     app.get('/admin/users', renderAdminUsersPage);
-    app.get('/admin/metricsDashboard', (req, res) => res.render('metricsDashboard', { isAuth: false }));
+    app.get('/admin', (req, res) => res.render('./admin/index', { isAuth: false }));
     app.get('/admin/posts', renderAdminJobInvitesPage);
 
     // All backend API endpoints below -----------------------------------------------------
