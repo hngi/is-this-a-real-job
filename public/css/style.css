@@ -1,6 +1,8 @@
 /* ----------------------------------------------- */
 
+
 /* BASIC SETUP */
+
 
 /* ----------------------------------------------- */
 
@@ -14,11 +16,19 @@ html,
 body {
   background-color: #fff;
   color: #000;
+  height: 100%;
   font-family: "Raleway", sans-serif;
   font-weight: 300;
   font-size: 15px;
   text-rendering: optimizeLegibility;
+  display: flex;
+  flex-direction: column;
   /* overflow-x: hidden; */
+}
+
+.content-body {
+  flex: 1 1 auto;  /*grow vertically*/
+  padding-top: 2em;
 }
 
 .go_back {
@@ -37,6 +47,7 @@ body {
   font-size: 200px;
   font-weight: 600;
 }
+
 
 /* NEW POST PAGE */
 
@@ -68,24 +79,24 @@ body {
   border-radius: 6px;
 }
 
+
 /* Footer */
 
 .footer {
   background-color: #24659e;
   color: #fff;
   margin-top: 5%;
-  position: fixed;
+  position: static;
   bottom: 0;
+  left: 0;
   width: 100%;
   text-align: center;
-
 }
 
 .subscribe {
   border-color: transparent !important;
   height: 100%;
   font-size: 70%;
-
 }
 
 .footer-heading {
@@ -125,6 +136,7 @@ body {
 .first-social {
   margin-left: 0%;
 }
+
 
 /* Invite us section */
 
@@ -179,6 +191,7 @@ body {
   margin: 1em auto;
 }
 
+
 /* SIngle Post */
 
 .post-container {
@@ -212,17 +225,22 @@ body {
   border-radius: 6px;
   transition: background-color ease-in-out 0.1s;
 }
+
 .upvote-btn {
   color: var(--success) !important;
 }
+
 .upvote-btn:hover {
   background-color: var(--success);
   color: #fff !important;
 }
+
+
 /* 
 .share-buttons a {
   padding: ;
 } */
+
 
 /* INDEX */
 
@@ -262,24 +280,32 @@ body {
   }
 }
 
+
 /* Make Placeholder Texts appear in italics */
+
 ::-webkit-input-placeholder {
   font-style: italic;
 }
+
 :-moz-placeholder {
   font-style: italic;
 }
+
 ::-moz-placeholder {
   font-style: italic;
 }
+
 :-ms-input-placeholder {
   font-style: italic;
 }
 
+
 /* style for how-it-works-page */
+
 .heading {
   text-align: center;
 }
+
 div.heading h2 {
   font-style: normal;
   font-weight: 600;
@@ -293,17 +319,20 @@ div.heading p {
   font-size: 25px;
   line-height: 29px;
 }
+
 .container {
   width: 90%;
   max-width: 1000px;
   margin: 0 auto;
 }
+
 .cards {
   margin-top: 50px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 }
+
 .card {
   width: 280px;
   padding: 0.5em;
@@ -341,25 +370,26 @@ div.heading p {
     margin-bottom: 50px;
     width: 80%;
   }
-
   div.card div.img {
     text-align: center;
   }
 }
 
-
-:-ms-input-placeholder {  
-  font-style: italic; 
+:-ms-input-placeholder {
+  font-style: italic;
 }
-.fa-ellipsis-h{
+
+.fa-ellipsis-h {
   transform: rotate(90deg) !important;
 }
 
 
 /* style for how-it-works page  */
+
 .heading {
   text-align: center;
 }
+
 div.heading h2 {
   font-style: normal;
   font-weight: 600;
@@ -373,17 +403,14 @@ div.heading p {
   font-size: 25px;
   line-height: 29px;
 }
-.container {
-  width: 90%;
-  max-width: 1000px;
-  margin: 0 auto;
-}
+
 .cards {
   margin-top: 50px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 }
+
 .card {
   width: 280px;
   padding: 0.5em;
@@ -421,9 +448,7 @@ div.heading p {
     margin-bottom: 50px;
     width: 80%;
   }
-
   div.card div.img {
     text-align: center;
   }
 }
-
