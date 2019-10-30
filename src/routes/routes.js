@@ -83,8 +83,8 @@ export const initRoutes = app => {
     signup
   );
   // Twitter Login
-  app.get("/auth/twitter", passportAuthenticate)
-    app.get("/auth/twitter/callback", passportAuthCallback)
+  app.get('/auth/twitter', passportAuthenticate);
+  app.get('/auth/twitter/callback', passportAuthCallback);
   // Get all Users
   app.get('/api/v1/users', authenticateUserToken, validateAdmin, getUsers);
 
