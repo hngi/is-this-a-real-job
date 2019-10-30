@@ -13,7 +13,7 @@ if (document.forms.signup) {
     localStorage.getItem('token') !== 'undefined'
     && localStorage.getItem('token')
   ) {
-    window.location.href = '/jobInvites';
+    window.location.href = '/home';
   }
 
   const signupForm = document.forms.signup;
@@ -37,7 +37,7 @@ if (document.forms.signup) {
         console.log(res);
         togglePreloader('none');
         localStorage.setItem('token', res.data.token);
-        window.location.href = '/jobInvites';
+        window.location.href = '/home';
       })
       .catch(error => {
         togglePreloader('none');

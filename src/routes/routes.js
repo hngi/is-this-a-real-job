@@ -39,7 +39,7 @@ export const initRoutes = app => {
   app.get('/login', (req, res) => res.render('login', { isAuth: false }));
   app.get('/register', (req, res) => res.render('register', { isAuth: false }));
   app.get('/post', (req, res) => res.render('userPost', { isAuth: true }));
-  app.get('/jobInvites', renderJobInvitesPage);
+  app.get('/home', renderJobInvitesPage);
   app.get('/post/:inviteId', renderSinglePostPage);
 
   // Edit post endpoint
