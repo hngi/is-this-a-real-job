@@ -75,6 +75,7 @@ export const initRoutes = app => {
   app.get('/admin', (req, res) => res.render('./admin/index', { isAuth: false }));
 
 
+
   // Edit post endpoint
   app.get('/post/:inviteId/edit', validateInviteId, validateInvite, getUserByUserId, renderEditInvitePage);
 
