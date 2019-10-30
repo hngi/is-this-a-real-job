@@ -44,6 +44,7 @@ import {
 import { getNotifications, createNotification } from '../controllers/notificationController';
 import { validateNotificationData } from '../middlewares/validateNotification';
 import { validateCookies, signUserIn, signUserOut } from '../middlewares/cookieHandler';
+import { getMetrics } from '../controllers/metricsController';
 
 export const initRoutes = app => {
   // Cookie handlers before all
@@ -62,6 +63,8 @@ export const initRoutes = app => {
   app.get('/post/:inviteId', renderSinglePostPage);
   app.get('/about', (req, res) => res.render('about', { isAuth: req.isAuth, isAdmin: req.auth.isAdmin }));
   app.get('/admin/reported', (req, res) => res.render('admin/reportedUsers', { isAuth: req.isAuth,isAdminh: req.aut.isAdminh }));
+  app.get('/reportUser', (req, res) => res.render('reportUser', { isAuth: false }));
+
 
 
   // Edit post endpoint
@@ -158,13 +161,13 @@ export const initRoutes = app => {
     upvoteInvite
   );
 
-  // Report User section
-  app.get('/reportUser', (req, res) => res.render('reportUser', { isAuth: false }));
+  // Get the number of users, invites and comments in the database.
+  app.get('/api/v1/metrics', getMetrics);
 
   // Get all comments for a given Invite.
   app.get('/api/v1/notifications/:userId', validateUserId, getNotifications);
   app.post('/api/v1/notifications', validateNotificationData, createNotification);
-
+  
   // Fallback case for unknown URIs.
   app.all('*', (req, res) => res.status(404).json({ message: 'Route Not Found' }));
 };
