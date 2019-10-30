@@ -17,6 +17,8 @@ import {
 } from './validateUUID';
 import { validateAdmin } from './validateAdmin';
 import { validateUserById } from './validateUser';
+import { passportAuthenticate, passportAuthCallback } from './twitterLogin';
+import { multerUploads } from './multer';
 
 export {
   validateSigninFormData,
@@ -33,5 +35,8 @@ export {
   validateUserById,
   validateUserId,
   validateUpvoteInput,
-  validateInviteOwner
+  validateInviteOwner,
+  passportAuthCallback,
+  passportAuthenticate,
+  multerUploads
 };

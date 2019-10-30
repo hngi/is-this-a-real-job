@@ -29,7 +29,6 @@ describe('INVITES CONTROLLER', () => {
             .send({
               title: 'A test title',
               body: 'A test bost sit amet.',
-              media: 'https://google.com/favicon.png',
               location: 'Lagos',
               company: 'MTN',
             })
@@ -73,7 +72,6 @@ describe('INVITES CONTROLLER', () => {
         .send({
           title: 'A test title',
           body: 'A test bost sit amet.',
-          media: 'https://google.com/favicon.png',
           location: 'Lagos',
           company: 'MTN',
         })
