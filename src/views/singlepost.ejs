@@ -23,7 +23,7 @@
             <h4><%=invite.title%></h4>
             <small class="text-muted"><%=invite.company%>, <em><%=invite.location%></em></small><br>
             <p class="post-author">
-              Author: @<%=invite.user.username%>
+              <a href="/api/v1/users/<%=invite.user.username%>">Author: @<%=invite.user.username%></a>
               <br>
               <span class="pt-2 d-block">Published: <%=new Date(invite.createdAt).toDateString()%></span>
             </p>
