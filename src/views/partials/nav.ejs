@@ -1,28 +1,29 @@
 <style>
   .nav-link {
-  font-weight: 600;
-  font-size: 12px;
-  line-height: 14px;
-}
-
-.nav-link:hover {
-  color: rgba(0, 0, 0, 0.5) !important;
-}
-
-.nav-item {
-  margin-right: 50px;
-}
-
-.navbar-brand {
-  font-weight: 600;
-  font-size: 32px;
-  line-height: 38px;
-  color: #fff !important;
-}
-
-.navbar {
-  background-color: #3087d1;
-}
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 14px;
+  }
+  
+  .nav-link:hover {
+    color: rgba(0, 0, 0, 0.5) !important;
+  }
+  
+  .nav-item {
+    margin-right: 50px;
+  }
+  
+  .navbar-brand {
+    font-weight: 600;
+    font-size: 32px;
+    line-height: 38px;
+    color: #fff !important;
+  }
+  
+  .navbar {
+    background-color: #3087d1;
+  }
+  
   text-white {
     color: #fff;
   }
@@ -57,7 +58,7 @@
             <a class="nav-link text-white" href="/admin/users">ADMIN</a>
           </li>
           <% } %>
-          <li><a href="javascript:void(0)" id="logout" class="nav-link text-white">LOGOUT</a></li>
+            <li><a href="javascript:void(0)" id="logout" class="nav-link text-white">LOGOUT</a></li>
             <% } else{ %>
               <li class="nav-item">
                 <a class="nav-link text-white" href="register">REGISTER</a>
@@ -85,6 +86,9 @@
 
   </div>
 </nav>
-<div class="notification">
-  Simple Notification
-</div>
+
+<div class="content-body"> <!-- This div is closed in the footer.ejs file -->
+  
+  <div class="notification">
+    Simple Notification
+  </div>
