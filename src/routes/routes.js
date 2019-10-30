@@ -1,23 +1,23 @@
 import { signin, signup } from '../controllers/authController';
 import {
-    validateSigninFormData,
-    validateSignupFormData,
-    validateCommentData,
-    validUser,
-    validateInvite,
-    validateInviteId,
-    validateInviteData,
-    validateInviteUpdateData,
-    verifyUniqueUser,
-    authenticateUserToken,
-    validateAdmin,
-    validateUserById,
-    validateUserId,
-    validateUpvoteInput,
-    validateInviteOwner,
-    passportAuthCallback,
-    passportAuthenticate,
-    multerUploads
+  validateSigninFormData,
+  validateSignupFormData,
+  validateCommentData,
+  validUser,
+  validateInvite,
+  validateInviteId,
+  validateInviteData,
+  validateInviteUpdateData,
+  verifyUniqueUser,
+  authenticateUserToken,
+  validateAdmin,
+  validateUserById,
+  validateUserId,
+  validateUpvoteInput,
+  validateInviteOwner,
+  passportAuthCallback,
+  passportAuthenticate,
+  multerUploads
 } from '../middlewares/middlewares';
 
 import {
@@ -37,11 +37,11 @@ import {
 
 import { getComments, createComment } from '../controllers/commentController';
 import {
-    blockUser,
-    getUsers,
-    renderAdminUsersPage,
-    getUser,
-    renderUserProfile
+  blockUser,
+  getUsers,
+  renderAdminUsersPage,
+  getUser,
+  renderUserProfile
 } from '../controllers/userController';
 import { getNotifications, createNotification } from '../controllers/notificationController';
 import { validateNotificationData } from '../middlewares/validateNotification';
@@ -61,11 +61,12 @@ export const initRoutes = app => {
   app.get('/register', (req, res) => res.render('register', { isAuth: req.isAuth, isAdmin: req.auth.isAdmin }));
   app.get('/post', (req, res) => res.render('userPost', { isAuth: req.isAuth, isAdmin: req.auth.isAdmin }));
   app.get('/howitworks', (req, res) => res.render('howitworks', { isAuth: req.isAuth, isAdmin: req.auth.isAdmin }));
-  app.get('/jobInvites', renderJobInvitesPage);
+  app.get('/posts', renderJobInvitesPage);
   app.get('/post/:inviteId', renderSinglePostPage);
   app.get('/about', (req, res) => res.render('about', { isAuth: req.isAuth, isAdmin: req.auth.isAdmin }));
   app.get('/admin/reported', (req, res) => res.render('admin/reportedUsers', { isAuth: req.isAuth, isAdminh: req.aut.isAdminh }));
   app.get('/reportUser', (req, res) => res.render('reportUser', { isAuth: false }));
+  app.get('/users/:username', renderUserProfile);
   // Search Invites - Renders view
   app.get('/invites/search', renderSearchResults);
   app.get('/admin', (req, res) => res.render('./admin/index', { isAuth: false }));
@@ -94,9 +95,6 @@ export const initRoutes = app => {
 
   // Get single User - return JSON
   app.get('/api/v1/users/json/:username', getUser);
-
-  // Render user profile
-  app.get('/api/v1/users/:username', renderUserProfile);
 
   // Block a user
   app.patch(

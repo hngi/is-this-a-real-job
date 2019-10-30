@@ -1,7 +1,7 @@
 /* eslint-disable no-plusplus */
 /* eslint-disable no-console */
-import Model from "../models";
-import Sequelize from "sequelize";
+import Sequelize from 'sequelize';
+import Model from '../models';
 
 const { Invite, User, Comment } = Model;
 
@@ -12,7 +12,7 @@ const { Invite, User, Comment } = Model;
 export const fetchOneInvite = async (queryOption = {}) => {
   try {
     const invite = await Invite.findOne({
-      include: [{ model: User, as: "user" }],
+      include: [{ model: User, as: 'user' }],
       where: queryOption,
       logging: false
     });
@@ -33,10 +33,10 @@ export const fetchAllInvites = async () => {
   try {
     const invites = await Invite.findAll({
       include: [
-        { model: User, as: "user" },
-        { model: Comment, as: "comments" }
+        { model: User, as: 'user' },
+        { model: Comment, as: 'comments' }
       ],
-      order: [["createdAt", "DESC"]],
+      order: [['createdAt', 'DESC']],
       logging: false
     });
 
@@ -64,21 +64,21 @@ export const saveInvite = async inviteData => {
   }).catch(err => {
     console.log(err);
     e.status = 500;
-    e.message = "A technical error occured. Contact support.";
+    e.message = 'A technical error occured. Contact support.';
     throw e;
   });
 
   if (!userObj) {
     // user does not exist
     e.status = 400;
-    e.message = "Unknown user.";
+    e.message = 'Unknown user.';
     throw e;
   }
 
   const invite = await Invite.create(inviteData).catch(err => {
     console.log(err);
     e.status = 500;
-    e.message = "A technical error occured. Contact support.";
+    e.message = 'A technical error occured. Contact support.';
     throw e;
   });
 
@@ -103,7 +103,7 @@ export const updateOneInvite = async (inviteId, inviteData) => {
   } catch (error) {
     console.log(error);
     error.status = 500;
-    error.message = "A technical error occured. Contact Support";
+    error.message = 'A technical error occured. Contact Support';
     throw error;
   }
 };
@@ -147,15 +147,15 @@ export const upvoteOneInvite = async (upVotes, queryOption = {}) => {
 export const searchInvites = async string => {
   try {
     const result = await Invite.findAll({
-      where: Sequelize.literal("MATCH (body, title, company, location) AGAINST(:string)"),
+      where: Sequelize.literal('MATCH (body, title, company, location) AGAINST(:string)'),
       include: [
-        { model: User, as: "user" },
+        { model: User, as: 'user' },
         // { model: Comment, as: "comments" }
       ],
       replacements: {
-        string: string
+        string
       },
-      order: [["createdAt"]],
+      order: [['createdAt']],
       logging: false
     });
 
@@ -165,7 +165,7 @@ export const searchInvites = async string => {
       return invite;
     });
   } catch (error) {
-    console.log("Error! ", error);
+    console.log('Error! ', error);
     return error;
   }
 };
