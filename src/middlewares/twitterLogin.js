@@ -1,18 +1,18 @@
 import passport from 'passport';
 import Model from '../models';
-import { consumerKey, consumerSecret, SITE_URL } from '../config/constants';
+import { twitterAuth } from '../config/twitterAuth';
+
+const TwitterStrategy = require('passport-twitter').Strategy;
 
 
 const { User } = Model;
 
-const LocalStrategy = require('passport-local').Strategy;
-const TwitterStrategy = require('passport-twitter').Strategy;
 
 passport.use('twitter', new TwitterStrategy({
 
-  consumerKey,
-  consumerSecret,
-  callbackURL: `${SITE_URL}/auth/twitter/callback`
+  consumerKey: twitterAuth.consumerKey,
+  consumerSecret: twitterAuth.consumerSecret,
+  callbackURL: twitterAuth.callbackURL
 
 }, (token, tokenSecret, profile, done) => {
   process.nextTick(() => {
