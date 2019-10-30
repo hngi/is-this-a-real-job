@@ -30,8 +30,7 @@ describe('COMMENT CONTROLLER', () => {
             .post(commentUrl)
             .set('Authorization', `${res.body.payload.token}`) // add jwt header
             .send({
-              body: 'A test comment on a nice post?',
-              userId: SEED_USER_ID, // test user
+              body: 'A test comment on a nice post?'
             })
             .end((err, res) => {
               expect(res).to.have.status(200);
@@ -53,9 +52,7 @@ describe('COMMENT CONTROLLER', () => {
           chai.request(app)
             .post(commentUrl)
             .set('Authorization', `${res.body.payload.token}`) // add jwt header
-            .send({
-              body: 'A test comment on a nice post?' // omitted userId
-            })
+            .send({}) // omitted body
             .end((err, res) => {
               expect(res).to.have.status(400);
               expect(res.body.success).to.equal(false);
@@ -64,17 +61,16 @@ describe('COMMENT CONTROLLER', () => {
         });
     });
 
-    it('it should respond with status 404 when user is not found', (done) => {
+    it('it should respond with status 404 when invite is not found', (done) => {
       chai.request(app)
         .post(signinUrl)
         .send(authDetails)
         .end((error, res) => {
           chai.request(app)
-            .post(commentUrl)
+            .post('/api/v1/comments/fdbd468a-2976-4f2f-8fe0-ae12dd8d5123')
             .set('Authorization', `${res.body.payload.token}`) // add jwt header
             .send({
-              body: 'A test comment on a nice post?',
-              userId: 'STRANGE_USER' // invalid user id
+              body: 'A test comment on a nice post?'
             })
             .end((err, res) => {
               expect(res).to.have.status(404);
@@ -88,8 +84,7 @@ describe('COMMENT CONTROLLER', () => {
       chai.request(app)
         .post(commentUrl) // omit token
         .send({
-          body: 'A test comment on a nice post?',
-          userId: SEED_USER_ID, // test user
+          body: 'A test comment on a nice post?'
         })
         .end((err, res) => {
           expect(res).to.have.status(401);
