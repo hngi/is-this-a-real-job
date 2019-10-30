@@ -1,0 +1,46 @@
+
+.blue-container{
+    background-color: rgb(124, 215, 245);
+    width: 80%;
+    display: inline-block;
+    text-align: center;
+    margin-left: 100px;
+    
+}
+p{
+    font-family: sans-serif;
+    font-size: 20px;
+    text-align: justify;
+    margin-left: 2cm;
+}
+table{
+    background-color: white;
+    width:80%;
+    margin-top: 2cm;
+    margin-left: 3cm;
+    padding: 20px;
+}
+h6{
+    font-family: sans-serif;
+    font-size: 18px;
+    text-align: left;
+    margin-bottom: 1cm;
+    margin-left: 2cm;
+}
+
+button{
+    background-color: white;
+    margin-top: 2cm;
+    margin-bottom: 2cm;
+    margin-right: 19cm;
+    padding: 15px 25px;
+    text-align: center;
+   font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-bottom: 2cm;
+}
+button:hover {
+    background-color:rgb(112, 209, 241);
+  }
+  
