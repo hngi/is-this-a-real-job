@@ -14,7 +14,10 @@ import {
   validateUserById,
   validateUserId,
   validateUpvoteInput,
-  validateInviteOwner
+  validateInviteOwner,
+  passportAuthCallback,
+  passportAuthenticate,
+  multerUploads
 } from '../middlewares/middlewares';
 
 import {
@@ -27,20 +30,33 @@ import {
   renderSinglePostPage,
   renderJobInvitesPage,
   editInvite,
-  renderAdminJobInvitesPage,
+  renderAdminJobInvitesPage
 } from '../controllers/inviteController';
 
 import { getComments, createComment } from '../controllers/commentController';
-import { blockUser, getUsers, renderAdminUsersPage } from '../controllers/userController';
+import {
+  blockUser,
+  getUsers,
+  renderAdminUsersPage,
+  getUser,
+  renderUserProfile
+} from '../controllers/userController';
+import { getNotifications, createNotification } from '../controllers/notificationController';
+import { validateNotificationData } from '../middlewares/validateNotification';
 
 export const initRoutes = app => {
   // All EJS frontend endpoints below --------------------------------------------------
+
   app.get('/', (req, res) => res.render('index', { isAuth: false })); // Pass true or false to toggle state of navbar....
   app.get('/login', (req, res) => res.render('login', { isAuth: false }));
   app.get('/register', (req, res) => res.render('register', { isAuth: false }));
   app.get('/post', (req, res) => res.render('userPost', { isAuth: true }));
+  app.get('/howitworks', (req, res) => res.render('howitworks', { isAuth: false }));
   app.get('/jobInvites', renderJobInvitesPage);
   app.get('/post/:inviteId', renderSinglePostPage);
+  app.get('/about', (req, res) => res.render('about', { isAuth: true }));
+  app.get('/admin/reported', (req, res) => res.render('admin/reportedUsers', { isAuth: true }));
+
 
   // Edit post endpoint
   app.get('/post/:inviteId/edit', validateInviteId, validateInvite, editInvite);
@@ -57,9 +73,17 @@ export const initRoutes = app => {
     verifyUniqueUser,
     signup
   );
-
+  // Twitter Login
+  app.get("/auth/twitter", passportAuthenticate)
+    app.get("/auth/twitter/callback", passportAuthCallback)
   // Get all Users
   app.get('/api/v1/users', authenticateUserToken, validateAdmin, getUsers);
+
+  // Get single User - return JSON
+  app.get('/api/v1/users/json/:username', getUser);
+
+  // Render user profile
+  app.get('/api/v1/users/:username', renderUserProfile);
 
   // Block a user
   app.patch(
@@ -75,6 +99,7 @@ export const initRoutes = app => {
   app.post(
     '/api/v1/invites',
     authenticateUserToken,
+    multerUploads,
     validateInviteData,
     saveNewInvite
   );
@@ -88,11 +113,11 @@ export const initRoutes = app => {
   // Update an existing job invite.
   app.put(
     '/api/v1/invites/:inviteId',
-    authenticateUserToken,
+    validateInviteUpdateData,
     validateInviteId,
+    authenticateUserToken,
     validateInvite,
     validateInviteOwner,
-    validateInviteUpdateData,
     updateInvite
   );
 
@@ -112,9 +137,10 @@ export const initRoutes = app => {
   // Post a comment on a specific Invite.
   app.post(
     '/api/v1/comments/:inviteId',
+    validateCommentData,
     validateInviteId,
     authenticateUserToken,
-    validateCommentData,
+    validateInvite,
     createComment
   );
 
@@ -125,6 +151,13 @@ export const initRoutes = app => {
     validateInvite,
     upvoteInvite
   );
+
+  // Report User section
+  app.get('/reportUser', (req, res) => res.render('reportUser', { isAuth: false }));
+
+  // Get all comments for a given Invite.
+  app.get('/api/v1/notifications/:userId', validateUserId, getNotifications);
+  app.post('/api/v1/notifications', validateNotificationData, createNotification);
 
   // Fallback case for unknown URIs.
   app.all('*', (req, res) => res.status(404).json({ message: 'Route Not Found' }));

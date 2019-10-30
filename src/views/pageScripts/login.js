@@ -34,6 +34,7 @@ if (document.querySelector('#login-btn')) {
       })
       .catch(err => {
         togglePreloader('none');
+        console.log(err);
         notification.innerHTML = `<strong>${err.data.message}</strong>`;
         notification.className += ' show';
         setTimeout(() => {
@@ -44,7 +45,7 @@ if (document.querySelector('#login-btn')) {
 }
 
 if (document.querySelector('#logout')) {
-  let logout = document.querySelector('#logout');
+  const logout = document.querySelector('#logout');
   logout.addEventListener('click', (ev) => {
     ev.preventDefault();
 
