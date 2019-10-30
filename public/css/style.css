@@ -100,10 +100,12 @@ body {
 .footer {
   background-color: #24659e;
   color: #fff;
-  bottom:0;
   margin-top: 5%;
-  position:relative;
-  width:100%;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+
 }
 
 .subscribe {
