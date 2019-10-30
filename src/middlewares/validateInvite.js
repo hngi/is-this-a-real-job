@@ -15,8 +15,6 @@ export const validateInvite = async (req, res, next) => {
   if (!findInvite) {
     return respondWithWarning(res, 404, 'Job Invite not found');
   }
-  // console.log(findInvite);
-  // req.invite = findInvite.toJSON();
   req.invite = findInvite;
   return next();
 };

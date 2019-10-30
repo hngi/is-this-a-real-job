@@ -2,6 +2,7 @@
 import Joi from '@hapi/joi';
 import { joiValidator } from '../helpers/joiValidator';
 import { respondWithWarning } from '../helpers/responseHandler';
+import { VALID_UUID } from '../config/constants';
 
 /**
  * @param {Object} req
@@ -11,10 +12,9 @@ import { respondWithWarning } from '../helpers/responseHandler';
  * @returns {Object} error
  */
 export const validateInviteId = (req, res, next) => {
-  const validUUID = /^[0-9a-fA-F]{8}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{12}$/;
   const commentSchema = Joi.object().keys({
     inviteId: Joi.string()
-      .pattern(validUUID)
+      .pattern(VALID_UUID)
       .required()
   });
 
@@ -27,10 +27,9 @@ export const validateInviteId = (req, res, next) => {
 };
 
 export const validateUserId = (req, res, next) => {
-  const validUUID = /^[0-9a-fA-F]{8}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{12}$/;
   const schema = Joi.object().keys({
     userId: Joi.string()
-      .pattern(validUUID)
+      .pattern(VALID_UUID)
       .required()
   });
 
@@ -50,9 +49,8 @@ export const validateUserId = (req, res, next) => {
 * @returns {Object} error
 */
 export const validateUpvoteInput = (req, res, next) => {
-  const validUUID = /^[0-9a-fA-F]{8}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{12}$/;
   const commentSchema = Joi.object().keys({
-    inviteId: Joi.string().pattern(validUUID)
+    inviteId: Joi.string().pattern(VALID_UUID)
       .required(),
     voteType: Joi.boolean().required(),
   });
