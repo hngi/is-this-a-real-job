@@ -1,23 +1,23 @@
 import { signin, signup } from '../controllers/authController';
 import {
-    validateSigninFormData,
-    validateSignupFormData,
-    validateCommentData,
-    validUser,
-    validateInvite,
-    validateInviteId,
-    validateInviteData,
-    validateInviteUpdateData,
-    verifyUniqueUser,
-    authenticateUserToken,
-    validateAdmin,
-    validateUserById,
-    validateUserId,
-    validateUpvoteInput,
-    validateInviteOwner,
-    passportAuthCallback,
-    passportAuthenticate,
-    multerUploads
+  validateSigninFormData,
+  validateSignupFormData,
+  validateCommentData,
+  validUser,
+  validateInvite,
+  validateInviteId,
+  validateInviteData,
+  validateInviteUpdateData,
+  verifyUniqueUser,
+  authenticateUserToken,
+  validateAdmin,
+  validateUserById,
+  validateUserId,
+  validateUpvoteInput,
+  validateInviteOwner,
+  passportAuthCallback,
+  passportAuthenticate,
+  multerUploads
 } from '../middlewares/middlewares';
 
 import {
@@ -37,11 +37,11 @@ import {
 
 import { getComments, createComment } from '../controllers/commentController';
 import {
-    blockUser,
-    getUsers,
-    renderAdminUsersPage,
-    getUser,
-    renderUserProfile
+  blockUser,
+  getUsers,
+  renderAdminUsersPage,
+  getUser,
+  renderUserProfile
 } from '../controllers/userController';
 import { getNotifications, createNotification } from '../controllers/notificationController';
 import { validateNotificationData } from '../middlewares/validateNotification';
