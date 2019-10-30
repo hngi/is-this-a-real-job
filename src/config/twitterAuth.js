@@ -1,10 +1,10 @@
-import SITE_URL from "./constants"
+import {SITE_URL, consumerKey, consumerSecret }from "./constants"
 
 export const configTwitter = {
+
     'twitterAuth' : {
-        'consumerKey'       : 'gpxS6tBGRIw9biXdMT9oMVXxB',
-        'consumerSecret'    : 'RSkfOidDZUKIOJClFPBC1yY0W4kDEYQx7ASYoalYPRjAszPxKU ',
+        'consumerKey'       : consumerKey,
+        'consumerSecret'    : consumerSecret,
         'callbackURL'       : `${SITE_URL}/auth/twitter/callback`
     }
-
 }

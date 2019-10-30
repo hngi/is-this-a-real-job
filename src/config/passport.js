@@ -1,6 +1,5 @@
-const passport = require('passport');
-const LocalStrategy    = require('passport-local').Strategy;
-const TwitterStrategy  = require('passport-twitter').Strategy;
+import passport from 'passport';
+let TwitterStrategy  = require('passport-twitter').Strategy;
 import { updateOneUser, findUsers } from '../services/userServices'
 import User from "../models/user"
 // load up the user model
@@ -9,7 +8,7 @@ var User       = require('../app/models/user');
 // load the auth variables
 import configTwitter from './twitterAuth';
 
-export const authenticateWithTwitter = (passport)=> {
+module.exports = ()=> {
 
     passport.serializeUser(function(user, done) {
         done(null, user.id);
@@ -41,7 +40,6 @@ export const authenticateWithTwitter = (passport)=> {
                     var newUser                 = new User();
                     // set all of the user data that we need
                     newUser.twitter.id          = profile.id;
-                    newUser.twitter.token       = token;
                     newUser.twitter.username    = profile.username;
                     newUser.twitter.displayName = profile.displayName;
 
