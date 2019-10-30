@@ -8,7 +8,7 @@ function togglePreloader(state) {
 
 if (document.querySelector('#login-btn')) {
   if (localStorage.getItem('token')) {
-    window.location.href = '/jobInvites';
+    window.location.href = '/posts';
   }
 
   const loginBtn = document.querySelector('#login-btn');
@@ -32,7 +32,7 @@ if (document.querySelector('#login-btn')) {
         localStorage.setItem('user', JSON.stringify(res.data)); // convert from [object object]
 
         document.cookie = `login=${res.data.token};path=/`; // path required so cookie always sends.
-        window.location.href = '/jobInvites';
+        window.location.href = '/posts';
       })
       .catch(err => {
         togglePreloader('none');
@@ -52,7 +52,7 @@ if (document.querySelector('#logout')) {
     ev.preventDefault();
 
     localStorage.removeItem('token');
-    document.cookie = "signOut=true;path=/"; // Path required so cookie always sends
+    document.cookie = 'signOut=true;path=/'; // Path required so cookie always sends
 
     window.location.href = '/';
   });
