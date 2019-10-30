@@ -16,7 +16,8 @@ import {
   validateUpvoteInput,
   validateInviteOwner,
   passportAuthCallback,
-  passportAuthenticate
+  passportAuthenticate,
+  multerUploads
 } from '../middlewares/middlewares';
 
 import {
@@ -94,8 +95,9 @@ export const initRoutes = app => {
   // Post a new job invite.
   app.post(
     '/api/v1/invites',
-    validateInviteData,
     authenticateUserToken,
+    multerUploads,
+    validateInviteData,
     saveNewInvite
   );
 
