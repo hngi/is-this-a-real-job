@@ -8,6 +8,9 @@ export default {
       defaultValue: Sequelize.UUIDV4,
       primaryKey: true,
     },
+    googleId: {
+      type: Sequelize.STRING
+    },
     username: {
       type: Sequelize.STRING,
       allowNull: false,
