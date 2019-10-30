@@ -1,5 +1,5 @@
 <% include partials/header %>
-<% include partials/nav %>
+<% include partials/nav2 %>
 <div id="cover">
   <div class="loader"></div>
 </div>
@@ -34,8 +34,10 @@
           </a>
         </h4>
         <small class="text-muted"><%=invite.company%>, <em><%=invite.location%></em></small><br>
-        <p>@
-          <%=invite.user.username%>
+        <p>
+          <a href="/api/v1/users/<%=invite.user.username%>">
+            @<%=invite.user.username%>
+          </a>
         </p>
         <p>
           <%=invite.body%>
@@ -61,7 +63,7 @@
       <% } %>
     </section>
   </div>
-</body>
+
 
 
 <% include partials/footer %>

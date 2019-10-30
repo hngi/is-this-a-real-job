@@ -1,112 +1,140 @@
-<% include partials/header %>
-  <% include partials/nav %>
+<% include partials/header %> <% include partials/nav %>
 
+<script>
+  if (localStorage.getItem("token")) {
+    window.location.href = "/jobInvites";
+  }
+</script>
 
-    <script>
-      if (localStorage.getItem('token')) {
-        window.location.href = '/jobInvites';
-      }
-    </script>
-    
-    <style>
-      @import url('https://fonts.googleapis.com/css?family=Raleway&display=swap');
-      form {
-        width: 50%;
-        margin-left: auto;
-        margin-right: auto;
-        font-family: 'Raleway', sans-serif;
-      }
-      
-      h3 {
-        text-align: center;
-        color: #636B6F;
-        font-size: 44px;
-        line-height: 90px;
-      }
-      
-      .form-control {
-        width: 100%;
-        background-color: #ECECEC;
-        color: black;
-        padding-left: 20px;
-        height: 40px;
-        border: none;
-        border-radius: 5px;
-        font-size: 16px;
-        line-height: 19px;
-      }
-      
-      #email {
-        margin-bottom: 24px;
-      }
-      
-      em p {
-        color: #3087D1;
-        margin-top: 0px;
-        font-size: 16px;
-        line-height: 19px;
-        text-align: right;
-      }
-      
-      .btn-custom {
-        width: 206px;
-        height: 40px;
-        left: 617px;
-        top: 745px;
-        line-height: 20px;
-        border-radius: 6px;
-        line-height: 20px;
-        background: #3087D1;
-      }
-      
-      .btn-custom:hover {
-        line-height: 20px;
-        background: rgb(44, 120, 187);
-      }
-      
-      .register {
-        text-align: center;
-      }
-      
-      .register p a {
-        color: #3087D1;
-        font-size: 16px;
-        line-height: 19px;
-      }
-      
-      @media (max-width: 767px) {
-        h3 {
-          font-size: 50px;
-        }
-        form {
-          width: 85%;
-        }
-        em p {
-          font-size: 14px;
-        }
-      }
-    </style>
-    <div id="cover">
-      <div class="loader"></div>
-    </div>
-    <div class="notification">
-      Simple Notification
-    </div>
-    <h3>Login</h3>
-    <form class="login-form" method="POST" action="javascript:void(0);">
-      <div class="form-group">
-        <input type="email" name="email" class="form-control" id="email" placeholder="Email Address" required />
-      </div>
-      <div class="form-group">
-        <input type="password" name="password" class="form-control" id="password" placeholder="Password" required />
-        <em><p>Forgot Your password?</p></em>
-      </div>
-      <div class="form-group">
-        <button id="login-btn" class="btn btn-success btn-block btn-custom">Login</button>
-      </div>
-      <div class="register">
-        <p><a href="/register">Register</a></p>
-      </div>
-    </form>
+<style>
+  @import url("https://fonts.googleapis.com/css?family=Raleway&display=swap");
+  form {
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    font-family: "Raleway", sans-serif;
+  }
 
-    <% include partials/footer %>
+  h3 {
+    text-align: center;
+    color: #636b6f;
+    font-size: 44px;
+    line-height: 90px;
+  }
+
+  .form-control {
+    width: 100%;
+    background-color: #ececec;
+    color: black;
+    padding-left: 20px;
+    height: 40px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    line-height: 19px;
+  }
+
+  #email {
+    margin-bottom: 24px;
+  }
+
+  em p {
+    color: #3087d1;
+    margin-top: 0px;
+    font-size: 16px;
+    line-height: 19px;
+    text-align: right;
+  }
+
+  .btn-custom {
+    width: 206px;
+    height: 40px;
+    left: 617px;
+    top: 745px;
+    line-height: 20px;
+    border-radius: 6px;
+    line-height: 20px;
+    background: #3087d1;
+  }
+
+  .btn-custom:hover {
+    line-height: 20px;
+    background: rgb(44, 120, 187);
+  }
+
+  .register {
+    text-align: center;
+  }
+
+  .register p a {
+    color: #3087d1;
+    font-size: 16px;
+    line-height: 19px;
+  }
+
+  #login-btn {
+    margin: 10px 0;
+  }
+
+  .button-special {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+  }
+  @media (max-width: 767px) {
+    h3 {
+      font-size: 50px;
+    }
+    form {
+      width: 85%;
+    }
+    em p {
+      font-size: 14px;
+    }
+  }
+</style>
+<div id="cover">
+  <div class="loader"></div>
+</div>
+<div class="notification">
+  Simple Notification
+</div>
+<h3 class="bottom-footer">Login</h3>
+<form class="login-form" method="POST" action="javascript:void(0);">
+  <div class="form-group">
+    <input
+      type="email"
+      name="email"
+      class="form-control"
+      id="email"
+      placeholder="Email Address"
+      required
+    />
+  </div>
+  <div class="form-group">
+    <input
+      type="password"
+      name="password"
+      class="form-control"
+      id="password"
+      placeholder="Password"
+      required
+    />
+    <em><p>Forgot Your password?</p></em>
+  </div>
+  <div class="form-group button-special">
+    <button id="login-btn" class="btn btn-success btn-block btn-custom">
+      Login
+    </button>
+
+    <a href="/auth/twitter" class="btn btn-info"
+      ><span class="fa fa-twitter"></span>Login with Twitter</a
+    >
+  </div>
+  <div class="register">
+    <p><a href="/register">Register</a></p>
+  </div>
+</form>
+
+<% include partials/footer %>

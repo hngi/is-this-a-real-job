@@ -29,8 +29,8 @@ describe('INVITES CONTROLLER', () => {
             .send({
               title: 'A test title',
               body: 'A test bost sit amet.',
-              media: 'https://google.com/favicon.png',
-              userId: SEED_USER_ID // test user
+              location: 'Lagos',
+              company: 'MTN',
             })
             .end((err, res) => {
               expect(res).to.have.status(201);
@@ -56,29 +56,7 @@ describe('INVITES CONTROLLER', () => {
             .post(invitesUrl)
             .set('Authorization', `Bearer ${res.body.payload.token}`) // add jwt header
             .send({
-              body: 'A test invite' // omitted userId
-            })
-            .end((err, res) => {
-              expect(res).to.have.status(400);
-              expect(res.body.success).to.equal(false);
-              done();
-            });
-        });
-    });
-
-    it('it should respond with status 400 when the userId is unknown.', (done) => {
-      chai.request(app)
-        .post(signinUrl)
-        .send(authDetails)
-        .end((error, res) => {
-          chai.request(app)
-            .post(invitesUrl)
-            .set('Authorization', `Bearer ${res.body.payload.token}`) // add jwt header
-            .send({
-              title: 'A test title',
-              body: 'A test post sit amet.',
-              media: 'https://google.com/favicon.png',
-              userId: 'STRANGE_USER' // invalid user id
+              body: 'A test invite' // omitted other fields
             })
             .end((err, res) => {
               expect(res).to.have.status(400);
@@ -92,8 +70,10 @@ describe('INVITES CONTROLLER', () => {
       chai.request(app)
         .post(invitesUrl) // omit token
         .send({
-          body: 'A sample job invite submission',
-          userId: SEED_USER_ID, // test user
+          title: 'A test title',
+          body: 'A test bost sit amet.',
+          location: 'Lagos',
+          company: 'MTN',
         })
         .end((err, res) => {
           expect(res).to.have.status(401);

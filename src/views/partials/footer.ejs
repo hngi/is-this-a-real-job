@@ -1,4 +1,4 @@
-<section class="footer">
+<footer class="footer">
   <div class="container">
     <div class="row">
       <div class="col span-md-4 span-sm-12">
@@ -13,16 +13,14 @@
 
 
       </div>
-      <div class="col span-md-4" style="text-align: right;">
+      <div class="col span-md-4">
         <h6 class="footer-heading">Contact Us</h6>
         <p><a href="mailto:info@isthisarealjob.ng" class="footer_email"> info@isthisarealjob.ng</a></p>
       </div>
 
     </div>
-
-  </div>
-
-</section>
+    </div>
+</footer>
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
@@ -36,7 +34,17 @@
 <script type="text/javascript" src="/invite.js"></script>
 <script type="text/javascript" src="/blockUser.js"></script>
 <script type="text/javascript" src="/deleteInvite.js"></script>
-
+<script type="text/javascript" src="/userProfile.js"></script>
+<!-- <script>
+  // do not delete. This is used to make the footer stick to bottom on pages with little content
+  // Until you have a better solution, do not rock the ship
+  const footer = document.querySelector('.footer');
+  if (document.querySelector('.bottom-footer')) {
+    footer.style.position = 'absolute';
+  } else {
+    footer.style.position = 'relative';
+  }
+</script> -->
 </body>
 
 </html>
