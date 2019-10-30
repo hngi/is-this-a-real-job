@@ -16,7 +16,8 @@ import {
   validateUpvoteInput,
   validateInviteOwner,
   passportAuthCallback,
-  passportAuthenticate
+  passportAuthenticate,
+  multerUploads
 } from '../middlewares/middlewares';
 
 import {
@@ -53,7 +54,8 @@ export const initRoutes = app => {
   app.get('/howitworks', (req, res) => res.render('howitworks', { isAuth: false }));
   app.get('/jobInvites', renderJobInvitesPage);
   app.get('/post/:inviteId', renderSinglePostPage);
-  app.get('/admin/reported', (req, res) => res.render('admin/reportedUsers', { isAuth: true, }));
+  app.get('/about', (req, res) => res.render('about', { isAuth: true }));
+  app.get('/admin/reported', (req, res) => res.render('admin/reportedUsers', { isAuth: true }));
 
 
   // Edit post endpoint
@@ -96,8 +98,9 @@ export const initRoutes = app => {
   // Post a new job invite.
   app.post(
     '/api/v1/invites',
-    validateInviteData,
     authenticateUserToken,
+    multerUploads,
+    validateInviteData,
     saveNewInvite
   );
 
@@ -148,6 +151,9 @@ export const initRoutes = app => {
     validateInvite,
     upvoteInvite
   );
+
+  // Report User section
+  app.get('/reportUser', (req, res) => res.render('reportUser', { isAuth: false }));
 
   // Get all comments for a given Invite.
   app.get('/api/v1/notifications/:userId', validateUserId, getNotifications);
