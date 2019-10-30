@@ -13,6 +13,8 @@ export const {
   SITE_URL,
   consumerKey,
   consumerSecret,
+  GOOGLE_CLIENT_ID,
+  GOOGLE_CLIENT_SECRET,
   CLOUDINARY_CLOUD_NAME,
   CLOUDINARY_API_KEY,
   CLOUDINARY_API_SECRET,

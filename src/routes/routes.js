@@ -17,6 +17,8 @@ import {
   validateInviteOwner,
   passportAuthCallback,
   passportAuthenticate,
+  googleAuthenticate,
+  googleAuthCallback,
   multerUploads
 } from '../middlewares/middlewares';
 
@@ -91,6 +93,10 @@ export const initRoutes = app => {
   // Twitter Login
   app.get('/auth/twitter', passportAuthenticate);
   app.get('/auth/twitter/callback', passportAuthCallback);
+
+  // Google Auth
+  app.get('/auth/google', googleAuthenticate);
+  app.get('/auth/google/redirect', googleAuthCallback);
   // Get all Users
   app.get('/api/v1/users', authenticateUserToken, validateAdmin, getUsers);
 

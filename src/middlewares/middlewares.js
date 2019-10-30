@@ -18,6 +18,7 @@ import {
 import { validateAdmin } from './validateAdmin';
 import { validateUserById } from './validateUser';
 import { passportAuthenticate, passportAuthCallback } from './twitterLogin';
+import { googleAuthenticate, googleAuthCallback } from './googleAuth';
 import { multerUploads } from './multer';
 
 export {
@@ -38,5 +39,7 @@ export {
   validateInviteOwner,
   passportAuthCallback,
   passportAuthenticate,
+  googleAuthenticate,
+  googleAuthCallback,
   multerUploads
 };
