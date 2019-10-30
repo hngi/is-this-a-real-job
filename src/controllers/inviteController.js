@@ -67,8 +67,16 @@ export const updateInvite = async (req, res) => {
     inviteId
   } = req.params;
 
+  const toUpdate = {
+    title: req.body.title || req.invite.title,
+    body: req.body.body || req.invite.body,
+    location: req.body.location || req.invite.location,
+    company: req.body.company || req.invite.company,
+    media: req.body.media || req.invite.media,
+  };
+
   try {
-    const invite = await updateOneInvite(inviteId, req.body);
+    const invite = await updateOneInvite(inviteId, toUpdate);
 
     respondWithSuccess(res, 200, 'Job Invite updated successfully', invite);
   } catch (error) {
