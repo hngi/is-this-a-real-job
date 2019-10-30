@@ -149,6 +149,9 @@ export const initRoutes = app => {
     upvoteInvite
   );
 
+  // Report User section
+  app.get('/reportUser', (req, res) => res.render('reportUser', { isAuth: false }));
+
   // Get all comments for a given Invite.
   app.get('/api/v1/notifications/:userId', validateUserId, getNotifications);
   app.post('/api/v1/notifications', validateNotificationData, createNotification);
