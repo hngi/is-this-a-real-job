@@ -53,7 +53,8 @@ export const initRoutes = app => {
   app.get('/howitworks', (req, res) => res.render('howitworks', { isAuth: false }));
   app.get('/jobInvites', renderJobInvitesPage);
   app.get('/post/:inviteId', renderSinglePostPage);
-  app.get('/admin/reported', (req, res) => res.render('admin/reportedUsers', { isAuth: true, }));
+  app.get('/about', (req, res) => res.render('about', { isAuth: true }));
+  app.get('/admin/reported', (req, res) => res.render('admin/reportedUsers', { isAuth: true }));
 
 
   // Edit post endpoint
