@@ -4,7 +4,9 @@ import Model from '../models';
 
 export const connectionTest = () => Model
   .sequelize
-  .authenticate()
+  .authenticate({
+    logging: false
+  })
   .then(() => {
     console.log('Connection to database successful.');
   })

@@ -17,7 +17,7 @@ import {
 } from './validateUUID';
 import { validateAdmin } from './validateAdmin';
 import { validateUserById } from './validateUser';
-
+import {passportAuthenticate, passportAuthCallback} from "./twitterLogin"
 export {
   validateSigninFormData,
   validateSignupFormData,
@@ -33,5 +33,7 @@ export {
   validateUserById,
   validateUserId,
   validateUpvoteInput,
-  validateInviteOwner
+  validateInviteOwner,
+  passportAuthCallback,
+  passportAuthenticate
 };

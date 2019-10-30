@@ -7,7 +7,7 @@
         window.location.href = '/home';
       }
     </script>
-    
+
     <style>
       @import url('https://fonts.googleapis.com/css?family=Raleway&display=swap');
       form {
@@ -92,7 +92,7 @@
     <div class="notification">
       Simple Notification
     </div>
-    <h3>Login</h3>
+    <h3 class="bottom-footer">Login</h3>
     <form class="login-form" method="POST" action="javascript:void(0);">
       <div class="form-group">
         <input type="email" name="email" class="form-control" id="email" placeholder="Email Address" required />
@@ -103,6 +103,7 @@
       </div>
       <div class="form-group">
         <button id="login-btn" class="btn btn-success btn-block btn-custom">Login</button>
+        <span class="float-right"><a href="/auth/twitter" class="btn btn-info"><span class="fa fa-twitter"></span>Login with Twitter</a></span>
       </div>
       <div class="register">
         <p><a href="/register">Register</a></p>
