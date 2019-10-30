@@ -1,14 +1,17 @@
 /* eslint-disable no-console */
 const path = require('path');
 const express = require('express');
+const Cookies = require('cookies');
+const Keygrip = require('keygrip');
+const { PORT, NODE_ENV, SECRET_KEY } = require('./config/constants');
 const cors = require('cors');
-const { PORT } = require('./config/constants');
 const { initRoutes } = require('./routes/routes');
 
 const { cloudinaryConfig } = require('./config/cloudinaryConfig');
 
-const { connectionTest } = require('./services/connectionTest');
 const passport = require("passport")
+
+const keys = Keygrip([SECRET_KEY]);
 
 const app = express();
 
@@ -37,6 +40,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(Cookies.express(keys));
+
 initRoutes(app);
 
 const port = PORT || 3000;
