@@ -50,7 +50,7 @@ export const initRoutes = app => {
   app.get('/login', (req, res) => res.render('login', { isAuth: false }));
   app.get('/register', (req, res) => res.render('register', { isAuth: false }));
   app.get('/post', (req, res) => res.render('userPost', { isAuth: true }));
-  app.get('/home', renderJobInvitesPage);
+  app.get('/posts', renderJobInvitesPage);
   app.get('/howitworks', (req, res) => res.render('howitworks', { isAuth: false }));
   app.get('/post/:inviteId', renderSinglePostPage);
   app.get('/about', (req, res) => res.render('about', { isAuth: true }));

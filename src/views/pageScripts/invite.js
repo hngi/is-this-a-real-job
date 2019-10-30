@@ -35,7 +35,7 @@ if (inviteBtn) {
         }), true)
       .then(res => {
         // navigate to somewhere. created post maybe
-        window.location.href = '/home';
+        window.location.href = '/posts';
         togglePreloader('none');
       })
       .catch(err => {

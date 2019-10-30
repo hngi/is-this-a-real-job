@@ -8,7 +8,7 @@ function togglePreloader(state) {
 
 if (document.querySelector('#login-btn')) {
   if (localStorage.getItem('token')) {
-    window.location.href = '/home';
+    window.location.href = '/posts';
   }
 
   const loginBtn = document.querySelector('#login-btn');
@@ -30,7 +30,7 @@ if (document.querySelector('#login-btn')) {
         togglePreloader('none');
         localStorage.setItem('token', res.data.token);
         localStorage.setItem('user', JSON.stringify(res.data)); // convert from [object object]
-        window.location.href = '/home';
+        window.location.href = '/posts';
       })
       .catch(err => {
         togglePreloader('none');
