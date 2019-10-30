@@ -72,7 +72,7 @@ export const renderUserProfile = async (req, res) => {
 
   const user = await fetchSingleUser({ username });
   if (user) {
-    return res.render('userProfile', { user });
+    return res.render("userProfile", { user, isAuth: req.isAuth, isAdmin: req.auth.isAdmin });
   } else {
     return res.render('404', { status: 404 });
   }
@@ -88,7 +88,7 @@ export const renderAdminUsersPage = async (req, res) => {
 
   return res.render('admin/users', {
     users: users || [],
-    isAuth: true,
-    isAdmin: true
+    isAuth: req.isAuth,
+    isAdmin: req.auth.isAdmin
   });
 };

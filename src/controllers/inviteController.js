@@ -142,7 +142,8 @@ export const renderSinglePostPage = async (req, res) => {
   return res.render('singlepost', {
     comments: data[0],
     invite: data[1],
-    isAuth: true,
+    isAuth: req.isAuth,
+    isAdmin: req.auth.isAdmin,
   });
 };
 
@@ -156,7 +157,8 @@ export const renderJobInvitesPage = async (req, res) => {
 
   return res.render('jobInvites', {
     invites: invites || [],
-    isAuth: true,
+    isAuth: req.isAuth,
+    isAdmin: req.auth.isAdmin,
   });
 };
 
@@ -170,8 +172,8 @@ export const renderAdminJobInvitesPage = async (req, res) => {
 
   return res.render('admin/posts', {
     invites: invites || [],
-    isAuth: true,
-    isAdmin: true,
+    isAuth: req.isAuth,
+    isAdmin: req.auth.isAdmin,
   });
 };
 
@@ -181,7 +183,8 @@ export const renderAdminJobInvitesPage = async (req, res) => {
  * @param {object} res
  * @returns {object} json response
  */
-export const editInvite = async (req, res) => res.render('editPost', {
+export const renderEditInvitePage = async (req, res) => res.render('editPost', {
   invite: req.invite,
-  isAuth: true,
+  isAuth: req.isAuth,
+  isAdmin: req.auth.isAdmin,
 });
