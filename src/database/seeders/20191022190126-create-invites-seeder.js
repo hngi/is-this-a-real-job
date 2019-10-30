@@ -37,6 +37,6 @@ export default {
   },
 
   down: (queryInterface, Sequelize) => {
-     return queryInterface.bulkDelete('Invites', null, {});
+      return queryInterface.bulkDelete('Invites', null, {});
   }
 };
