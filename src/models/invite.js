@@ -11,16 +11,25 @@ export default (sequelize, DataTypes) => {
       userId: {
         type: DataTypes.UUID,
         allowNull: false,
-        defaultValue: DataTypes.UUIDV4,
-        onDelete: 'CASCADE'
+        // eslint-disable-next-line max-len
+        // defaultValue: DataTypes.UUIDV4, // there shouldn't be a default value here so an error will pop when it is not provided
+        onDelete: 'CASCADE',
       },
       title: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
+      },
+      company: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      location: {
+        type: DataTypes.STRING,
+        allowNull: false,
       },
       body: {
         type: DataTypes.TEXT,
-        allowNull: false
+        allowNull: false,
       },
       media: {
         type: DataTypes.STRING
@@ -29,8 +38,7 @@ export default (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         defaultValue: 0
       }
-    },
-    {}
+    }, {}
   );
   Invite.associate = models => {
     Invite.belongsTo(models.User, {

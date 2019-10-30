@@ -15,8 +15,6 @@ export const validateInvite = async (req, res, next) => {
   if (!findInvite) {
     return respondWithWarning(res, 404, 'Job Invite not found');
   }
-  // console.log(findInvite);
-  // req.invite = findInvite.toJSON();
   req.invite = findInvite;
   return next();
 };
@@ -29,7 +27,7 @@ export const validateInvite = async (req, res, next) => {
  * @returns {Function} response
  */
 export const validateInviteOwner = async (req, res, next) => {
-  if (req.auth.userId !== req.invite.userId && !req.auth.isAdmin ) {
+  if (req.auth.userId !== req.invite.userId && !req.auth.isAdmin) {
     return respondWithWarning(res, 401, 'You are not authorized to perform this action');
   }
 

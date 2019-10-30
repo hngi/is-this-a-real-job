@@ -43,6 +43,7 @@ export const getAllInvites = async (req, res) => {
 export const saveNewInvite = async (req, res) => {
   try {
     req.body.userId = req.auth.userId;
+    req.body.media = !req.files ? '' : req.files[0].secure_url;
     const invite = await saveInvite(req.body).catch(error => {
       throw error;
     });
@@ -109,8 +110,16 @@ export const searchInvitesApi = async (req, res) => {
 export const updateInvite = async (req, res) => {
   const { inviteId } = req.params;
 
+  const toUpdate = {
+    title: req.body.title || req.invite.title,
+    body: req.body.body || req.invite.body,
+    location: req.body.location || req.invite.location,
+    company: req.body.company || req.invite.company,
+    media: req.body.media || req.invite.media,
+  };
+
   try {
-    const invite = await updateOneInvite(inviteId, req.body);
+    const invite = await updateOneInvite(inviteId, toUpdate);
 
     respondWithSuccess(res, 200, "Job Invite updated successfully", invite);
   } catch (error) {
@@ -169,7 +178,8 @@ export const renderSinglePostPage = async (req, res) => {
   return res.render("singlepost", {
     comments: data[0],
     invite: data[1],
-    isAuth: true
+    isAuth: req.isAuth,
+    isAdmin: req.auth.isAdmin,
   });
 };
 
@@ -183,7 +193,8 @@ export const renderJobInvitesPage = async (req, res) => {
 
   return res.render("jobInvites", {
     invites: invites || [],
-    isAuth: true
+    isAuth: req.isAuth,
+    isAdmin: req.auth.isAdmin,
   });
 };
 
@@ -197,8 +208,8 @@ export const renderAdminJobInvitesPage = async (req, res) => {
 
   return res.render("admin/posts", {
     invites: invites || [],
-    isAuth: true,
-    isAdmin: true
+    isAuth: req.isAuth,
+    isAdmin: req.auth.isAdmin,
   });
 };
 
@@ -208,8 +219,8 @@ export const renderAdminJobInvitesPage = async (req, res) => {
  * @param {object} res
  * @returns {object} json response
  */
-export const editInvite = async (req, res) =>
-  res.render("editPost", {
-    invite: req.invite,
-    isAuth: true
-  });
+export const renderEditInvitePage = async (req, res) => res.render('editPost', {
+  invite: req.invite,
+  isAuth: req.isAuth,
+  isAdmin: req.auth.isAdmin,
+});

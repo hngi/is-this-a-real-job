@@ -2,9 +2,6 @@
 <div id="cover">
   <div class="loader"></div>
 </div>
-<div class="notification">
-  Simple Notification
-</div>
 
 <body>
   <div class="header">
@@ -12,20 +9,11 @@
       <form action="/api/v1/invites/search" method="GET">
         <div class="form-row">
           <div class="col-md-8">
-            <input
-              type="text"
-              name="q"
-              class="form-control"
-              placeholder="Search a keyword or a sentence"
-            />
+            <input type="text" name="q" class="form-control" placeholder="Search a keyword or a sentence" />
           </div>
 
           <div class="col-md-4">
-            <input
-              type="submit"
-              value="Invite Search"
-              class=" btn btn-primary"
-            />
+            <input type="submit" value="Invite Search" class=" btn btn-primary" />
           </div>
         </div>
       </form>
@@ -33,9 +21,7 @@
 
     <section class="job-invites">
       <% if (invites.length === 0) { %>
-      <span id="no-comments" class="bg-transparent container"
-        >The world is your oyseter. Fill it.</span
-      >
+      <span id="no-comments" class="bg-transparent container">The world is your oyseter. Fill it.</span>
       <% } %> <% if (invites.length > 0) { %> <% for (invite of invites) { %>
       <div class="container post-meta" id="<%=invite.inviteId%>">
         <h4>
@@ -43,31 +29,30 @@
             <%=invite.title%>
           </a>
         </h4>
-        <p>@ <%=invite.user.username%></p>
+        <small class="text-muted"><%=invite.company%>, <em><%=invite.location%></em></small><br>
+        <p>
+          <a href="/api/v1/users/<%=invite.user.username%>">
+            @<%=invite.user.username%>
+          </a>
+        </p>
         <p>
           <%=invite.body%>
         </p>
         <span>
           <a><i class="fas fa-comment"></i> <%=invite.comments.length%></a>
-          <a class="upvote-btn"
-            ><span class="upvote-count"><%=invite.upVotes || 0 %></span>
-            Upvotes</a
-          >
+          <a class="upvote-btn"><span class="upvote-count"><%=invite.upVotes || 0 %></span>
+            Upvotes</a>
         </span>
 
         <span class="float-right share-buttons">
           <!-- <a href="#"><i class="fab fa-facebook-f"></i></i></a> -->
-          <a
-            target="_blank"
-            href="https://twitter.com/intent/tweet?text=<%=invite.title+' - Is this a real job? \n Let us know: http://isthisarealjob.ng/post/'+invite.inviteId%>"
-            ><i class="fab fa-twitter"></i
-          ></a>
+          <a target="_blank"
+             href="https://twitter.com/intent/tweet?text=<%=invite.title+' - Is this a real job? \n Let us know: http://isthisarealjob.ng/post/'+invite.inviteId%>"><i
+               class="fab fa-twitter"></i></a>
           <!-- <a href="https://www.instagram.com/"><i class="fab fa-instagram"></i></a> -->
-          <a
-            target="_blank"
-            href="https://api.whatsapp.com/send?&text=<%=invite.title+' - Is this a real job? \n Let us know: http://isthisarealjob.ng/post/'+invite.inviteId%>"
-            ><i class="fab fa-whatsapp"></i
-          ></a>
+          <a target="_blank"
+             href="https://api.whatsapp.com/send?&text=<%=invite.title+' - Is this a real job? \n Let us know: http://isthisarealjob.ng/post/'+invite.inviteId%>"><i
+               class="fab fa-whatsapp"></i></a>
         </span>
       </div>
       <% } %> <% } %>
