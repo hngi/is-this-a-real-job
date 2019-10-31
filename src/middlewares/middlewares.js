@@ -1,7 +1,8 @@
 import { validateSigninFormData, validateSignupFormData } from './validateAuth';
 import {
   validUser,
-  verifyUniqueUser,
+  verifyUniqueUserEmail,
+  verifyUniqueUserUsername,
   authenticateUserToken
 } from './authentication';
 import { validateCommentData } from './validateComment';
@@ -29,7 +30,6 @@ export {
   validateInviteData,
   validateInviteUpdateData,
   validateInviteId,
-  verifyUniqueUser,
   authenticateUserToken,
   validateAdmin,
   validateUserById,
@@ -38,5 +38,7 @@ export {
   validateInviteOwner,
   passportAuthCallback,
   passportAuthenticate,
-  multerUploads
+  multerUploads,
+  verifyUniqueUserEmail,
+  verifyUniqueUserUsername,
 };
