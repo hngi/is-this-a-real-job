@@ -227,12 +227,21 @@ body {
   transition: background-color ease-in-out 0.1s;
 }
 
-.upvote-btn[data-upvoted='true'], .downvote-btn[data-downvoted='true'] {
+.upvote-btn[data-upvoted='true'] {
   color: var(--success) !important;
+}
+
+.downvote-btn[data-downvoted='true'] {
+  color: var(--danger) !important;
 }
 
 .upvote-btn:hover {
   background-color: var(--success);
+  color: #fff !important;
+}
+
+.downvote-btn:hover {
+  background-color: var(--danger);
   color: #fff !important;
 }
 
