@@ -99,13 +99,7 @@ export const initRoutes = app => {
   app.get('/auth/twitter', twitterAuthenticate);
   app.get('/auth/twitter/callback', twitterAuthCallback);
 
-  // Google Auth
-  app.get('/auth/google', googleAuthenticate);
-  app.get('/auth/google/redirect', googleAuthCallback);
-
-  // Facebook Auth
-  app.get('/auth/facebook', facebookAuthenticate);
-  app.get('/facebook/redirect', facebookAuthCallback);
+  
   // Get all Users
   app.get('/api/v1/users', authenticateUserToken, validateAdmin, getUsers);
 
