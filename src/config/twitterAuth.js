@@ -1,10 +1,5 @@
-import {SITE_URL, consumerKey, consumerSecret }from "./constants"
-function test (){
-    console.log({SITE_URL, consumerKey, consumerSecret });
-    
-}
-test();
-export const twitterAuth = {
+import { SITE_URL, consumerKey, consumerSecret } from './constants';
+
 
     
         'consumerKey'       : consumerKey,
@@ -12,3 +7,10 @@ export const twitterAuth = {
         'callbackURL'       : `${SITE_URL}/jobinvites`
     
 }
+
+export const twitterAuth = {
+  consumerKey,
+  consumerSecret,
+  callbackURL: `${SITE_URL}/auth/twitter/callback`
+};
+

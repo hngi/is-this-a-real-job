@@ -9,16 +9,14 @@ import {
   fetchAllInvites,
   saveInvite,
   updateOneInvite,
+  searchInvites
 } from '../services/inviteServices';
-import {
-  findCommentsForPost
-} from '../services/commentServices';
+import { findCommentsForPost } from '../services/commentServices';
+import { findSingleUser } from '../services/userServices';
 
 export const getOneInvite = async (req, res) => {
   try {
-    const {
-      inviteId
-    } = req.params;
+    const { inviteId } = req.params;
 
     const invite = await fetchOneInvite({
       inviteId
@@ -58,15 +56,58 @@ export const saveNewInvite = async (req, res) => {
 };
 
 /**
+ * Search invites
+ * @param {*} req
+ * @param {*} res
+ * @returns Invites
+ */
+export const renderSearchResults = async (req, res) => {
+  try {
+    const { q } = req.query;
+
+    const invites = await searchInvites(q);
+
+    return res.render('searchResults', {
+      invites: invites || [],
+      isAuth: req.isAuth,
+      isAdmin: req.auth.isAdmin,
+      username: req.auth.username, name: req.auth.name
+    });
+  } catch (error) {
+    respondWithWarning(res, 500, 'Server error');
+  }
+};
+
+/**
+ * REST Api for Invites search
+ * - Returns JSON payload containing Invites results
+ *
+ * @param {*} req
+ * @param {*} res
+ */
+export const searchInvitesApi = async (req, res) => {
+  try {
+    const { q } = req.query;
+
+    const invites = await searchInvites(q);
+
+    if (invites) {
+      return respondWithSuccess(res, 200, 'Invites found', invites);
+    }
+    respondWithWarning(res, 404, 'Invite not found');
+  } catch (error) {
+    respondWithWarning(res, 500, 'Server error');
+  }
+};
+
+/**
  * Update Invite
  * @param {object} req
  * @param {object} res
  * @returns {object} json response
  */
 export const updateInvite = async (req, res) => {
-  const {
-    inviteId
-  } = req.params;
+  const { inviteId } = req.params;
 
   const toUpdate = {
     title: req.body.title || req.invite.title,
@@ -92,10 +133,7 @@ export const updateInvite = async (req, res) => {
  * @returns {object} json response
  */
 export const deleteInvite = async (req, res) => {
-  const {
-    inviteId,
-    title
-  } = req.invite;
+  const { inviteId, title } = req.invite;
   if (!inviteId) {
     respondWithWarning(res, 400, 'Bad Request');
   }
@@ -112,13 +150,8 @@ export const deleteInvite = async (req, res) => {
  * @returns {object} json response
  */
 export const upvoteInvite = async (req, res) => {
-  const {
-    upVotes,
-    inviteId
-  } = req.invite;
-  const {
-    voteType
-  } = req.params; // ture of false
+  const { upVotes, inviteId } = req.invite;
+  const { voteType } = req.params; // ture of false
   // user vote will determine if upvote or downvote
   const vote = voteType === 'true' ? upVotes + 1 : upVotes - 1;
   const invite = await upvoteOneInvite(vote, {
@@ -133,17 +166,23 @@ export const upvoteInvite = async (req, res) => {
  * @param {object} res
  */
 export const renderSinglePostPage = async (req, res) => {
-  const {
-    inviteId
-  } = req.params;
+  const { inviteId } = req.params;
 
-  const data = await Promise.all([findCommentsForPost(inviteId), fetchOneInvite({
-    inviteId
-  })]);
+  const data = await Promise.all([
+    findCommentsForPost(inviteId),
+    fetchOneInvite({
+      inviteId
+    }),
+    findSingleUser({ userId: req.auth.userId })
+  ]);
   return res.render('singlepost', {
     comments: data[0],
     invite: data[1],
-    isAuth: true,
+    user: data[2],
+    isAuth: req.isAuth,
+    isAdmin: req.auth.isAdmin,
+    userId: req.auth.userId,
+    username: req.auth.username, name: req.auth.name
   });
 };
 
@@ -155,9 +194,15 @@ export const renderSinglePostPage = async (req, res) => {
 export const renderJobInvitesPage = async (req, res) => {
   const invites = await fetchAllInvites();
 
+  const user = await findSingleUser({ userId: req.auth.userId });
+
   return res.render('jobInvites', {
+    user,
+    username: req.auth.username,
+    name: req.auth.name,
     invites: invites || [],
-    isAuth: true,
+    isAuth: req.isAuth,
+    isAdmin: req.auth.isAdmin,
   });
 };
 
@@ -171,8 +216,8 @@ export const renderAdminJobInvitesPage = async (req, res) => {
 
   return res.render('admin/posts', {
     invites: invites || [],
-    isAuth: true,
-    isAdmin: true,
+    isAuth: req.isAuth,
+    isAdmin: req.auth.isAdmin,
   });
 };
 
@@ -182,7 +227,19 @@ export const renderAdminJobInvitesPage = async (req, res) => {
  * @param {object} res
  * @returns {object} json response
  */
-export const editInvite = async (req, res) => res.render('editPost', {
-  invite: req.invite,
-  isAuth: true,
-});
+export const renderEditInvitePage = async (req, res) => {
+  if (req.invite.userId !== req.auth.userId && !req.auth.isAdmin) {
+    return res.render('401', {
+      isAuth: req.isAuth,
+      isAdmin: req.auth.isAdmin,
+      user: req.user
+    });
+  }
+
+  return res.render('editPost', {
+    invite: req.invite,
+    isAuth: req.isAuth,
+    isAdmin: req.auth.isAdmin,
+    user: req.user
+  });
+};

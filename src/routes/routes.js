@@ -8,7 +8,6 @@ import {
   validateInviteId,
   validateInviteData,
   validateInviteUpdateData,
-  verifyUniqueUser,
   authenticateUserToken,
   validateAdmin,
   validateUserById,
@@ -17,7 +16,9 @@ import {
   validateInviteOwner,
   passportAuthCallback,
   passportAuthenticate,
-  multerUploads
+  multerUploads,
+  verifyUniqueUserUsername,
+  verifyUniqueUserEmail,
 } from '../middlewares/middlewares';
 
 import {
@@ -29,7 +30,9 @@ import {
   updateInvite,
   renderSinglePostPage,
   renderJobInvitesPage,
-  editInvite,
+  renderSearchResults,
+  searchInvitesApi,
+  renderEditInvitePage,
   renderAdminJobInvitesPage
 } from '../controllers/inviteController';
 
@@ -39,27 +42,45 @@ import {
   getUsers,
   renderAdminUsersPage,
   getUser,
-  renderUserProfile
+  renderUserProfile,
+  getUserByUserId
 } from '../controllers/userController';
 import { getNotifications, createNotification } from '../controllers/notificationController';
 import { validateNotificationData } from '../middlewares/validateNotification';
+import { validateCookies, signUserIn, signUserOut } from '../middlewares/cookieHandler';
+import { getMetrics } from '../controllers/metricsController';
 
 export const initRoutes = app => {
+  // Cookie handlers before all
+  app.use(validateCookies);
+  app.use(signUserIn);
+  app.use(signUserOut);
+
   // All EJS frontend endpoints below --------------------------------------------------
 
-  app.get('/', (req, res) => res.render('index', { isAuth: false })); // Pass true or false to toggle state of navbar....
-  app.get('/login', (req, res) => res.render('login', { isAuth: false }));
-  app.get('/register', (req, res) => res.render('register', { isAuth: false }));
-  app.get('/post', (req, res) => res.render('userPost', { isAuth: true }));
-  app.get('/howitworks', (req, res) => res.render('howitworks', { isAuth: false }));
-  app.get('/jobInvites', renderJobInvitesPage);
+  app.get('/', (req, res) => res.render('index', { isAuth: req.isAuth, isAdmin: req.auth.isAdmin })); // Pass true or false to toggle state of navbar....
+  app.get('/login', (req, res) => res.render('login', { isAuth: req.isAuth, isAdmin: req.auth.isAdmin }));
+  app.get('/register', (req, res) => res.render('register', { isAuth: req.isAuth, isAdmin: req.auth.isAdmin }));
+  app.get('/post', getUserByUserId, (req, res) => res.render('userPost', {
+ isAuth: req.isAuth, isAdmin: req.auth.isAdmin, user: req.user, username: req.auth.username, name: req.auth.name 
+}));
+  app.get('/howitworks', (req, res) => res.render('howitworks', { isAuth: req.isAuth, isAdmin: req.auth.isAdmin }));
+  app.get('/posts', renderJobInvitesPage);
   app.get('/post/:inviteId', renderSinglePostPage);
-  app.get('/about', (req, res) => res.render('about', { isAuth: true }));
-  app.get('/admin/reported', (req, res) => res.render('admin/reportedUsers', { isAuth: true }));
+  app.get('/about', (req, res) => res.render('about', {
+ isAuth: req.isAuth, isAdmin: req.auth.isAdmin, username: req.auth.username, name: req.auth.name 
+}));
+  app.get('/admin/reported', (req, res) => res.render('admin/reportedUsers', { isAuth: req.isAuth, isAdmin: req.auth.isAdmin }));
+  app.get('/reportUser', (req, res) => res.render('reportUser', { isAuth: false, username: req.auth.username, name: req.auth.name }));
+  app.get('/users/:username', renderUserProfile);
+  app.get('/admin/reportedusers', (req, res) => res.render('admin/reported', { isAuth: false }));
+  // Search Invites - Renders view
+  app.get('/invites/search', renderSearchResults);
+  app.get('/admin', (req, res) => res.render('./admin/index', { isAuth: false }));
 
 
   // Edit post endpoint
-  app.get('/post/:inviteId/edit', validateInviteId, validateInvite, editInvite);
+  app.get('/post/:inviteId/edit', validateInviteId, validateInvite, getUserByUserId, renderEditInvitePage);
 
   app.get('/admin/users', renderAdminUsersPage);
   app.get('/admin/posts', renderAdminJobInvitesPage);
@@ -70,21 +91,23 @@ export const initRoutes = app => {
   app.post(
     '/api/v1/auth/signup',
     validateSignupFormData,
-    verifyUniqueUser,
+    verifyUniqueUserEmail,
+    verifyUniqueUserUsername,
     signup
   );
   // Twitter Login
+
   app.get("/api/v1/auth/twitter", passportAuthenticate)
     app.get("/api/v1/auth/twitter/callback", passportAuthCallback)
+
+  app.get('/auth/twitter', passportAuthenticate);
+  app.get('/auth/twitter/callback', passportAuthCallback);
+
   // Get all Users
   app.get('/api/v1/users', authenticateUserToken, validateAdmin, getUsers);
 
   // Get single User - return JSON
   app.get('/api/v1/users/json/:username', getUser);
-
-  // Render user profile
-  app.get('/api/v1/users/:username', renderUserProfile);
-
   // Block a user
   app.patch(
     '/api/v1/users/block/:userId',
@@ -106,6 +129,9 @@ export const initRoutes = app => {
 
   // Get all job invites in the database.
   app.get('/api/v1/invites', getAllInvites);
+
+  // Search Invites - Returns JSON payload
+  app.get('/api/v1/invites/search/json', searchInvitesApi);
 
   // Get a single job invite.
   app.get('/api/v1/invites/:inviteId', validateInviteId, getOneInvite);
@@ -152,8 +178,8 @@ export const initRoutes = app => {
     upvoteInvite
   );
 
-  // Report User section
-  app.get('/reportUser', (req, res) => res.render('reportUser', { isAuth: false }));
+  // Get the number of users, invites and comments in the database.
+  app.get('/api/v1/metrics', getMetrics);
 
   // Get all comments for a given Invite.
   app.get('/api/v1/notifications/:userId', validateUserId, getNotifications);
