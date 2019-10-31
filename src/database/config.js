@@ -9,7 +9,6 @@ module.exports = {
     use_env_variable: true,
     url: DEV_DATABASE_URL,
     dialect: "mysql",
-    logging: true
   },
   test: {
     use_env_variable: true,
