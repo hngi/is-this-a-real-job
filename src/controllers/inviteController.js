@@ -13,8 +13,8 @@ import {
   unvoteOneInvite,
   downVoteOneInvite,
   fetchOneVoteCount,
-} from "../services/inviteServices";
-import { findCommentsForPost } from "../services/commentServices";
+} from '../services/inviteServices';
+import { findCommentsForPost } from '../services/commentServices';
 import { findSingleUser } from '../services/userServices';
 
 export const getOneInvite = async (req, res) => {
@@ -158,13 +158,9 @@ export const fetchVoteCount = async (req, res) => {
   const { userId } = req.auth;
 
   await fetchOneVoteCount(inviteId, userId)
-    .then( (votes) => {
-      return respondWithSuccess(res, 200, "Successfully fetched all votes", votes);
-    })
-    .catch( (error) => {
-      return respondWithSuccess(res, error.status, error.message, JSON.stringify(error));
-    });
-}
+    .then((votes) => respondWithSuccess(res, 200, 'Successfully fetched all votes', votes))
+    .catch((error) => respondWithSuccess(res, error.status, error.message, JSON.stringify(error)));
+};
 
 /**
  * Upvote Invite
@@ -177,13 +173,9 @@ export const upvoteInvite = async (req, res) => {
   const { userId } = req.auth;
 
   await upvoteOneInvite(userId, inviteId)
-    .then( (vote) => {
-      return respondWithSuccess(res, 200, "Upvote successful", vote);
-    })
-    .catch( (error) => {
-      return respondWithSuccess(res, error.status, error.message, JSON.stringify(error));
-    });
-}
+    .then((vote) => respondWithSuccess(res, 200, 'Upvote successful', vote))
+    .catch((error) => respondWithSuccess(res, error.status, error.message, JSON.stringify(error)));
+};
 
 /**
  * Downvote Invite
@@ -196,27 +188,21 @@ export const downvoteInvite = async (req, res) => {
   const { userId } = req.auth;
 
   await downVoteOneInvite(userId, inviteId)
-    .then( (vote) => {
-      return respondWithSuccess(res, 200, "Downvote successful", vote);
-    })
-    .catch( (error) => {
-      return respondWithSuccess(res, error.status, error.message, JSON.stringify(error));
-    });
-}
+    .then((vote) => respondWithSuccess(res, 200, 'Downvote successful', vote))
+    .catch((error) => respondWithSuccess(res, error.status, error.message, JSON.stringify(error)));
+};
 
 export const unvoteInvite = async (req, res) => {
   const { inviteId } = req.invite;
   const { userId } = req.auth;
 
   await unvoteOneInvite(userId, inviteId)
-    .then( (vote) => {
+    .then((vote) => {
       console.log(vote);
-      respondWithSuccess(res, 200, "Upvote is deleted");
+      respondWithSuccess(res, 200, 'Upvote is deleted');
     })
-    .catch( (error) => {
-      return respondWithSuccess(res, 200, "Deletion failed", JSON.stringify(error));
-    });
-}
+    .catch((error) => respondWithSuccess(res, 200, 'Deletion failed', JSON.stringify(error)));
+};
 
 /**
  * Render single invite page
@@ -225,7 +211,6 @@ export const unvoteInvite = async (req, res) => {
  */
 export const renderSinglePostPage = async (req, res) => {
   const { inviteId } = req.params;
-
   const data = await Promise.all([
     findCommentsForPost(inviteId),
     fetchOneInvite({
@@ -243,6 +228,23 @@ export const renderSinglePostPage = async (req, res) => {
     username: req.auth.username,
     name: req.auth.name
   });
+
+  // const invite = await fetchOneInvite({ inviteId });
+  // console.log('Invite =>', invite)
+  // if (invite) {
+  //   return res.render('singlepost', {
+  //     comments: invite.comments,
+  //     invite: invite,
+  //     user: invite.user,
+  //     isAuth: req.isAuth,
+  //     isAdmin: req.auth.isAdmin,
+  //     userId: req.auth.userId,
+  //     username: req.auth.username,
+  //     name: req.auth.name
+  //   });
+  // } else {
+  //   res.render('404', { status: 404 });
+  // }
 };
 
 /**
