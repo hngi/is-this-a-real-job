@@ -10,18 +10,20 @@
     <section class="job-invites">
       <div class="container mt-4 post-meta" id="<%=invite.inviteId%>">
         <span class="d-flex flex-row-reverse justify-content-between">
-          <span class="dropdown">
-            <% if ((invite.userId === userId) || isAdmin ) { %>
-            <i class=" fas fa-ellipsis-h  dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown"
-               aria-haspopup="true" aria-expanded="false">
-            </i>
-            <span class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <a class="dropdown-item" href="/post/<%=invite.inviteId%>/edit">Edit</a>
-              <!-- <a class="dropdown-item" href="#">Report</a> -->
-              <a class="dropdown-item" href="#">Delete Post </a>
-            </span>
+          <% if(userId) { %>
+            <span class="dropdown">
+                <% if ((invite.userId === userId) || isAdmin ) { %>
+                <i class=" fas fa-ellipsis-h  dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown"
+                   aria-haspopup="true" aria-expanded="false">
+                </i>
+                <span class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  <a class="dropdown-item" href="/post/<%=invite.inviteId%>/edit">Edit</a>
+                  <!-- <a class="dropdown-item" href="#">Report</a> -->
+                  <a class="dropdown-item" href="#">Delete Post </a>
+                </span>
+                <% } %>
+              </span>
             <% } %>
-          </span>
         </span>
 
         <span>
