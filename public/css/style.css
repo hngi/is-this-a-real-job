@@ -374,6 +374,10 @@ div.heading p {
   div.card div.img {
     text-align: center;
   }
+  .social {
+    width: 200px;
+    font-size:13px
+  }
 }
 
 :-ms-input-placeholder {
