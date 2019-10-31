@@ -86,7 +86,13 @@ export const renderUserProfile = async (req, res) => {
   if (!user) {
     return res.render('404', { status: 404 });
   }
-  return res.render('userProfile', { user, isAuth: req.isAuth, isAdmin: req.auth.isAdmin });
+  return res.render('userProfile', {
+    user,
+    isAuth: req.isAuth,
+    isAdmin: req.auth.isAdmin,
+    username: req.auth.username,
+    name: req.auth.name
+  });
 };
 
 /**
@@ -100,6 +106,25 @@ export const renderAdminUsersPage = async (req, res) => {
   return res.render('admin/users', {
     users: users || [],
     isAuth: req.isAuth,
-    isAdmin: req.auth.isAdmin
+    isAdmin: req.auth.isAdmin,
+    username: req.auth.username,
+    name: req.auth.name
+  });
+};
+
+/**
+ * Render users page for admin
+ * @param {object} req
+ * @param {object} res
+ */
+export const renderAdminReportedUsersPage = async (req, res) => {
+  const users = await findUsers();
+
+  return res.render('admin/users', {
+    users: users || [],
+    isAuth: req.isAuth,
+    isAdmin: req.auth.isAdmin,
+    username: req.auth.username,
+    name: req.auth.name
   });
 };
