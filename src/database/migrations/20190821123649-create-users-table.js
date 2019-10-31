@@ -11,6 +11,9 @@ export default {
     googleId: {
       type: Sequelize.STRING
     },
+    facebookId: {
+      type: Sequelize.STRING
+    },
     username: {
       type: Sequelize.STRING,
       allowNull: false,

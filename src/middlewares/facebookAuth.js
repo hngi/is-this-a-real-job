@@ -2,8 +2,8 @@ import passport from 'passport';
 import { generateToken } from '../helpers/jwt';
 import { sanitizeUser } from '../helpers/sanitizeUser';
 
-export const googleAuthenticate = passport.authenticate('google', { scope: ['profile', 'email'] });
-export const googleAuthCallback = (req, res, next) => passport.authenticate('google', async (err, user) => {
+export const facebookAuthenticate = passport.authenticate('facebook', { scope: ['email'] });
+export const facebookAuthCallback = (req, res, next) => passport.authenticate('facebook', async (err, user) => {
   if (!user) {
     return res.redirect('/login');
   }

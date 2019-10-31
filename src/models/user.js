@@ -13,6 +13,9 @@ export default (sequelize, DataTypes) => {
       googleId: {
         type: DataTypes.STRING
       },
+      facebookId: {
+        type: DataTypes.STRING
+      },
       username: {
         type: DataTypes.STRING,
         allowNull: false

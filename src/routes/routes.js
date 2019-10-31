@@ -18,6 +18,8 @@ import {
   passportAuthenticate,
   googleAuthenticate,
   googleAuthCallback,
+  facebookAuthenticate,
+  facebookAuthCallback,
   multerUploads,
   verifyUniqueUserUsername,
   verifyUniqueUserEmail,
@@ -100,6 +102,10 @@ export const initRoutes = app => {
   // Google Auth
   app.get('/auth/google', googleAuthenticate);
   app.get('/auth/google/redirect', googleAuthCallback);
+
+  // Facebook Auth
+  app.get('/auth/facebook', facebookAuthenticate);
+  app.get('/auth/facebook/redirect', facebookAuthCallback);
   // Get all Users
   app.get('/api/v1/users', authenticateUserToken, validateAdmin, getUsers);
 

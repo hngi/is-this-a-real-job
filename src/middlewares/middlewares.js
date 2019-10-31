@@ -20,6 +20,7 @@ import { validateAdmin } from './validateAdmin';
 import { validateUserById } from './validateUser';
 import { passportAuthenticate, passportAuthCallback } from './twitterLogin';
 import { googleAuthenticate, googleAuthCallback } from './googleAuth';
+import { facebookAuthenticate, facebookAuthCallback } from './facebookAuth';
 import { multerUploads } from './multer';
 
 export {
@@ -41,6 +42,8 @@ export {
   passportAuthenticate,
   googleAuthenticate,
   googleAuthCallback,
+  facebookAuthenticate,
+  facebookAuthCallback,
   multerUploads,
   verifyUniqueUserEmail,
   verifyUniqueUserUsername,
