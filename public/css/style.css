@@ -477,3 +477,8 @@ div.heading p {
     text-align: center;
   }
 }
+
+/* Text */
+.text-bold {
+  font-weight: bold !important;
+}
