@@ -227,12 +227,21 @@ body {
   transition: background-color ease-in-out 0.1s;
 }
 
-.upvote-btn[data-upvoted='true'], .downvote-btn[data-downvoted='true'] {
+.upvote-btn[data-upvoted='true'] {
   color: var(--success) !important;
+}
+
+.downvote-btn[data-downvoted='true'] {
+  color: var(--danger) !important;
 }
 
 .upvote-btn:hover {
   background-color: var(--success);
+  color: #fff !important;
+}
+
+.downvote-btn:hover {
+  background-color: var(--danger);
   color: #fff !important;
 }
 
@@ -399,6 +408,10 @@ div.heading p {
   div.card div.img {
     text-align: center;
   }
+  .social {
+    width: 200px;
+    font-size:13px
+  }
 }
 
 :-ms-input-placeholder {
@@ -479,6 +492,9 @@ div.heading p {
   }
 }
 
+.social {
+  margin-bottom: 5px;
+}
 /* Text */
 .text-bold {
   font-weight: bold !important;

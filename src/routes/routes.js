@@ -14,8 +14,12 @@ import {
   validateUserId,
   validateUpvoteInput,
   validateInviteOwner,
-  passportAuthCallback,
-  passportAuthenticate,
+  twitterAuthCallback,
+  twitterAuthenticate,
+  googleAuthenticate,
+  googleAuthCallback,
+  facebookAuthenticate,
+  facebookAuthCallback,
   multerUploads,
   verifyUniqueUserUsername,
   verifyUniqueUserEmail,
@@ -107,14 +111,25 @@ export const initRoutes = app => {
     verifyUniqueUserUsername,
     signup
   );
-  // Twitter Login
-  app.get('/auth/twitter', passportAuthenticate);
-  app.get('/auth/twitter/callback', passportAuthCallback);
+
+  // Twitter Auth
+  app.get('/auth/twitter', twitterAuthenticate);
+  app.get('/auth/twitter/callback', twitterAuthCallback);
+
+  // Google Auth
+  app.get('/auth/google', googleAuthenticate);
+  app.get('/auth/google/redirect', googleAuthCallback);
+
+  // Facebook Auth
+  app.get('/auth/facebook', facebookAuthenticate);
+  app.get('/auth/facebook/redirect', facebookAuthCallback);
+
   // Get all Users
   app.get('/api/v1/users', authenticateUserToken, validateAdmin, getUsers);
 
   // Get single User - return JSON
   app.get('/api/v1/users/json/:username', getUser);
+
   // Block a user
   app.patch(
     '/api/v1/users/block/:userId',
@@ -181,29 +196,25 @@ export const initRoutes = app => {
   app.get('/api/v1/invites/:inviteId/votes',
     validateInviteId,
     validateInvite,
-    fetchVoteCount
-  );
+    fetchVoteCount);
 
   app.patch('/api/v1/invites/:inviteId/upvote',
     authenticateUserToken,
     validateInviteId,
     validateInvite,
-    upvoteInvite
-  );
+    upvoteInvite);
 
   app.patch('/api/v1/invites/:inviteId/downvote',
     authenticateUserToken,
     validateInviteId,
     validateInvite,
-    downvoteInvite
-  );
+    downvoteInvite);
 
   app.delete('/api/v1/invites/:inviteId/vote',
     authenticateUserToken,
     validateInviteId,
     validateInvite,
-    unvoteInvite
-  );
+    unvoteInvite);
 
   // Get the number of users, invites and comments in the database.
   app.get('/api/v1/metrics', getMetrics);

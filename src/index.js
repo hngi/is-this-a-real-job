@@ -7,9 +7,9 @@ const cors = require('cors');
 const passport = require('passport');
 const { PORT, NODE_ENV, SECRET_KEY } = require('./config/constants');
 const { initRoutes } = require('./routes/routes');
+const passportSetup = require('./config/passport');
 
 const { cloudinaryConfig } = require('./config/cloudinaryConfig');
-
 
 const keys = Keygrip([SECRET_KEY]);
 

@@ -67,15 +67,15 @@ if (inviteBtn) {
 }
 
 const upvotePostBtnHander = (event) => {
-  const {inviteid: inviteId, upvoted} = (event.target.nodeName == 'A') ? event.target.dataset : event.target.parentNode.dataset;
+  const { inviteid: inviteId, upvoted } = (event.target.nodeName == 'A') ? event.target.dataset : event.target.parentNode.dataset;
 
   if (upvoted == 'false') {
     newApi.Patch(`invites/${inviteId}/upvote`, JSON.stringify({}), true)
-      .then( (res) => {
+      .then((res) => {
         console.log(res);
         refresh(inviteId);
       })
-      .catch( (err) => {
+      .catch((err) => {
         console.log(err);
         notification.innerHTML = `<strong>${err.data.message}:</strong> ${err.data.payload}`;
         notification.className += ' show';
@@ -85,11 +85,11 @@ const upvotePostBtnHander = (event) => {
       });
   } else {
     newApi.Delete(`invites/${inviteId}/vote`, JSON.stringify({}), true)
-      .then( (res) => {
+      .then((res) => {
         console.log(res);
         refresh(inviteId);
       })
-      .catch( (err) => {
+      .catch((err) => {
         console.log(err);
         notification.innerHTML = `<strong>${err.data.message}:</strong> ${err.data.payload}`;
         notification.className += ' show';
@@ -98,18 +98,18 @@ const upvotePostBtnHander = (event) => {
         }, 5000);
       });
   }
-}
+};
 
 const downvotePostBtnHander = (event) => {
-  const {inviteid: inviteId, downvoted} = (event.target.nodeName == 'A') ? event.target.dataset : event.target.parentNode.dataset;
+  const { inviteid: inviteId, downvoted } = (event.target.nodeName == 'A') ? event.target.dataset : event.target.parentNode.dataset;
 
   if (downvoted == 'false') {
     newApi.Patch(`invites/${inviteId}/downvote`, JSON.stringify({}), true)
-      .then( (res) => {
+      .then((res) => {
         console.log(res);
         refresh(inviteId);
       })
-      .catch( (err) => {
+      .catch((err) => {
         console.log(err);
         notification.innerHTML = `<strong>${err.data.message}:</strong> ${err.data.payload}`;
         notification.className += ' show';
@@ -119,11 +119,11 @@ const downvotePostBtnHander = (event) => {
       });
   } else {
     newApi.Delete(`invites/${inviteId}/vote`, JSON.stringify({}), true)
-      .then( (res) => {
+      .then((res) => {
         console.log(res);
         refresh(inviteId);
       })
-      .catch( (err) => {
+      .catch((err) => {
         console.log(err);
         notification.innerHTML = `<strong>${err.data.message}:</strong> ${err.data.payload}`;
         notification.className += ' show';
@@ -132,19 +132,18 @@ const downvotePostBtnHander = (event) => {
         }, 5000);
       });
   }
-}
+};
 
 const refresh = (inviteId) => {
   newApi.Get(`invites/${inviteId}/votes`, true)
-    .then( (res) => {
-
+    .then((res) => {
       const invite = document.querySelector(`[data-inviteId="${inviteId}"`);
       const up = invite.querySelector('.upvote-btn');
       const down = invite.querySelector('.downvote-btn');
 
       up.querySelector('.count').innerText = res.data.upvotes;
       down.querySelector('.count').innerText = res.data.downvotes;
-      
+
       if (res.data.upvoted) {
         up.dataset.upvoted = 'true';
         down.dataset.downvoted = 'false';
@@ -156,7 +155,7 @@ const refresh = (inviteId) => {
         down.dataset.downvoted = 'false';
       }
     })
-    .catch( (err) => {
+    .catch((err) => {
       console.log(err);
       notification.innerHTML = `<strong>${err.data.message}:</strong> ${err.data.payload}`;
       notification.className += ' show';
@@ -164,7 +163,7 @@ const refresh = (inviteId) => {
         notification.className = 'notification';
       }, 5000);
     });
-}
+};
 
 const uiCanInteract = () => {
   console.log('upvote script loaded');

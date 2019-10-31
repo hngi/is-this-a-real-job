@@ -62,6 +62,35 @@ describe('NOTIFICATION CONTROLLER', () => {
           done();
         });
     });
+    
+    it('it should send the new notification via email', (done) => {
+      chai.request(app)
+        .post(signinUrl) // login
+        .send(authDetails)
+        .end((error, res) => {
+          chai.request(app)
+            .post(commentUrl) // comment on post
+            .set('Authorization', `${res.body.payload.token}`) // add jwt header
+            .send({
+              body: 'A test comment on a nice post?',
+              userId: SEED_USER_ID, // test user
+            })
+            .end((err, res) => {
+              chai.request(app)
+                .post(`${notificationUrl}?type=comment`)
+                .send({
+                  target: SEED_USER_ID, // test user
+                  commentId: res.body.payload.commentId
+                })
+                .end((err, res) => {
+                  expect(res).to.have.status(200);
+                  expect(res.body.payload).to.have.property('mailSent');
+                  expect(res.body.payload.mailSent).to.equal(true);
+                  done();
+                });
+            });
+        });
+    });
 
     it('it should respond with status 400 for invalid or missing body params', (done) => {
       chai.request(app)

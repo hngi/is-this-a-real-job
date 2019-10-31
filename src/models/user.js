@@ -10,6 +10,15 @@ export default (sequelize, DataTypes) => {
         defaultValue: DataTypes.UUIDV4,
         primaryKey: true
       },
+      twitterId: {
+        type: DataTypes.STRING
+      },
+      googleId: {
+        type: DataTypes.STRING
+      },
+      facebookId: {
+        type: DataTypes.STRING
+      },
       username: {
         type: DataTypes.STRING,
         allowNull: false
