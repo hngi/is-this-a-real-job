@@ -35,22 +35,12 @@ describe('NOTIFICATION CONTROLLER', () => {
               userId: SEED_USER_ID, // test user
             })
             .end((err, res) => {
-              chai.request(app)
-                .post(`${notificationUrl}?type=comment`)
-                .send({
-                  target: SEED_USER_ID, // test user
-                  commentId: res.body.payload.commentId
-                })
-                .end((err, res) => {
-                  expect(res).to.have.status(200);
-                  expect(res.body.success).to.equal(true);
-                  expect(res.body.payload).to.have.property('notificationId');
-                  expect(res.body.payload).to.have.property('isSeen');
-                  expect(res.body.payload).not.to.have.property('target');
-                  expect(res.body.payload).to.have.property('userId');
-                  expect(res.body.payload).to.have.property('commentId');
-                  done();
-                });
+              expect(res).to.have.status(200);
+              expect(res.body.success).to.equal(true);
+              expect(res.body.payload).to.have.property('userId');
+              expect(res.body.payload).to.have.property('user');
+              expect(res.body.payload).to.have.property('commentId');
+              done();
             });
         });
     });
@@ -60,6 +50,7 @@ describe('NOTIFICATION CONTROLLER', () => {
         .post(`${notificationUrl}?type=upvote`)
         .send({
           target: SEED_USER_ID, // test user
+          inviteId: SEED_INVITE_ID
         })
         .end((err, res) => {
           expect(res).to.have.status(200);

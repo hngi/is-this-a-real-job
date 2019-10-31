@@ -1,7 +1,9 @@
 /* eslint-disable no-console */
 import Model from '../models';
 
-const { Comment, Invite, User } = Model;
+const {
+  Comment, Invite, User, Notification
+} = Model;
 
 
 /**
@@ -35,30 +37,46 @@ export const findCommentsForPost = async (inviteId) => {
  */
 export const createCommentForPost = async (commentData) => {
   const e = new Error();
-  const userObj = await User.findOne({
+  const objs = await Promise.all([User.findOne({
     where: {
       userId: commentData.userId
     },
     logging: false
-  }).catch(err => {
+  }), Invite.findOne({ where: { inviteId: commentData.inviteId }, logging: false })]).catch(err => {
     console.log(err);
     e.status = 500;
     e.message = 'A technical error occured. Contact support.';
     throw e;
   });
 
-  if (!userObj) { // user does not exist
+  if (!Array.isArray(objs) || objs.length !== 2) { // user or invite does not exist
     e.status = 404;
-    e.message = 'user not found';
+    e.message = 'user/invite not found';
     throw e;
   }
 
-  const comment = await Comment.create(commentData).catch(err => {
-    console.log(err);
-    e.status = 500;
-    e.message = 'A technical error occured. Contact support.';
-    throw e;
-  });
-  comment.dataValues.user = userObj;
-  return comment.dataValues;
+  const userObj = objs[0].dataValues;
+  const inviteObj = objs[1].dataValues;
+  return Model.sequelize.transaction(t => Comment
+    .create(commentData, { transaction: t })
+    .then(comment => {
+      comment.dataValues.user = userObj;
+      return comment.dataValues;
+    })
+    .then(comment => {
+      const data = {
+        userId: inviteObj.userId,
+        type: 'comment',
+        commentId: comment.commentId,
+        inviteId: comment.inviteId,
+        message: `@${userObj.username} commented on your post`,
+      };
+      return Notification.create(data, { transaction: t }).then(_ => comment);
+    }))
+    .catch(err => {
+      console.error(err);
+      e.status = 500;
+      e.message = 'A technical error occured. Contact support.';
+      throw e;
+    });
 };

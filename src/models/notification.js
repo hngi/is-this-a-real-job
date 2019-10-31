@@ -11,6 +11,11 @@ export default (sequelize, DataTypes) => {
       allowNull: true,
       onDelete: 'CASCADE'
     },
+    inviteId: {
+      type: DataTypes.UUID,
+      allowNull: false,
+      onDelete: 'CASCADE'
+    },
     userId: {
       type: DataTypes.UUID,
       allowNull: false,
@@ -31,6 +36,9 @@ export default (sequelize, DataTypes) => {
     }
   }, {});
   Notification.associate = (models) => {
+    Notification.belongsTo(models.Invite, {
+      foreignKey: 'inviteId', as: 'invite', timestamps: false
+    });
     Notification.belongsTo(models.Comment, {
       foreignKey: 'commentId', as: 'comment', timestamps: false
     });

@@ -11,6 +11,11 @@ export default {
       allowNull: true,
       onDelete: 'CASCADE'
     },
+    inviteId: {
+      type: Sequelize.UUID,
+      allowNull: false,
+      onDelete: 'CASCADE'
+    },
     userId: {
       type: Sequelize.UUID,
       allowNull: false,

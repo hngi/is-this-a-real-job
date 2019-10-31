@@ -17,11 +17,12 @@ import { findNotificationsForUser, createNotificationForUser } from '../services
  */
 export const createNotification = async (req, res) => {
   try {
-    const { target, commentId } = req.body;
+    const { target, commentId, inviteId } = req.body;
     const { type } = req.query;
 
-    const notification = await createNotificationForUser({ type, userId: target, commentId })
-      .catch(e => { throw e; });
+    const notification = await createNotificationForUser({
+      type, userId: target, commentId, inviteId
+    }).catch(e => { throw e; });
 
     if (notification) {
       return respondWithSuccess(res, 200, 'Notification added successfully', notification);
