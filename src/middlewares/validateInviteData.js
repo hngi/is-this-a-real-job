@@ -1,4 +1,5 @@
 import Joi from '@hapi/joi';
+import { config, uploader } from 'cloudinary';
 import { joiValidator } from '../helpers/joiValidator';
 import { respondWithWarning } from '../helpers/responseHandler';
 
@@ -13,7 +14,8 @@ export const validateInviteData = (req, res, next) => {
   const inviteSchema = Joi.object().keys({
     title: Joi.string().required().trim(),
     body: Joi.string().required().trim(),
-    media: Joi.string().required().trim()
+    location: Joi.string().required().trim(),
+    company: Joi.string().required().trim()
   });
 
   const errors = joiValidator(req.body, inviteSchema);
@@ -21,6 +23,8 @@ export const validateInviteData = (req, res, next) => {
   if (!errors) {
     return next();
   }
+
+  // potential bug: media still gets uploaded to cloudinary even when post creation fails
   return respondWithWarning(res, 400, 'Bad Input', errors);
 };
 
@@ -35,7 +39,8 @@ export const validateInviteUpdateData = (req, res, next) => {
   const inviteSchema = Joi.object().keys({
     title: Joi.string().trim(),
     body: Joi.string().trim(),
-    media: Joi.string().trim(),
+    company: Joi.string().trim(),
+    location: Joi.string().trim(),
     userId: Joi.forbidden(),
     inviteId: Joi.forbidden(),
   });

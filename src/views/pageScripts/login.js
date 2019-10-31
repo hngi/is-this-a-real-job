@@ -8,7 +8,7 @@ function togglePreloader(state) {
 
 if (document.querySelector('#login-btn')) {
   if (localStorage.getItem('token')) {
-    window.location.href = '/jobInvites';
+    window.location.href = '/posts';
   }
 
   const loginBtn = document.querySelector('#login-btn');
@@ -29,16 +29,31 @@ if (document.querySelector('#login-btn')) {
         console.log(res);
         togglePreloader('none');
         localStorage.setItem('token', res.data.token);
-        localStorage.setItem('user', res.data);
-        window.location.href = '/jobInvites';
+        localStorage.setItem('user', JSON.stringify(res.data)); // convert from [object object]
+
+        document.cookie = `login=${res.data.token};path=/`; // path required so cookie always sends.
+        window.location.href = '/posts';
       })
       .catch(err => {
         togglePreloader('none');
-        notification.innerHTML = `<strong>${err.data.message}</strong>`;
+        console.log(err);
+        notification.innerHTML = `<strong>${err.data.payload}</strong>`;
         notification.className += ' show';
         setTimeout(() => {
           notification.className = 'notification';
         }, 5000);
       });
+  });
+}
+
+if (document.querySelector('#logout')) {
+  const logout = document.querySelector('#logout');
+  logout.addEventListener('click', (ev) => {
+    ev.preventDefault();
+
+    localStorage.removeItem('token');
+    document.cookie = 'signOut=true;path=/'; // Path required so cookie always sends
+
+    window.location.href = '/';
   });
 }

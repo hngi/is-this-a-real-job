@@ -1,4 +1,29 @@
 <style>
+  .nav-link {
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 14px;
+  }
+  
+  .nav-link:hover {
+    color: rgba(0, 0, 0, 0.5) !important;
+  }
+  
+  .nav-item {
+    margin-right: 50px;
+  }
+  
+  .navbar-brand {
+    font-weight: 600;
+    font-size: 32px;
+    line-height: 38px;
+    color: #fff !important;
+  }
+  
+  .navbar {
+    background-color: #3087d1;
+  }
+  
   text-white {
     color: #fff;
   }
@@ -23,16 +48,17 @@
       <!-- Pass login status here to determine naavbarstatus -->
       <% if(isAuth){ %>
         <li class="nav-item">
-          <a class="nav-link text-white" href="/jobInvites">POSTS</a>
+          <a class="nav-link text-white" href="/posts">POSTS</a>
         </li>
         <li class="nav-item">
           <a class="nav-link text-white" href="/post">NEW POST</a>
         </li>
-        <% if(typeof isAdmin !== 'undefined'){ %>
+        <% if(isAdmin){ %>
           <li class="nav-item">
             <a class="nav-link text-white" href="/admin/users">ADMIN</a>
           </li>
           <% } %>
+            <li><a href="javascript:void(0)" id="logout" class="nav-link text-white">LOGOUT</a></li>
             <% } else{ %>
               <li class="nav-item">
                 <a class="nav-link text-white" href="register">REGISTER</a>
@@ -60,3 +86,9 @@
 
   </div>
 </nav>
+
+<div class="content-body"> <!-- This div is closed in the footer.ejs file -->
+  
+  <div class="notification">
+    Simple Notification
+  </div>

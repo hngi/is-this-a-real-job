@@ -1,7 +1,8 @@
 import { validateSigninFormData, validateSignupFormData } from './validateAuth';
 import {
   validUser,
-  verifyUniqueUser,
+  verifyUniqueUserEmail,
+  verifyUniqueUserUsername,
   authenticateUserToken
 } from './authentication';
 import { validateCommentData } from './validateComment';
@@ -17,6 +18,8 @@ import {
 } from './validateUUID';
 import { validateAdmin } from './validateAdmin';
 import { validateUserById } from './validateUser';
+import { passportAuthenticate, passportAuthCallback } from './twitterLogin';
+import { multerUploads } from './multer';
 
 export {
   validateSigninFormData,
@@ -27,11 +30,15 @@ export {
   validateInviteData,
   validateInviteUpdateData,
   validateInviteId,
-  verifyUniqueUser,
   authenticateUserToken,
   validateAdmin,
   validateUserById,
   validateUserId,
   validateUpvoteInput,
-  validateInviteOwner
+  validateInviteOwner,
+  passportAuthCallback,
+  passportAuthenticate,
+  multerUploads,
+  verifyUniqueUserEmail,
+  verifyUniqueUserUsername,
 };

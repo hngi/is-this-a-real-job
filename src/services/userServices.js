@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import Model from '../models';
 
-const { User } = Model;
+const { User, Invite } = Model;
 
 /**
  * @param {object} queryOption
@@ -34,6 +34,7 @@ export const createUser = async userData => {
     return { success: false, error };
   }
 };
+
 /**
  * Get all users
  * @returns {object} an object containing the information of the user or null
@@ -44,6 +45,27 @@ export const findUsers = async (queryOption = {}) => {
       logging: false
     });
     return users;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+/**
+ * return a single user
+ */
+export const fetchSingleUser = async query => {
+  try {
+    const user = await User.findOne({
+      include: [{ model: Invite, as: 'Invites' }],
+      where: query,
+      logging: false
+    });
+
+    // return user;
+    // if (user) {
+    //   user = user.dataValues;
+    // }
+    return user ? user.dataValues : null;
   } catch (error) {
     console.log(error);
   }
