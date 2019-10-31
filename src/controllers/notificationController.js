@@ -9,22 +9,35 @@ import { getSingleComment } from '../services/commentServices';
 import { findSingleUser } from '../services/userServices';
 
 const notifyByEmail = async (res, notif)=> {
-  if (notif.type == 'comment') {
-    notif.comment = await getSingleComment(notif.commentId);
-    notif.comment.author = notif.comment.user || {};
-    notif.targetPost = notif.comment.invite || {};
-    notif.title = 'One New Comment On Your Job Invite';
+  let mailSent;
+
+  try {
+    if (notif.type == 'comment') {
+      /*notif.comment = await getSingleComment(notif.commentId);
+      notif.comment.author = notif.comment.user || {};
+      notif.targetPost = notif.comment.invite || {};*/
+      notif.title = 'One New Comment On Your Job Invite';
+    }
+    else
+      notif.title = 'Your Job Invite Was Upvoted';
+
+    notif.recipient = await findSingleUser({userId: notif.userId});
+    notif.recipient = notif.recipient.dataValues;
+
+    //Use callback syntax for res.render to recieve the html text into a variable.
+    res.render('notificationEmail', notif, (error, renderedEmail)=> {
+      if (error) throw error;
+
+      mailSent = sendMail(notif.recipient.email, notif.title, renderedEmail);
+    });
+
+    return mailSent;
   }
-  else
-    notif.title = 'Your Job Invite Was Upvoted';
-
-  notif.recipient = await findSingleUser({userId: notif.userId});
-
-  res.render('notificationEmail', notif, (err, renderedEmail)=> {
-    if (err) throw err;
-    
-    sendMail(notif.recipient.email, notif.title, renderedEmail);
-  });
+  catch(error) {
+    mailSent = false;
+    console.log(error);
+    return mailSent;
+  }
 }
 
 /**
@@ -46,7 +59,8 @@ export const createNotification = async (req, res) => {
       .catch(e => { throw e; });
 
     if (notification) {
-      notifyByEmail(res, notification);
+      notification.mailSent = await notifyByEmail(res, notification);
+      console.log(notification.mailSent);
       return respondWithSuccess(res, 200, 'Notification added successfully', notification);
     }
   } catch (error) {

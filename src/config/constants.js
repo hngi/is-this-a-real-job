@@ -12,7 +12,7 @@ export const {
   SECRET_KEY,
   SITE_URL,
   EMAIL_ADDR,
-  EMAIL_PASSWORD
+  EMAIL_PASSWORD,
   consumerKey,
   consumerSecret,
   CLOUDINARY_CLOUD_NAME,
