@@ -226,30 +226,40 @@ export const unvoteInvite = async (req, res) => {
 export const renderSinglePostPage = async (req, res) => {
   const { inviteId } = req.params;
 
-  // const data = await Promise.all([
-  //   findCommentsForPost(inviteId),
-  //   fetchOneInvite({
-  //     inviteId
-  //   }),
-  //   findSingleUser({ userId: req.auth.userId })
-  // ]);
+  const data = await Promise.all([
+    findCommentsForPost(inviteId),
+    fetchOneInvite({
+      inviteId
+    }),
+    findSingleUser({ userId: req.auth.userId })
+  ]);
+  return res.render('singlepost', {
+    comments: data[0],
+    invite: data[1],
+    user: data[2],
+    isAuth: req.isAuth,
+    isAdmin: req.auth.isAdmin,
+    userId: req.auth.userId,
+    username: req.auth.username,
+    name: req.auth.name
+  });
 
-  const invite = await fetchOneInvite({ inviteId });
-  console.log('Invite =>', invite)
-  if (invite) {
-    return res.render('singlepost', {
-      comments: invite.comments,
-      invite: invite,
-      user: invite.user,
-      isAuth: req.isAuth,
-      isAdmin: req.auth.isAdmin,
-      userId: req.auth.userId,
-      username: req.auth.username,
-      name: req.auth.name
-    });
-  } else {
-    res.render('404', { status: 404 });
-  }
+  // const invite = await fetchOneInvite({ inviteId });
+  // console.log('Invite =>', invite)
+  // if (invite) {
+  //   return res.render('singlepost', {
+  //     comments: invite.comments,
+  //     invite: invite,
+  //     user: invite.user,
+  //     isAuth: req.isAuth,
+  //     isAdmin: req.auth.isAdmin,
+  //     userId: req.auth.userId,
+  //     username: req.auth.username,
+  //     name: req.auth.name
+  //   });
+  // } else {
+  //   res.render('404', { status: 404 });
+  // }
 };
 
 /**
