@@ -71,6 +71,7 @@ export const renderSearchResults = async (req, res) => {
       invites: invites || [],
       isAuth: req.isAuth,
       isAdmin: req.auth.isAdmin,
+      username: req.auth.username, name: req.auth.name
     });
   } catch (error) {
     respondWithWarning(res, 500, 'Server error');
@@ -181,6 +182,7 @@ export const renderSinglePostPage = async (req, res) => {
     isAuth: req.isAuth,
     isAdmin: req.auth.isAdmin,
     userId: req.auth.userId,
+    username: req.auth.username, name: req.auth.name
   });
 };
 
@@ -196,6 +198,8 @@ export const renderJobInvitesPage = async (req, res) => {
 
   return res.render('jobInvites', {
     user,
+    username: req.auth.username,
+    name: req.auth.name,
     invites: invites || [],
     isAuth: req.isAuth,
     isAdmin: req.auth.isAdmin,

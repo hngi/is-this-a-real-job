@@ -141,7 +141,7 @@ body {
 
 /* Invite us section */
 
-[placeholder="Search a keyword or a sentence"] {
+.searchbar-1 {
   background: #ececec;
   border-radius: 6px;
   padding: 1.5rem;
@@ -150,8 +150,8 @@ body {
 }
 
 [value="Invite Search"] {
-  width: 206px;
-  height: 46px;
+  width: 113px;
+  height: 45px;
   background: #3087d1;
   border-radius: 6px;
   margin: 0.8rem auto;
@@ -242,20 +242,45 @@ body {
   padding: ;
 } */
 
+.itarj-primary {
+  color: #3087d1;
+  /* background-color: #e3e9ef; */
+  background-color: #fff;
+  border-color: #73a9d9;
+}
+
+@media screen and (max-width: 900px) {
+.itarj-primary {
+    /* margin-top: 6rem!important; */
+    font-size: smaller !important;
+}
+}
+
+#main {
+  margin-top: 6rem!important;
+}
 
 /* INDEX */
 
 .page-desc {
   color: #636b6f;
   font-weight: 700;
-  font-size: 300%;
-  margin-top: 10%;
+  font-size: 3rem;
   margin-bottom: 0;
 }
 
+@media screen and (max-width: 900px) {
+  .page-desc {
+    color: #636b6f;
+    font-weight: 600;
+    font-size: 2rem;
+    margin-bottom: 0;
+  }
+};
+
 .under-text {
-  font-size: 80%;
-  font-weight: 600;
+  font-size: 1.1rem;
+  font-weight: 500;
   color: #636b6f;
 }
 

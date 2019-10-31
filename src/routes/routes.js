@@ -61,15 +61,19 @@ export const initRoutes = app => {
   app.get('/', (req, res) => res.render('index', { isAuth: req.isAuth, isAdmin: req.auth.isAdmin })); // Pass true or false to toggle state of navbar....
   app.get('/login', (req, res) => res.render('login', { isAuth: req.isAuth, isAdmin: req.auth.isAdmin }));
   app.get('/register', (req, res) => res.render('register', { isAuth: req.isAuth, isAdmin: req.auth.isAdmin }));
-  app.get('/post', getUserByUserId, (req, res) => res.render('userPost', { isAuth: req.isAuth, isAdmin: req.auth.isAdmin, user: req.user }));
+  app.get('/post', getUserByUserId, (req, res) => res.render('userPost', {
+ isAuth: req.isAuth, isAdmin: req.auth.isAdmin, user: req.user, username: req.auth.username, name: req.auth.name 
+}));
   app.get('/howitworks', (req, res) => res.render('howitworks', { isAuth: req.isAuth, isAdmin: req.auth.isAdmin }));
   app.get('/posts', renderJobInvitesPage);
   app.get('/post/:inviteId', renderSinglePostPage);
-  app.get('/about', (req, res) => res.render('about', { isAuth: req.isAuth, isAdmin: req.auth.isAdmin }));
+  app.get('/about', (req, res) => res.render('about', {
+ isAuth: req.isAuth, isAdmin: req.auth.isAdmin, username: req.auth.username, name: req.auth.name 
+}));
   app.get('/admin/reported', (req, res) => res.render('admin/reportedUsers', { isAuth: req.isAuth, isAdmin: req.auth.isAdmin }));
-  app.get('/reportUser', (req, res) => res.render('reportUser', { isAuth: false }));
+  app.get('/reportUser', (req, res) => res.render('reportUser', { isAuth: false, username: req.auth.username, name: req.auth.name }));
   app.get('/users/:username', renderUserProfile);
-  app.get('/admin/reportedusers', (req, res) => res.render('admin/reported', { isAuth : false}));
+  app.get('/admin/reportedusers', (req, res) => res.render('admin/reported', { isAuth: false }));
   // Search Invites - Renders view
   app.get('/invites/search', renderSearchResults);
   app.get('/admin', (req, res) => res.render('./admin/index', { isAuth: false }));
@@ -99,7 +103,6 @@ export const initRoutes = app => {
 
   // Get single User - return JSON
   app.get('/api/v1/users/json/:username', getUser);
-
   // Block a user
   app.patch(
     '/api/v1/users/block/:userId',
