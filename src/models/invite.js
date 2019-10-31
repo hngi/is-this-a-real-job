@@ -47,6 +47,7 @@ export default (sequelize, DataTypes) => {
       onDelete: 'CASCADE'
     });
     Invite.hasMany(models.Comment, { foreignKey: 'inviteId', as: 'comments' });
+    Invite.hasMany(models.Vote, { foreignKey: 'inviteId', as: 'votes' });
   };
   return Invite;
 };
