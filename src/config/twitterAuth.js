@@ -1,10 +1,28 @@
-import {SITE_URL, consumerKey, consumerSecret }from "./constants"
+import {
+  TWITTER_CONSUMER_KEY,
+  TWITTER_CONSUMER_SECRET,
+  GOOGLE_CLIENT_ID,
+  GOOGLE_CLIENT_SECRET,
+  FACEBOOK_APP_ID,
+  FACEBOOK_APP_SECRET,
+  SITE_URL
+} from './constants';
 
-export const twitterAuth = {
+export const twitterConfig = {
+  consumerKey: TWITTER_CONSUMER_KEY,
+  consumerSecret: TWITTER_CONSUMER_SECRET,
+  callbackURL: '/auth/twitter/callback'
+};
 
-    
-        'consumerKey'       : consumerKey,
-        'consumerSecret'    : consumerSecret,
-        'callbackURL'       : `${SITE_URL}/jobinvites`
-    
-}
+export const googleConfig = {
+  clientID: GOOGLE_CLIENT_ID,
+  clientSecret: GOOGLE_CLIENT_SECRET,
+  callbackURL: '/auth/google/redirect'
+};
+
+export const facebookConfig = {
+  clientID: FACEBOOK_APP_ID,
+  clientSecret: FACEBOOK_APP_SECRET,
+  callbackURL: '/auth/facebook/redirect',
+  profileFields: ['id', 'displayName', 'photos', 'email']
+};
