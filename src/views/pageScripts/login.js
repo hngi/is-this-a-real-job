@@ -37,7 +37,7 @@ if (document.querySelector('#login-btn')) {
       .catch(err => {
         togglePreloader('none');
         console.log(err);
-        notification.innerHTML = `<strong>${err.data.payload}</strong>`;
+        notification.innerHTML = `<strong>${err.data.message}</strong>`;
         notification.className += ' show';
         setTimeout(() => {
           notification.className = 'notification';

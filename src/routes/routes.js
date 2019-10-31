@@ -91,7 +91,7 @@ export const initRoutes = app => {
   // Search Invites - Renders view
   app.get('/invites/search', renderSearchResults);
   app.get('/admin', (req, res) => res.render('./admin/index', {
-    isAuth: false, username: req.auth.username, name: req.auth.name, isAdmin: req.auth.isAdmin
+    isAuth: req.isAuth, username: req.auth.username, name: req.auth.name, isAdmin: req.auth.isAdmin
   }));
 
 
