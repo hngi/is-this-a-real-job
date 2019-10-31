@@ -1,32 +1,50 @@
-<% include partials/header %>
-<% include partials/nav2 %>
+<% include partials/header %> <% include partials/nav2 %>
+<!-- Should be the first nav if unauthenticated ... -->
 <div id="cover">
   <div class="loader"></div>
 </div>
+<div class="notification">
+  Simple Notification
+</div>
 
 <body>
-  <div class="header" id="main">
-    <div class="container p-0 mb-md-4">
-      <!-- <form action="/invites/search" method="GET">
+  <div class="header mt-4 mb-4">
+    <div class="container p-md-0">
+      <form action="/invites/search" method="GET">
         <div class="form-row">
           <div class="col-md-8">
-            <input type="text" name="q" class="searchbar-1 form-control" placeholder="Search a keyword or a sentence e.g 'Lagos'" />
+            <input type="text" name="q" class="searchbar-1 form-control"
+                   placeholder="Search a keyword or a sentence e.g 'Lagos'" />
           </div>
 
           <div class="col-md-4">
             <input type="submit" value="Invite Search" class=" btn btn-primary" />
           </div>
         </div>
-      </form> -->
-      <div class="alert itarj-primary d-flex justify-content-between">
-        <span>Welcome back, <%=name%></span>
-        <span>There are <b><%=invites.length%></b> posts </span>
-      </div>
+      </form>
     </div>
+
+    <!-- Small small -->
+    <% if (invites.length > 0) { %>
+
+    <div class="container">
+      <p class="text-muted" style="font-size: smaller;">
+        Found <b class="text-primary"><%= invites.length %></b> <%=
+        invites.length > 1 ? 'posts' : 'post' %>
+      </p>
+    </div>
+
+    <% } %>
 
     <section class="job-invites">
       <% if (invites.length === 0) { %>
-      <span id="no-comments" class="bg-transparent container">The world is your oyseter. Fill it.</span>
+
+      <!-- No invites -->
+      <div class="card card-secondary text-center container my-4">
+        No invites found :(
+        <p>Create a new invite <a href="/">here</a></p>
+      </div>
+
       <% } %> <% if (invites.length > 0) { %> <% for (invite of invites) { %>
       <div class="container post-meta" id="<%=invite.inviteId%>">
         <h4>
@@ -34,20 +52,9 @@
             <%=invite.title%>
           </a>
         </h4>
-        <small class="text-muted"><%=invite.company%>, <em><%=invite.location%></em></small><br>
-        <p>
-          <a href="/users/<%=invite.user.username%>">
-            @<%=invite.user.username%>
-          </a>
-        </p>
         <p>
           <%=invite.body%>
         </p>
-        <span>
-          <a><i class="fas fa-comment"></i> <%=invite.comments.length%></a>
-          <a class="upvote-btn"><span class="upvote-count"><%=invite.upVotes || 0 %></span>
-            Upvotes</a>
-        </span>
 
         <span class="float-right share-buttons">
           <!-- <a href="#"><i class="fab fa-facebook-f"></i></i></a> -->
@@ -63,6 +70,6 @@
       <% } %> <% } %>
     </section>
   </div>
+</body>
 
-
-  <% include partials/footer %>
+<% include partials/footer %>

@@ -7,4 +7,4 @@ coverage/
 npm-debug.log
 .idea/
 .jshintrc
-.vscode
+.vscode/
