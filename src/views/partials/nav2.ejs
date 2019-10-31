@@ -179,12 +179,14 @@
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
+
     <ul class="navbar-nav ml-auto">
       <form class="form-inline" action="/invites/search" method="GET">
         <input class="fa form-control mr-sm-4 search-bar" name="q" type="search" placeholder="&#xf002; Search"
                aria-label="Search">
       </form>
       <!-- NOTIFICATION NUMBER GOES HERE -->
+      <% if(isAuth){ %>
       <li class="nav-item dropdown notification-bar">
 
         <a id="bell-icon" class="nav-link dropdown-toggle" style="padding-top: 3px;" href="#"><i
@@ -237,11 +239,23 @@
 
       </li>
 
+      <% } else {%>
+      <li class="nav-item mr-4">
+        <a class="nav-link" href="/register">REGISTER</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/login">LOG IN</a>
+      </li>
+      <% } %>
+
 
       <li class="nav-item">
         <a class="post-btn" href="/post"><button type="button" class="btn-primary nav-btn" style="padding: 10px;"> NEW
             POST</button></a>
-        <!-- <a class="post-btn" href="/posts"><button type="button" class="btn-primary nav-btn" style="padding: 10px;"> POSTS</button></a> -->
+        <% if(isAuth){ %>
+        <a class="post-btn" href="/posts"><button type="button" class="btn-primary nav-btn" style="padding: 10px;">
+            POSTS</button></a>
+        <% } %>
       </li>
 
     </ul>
