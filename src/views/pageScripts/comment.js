@@ -20,7 +20,7 @@ if (commentBtn) {
   const postMeta = document.querySelector('.post-meta');
   const noComment = document.querySelector('#no-comments');
 
-  const inviteId = postMeta ? postMeta.id : null; // invite id
+  const inviteId = postMeta ? postMeta.dataset.inviteid : null; // invite id
 
   const getCommentHTML = (comment) => `<div class="container">
   <p>

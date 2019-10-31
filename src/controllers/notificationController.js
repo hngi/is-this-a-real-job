@@ -52,11 +52,12 @@ const notifyByEmail = async (res, notif)=> {
  */
 export const createNotification = async (req, res) => {
   try {
-    const { target, commentId } = req.body;
+    const { target, commentId, inviteId } = req.body;
     const { type } = req.query;
 
-    const notification = await createNotificationForUser({ type, userId: target, commentId })
-      .catch(e => { throw e; });
+    const notification = await createNotificationForUser({
+      type, userId: target, commentId, inviteId
+    }).catch(e => { throw e; });
 
     if (notification) {
       notification.mailSent = await notifyByEmail(res, {...notification});
@@ -74,9 +75,7 @@ export const createNotification = async (req, res) => {
  * @returns {object} json response
  */
 export const getNotifications = async (req, res) => {
-  const { userId } = req.params;
-
-  const notifications = await findNotificationsForUser(userId);
+  const notifications = await findNotificationsForUser(req.auth.userId);
 
   return respondWithSuccess(res, 200, 'Successful', notifications);
 };

@@ -268,13 +268,10 @@ export const initRoutes = app => {
   // Get the number of users, invites and comments in the database.
   app.get("/api/v1/metrics", getMetrics);
 
-  // Get all comments for a given Invite.
+  // Get all notifications for a given user.
+  app.get('/api/v1/notifications', authenticateUserToken, getNotifications);
+  app.post('/api/v1/notifications', validateNotificationData, createNotification);
   app.get("/api/v1/notifications/:userId", validateUserId, getNotifications);
-  app.post(
-    "/api/v1/notifications",
-    validateNotificationData,
-    createNotification
-  );
 
   // Fallback case for unknown URIs.
   app.get('/notAuthorized', (req, res) => res.render('401'));

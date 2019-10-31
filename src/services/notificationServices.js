@@ -40,6 +40,7 @@ export const findNotificationsForUser = async (userId) => {
  * @typedef NotificationData
  * @property {string} type ENUM('comment' || 'upvote')
  * @property {string} userId user that will receive the notification
+ * @property {string} inviteId id of invite
  * @property {string} [commentId] id of comment that was created.
  * OPTIONAL and depends on type = 'comment'
  */
@@ -70,16 +71,7 @@ export const createNotificationForUser = async (notificationData) => {
     throw e;
   }
 
-  let action = notificationData.type,
-    loc = '';
-  if (notificationData.type === 'comment') {
-    action = `${action}ed`;
-    loc = 'on ';
-  } else {
-    action = `${action}d`;
-  }
-  const message = `@${userObj.username} ${action} ${loc}your post`;
-  notificationData.message = message;
+  notificationData.message = `@${userObj.username} ${notificationData.type === 'comment' ? 'commented your post' : 'upvoted your post'}`;
 
   const notification = await Notification.create(notificationData).catch(err => {
     console.error(err);
