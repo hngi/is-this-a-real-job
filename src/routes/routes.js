@@ -95,6 +95,7 @@ export const initRoutes = app => {
   }));
 
 
+
   // Edit post endpoint
   app.get('/post/:inviteId/edit', validateInviteId, validateInvite, getUserByUserId, renderEditInvitePage);
 
