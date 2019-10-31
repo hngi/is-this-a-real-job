@@ -10,7 +10,7 @@ const commentBtn = document.querySelector('.comment-btn button');
 
 if (commentBtn) {
   if (!localStorage.getItem('token')) {
-    window.location.href = '/login';
+    commentBtn.disabled = true;
   }
 
   const api = new ItarjApi('/api/v1');

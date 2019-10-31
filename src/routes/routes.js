@@ -23,7 +23,6 @@ import {
 
 import {
   deleteInvite,
-  upvoteInvite,
   saveNewInvite,
   getOneInvite,
   getAllInvites,
@@ -33,7 +32,11 @@ import {
   renderSearchResults,
   searchInvitesApi,
   renderEditInvitePage,
-  renderAdminJobInvitesPage
+  renderAdminJobInvitesPage,
+  upvoteInvite,
+  downvoteInvite,
+  unvoteInvite,
+  fetchVoteCount,
 } from '../controllers/inviteController';
 
 import { getComments, createComment } from '../controllers/commentController';
@@ -174,12 +177,32 @@ export const initRoutes = app => {
     createComment
   );
 
-  // Upvote/Downvote a specific Invite.
-  app.patch(
-    '/api/v1/invites/upvote/:inviteId/:voteType',
-    validateUpvoteInput,
+  // New Upvote stuff
+  app.get('/api/v1/invites/:inviteId/votes',
+    validateInviteId,
+    validateInvite,
+    fetchVoteCount
+  );
+
+  app.patch('/api/v1/invites/:inviteId/upvote',
+    authenticateUserToken,
+    validateInviteId,
     validateInvite,
     upvoteInvite
+  );
+
+  app.patch('/api/v1/invites/:inviteId/downvote',
+    authenticateUserToken,
+    validateInviteId,
+    validateInvite,
+    downvoteInvite
+  );
+
+  app.delete('/api/v1/invites/:inviteId/vote',
+    authenticateUserToken,
+    validateInviteId,
+    validateInvite,
+    unvoteInvite
   );
 
   // Get the number of users, invites and comments in the database.
