@@ -34,7 +34,7 @@
       <% if (invites.length === 0) { %>
       <span id="no-comments" class="bg-transparent container">The world is your oyseter. Fill it.</span>
       <% } %> <% if (invites.length > 0) { %> <% for (invite of invites) { %>
-      <div class="container post-meta" id="<%=invite.inviteId%>">
+      <div class="container post-meta" data-inviteId="<%=invite.inviteId%>">
         <h4>
           <a href="<%='/post/'+invite.inviteId%>">
             <%=invite.title%>
@@ -51,8 +51,26 @@
         </p>
         <span>
           <a><i class="fas fa-comment"></i> <%=invite.comments.length%></a>
-          <a class="upvote-btn"><span class="upvote-count"><%=invite.upVotes || 0 %></span>
-            Upvotes</a>
+          <a
+            class="upvote-btn"
+            data-inviteid="<%= invite.inviteId %>"
+            data-upvoted="<%= invite.votes.some( (vote) => (vote.userId === userId) && (vote.type === 'up') )%>"
+          >
+            <i class="fas fa-arrow-alt-circle-up"></i>
+            <span class="count">
+              <%= invite.votes.reduce((p,vote) => (vote.type === 'up') ? ++p : p ,0) %>
+            </span>
+          </a>
+          <a
+            class="downvote-btn"
+            data-inviteid="<%= invite.inviteId %>"
+            data-downvoted="<%= invite.votes.some( (vote) => (vote.userId === userId) && (vote.type === 'down') ) %>"
+          >
+            <i class="fas fa-arrow-alt-circle-down"></i>
+            <span class="count">
+              <%= invite.votes.reduce((p,vote) => (vote.type === 'down') ? ++p : p ,0) %>
+            </span>
+          </a>
         </span>
 
         <span class="float-right share-buttons">
@@ -71,4 +89,4 @@
   </div>
 
 
-  <% include partials/footer %>
+<% include partials/footer %>
