@@ -61,7 +61,7 @@ export const initRoutes = app => {
   app.get('/register', (req, res) => res.render('register', { isAuth: req.isAuth, isAdmin: req.auth.isAdmin }));
   app.get('/post', (req, res) => res.render('userPost', { isAuth: req.isAuth, isAdmin: req.auth.isAdmin }));
   app.get('/howitworks', (req, res) => res.render('howitworks', { isAuth: req.isAuth, isAdmin: req.auth.isAdmin }));
-  app.get('/posts', renderJobInvitesPage);
+  app.get('/posts' ,renderJobInvitesPage);
   app.get('/post/:inviteId', renderSinglePostPage);
   app.get('/about', (req, res) => res.render('about', { isAuth: req.isAuth, isAdmin: req.auth.isAdmin }));
   app.get('/admin/reported', (req, res) => res.render('admin/reportedUsers', { isAuth: req.isAuth, isAdminh: req.aut.isAdminh }));
@@ -95,7 +95,6 @@ export const initRoutes = app => {
 
   // Get single User - return JSON
   app.get('/api/v1/users/json/:username', getUser);
-
   // Block a user
   app.patch(
     '/api/v1/users/block/:userId',

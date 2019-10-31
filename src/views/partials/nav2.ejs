@@ -30,7 +30,8 @@
     border-top-color: #73A9D9;
     border-top-style: solid;
     border-top-width: 3px;
-    box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.15);
+    /* box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.15); */
+    /* Using Bootstrap shadow class */
   }
 
   li a {
@@ -77,14 +78,20 @@
     font-weight: bold;
   }
 
+  @media screen and (min-width: 900px) {
+    .search-bar {
+    width: 400px !important;
+    border-radius: 5px;
+  }
+  }
+
   .search-bar {
-    width: 80%;
     border-radius: 5px;
   }
 
   .form-inline .form-control {
 
-    height: 30px;
+    height: 36px;
     border-color: lightgray;
   }
 
@@ -152,7 +159,7 @@
     }
   }
 </style>
-<nav class="navbar fixed-top navbar-expand-lg">
+<nav class="navbar fixed-top navbar-expand-lg shadow-sm">
   <a class="navbar-brand " href="/">isthisarealjob</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
     aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -167,7 +174,7 @@
 
     <ul class="navbar-nav ml-auto">
       <form class="form-inline">
-        <input class="fa form-control mr-sm-4" type="search" placeholder="&#xf002; Search" aria-label="Search">
+        <input class="fa form-control mr-sm-4 search-bar" type="search" placeholder="&#xf002; Search" aria-label="Search">
       </form>
       <!-- NOTIFICATION NUMBER GOES HERE -->
       <li class="nav-item dropdown notification-bar">
@@ -208,7 +215,13 @@
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
           aria-haspopup="true" aria-expanded="false">
-          <span class="user-name-initials">LK</span>
+          <span class="user-name-initials">
+            LK
+            <!-- <% if (user) {%>
+                  <%=user.name.split(" ")[0].substr(0, 1) + user.name.split(" ")[1].substr(0, 1) %>
+                <%} else {%> Hi 
+                  <% } %> -->
+          </span>
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="#">Profile</a>
