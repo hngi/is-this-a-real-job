@@ -158,10 +158,10 @@ export const fetchVoteCount = async (req, res) => {
   const { userId } = req.auth;
 
   await fetchOneVoteCount(inviteId, userId)
-    .then( (votes) => {
+    .then((votes) => {
       return respondWithSuccess(res, 200, "Successfully fetched all votes", votes);
     })
-    .catch( (error) => {
+    .catch((error) => {
       return respondWithSuccess(res, error.status, error.message, JSON.stringify(error));
     });
 }
@@ -177,10 +177,10 @@ export const upvoteInvite = async (req, res) => {
   const { userId } = req.auth;
 
   await upvoteOneInvite(userId, inviteId)
-    .then( (vote) => {
+    .then((vote) => {
       return respondWithSuccess(res, 200, "Upvote successful", vote);
     })
-    .catch( (error) => {
+    .catch((error) => {
       return respondWithSuccess(res, error.status, error.message, JSON.stringify(error));
     });
 }
@@ -196,10 +196,10 @@ export const downvoteInvite = async (req, res) => {
   const { userId } = req.auth;
 
   await downVoteOneInvite(userId, inviteId)
-    .then( (vote) => {
+    .then((vote) => {
       return respondWithSuccess(res, 200, "Downvote successful", vote);
     })
-    .catch( (error) => {
+    .catch((error) => {
       return respondWithSuccess(res, error.status, error.message, JSON.stringify(error));
     });
 }
@@ -209,11 +209,11 @@ export const unvoteInvite = async (req, res) => {
   const { userId } = req.auth;
 
   await unvoteOneInvite(userId, inviteId)
-    .then( (vote) => {
+    .then((vote) => {
       console.log(vote);
       respondWithSuccess(res, 200, "Upvote is deleted");
     })
-    .catch( (error) => {
+    .catch((error) => {
       return respondWithSuccess(res, 200, "Deletion failed", JSON.stringify(error));
     });
 }
@@ -226,23 +226,30 @@ export const unvoteInvite = async (req, res) => {
 export const renderSinglePostPage = async (req, res) => {
   const { inviteId } = req.params;
 
-  const data = await Promise.all([
-    findCommentsForPost(inviteId),
-    fetchOneInvite({
-      inviteId
-    }),
-    findSingleUser({ userId: req.auth.userId })
-  ]);
-  return res.render('singlepost', {
-    comments: data[0],
-    invite: data[1],
-    user: data[2],
-    isAuth: req.isAuth,
-    isAdmin: req.auth.isAdmin,
-    userId: req.auth.userId,
-    username: req.auth.username,
-    name: req.auth.name
-  });
+  // const data = await Promise.all([
+  //   findCommentsForPost(inviteId),
+  //   fetchOneInvite({
+  //     inviteId
+  //   }),
+  //   findSingleUser({ userId: req.auth.userId })
+  // ]);
+
+  const invite = await fetchOneInvite({ inviteId });
+  console.log('Invite =>', invite)
+  if (invite) {
+    return res.render('singlepost', {
+      comments: invite.comments,
+      invite: invite,
+      user: invite.user,
+      isAuth: req.isAuth,
+      isAdmin: req.auth.isAdmin,
+      userId: req.auth.userId,
+      username: req.auth.username,
+      name: req.auth.name
+    });
+  } else {
+    res.render('404', { status: 404 });
+  }
 };
 
 /**

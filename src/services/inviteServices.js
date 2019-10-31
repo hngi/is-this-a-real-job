@@ -13,14 +13,16 @@ export const fetchOneInvite = async (queryOption = {}) => {
   try {
     const invite = await Invite.findOne({
       include: [
-        { 
+        {
           model: User,
           as: "user",
         },
         {
           model: Vote,
           as: 'votes',
-        }
+        },
+        { model: Comment, as: 'comments' },
+
       ],
       where: queryOption,
       logging: false
@@ -28,6 +30,7 @@ export const fetchOneInvite = async (queryOption = {}) => {
 
     if (invite) {
       invite.dataValues.user = invite.dataValues.user.dataValues;
+      invite.dataValues.comments = invite.dataValues.comments.map((c) => c.dataValues);
       invite.dataValues.votes = invite.dataValues.votes.map((vote) => vote.dataValues);
     }
     return invite ? invite.dataValues : null;
@@ -45,7 +48,7 @@ export const fetchAllInvites = async () => {
       include: [
         { model: User, as: 'user' },
         { model: Comment, as: 'comments' },
-        { model: Vote, as: 'votes'}
+        { model: Vote, as: 'votes' }
       ],
       order: [['createdAt', 'DESC']],
       logging: false
@@ -136,7 +139,7 @@ export const fetchOneVoteCount = async (inviteId, userId) => {
   try {
     const invite = await fetchOneInvite({ inviteId });
 
-    const voteCount = invite.votes.reduce( (p, val) => {
+    const voteCount = invite.votes.reduce((p, val) => {
       if (val.type === 'up') {
         p.upvotes += 1;
       }
@@ -180,7 +183,7 @@ export const upvoteOneInvite = async (userId, inviteId) => {
       return vote.dataValues;
     }
 
-    vote = await Vote.create({ userId, inviteId, type: 'up'});
+    vote = await Vote.create({ userId, inviteId, type: 'up' });
     return vote.dataValues;
   } catch (error) {
     console.log(error);
@@ -204,7 +207,7 @@ export const downVoteOneInvite = async (userId, inviteId) => {
       return vote.dataValues;
     }
 
-    vote = await Vote.create({ userId, inviteId, type: 'down'});
+    vote = await Vote.create({ userId, inviteId, type: 'down' });
     return vote.dataValues;
   } catch (error) {
     console.log(error);
