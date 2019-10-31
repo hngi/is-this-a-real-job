@@ -118,7 +118,8 @@
   }
 
   .notification-menu {
-    overflow: scroll;
+    overflow-y: auto;
+    overflow-x: hidden;
     height: 300px;
     width: 300px;
     border-top: 2px solid #73A9D9;
@@ -189,9 +190,9 @@
       <% if(isAuth){ %>
       <li class="nav-item dropdown notification-bar">
 
-        <a id="bell-icon" class="nav-link dropdown-toggle" style="padding-top: 3px;" href="#"><i
+        <a id="bell-icon" class="nav-link dropdown-toggle" style="padding-top: 3px;" href="javascript:void(0)"><i
              class="far fa-bell fa-2x notification-icon"></i><span class="badge">3</span></a>
-        <div id="branded" class="notification-menu hide">
+        <div id="branded" class="notification-menu hide shadow">
           <div class="notification-wrapper">
             <p class="notification-title"> <a href="https://getbootstrap.com/docs/4.3/components/navbar/"> Shell
                 Recruitement Scam Interview Invite at LSDPC</a></p>
@@ -223,8 +224,8 @@
 
       <!-- USERNAME & LOG OUT GOES HERE  -->
       <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-           aria-haspopup="true" aria-expanded="false">
+        <a class="nav-link dropdown-toggle" href="javascript:void(0)" id="navbarDropdown" role="button"
+           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <span class="user-name-initials">
             <%=name.split(" ")[0].substr(0, 2).toUpperCase()%>
           </span>

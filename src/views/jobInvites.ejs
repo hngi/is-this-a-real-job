@@ -18,9 +18,15 @@
           </div>
         </div>
       </form> -->
+
       <div class="alert itarj-primary d-flex justify-content-between">
+        <% if (isAuth) { %>
         <span>Welcome back, <%=name%></span>
-        <span>There are <b><%=invites.length%></b> posts </span>
+        <span>There are <b class="text-bold"><%=invites.length%></b> posts </span>
+        <% } else { %>
+        <span>Hello stranger, <a href="/register" class="text-bold">Register</a> here</span>
+        <span>There are <b class="text-bold"><%=invites.length%></b> posts </span>
+        <% } %>
       </div>
     </div>
 
