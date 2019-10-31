@@ -8,7 +8,6 @@ import {
   validateInviteId,
   validateInviteData,
   validateInviteUpdateData,
-  verifyUniqueUser,
   authenticateUserToken,
   validateAdmin,
   validateUserById,
@@ -17,7 +16,9 @@ import {
   validateInviteOwner,
   passportAuthCallback,
   passportAuthenticate,
-  multerUploads
+  multerUploads,
+  verifyUniqueUserUsername,
+  verifyUniqueUserEmail,
 } from '../middlewares/middlewares';
 
 import {
@@ -41,7 +42,8 @@ import {
   getUsers,
   renderAdminUsersPage,
   getUser,
-  renderUserProfile
+  renderUserProfile,
+  getUserByUserId
 } from '../controllers/userController';
 import { getNotifications, createNotification } from '../controllers/notificationController';
 import { validateNotificationData } from '../middlewares/validateNotification';
@@ -59,12 +61,12 @@ export const initRoutes = app => {
   app.get('/', (req, res) => res.render('index', { isAuth: req.isAuth, isAdmin: req.auth.isAdmin })); // Pass true or false to toggle state of navbar....
   app.get('/login', (req, res) => res.render('login', { isAuth: req.isAuth, isAdmin: req.auth.isAdmin }));
   app.get('/register', (req, res) => res.render('register', { isAuth: req.isAuth, isAdmin: req.auth.isAdmin }));
-  app.get('/post', (req, res) => res.render('userPost', { isAuth: req.isAuth, isAdmin: req.auth.isAdmin }));
+  app.get('/post', getUserByUserId, (req, res) => res.render('userPost', { isAuth: req.isAuth, isAdmin: req.auth.isAdmin, user: req.user }));
   app.get('/howitworks', (req, res) => res.render('howitworks', { isAuth: req.isAuth, isAdmin: req.auth.isAdmin }));
   app.get('/posts', renderJobInvitesPage);
   app.get('/post/:inviteId', renderSinglePostPage);
   app.get('/about', (req, res) => res.render('about', { isAuth: req.isAuth, isAdmin: req.auth.isAdmin }));
-  app.get('/admin/reported', (req, res) => res.render('admin/reportedUsers', { isAuth: req.isAuth, isAdminh: req.aut.isAdminh }));
+  app.get('/admin/reported', (req, res) => res.render('admin/reportedUsers', { isAuth: req.isAuth, isAdmin: req.auth.isAdmin }));
   app.get('/reportUser', (req, res) => res.render('reportUser', { isAuth: false }));
   app.get('/users/:username', renderUserProfile);
   app.get('/admin/reportedusers', (req, res) => res.render('admin/reported', { isAuth : false}));
@@ -74,7 +76,7 @@ export const initRoutes = app => {
 
 
   // Edit post endpoint
-  app.get('/post/:inviteId/edit', validateInviteId, validateInvite, renderEditInvitePage);
+  app.get('/post/:inviteId/edit', validateInviteId, validateInvite, getUserByUserId, renderEditInvitePage);
 
   app.get('/admin/users', renderAdminUsersPage);
   app.get('/admin/posts', renderAdminJobInvitesPage);
@@ -85,7 +87,8 @@ export const initRoutes = app => {
   app.post(
     '/api/v1/auth/signup',
     validateSignupFormData,
-    verifyUniqueUser,
+    verifyUniqueUserEmail,
+    verifyUniqueUserUsername,
     signup
   );
   // Twitter Login

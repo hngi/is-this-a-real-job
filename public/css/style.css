@@ -27,7 +27,8 @@ body {
 }
 
 .content-body {
-  flex: 1 1 auto;  /*grow vertically*/
+  flex: 1 1 auto;
+  /*grow vertically*/
   padding-top: 2em;
 }
 
@@ -150,7 +151,7 @@ body {
 
 [value="Invite Search"] {
   width: 206px;
-  height: 60px;
+  height: 46px;
   background: #3087d1;
   border-radius: 6px;
   margin: 0.8rem auto;

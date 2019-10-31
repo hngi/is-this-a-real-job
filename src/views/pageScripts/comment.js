@@ -23,8 +23,14 @@ if (commentBtn) {
   const inviteId = postMeta ? postMeta.id : null; // invite id
 
   const getCommentHTML = (comment) => `<div class="container">
-  <p>@${comment.user.username}</p>
-  <p>${comment.body}</p> <span>&nbsp;</span>
+  <p>
+    ${comment.user.username ? `<a href="/users/${comment.user.username}">@${comment.user.username}</a>`
+    : 'guest'}
+  </p>
+  <p>${comment.body}</p>
+  <p>
+    <small class="text-muted">${new Date(comment.createdAt).toDateString()}</small>
+  </p> <span>&nbsp;</span>
 </div>`;
 
   commentBtn.addEventListener('click', e => {

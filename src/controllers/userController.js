@@ -6,7 +6,8 @@ import {
 import {
   updateOneUser,
   findUsers,
-  fetchSingleUser
+  fetchSingleUser,
+  findSingleUser
 } from '../services/userServices';
 
 /**
@@ -38,6 +39,18 @@ export const getUsers = async (req, res) => {
   const users = await findUsers();
 
   return respondWithSuccess(res, 200, 'Successful', users);
+};
+
+/**
+ * Fetch one user for render endpoints
+ * @param {object} req
+ * @param {object} res
+ * @returns {object} json response
+ */
+export const getUserByUserId = async (req, res, next) => {
+  const user = await findSingleUser({ userId: req.auth.userId });
+  req.user = user;
+  next();
 };
 
 /**
