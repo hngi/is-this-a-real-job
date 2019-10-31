@@ -123,7 +123,7 @@ export const initRoutes = app => {
   // Facebook Auth
   app.get('/auth/facebook', facebookAuthenticate);
   app.get('/auth/facebook/redirect', facebookAuthCallback);
-  
+
   // Get all Users
   app.get('/api/v1/users', authenticateUserToken, validateAdmin, getUsers);
 
@@ -196,29 +196,25 @@ export const initRoutes = app => {
   app.get('/api/v1/invites/:inviteId/votes',
     validateInviteId,
     validateInvite,
-    fetchVoteCount
-  );
+    fetchVoteCount);
 
   app.patch('/api/v1/invites/:inviteId/upvote',
     authenticateUserToken,
     validateInviteId,
     validateInvite,
-    upvoteInvite
-  );
+    upvoteInvite);
 
   app.patch('/api/v1/invites/:inviteId/downvote',
     authenticateUserToken,
     validateInviteId,
     validateInvite,
-    downvoteInvite
-  );
+    downvoteInvite);
 
   app.delete('/api/v1/invites/:inviteId/vote',
     authenticateUserToken,
     validateInviteId,
     validateInvite,
-    unvoteInvite
-  );
+    unvoteInvite);
 
   // Get the number of users, invites and comments in the database.
   app.get('/api/v1/metrics', getMetrics);
