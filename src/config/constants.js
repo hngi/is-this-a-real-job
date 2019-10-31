@@ -11,6 +11,8 @@ export const {
   SALT_ROUNDS,
   SECRET_KEY,
   SITE_URL,
+  EMAIL_ADDR,
+  EMAIL_PASSWORD,
   consumerKey,
   consumerSecret,
   CLOUDINARY_CLOUD_NAME,

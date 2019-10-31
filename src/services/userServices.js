@@ -34,6 +34,7 @@ export const createUser = async userData => {
     return { success: false, error };
   }
 };
+
 /**
  * Get all users
  * @returns {object} an object containing the information of the user or null
