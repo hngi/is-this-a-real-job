@@ -3,6 +3,25 @@ import Model from '../models';
 
 const { Comment, Invite, User } = Model;
 
+export const getSingleComment = async (commentId) => {
+  try {
+    const comment = await Comment.findOne({
+      include: [
+        { model: User, as: 'user' },
+        { model: Invite, as: 'invite' }
+      ],
+      where: { commentId },
+      logging: false
+    });
+
+    comment = comment.dataValues;
+    comment.user = comment.user ? comment.user.dataValues : {};
+    comment.invite = comment.invite ? comment.invite.dataValues : {};
+    return comment;
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 /**
  * @param {string} inviteId id of the job invite to retrieve comments for
