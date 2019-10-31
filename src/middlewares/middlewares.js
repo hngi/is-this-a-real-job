@@ -1,7 +1,8 @@
 import { validateSigninFormData, validateSignupFormData } from './validateAuth';
 import {
   validUser,
-  verifyUniqueUser,
+  verifyUniqueUserEmail,
+  verifyUniqueUserUsername,
   authenticateUserToken
 } from './authentication';
 import { validateCommentData } from './validateComment';
@@ -30,7 +31,6 @@ export {
   validateInviteData,
   validateInviteUpdateData,
   validateInviteId,
-  verifyUniqueUser,
   authenticateUserToken,
   validateAdmin,
   validateUserById,
@@ -41,5 +41,7 @@ export {
   passportAuthenticate,
   googleAuthenticate,
   googleAuthCallback,
-  multerUploads
+  multerUploads,
+  verifyUniqueUserEmail,
+  verifyUniqueUserUsername,
 };
