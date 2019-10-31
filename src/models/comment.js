@@ -11,7 +11,7 @@ export default (sequelize, DataTypes) => {
       allowNull: false,
       onDelete: 'CASCADE',
     },
-    userId: {
+    userId: { //The user who made the comment.
       type: DataTypes.UUID,
       allowNull: false,
       onDelete: 'CASCADE',
