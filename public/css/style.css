@@ -224,6 +224,24 @@ body {
   padding: ;
 } */
 
+.itarj-primary {
+  color: #3087d1;
+  /* background-color: #e3e9ef; */
+  background-color: #fff;
+  border-color: #73a9d9;
+}
+
+@media screen and (max-width: 900px) {
+.itarj-primary {
+    /* margin-top: 6rem!important; */
+    font-size: smaller !important;
+}
+}
+
+#main {
+  margin-top: 6rem!important;
+}
+
 /* INDEX */
 
 .page-desc {
