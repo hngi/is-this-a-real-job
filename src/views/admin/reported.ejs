@@ -1,28 +1,25 @@
 <% include ../partials/header %>
-<% include ../partials/nav %>
-  <script type="text/javascript">
-    const user = JSON.parse(localStorage.getItem('user'))
-    const notification = document.querySelector('.notification');
-    if(!user || !user.isAdmin){
-      notification.innerHTML = `<strong>Contact the site administrator to complete this operation</strong>`;
-      notification.className += ' show';
-      if (/*@cc_on!@*/false || !!document.documentMode) {
-        document.execCommand("Stop");
-      }else{
-        window.stop()
-      };
-      setTimeout(() => {
-        notification.className = 'notification';
-      }, 2500);
+  <% include ../partials/nav2 %>
+    <script type="text/javascript">
+      const user = JSON.parse(localStorage.getItem('user'))
+      const notification = document.querySelector('.notification');
+      if (!user || !user.isAdmin) {
+        notification.innerHTML = `<strong>Contact the site administrator to complete this operation</strong>`;
+        notification.className += ' show';
+        if ( /*@cc_on!@*/ false || !!document.documentMode) {
+          document.execCommand("Stop");
+        } else {
+          window.stop()
+        };
+        setTimeout(() => {
+          notification.className = 'notification';
+        }, 5000);
 
-      setTimeout(()=>{
-        window.location.href = '/posts'
-      },3000)
-    }
-  </script>
+        window.location.href = '/forbiden'
+      }
+    </script>
 
     <style>
-      
       h3 {
         color: #636B6F;
       }
@@ -154,7 +151,7 @@
     <!-- <div class="notification">
       Simple Notification
     </div> -->
-    <section>
+    <div class="section" style="margin-top: 2em;">
       <div class="container user-container">
         <div class="row">
           <div class="col-lg-4">

@@ -97,7 +97,6 @@
   }
 
   .form-inline .form-control {
-
     height: 36px;
     border-color: lightgray;
   }
@@ -118,7 +117,8 @@
   }
 
   .notification-menu {
-    overflow: scroll;
+    overflow-y: auto;
+    overflow-x: hidden;
     height: 300px;
     width: 300px;
     border-top: 2px solid #73A9D9;
@@ -166,7 +166,7 @@
     }
   }
 </style>
-<nav class="navbar fixed-top navbar-expand-lg shadow-sm">
+<nav class="navbar navbar-expand-lg shadow-sm">
   <a class="navbar-brand " href="/">isthisarealjob</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
           aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -179,17 +179,19 @@
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
+
     <ul class="navbar-nav ml-auto">
       <form class="form-inline" action="/invites/search" method="GET">
         <input class="fa form-control mr-sm-4 search-bar" name="q" type="search" placeholder="&#xf002; Search"
                aria-label="Search">
       </form>
       <!-- NOTIFICATION NUMBER GOES HERE -->
+      <% if(isAuth){ %>
       <li class="nav-item dropdown notification-bar">
 
-        <a id="bell-icon" class="nav-link dropdown-toggle" style="padding-top: 3px;" href="#"><i
+        <a id="bell-icon" class="nav-link dropdown-toggle" style="padding-top: 3px;" href="javascript:void(0)"><i
              class="far fa-bell fa-2x notification-icon"></i><span class="badge">3</span></a>
-        <div id="branded" class="notification-menu hide">
+        <div id="branded" class="notification-menu hide shadow">
           <div class="notification-wrapper">
             <p class="notification-title"> <a href="https://getbootstrap.com/docs/4.3/components/navbar/"> Shell
                 Recruitement Scam Interview Invite at LSDPC</a></p>
@@ -221,27 +223,40 @@
 
       <!-- USERNAME & LOG OUT GOES HERE  -->
       <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-           aria-haspopup="true" aria-expanded="false">
+        <a class="nav-link dropdown-toggle" href="javascript:void(0)" id="navbarDropdown" role="button"
+           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <span class="user-name-initials">
-            <%=name.split(" ")[0].substr(0, 2).toUpperCase()%>
+            <%=name.substr(0, 2).toUpperCase()%>
           </span>
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="/users/<%=username%>">Profile</a>
           <a href="javascript:void(0)" id="logout" class="dropdown-item">Log Out</a>
-
-
-          <!-- These should link to users profile and users logout respectively -->
         </div>
 
       </li>
+
+      <% } else { %>
+      <li class="nav-item mr-4">
+        <a class="nav-link" href="/register">REGISTER</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/login">LOG IN</a>
+      </li>
+      <% } %>
 
 
       <li class="nav-item">
         <a class="post-btn" href="/post"><button type="button" class="btn-primary nav-btn" style="padding: 10px;"> NEW
             POST</button></a>
-        <!-- <a class="post-btn" href="/posts"><button type="button" class="btn-primary nav-btn" style="padding: 10px;"> POSTS</button></a> -->
+        <% if(isAuth){ %>
+        <a class="post-btn" href="/posts"><button type="button" class="btn-primary nav-btn" style="padding: 10px;">
+            POSTS</button></a>
+        <% } %>
+        <% if (isAdmin) { %>
+        <a class="post-btn" href="/admin"><button type="button" class="btn-primary nav-btn" style="padding: 10px;">
+            ADMIN</button></a>
+        <% } %>
       </li>
 
     </ul>
@@ -250,6 +265,10 @@
 </nav>
 <div class="content-body">
   <!-- This div is closed in the footer.ejs file -->
+
+  <div class="notification">
+    Simple Notification
+  </div>
   <script>
 
     var element = document.getElementById("bell-icon");

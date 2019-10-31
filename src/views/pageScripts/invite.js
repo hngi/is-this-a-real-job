@@ -7,6 +7,9 @@ function togglePreloader(state) {
 }
 const inviteBtn = document.querySelector('#newInviteBtn');
 
+const newApi = new ItarjApi('/api/v1');
+const notification = document.querySelector('.notification');
+
 if (inviteBtn) {
   if (!localStorage.getItem('token')) {
     window.location.href = '/login';
@@ -18,7 +21,6 @@ if (inviteBtn) {
   const jobLocation = document.querySelector('#jobLocation');
   const companyName = document.querySelector('#companyName');
   const media = document.querySelector('#media');
-  const notification = document.querySelector('.notification');
   inviteBtn.addEventListener('click', e => {
     e.preventDefault();
     togglePreloader('block');
@@ -60,24 +62,117 @@ if (inviteBtn) {
   });
 }
 
-const upvotePost = (e, index, inviteId) => {
-  const api = new ItarjApi('/api/v1');
-  api.Patch(`invites/upvote/${inviteId}/true`)
-    .then(res => {
-      const upvoteCountElems = document.querySelectorAll(`#${res.data.inviteId} .upvote-count`);
-      upvoteCountElems.forEach((elem, i) => {
-        elem.innerText = Number(elem.innerText) + 1;
+const upvotePostBtnHander = (event) => {
+  const { inviteid: inviteId, upvoted } = (event.target.nodeName == 'A') ? event.target.dataset : event.target.parentNode.dataset;
+
+  if (upvoted == 'false') {
+    newApi.Patch(`invites/${inviteId}/upvote`, JSON.stringify({}), true)
+      .then((res) => {
+        console.log(res);
+        refresh(inviteId);
+      })
+      .catch((err) => {
+        console.log(err);
+        notification.innerHTML = `<strong>${err.data.message}:</strong> ${err.data.payload}`;
+        notification.className += ' show';
+        setTimeout(() => {
+          notification.className = 'notification';
+        }, 5000);
       });
-    }).catch(err => console.log(err));
+  } else {
+    newApi.Delete(`invites/${inviteId}/vote`, JSON.stringify({}), true)
+      .then((res) => {
+        console.log(res);
+        refresh(inviteId);
+      })
+      .catch((err) => {
+        console.log(err);
+        notification.innerHTML = `<strong>${err.data.message}:</strong> ${err.data.payload}`;
+        notification.className += ' show';
+        setTimeout(() => {
+          notification.className = 'notification';
+        }, 5000);
+      });
+  }
+};
+
+const downvotePostBtnHander = (event) => {
+  const { inviteid: inviteId, downvoted } = (event.target.nodeName == 'A') ? event.target.dataset : event.target.parentNode.dataset;
+
+  if (downvoted == 'false') {
+    newApi.Patch(`invites/${inviteId}/downvote`, JSON.stringify({}), true)
+      .then((res) => {
+        console.log(res);
+        refresh(inviteId);
+      })
+      .catch((err) => {
+        console.log(err);
+        notification.innerHTML = `<strong>${err.data.message}:</strong> ${err.data.payload}`;
+        notification.className += ' show';
+        setTimeout(() => {
+          notification.className = 'notification';
+        }, 5000);
+      });
+  } else {
+    newApi.Delete(`invites/${inviteId}/vote`, JSON.stringify({}), true)
+      .then((res) => {
+        console.log(res);
+        refresh(inviteId);
+      })
+      .catch((err) => {
+        console.log(err);
+        notification.innerHTML = `<strong>${err.data.message}:</strong> ${err.data.payload}`;
+        notification.className += ' show';
+        setTimeout(() => {
+          notification.className = 'notification';
+        }, 5000);
+      });
+  }
+};
+
+const refresh = (inviteId) => {
+  newApi.Get(`invites/${inviteId}/votes`, true)
+    .then((res) => {
+      const invite = document.querySelector(`[data-inviteId="${inviteId}"`);
+      const up = invite.querySelector('.upvote-btn');
+      const down = invite.querySelector('.downvote-btn');
+
+      up.querySelector('.count').innerText = res.data.upvotes;
+      down.querySelector('.count').innerText = res.data.downvotes;
+
+      if (res.data.upvoted) {
+        up.dataset.upvoted = 'true';
+        down.dataset.downvoted = 'false';
+      } else if (res.data.downvoted) {
+        up.dataset.upvoted = 'false';
+        down.dataset.downvoted = 'true';
+      } else {
+        up.dataset.upvoted = 'false';
+        down.dataset.downvoted = 'false';
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+      notification.innerHTML = `<strong>${err.data.message}:</strong> ${err.data.payload}`;
+      notification.className += ' show';
+      setTimeout(() => {
+        notification.className = 'notification';
+      }, 5000);
+    });
 };
 
 const uiCanInteract = () => {
   console.log('upvote script loaded');
   const postMeta = document.querySelector('.post-meta');
   const inviteId = postMeta ? postMeta.id : null; // invite id
+
   const upvoteButtons = document.querySelectorAll('.upvote-btn');
-  upvoteButtons.forEach((element, index, fields) => {
-    element.addEventListener('click', (e) => upvotePost(e, index, inviteId));
+  const downvoteButtons = document.querySelectorAll('.downvote-btn');
+  upvoteButtons.forEach((element) => {
+    element.addEventListener('click', upvotePostBtnHander);
+  });
+  downvoteButtons.forEach((element) => {
+    element.addEventListener('click', downvotePostBtnHander);
   });
 };
 
