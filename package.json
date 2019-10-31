@@ -68,8 +68,11 @@
     "mysql2": "^1.7.0",
     "nodemailer": "^6.3.1",
     "passport": "^0.4.0",
+    "passport-facebook": "^3.0.0",
+    "passport-google-oauth20": "^2.0.0",
     "passport-local": "^1.0.0",
     "passport-twitter": "^1.0.4",
+    "randomstring": "^1.1.5",
     "sequelize": "^5.21.1",
     "sequelize-cli": "^5.5.1",
     "uuid": "^3.3.3"

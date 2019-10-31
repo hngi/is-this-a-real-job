@@ -408,6 +408,10 @@ div.heading p {
   div.card div.img {
     text-align: center;
   }
+  .social {
+    width: 200px;
+    font-size:13px
+  }
 }
 
 :-ms-input-placeholder {
@@ -488,6 +492,9 @@ div.heading p {
   }
 }
 
+.social {
+  margin-bottom: 5px;
+}
 /* Text */
 .text-bold {
   font-weight: bold !important;
