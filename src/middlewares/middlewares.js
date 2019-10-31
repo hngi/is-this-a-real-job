@@ -18,7 +18,9 @@ import {
 } from './validateUUID';
 import { validateAdmin } from './validateAdmin';
 import { validateUserById } from './validateUser';
-import { passportAuthenticate, passportAuthCallback } from './twitterLogin';
+import { googleAuthenticate, googleAuthCallback } from './googleAuth';
+import { facebookAuthenticate, facebookAuthCallback } from './facebookAuth';
+import { twitterAuthenticate, twitterAuthCallback } from './twitterAuth';
 import { multerUploads } from './multer';
 
 export {
@@ -36,8 +38,12 @@ export {
   validateUserId,
   validateUpvoteInput,
   validateInviteOwner,
-  passportAuthCallback,
-  passportAuthenticate,
+  googleAuthenticate,
+  googleAuthCallback,
+  facebookAuthenticate,
+  facebookAuthCallback,
+  twitterAuthCallback,
+  twitterAuthenticate,
   multerUploads,
   verifyUniqueUserEmail,
   verifyUniqueUserUsername,

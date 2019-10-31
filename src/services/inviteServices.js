@@ -3,7 +3,9 @@
 import Sequelize from 'sequelize';
 import Model from '../models';
 
-const { Invite, User, Comment, Vote } = Model;
+const {
+  Invite, User, Comment, Vote
+} = Model;
 
 /**
  * @param {object} queryOption Finds an invite that matches the parameters in this object.
@@ -15,7 +17,7 @@ export const fetchOneInvite = async (queryOption = {}) => {
       include: [
         {
           model: User,
-          as: "user",
+          as: 'user',
         },
         {
           model: Vote,
@@ -161,10 +163,10 @@ export const fetchOneVoteCount = async (inviteId, userId) => {
   } catch (error) {
     console.log(error);
     error.status = 500;
-    error.message = "A technical error occured. Contact Support";
+    error.message = 'A technical error occured. Contact Support';
     throw error;
   }
-}
+};
 
 export const upvoteOneInvite = async (userId, inviteId) => {
   try {
@@ -176,7 +178,7 @@ export const upvoteOneInvite = async (userId, inviteId) => {
     });
 
     if (vote) {
-      await vote.update({ type: 'up' })
+      await vote.update({ type: 'up' });
       return vote.dataValues;
     }
 
@@ -185,10 +187,10 @@ export const upvoteOneInvite = async (userId, inviteId) => {
   } catch (error) {
     console.log(error);
     error.status = 500;
-    error.message = "A technical error occured. Contact Support";
+    error.message = 'A technical error occured. Contact Support';
     throw error;
   }
-}
+};
 
 export const downVoteOneInvite = async (userId, inviteId) => {
   try {
@@ -200,7 +202,7 @@ export const downVoteOneInvite = async (userId, inviteId) => {
     });
 
     if (vote) {
-      await vote.update({ type: 'down' })
+      await vote.update({ type: 'down' });
       return vote.dataValues;
     }
 
@@ -209,10 +211,10 @@ export const downVoteOneInvite = async (userId, inviteId) => {
   } catch (error) {
     console.log(error);
     error.status = 500;
-    error.message = "A technical error occured. Contact Support";
+    error.message = 'A technical error occured. Contact Support';
     throw error;
   }
-}
+};
 
 export const unvoteOneInvite = async (userId, inviteId) => {
   try {
@@ -227,10 +229,10 @@ export const unvoteOneInvite = async (userId, inviteId) => {
   } catch (error) {
     console.log(error);
     error.status = 500;
-    error.message = "A technical error occured. Contact Support";
+    error.message = 'A technical error occured. Contact Support';
     throw error;
   }
-}
+};
 
 /**
  * searchInvites
