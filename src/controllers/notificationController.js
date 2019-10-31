@@ -59,8 +59,7 @@ export const createNotification = async (req, res) => {
       .catch(e => { throw e; });
 
     if (notification) {
-      notification.mailSent = await notifyByEmail(res, notification);
-      console.log(notification.mailSent);
+      notification.mailSent = await notifyByEmail(res, {...notification});
       return respondWithSuccess(res, 200, 'Notification added successfully', notification);
     }
   } catch (error) {
