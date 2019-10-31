@@ -42,6 +42,8 @@ if (commentBtn) {
     };
     const notification = document.querySelector('.notification');
 
+    commentField.value = '';
+
     api.Post(`comments/${inviteId}`, JSON.stringify(body), true)
       .then(res => {
         comments.innerHTML = getCommentHTML(res.data) + comments.innerHTML;
@@ -51,6 +53,7 @@ if (commentBtn) {
         togglePreloader('none');
       })
       .catch(err => {
+        console.log('Error =>', err);
         togglePreloader('none');
         notification.innerHTML = `<strong>${err.data.message}:</strong> ${err.data.payload}`;
         notification.className += ' show';
