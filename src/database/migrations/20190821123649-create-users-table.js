@@ -8,6 +8,9 @@ export default {
       defaultValue: Sequelize.UUIDV4,
       primaryKey: true,
     },
+    twitterId: {
+      type: Sequelize.STRING
+    },
     googleId: {
       type: Sequelize.STRING
     },

@@ -14,8 +14,8 @@ import {
   validateUserId,
   validateUpvoteInput,
   validateInviteOwner,
-  passportAuthCallback,
-  passportAuthenticate,
+  twitterAuthCallback,
+  twitterAuthenticate,
   googleAuthenticate,
   googleAuthCallback,
   facebookAuthenticate,
@@ -111,9 +111,10 @@ export const initRoutes = app => {
     verifyUniqueUserUsername,
     signup
   );
-  // Twitter Login
-  app.get('/auth/twitter', passportAuthenticate);
-  app.get('/auth/twitter/callback', passportAuthCallback);
+
+  // Twitter Auth
+  app.get('/auth/twitter', twitterAuthenticate);
+  app.get('/auth/twitter/callback', twitterAuthCallback);
 
   // Google Auth
   app.get('/auth/google', googleAuthenticate);
@@ -122,11 +123,13 @@ export const initRoutes = app => {
   // Facebook Auth
   app.get('/auth/facebook', facebookAuthenticate);
   app.get('/auth/facebook/redirect', facebookAuthCallback);
+  
   // Get all Users
   app.get('/api/v1/users', authenticateUserToken, validateAdmin, getUsers);
 
   // Get single User - return JSON
   app.get('/api/v1/users/json/:username', getUser);
+
   // Block a user
   app.patch(
     '/api/v1/users/block/:userId',
