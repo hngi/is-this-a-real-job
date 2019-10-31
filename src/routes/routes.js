@@ -91,7 +91,7 @@ export const initRoutes = app => {
   // Search Invites - Renders view
   app.get('/invites/search', renderSearchResults);
   app.get('/admin', (req, res) => res.render('./admin/index', {
-    isAuth: false, username: req.auth.username, name: req.auth.name, isAdmin: req.auth.isAdmin
+    isAuth: req.isAuth, username: req.auth.username, name: req.auth.name, isAdmin: req.auth.isAdmin
   }));
 
 
@@ -224,5 +224,7 @@ export const initRoutes = app => {
   app.post('/api/v1/notifications', validateNotificationData, createNotification);
 
   // Fallback case for unknown URIs.
-  app.all('*', (req, res) => res.status(404).json({ message: 'Route Not Found' }));
+  app.get('/notAuthorized', (req, res) => res.render('401'));
+  app.get('/forbiden', (req, res) => res.render('403'));
+  app.all('*', (req, res) => res.render('404'));
 };
