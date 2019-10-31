@@ -69,7 +69,7 @@ export const initRoutes = app => {
   app.get('/admin/reported', (req, res) => res.render('admin/reportedUsers', { isAuth: req.isAuth, isAdminh: req.aut.isAdminh }));
   app.get('/reportUser', (req, res) => res.render('reportUser', { isAuth: false }));
   app.get('/users/:username', renderUserProfile);
-  app.get('/admin/reportedusers', (req, res) => res.render('admin/reported', { isAuth : false}));
+  app.get('/admin/reportedusers', (req, res) => res.render('admin/reported', { isAuth: false }));
   // Search Invites - Renders view
   app.get('/invites/search', renderSearchResults);
   app.get('/admin', (req, res) => res.render('./admin/index', { isAuth: false }));

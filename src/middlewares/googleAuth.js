@@ -1,20 +1,16 @@
 import passport from 'passport';
-import Cookies from 'cookies';
+import { generateToken } from '../helpers/jwt'
+import { sanitizeUser } from '../helpers/sanitizeUser';
 
 export const googleAuthenticate = passport.authenticate('google', { scope: ['profile', 'email'] });
-export const googleAuthCallback = (req, res, next) => passport.authenticate('google', (err, profile) => {
-  if (!profile) {
+export const googleAuthCallback = (req, res, next) => passport.authenticate('google', async (err, user) => {
+  if (!user) {
     return res.redirect('/login');
   }
-  // const cookies = new Cookies(req, res);
-  // cookies.set(user)
-  const sanitizedUser = (user) => {
-    const { dataValues } = user.User;
-    return {
-      userId: dataValues.userId, name: user.dataValues.name, profileImage: dataValues.profileImage,
-      email: dataValues.email, username: dataValues.username, googleId: dataValues.googleId
-    }
-  }
-  console.log("user is", sanitizedUser(profile))
-  return res.redirect('/jobInvites');
-})(req, res, next)
+  const sanitizedUser = sanitizeUser(user); // remove password from user objec
+  const { userId, isAdmin } = sanitizedUser;
+  const payload = { userId, isAdmin };
+  const token = await generateToken(payload);
+  res.cookies.set('token', token, { signed: true }); // create token and send to client's crowser
+  return res.redirect('/posts');
+})(req, res, next);

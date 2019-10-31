@@ -127,14 +127,19 @@
     <button id="login-btn" class="btn btn-success btn-block btn-custom">
       Login
     </button>
-
-    <a href="/auth/twitter" class="btn btn-info"
-      ><span class="fa fa-twitter"></span>Login with Twitter</a
-    >
-  </div>
-  <div class="register">
-    <p><a href="/register">Register</a></p>
   </div>
 </form>
+<div class="text-center">
+  <a href="/auth/twitter" class="btn btn-info"
+    ><span class="fa fa-twitter"></span> Login with Twitter</a
+  >
+
+  <a href="/auth/google" class="btn btn-danger"
+    ><span class="fa fa-google"></span> Login with Google</a
+  >
+</div>
+<div class="register">
+  <p><a href="/register">Register</a></p>
+</div>
 
 <% include partials/footer %>
