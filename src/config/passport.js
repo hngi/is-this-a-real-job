@@ -1,8 +1,9 @@
 import passport from 'passport';
 import GoogleStrategy from 'passport-google-oauth20';
+import randomstring from 'randomstring';
 import Model from '../models';
 import { twitterAuth } from './twitterAuth';
-import { passwordHash, comparePasswords } from '../helpers/hash';
+import { passwordHash } from '../helpers/hash';
 import {
   findSingleUser, findUsers, createUser, updateOneUser
 } from '../services/userServices';
@@ -79,7 +80,7 @@ passport.use(new GoogleStrategy({
       newData.username = username;
       newData.password = password;
       if (usernameTaken) {
-        newData.username = username + 1;
+        newData.username = username + randomstring.generate({ length: 7, charset: 'numeric' });
       } else {
         newData.username = username;
       }
