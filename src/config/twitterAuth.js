@@ -1,5 +1,6 @@
-import { SITE_URL, consumerKey, consumerSecret } from './constants';
+import {SITE_URL, consumerKey, consumerSecret }from "./constants"
 
+export const twitterAuth = {
 
     
         'consumerKey'       : consumerKey,
@@ -7,10 +8,3 @@ import { SITE_URL, consumerKey, consumerSecret } from './constants';
         'callbackURL'       : `${SITE_URL}/jobinvites`
     
 }
-
-export const twitterAuth = {
-  consumerKey,
-  consumerSecret,
-  callbackURL: `${SITE_URL}/auth/twitter/callback`
-};
-
