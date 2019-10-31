@@ -2,12 +2,6 @@ import passport from 'passport';
 let TwitterStrategy  = require('passport-twitter').Strategy;
 import { updateOneUser, findUsers } from '../services/userServices'
 import User from "../models/user"
-// load up the user model
-
-
-// load the auth variables
-import configTwitter from './twitterAuth';
-
 module.exports = ()=> {
 
     passport.serializeUser(function(user, done) {
@@ -20,41 +14,7 @@ module.exports = ()=> {
             done(err, user);
         });
     });
-    passport.use("twitter", new TwitterStrategy({
 
-        consumerKey     : configTwitter.twitterAuth.consumerKey,
-        consumerSecret  : configTwitter.twitterAuth.consumerSecret,
-        callbackURL     : configTwitter.twitterAuth.callbackURL
-
-    },(token, tokenSecret, profile, done)=> {
-         process.nextTick(function() {
-            User.findOne({ 'twitter.id' : profile.id }, function(err, user) {
-                if (err)
-                    return done(err);
-
-                // if the user is found then log them in
-                if (user) {
-                    return done(null, user); // user found, return that user
-                } else {
-                    // if there is no user, create them
-                    var newUser                 = new User();
-                    // set all of the user data that we need
-                    newUser.twitter.id          = profile.id;
-                    newUser.twitter.username    = profile.username;
-                    newUser.twitter.displayName = profile.displayName;
-
-                    // save our user into the database
-                    newUser.save(function(err) {
-                        if (err)
-                            throw err;
-                        return done(null, newUser);
-                    });
-                }
-            });
-
-    });
-
-    }));
 
 };
 
