@@ -13,7 +13,7 @@ if (document.forms.signup) {
     localStorage.getItem('token') !== 'undefined'
     && localStorage.getItem('token')
   ) {
-    window.location.href = '/jobInvites';
+    window.location.href = '/posts';
   }
 
   const signupForm = document.forms.signup;
@@ -37,11 +37,11 @@ if (document.forms.signup) {
         console.log(res);
         togglePreloader('none');
         localStorage.setItem('token', res.data.token);
-        window.location.href = '/jobInvites';
+        window.location.href = '/posts';
       })
-      .catch(error => {
+      .catch(err => {
         togglePreloader('none');
-        notification.innerHTML = `<strong>${err.data.message}:</strong> ${err.data.payload}`;
+        notification.innerHTML = `<strong>${err.data.message || ''}:</strong> ${err.data.payload || ''}`;
         notification.className += ' show';
         setTimeout(() => {
           notification.className = 'notification';
