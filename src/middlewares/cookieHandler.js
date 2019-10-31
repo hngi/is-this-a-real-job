@@ -23,7 +23,7 @@ export const validateCookies = (req, res, next) => {
   req.auth = {};
   req.isAuth = false;
   return next();
-}
+};
 
 /**
  * Set httpOnly key after sign in
@@ -36,7 +36,7 @@ export const signUserIn = (req, res, next) => {
   const token = req.cookies.get('login');
   if (token) {
     res.cookies.set('login'); // delete login cookie
-    
+
     try {
       const { key } = verifyToken(token);
       req.auth = key;
@@ -49,7 +49,7 @@ export const signUserIn = (req, res, next) => {
     }
   }
   return next();
-}
+};
 
 /**
  * Sign user out
@@ -67,4 +67,4 @@ export const signUserOut = (req, res, next) => {
     req.isAuth = false;
   }
   return next();
-}
+};
