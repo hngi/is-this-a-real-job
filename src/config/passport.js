@@ -1,7 +1,5 @@
 import passport from 'passport';
 import TwitterStrategy from 'passport-twitter';
-import GoogleStrategy from 'passport-google-oauth20';
-import FacebookStrategy from 'passport-facebook';
 import randomstring from 'randomstring';
 import Model from '../models';
 import { passwordHash } from '../helpers/hash';
