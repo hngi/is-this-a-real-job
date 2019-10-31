@@ -1,177 +1,164 @@
 <% include ../partials/header %>
-<% include ../partials/nav2 %>
+  <% include ../partials/nav2 %>
     <script type="text/javascript">
-    const user = JSON.parse(localStorage.getItem('user'))
-    const notification = document.querySelector('.notification');
-    if(!user || !user.isAdmin){
-      notification.innerHTML = `<strong>Contact the site administrator to complete this operation</strong>`;
-      notification.className += ' show';
-      if (/*@cc_on!@*/false || !!document.documentMode) {
-        document.execCommand("Stop");
-      }else{
-        window.stop()
-      };
-      setTimeout(() => {
-        notification.className = 'notification';
-      }, 2500);
+      const user = JSON.parse(localStorage.getItem('user'))
+      const notification = document.querySelector('.notification');
+      if (!user || !user.isAdmin) {
+        notification.innerHTML = `<strong>Contact the site administrator to complete this operation</strong>`;
+        notification.className += ' show';
+        if ( /*@cc_on!@*/ false || !!document.documentMode) {
+          document.execCommand("Stop");
+        } else {
+          window.stop()
+        };
+        setTimeout(() => {
+          notification.className = 'notification';
+        }, 5000);
 
-      setTimeout(()=>{
-        window.location.href = '/jobInvites'
-      },3000)
-    }
-  </script>
-<style>
-    ul {
+        window.location.href = '/forbiden'
+      }
+    </script>
+    <style>
+      ul {
         list-style: none;
-    }
-
-    .admin-nav {
+      }
+      
+      .admin-nav {
         padding-left: 3% !important;
         /* padding: 0% !important; */
-
-    }
-
-    .admin-nav-link {
+      }
+      
+      .admin-nav-link {
         text-decoration: none !important;
         color: #000;
-    }
-
-    .li-item {
+      }
+      
+      .li-item {
         margin-bottom: 5%;
-    }
-
-    .single_user {
+      }
+      
+      .single_user {
         padding: 3%;
         margin-bottom: 2%;
-
-    }
-
-    .listed_users {
+      }
+      
+      .listed_users {
         padding: 5%;
         width: 100%;
-
-    }
-
-    .user-img {
+      }
+      
+      .user-img {
         height: 100px;
         width: auto;
-    }
-
-    .name-div,
-    .button-div {
+      }
+      
+      .name-div,
+      .button-div {
         padding-left: 0 !important;
         margin-left: 0 !important;
         padding-top: 2%;
-
-    }
-
-    .name {
+      }
+      
+      .name {
         font-weight: 400;
-    }
-
-    .block_btn {
+      }
+      
+      .block_btn {
         background: transparent !important;
         color: red !important;
-    }
-
-
-    .all_users div:nth-child(odd):not(.form-group) {
+      }
+      
+      .all_users div:nth-child(odd):not(.form-group) {
         background: #E3E9EF;
-
-    }
-
-    .all_users div:nth-child(even) {
+      }
+      
+      .all_users div:nth-child(even) {
         background: #FFFFFF;
-    }
-
-    .block-btn, .unblock-btn {
+      }
+      
+      .block-btn,
+      .unblock-btn {
         margin-right: 19px;
-    }
-
-    button {
+      }
+      
+      button {
         width: 110px;
-    }
-
-    .padding-nav {
+      }
+      
+      .padding-nav {
         margin-top: 10%;
-    }
-
-    @media only screen and (max-width: 1000px) {
+      }
+      
+      @media only screen and (max-width: 1000px) {
         .whole {
-            margin: 0 !important;
-            padding: 5%;
-            width: 100% !important;
-
+          margin: 0 !important;
+          padding: 5%;
+          width: 100% !important;
         }
-
         .admin-nav {
-            font-size: 70%;
-            /* text-align: center; */
+          font-size: 70%;
+          /* text-align: center; */
         }
-
         button {
-            width: auto !important;
+          width: auto !important;
         }
-
         .listed_users {
-            /* margin-left: 5%; */
-            width: 100%;
+          /* margin-left: 5%; */
+          width: 100%;
         }
-
         @media only screen and (max-width: 900px) {
-           h4{
+          h4 {
             font-size: 150% !important;
-           }
-
-            .block-btn {
-                margin-right: 7px !important;
-            }
-            .single_user{
-                width: 85% !important;
-                margin: auto !important;
-            }
-            .button-div{
-                margin-left: -10% !important;
-                width: 120% !important;
-            }
+          }
+          .block-btn {
+            margin-right: 7px !important;
+          }
+          .single_user {
+            width: 85% !important;
+            margin: auto !important;
+          }
+          .button-div {
+            margin-left: -10% !important;
+            width: 120% !important;
+          }
         }
-    }
-</style>
+      }
+    </style>
 
-<!-- <section> -->
-<div class="container-fluid whole">
-    <div class="row">
+    <!-- <section> -->
+    <div class="container-fluid whole">
+      <div class="row">
         <div class="col-md-2  admin-nav">
-          
-            <div class="row padding-nav">
-                <div class="col">
-                        <h4 class="">
-                                Dashboard
-                            </h4>
-                    <ul>
-                        <li class="li-item"><a class="admin-nav-link" href="/admin/users"> Users</a></li>
-                        <li class="li-item"><a class="admin-nav-link" href="#"> Admins</a></li>
-                        <li class="li-item"><a class="admin-nav-link" href="/admin/reported"> Reported Users</a>
-                        </li>
-                        <li class="li-item"><a class="admin-nav-link" href="#"> Metrics</a></li>
-                    </ul>
-                </div>
+
+          <div class="row padding-nav">
+            <div class="col">
+              <h4 class="">
+                Dashboard
+              </h4>
+              <ul>
+                <li class="li-item"><a class="admin-nav-link" href="/admin/users"> Users</a></li>
+                <li class="li-item"><a class="admin-nav-link" href="#"> Admins</a></li>
+                <li class="li-item"><a class="admin-nav-link" href="/admin/reported"> Reported Users</a>
+                </li>
+                <li class="li-item"><a class="admin-nav-link" href="#"> Metrics</a></li>
+              </ul>
             </div>
+          </div>
         </div>
 
         <div class="col-md-10 listed_users">
-            <div class="all_users">
-                <div class="single_user">
-                    <span class="row">
+          <div class="all_users">
+            <div class="single_user">
+              <span class="row">
                         <span class="col-md-3">
-                            <img class="rounded-circle user-img" src="https://randomuser.me/api/portraits/women/77.jpg"
+                            <img class="rounded-circle user-img" src="https://res.cloudinary.com/leankhan/image/upload/v1572542434/default_avatar2.png"
                                 alt="">
                         </span>
-                        <span class="col-md-6 name-div">
+              <span class="col-md-6 name-div">
                             <span class="name">Goldin</span> <br>
-                            <span>@goldin</span>
-                        </span>
-                        <span class="col-md-3 button-div name-div">
+              <span>@goldin</span>
+              </span>
+              <span class="col-md-3 button-div name-div">
                             <button type="reset" class="btn btn-danger block_btn block-btn">Block</button>
 
                             <span class="dropdown ">
@@ -181,22 +168,22 @@
                                 <span class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                     <a class="dropdown-item" href="#">Promote</a>
                                 </span>
-                            </span>
-                        </span>
-                    </span>
+              </span>
+              </span>
+              </span>
 
-                </div>
-                <div class="single_user">
-                    <span class="row">
+            </div>
+            <div class="single_user">
+              <span class="row">
                         <span class="col-md-3">
-                            <img class="rounded-circle user-img" src="https://randomuser.me/api/portraits/women/77.jpg"
+                            <img class="rounded-circle user-img" src="https://res.cloudinary.com/leankhan/image/upload/v1572542434/default_avatar2.png"
                                 alt="">
                         </span>
-                        <span class="col-md-6 name-div">
+              <span class="col-md-6 name-div">
                             <span class="name">Goldin</span> <br>
-                            <span>@goldin</span>
-                        </span>
-                        <span class="col-md-3 name-div">
+              <span>@goldin</span>
+              </span>
+              <span class="col-md-3 name-div">
                             <button type="reset" class="btn btn-primary unblock-btn">Unblock</button>
                             
                             <span class="dropdown">
@@ -206,20 +193,20 @@
                                 <span class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                     <a class="dropdown-item" href="#">Promote</a>
                                 </span>
-                            </span>
-                        </span>
-                </div>
-                <div class="single_user">
-                    <span class="row">
+              </span>
+              </span>
+            </div>
+            <div class="single_user">
+              <span class="row">
                         <span class="col-md-3">
-                            <img class="rounded-circle user-img" src="https://randomuser.me/api/portraits/women/77.jpg"
+                            <img class="rounded-circle user-img" src="https://res.cloudinary.com/leankhan/image/upload/v1572542434/default_avatar2.png"
                                 alt="">
                         </span>
-                        <span class="col-md-6 name-div">
+              <span class="col-md-6 name-div">
                             <span class="name">Goldin</span> <br>
-                            <span>@goldin</span>
-                        </span>
-                        <span class="col-md-3 button-div">
+              <span>@goldin</span>
+              </span>
+              <span class="col-md-3 button-div">
                             <button type="reset" class="btn btn-danger block_btn block-btn">Block</button>
 
                             <span class="dropdown">
@@ -229,18 +216,18 @@
                                 <span class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                     <a class="dropdown-item" href="#">Promote</a>
                                 </span>
-                            </span>
-                        </span>
-                </div>
-
-
+              </span>
+              </span>
             </div>
+
+
+          </div>
         </div>
 
+      </div>
     </div>
-</div>
-</div>
-<!-- </section> -->
+    </div>
+    <!-- </section> -->
 
 
-<% include ../partials/footer %>
+    <% include ../partials/footer %>
