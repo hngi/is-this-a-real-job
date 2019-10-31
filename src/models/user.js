@@ -45,6 +45,7 @@ export default (sequelize, DataTypes) => {
   User.associate = models => {
     User.hasMany(models.Invite, { foreignKey: 'userId', onDelete: 'CASCADE' });
     User.hasMany(models.Comment, { foreignKey: 'userId', onDelete: 'CASCADE' });
+    User.hasMany(models.Vote, { foreignKey: 'userId', onDelete: 'CASCADE', as: 'votes' });
   };
 
   return User;

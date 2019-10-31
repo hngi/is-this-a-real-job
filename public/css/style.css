@@ -218,6 +218,7 @@ body {
 }
 
 .upvote-btn,
+.downvote-btn,
 .share-buttons a {
   padding: 0.5rem;
   margin-left: 0.5rem;
@@ -226,7 +227,7 @@ body {
   transition: background-color ease-in-out 0.1s;
 }
 
-.upvote-btn {
+.upvote-btn[data-upvoted='true'], .downvote-btn[data-downvoted='true'] {
   color: var(--success) !important;
 }
 
