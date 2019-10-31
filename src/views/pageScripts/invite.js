@@ -46,9 +46,13 @@ if (inviteBtn) {
 
     fetch('api/v1/invites', options)
       .then(res => {
-        // navigate to somewhere. created post maybe
-        window.location.href = '/posts';
         togglePreloader('none');
+        if (res.success) {
+          // navigate to somewhere. created post maybe
+          window.location.href = '/posts';
+        } else {
+          console.error(res);
+        }
       })
       .catch(err => {
         togglePreloader('none');

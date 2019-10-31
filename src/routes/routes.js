@@ -209,7 +209,7 @@ export const initRoutes = app => {
   app.get('/api/v1/metrics', getMetrics);
 
   // Get all comments for a given Invite.
-  app.get('/api/v1/notifications/:userId', validateUserId, getNotifications);
+  app.get('/api/v1/notifications', authenticateUserToken, getNotifications);
   app.post('/api/v1/notifications', validateNotificationData, createNotification);
 
   // Fallback case for unknown URIs.

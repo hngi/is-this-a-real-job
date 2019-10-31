@@ -150,9 +150,38 @@
     text-decoration: none;
   }
   
+  .notification-link:hover {
+    text-decoration: none;
+  }
+
+  .notification-link:hover .notification-wrapper {
+    background: #e7f0f8;
+  }
+
   .notification-wrapper {
-    padding: 3px;
-    background-color: rgba(115, 169, 217, 0.295);
+    padding: 1rem 0.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .notification-image {
+    margin: 0.5rem;
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    background-color: var(--light);
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .notification-no-image {
+    display: flex;
+    width: 40px; height: 40px; margin-right: 0.5rem;
+    justify-content: center;
+    align-items: center;
+    background: var(--primary);
+    color: #fff;
   }
   
   .badge {
@@ -190,32 +219,7 @@
         <a id="bell-icon" class="nav-link dropdown-toggle" style="padding-top: 3px;" href="javascript:void(0)"><i
              class="far fa-bell fa-2x notification-icon"></i><span class="badge">3</span></a>
         <div id="branded" class="notification-menu hide shadow">
-          <div class="notification-wrapper">
-            <p class="notification-title"> <a href="https://getbootstrap.com/docs/4.3/components/navbar/"> Shell
-                Recruitement Scam Interview Invite at LSDPC</a></p>
-            <small class="notification-title-user">
-              <a href="">Jon Snow</a>
-            </small>
-          </div>
-          <hr>
-          <div class="notification-wrapper">
-            <p class="notification-title"> <a href="https://getbootstrap.com/docs/4.3/components/navbar/"> Shell
-                Recruitement Scam Interview Invite at LSDPC</a></p>
-            <small class="notification-title-user">
-              <a href="">Jon Snow</a>
-            </small>
-          </div>
-          <hr>
-          <div class="notification-wrapper">
-            <p class="notification-title"> <a href="https://getbootstrap.com/docs/4.3/components/navbar/"> Shell
-                Recruitement Scam Interview Invite at LSDPC</a></p>
-            <small class="notification-title-user">
-              <a href="">Jon Snow</a>
-            </small>
-          </div>
-          <hr>
-
-
+          <!-- notification goes here -->
         </div>
       </li>
 

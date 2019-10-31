@@ -47,7 +47,7 @@ export const getAllInvites = async (req, res) => {
 export const saveNewInvite = async (req, res) => {
   try {
     req.body.userId = req.auth.userId;
-    req.body.media = !req.files ? '' : req.files[0].secure_url;
+    req.body.media = req.files && !req.files[0] ? '' : req.files[0].secure_url;
     const invite = await saveInvite(req.body).catch(error => {
       throw error;
     });

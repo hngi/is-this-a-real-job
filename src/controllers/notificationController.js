@@ -39,9 +39,7 @@ export const createNotification = async (req, res) => {
  * @returns {object} json response
  */
 export const getNotifications = async (req, res) => {
-  const { userId } = req.params;
-
-  const notifications = await findNotificationsForUser(userId);
+  const notifications = await findNotificationsForUser(req.auth.userId);
 
   return respondWithSuccess(res, 200, 'Successful', notifications);
 };
