@@ -58,6 +58,7 @@ export const fetchSingleUser = async query => {
     const user = await User.findOne({
       include: [{ model: Invite, as: 'Invites' }],
       where: query,
+      order: [[{ model: Invite }, 'createdAt', 'DESC']],
       logging: false
     });
 
