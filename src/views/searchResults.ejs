@@ -8,7 +8,7 @@
 </div>
 
 <body>
-  <div class="header">
+  <div class="header mt-4 mb-4">
     <div class="container p-md-0">
       <form action="/invites/search" method="GET">
         <div class="form-row">
@@ -29,7 +29,7 @@
 
     <div class="container">
       <p class="text-muted" style="font-size: smaller;">
-        Found <span class="badge badge-info"><%= invites.length %></span> <%=
+        Found <b class="text-primary"><%= invites.length %></b> <%=
         invites.length > 1 ? 'posts' : 'post' %>
       </p>
     </div>

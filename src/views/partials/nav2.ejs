@@ -5,6 +5,12 @@
     line-height: 14px;
   }
 
+  .nav-btn {
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 14px;
+  }
+
   .nav-link:hover {
     color: rgba(0, 0, 0, .5) !important;
   }
@@ -22,7 +28,7 @@
     font-weight: 600;
     font-size: 18px;
     line-height: 21px;
-    color: black !important;
+    color: #3087d1 !important;
   }
 
   .navbar {
@@ -57,8 +63,9 @@
     border-radius: 5px;
   }
 
-  .post-btn:hover {
+  .nav-link a.post-btn:hover {
     text-decoration: none;
+    color: white;
   }
 
   .dropdown-menu {
@@ -74,7 +81,7 @@
   }
 
   .user-name-initials {
-    font-size: 18px;
+    font-size: 14px;
     font-weight: bold;
   }
 
@@ -155,7 +162,7 @@
 
   @media screen and (max-width: 990px) {
     .badge {
-      left: 10px
+      left: 10px;
     }
   }
 </style>
@@ -173,8 +180,8 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
     <ul class="navbar-nav ml-auto">
-      <form class="form-inline">
-        <input class="fa form-control mr-sm-4 search-bar" type="search" placeholder="&#xf002; Search"
+      <form class="form-inline" action="/invites/search" method="GET">
+        <input class="fa form-control mr-sm-4 search-bar" name="q" type="search" placeholder="&#xf002; Search"
                aria-label="Search">
       </form>
       <!-- NOTIFICATION NUMBER GOES HERE -->
@@ -217,42 +224,46 @@
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
            aria-haspopup="true" aria-expanded="false">
           <span class="user-name-initials">
-            LK
+            <%=name.split(" ")[0].substr(0, 2).toUpperCase()%>
           </span>
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">Profile</a>
-          <a class="dropdown-item" href="#">Log Out</a>
+          <a class="dropdown-item" href="/users/<%=username%>">Profile</a>
+          <a href="javascript:void(0)" id="logout" class="dropdown-item">Log Out</a>
+
 
           <!-- These should link to users profile and users logout respectively -->
         </div>
 
       </li>
+
+
       <li class="nav-item">
-        <button type="button" class="btn-primary nav-link" style="padding: 10px;"> <a class="post-btn" href="/post">NEW
-            POST</a></button>
-
-
+        <a class="post-btn" href="/post"><button type="button" class="btn-primary nav-btn" style="padding: 10px;"> NEW
+            POST</button></a>
+        <!-- <a class="post-btn" href="/posts"><button type="button" class="btn-primary nav-btn" style="padding: 10px;"> POSTS</button></a> -->
       </li>
+
     </ul>
 
   </div>
 </nav>
+<div class="content-body">
+  <!-- This div is closed in the footer.ejs file -->
+  <script>
 
-<script>
+    var element = document.getElementById("bell-icon");
+    element.addEventListener("click", () => {
+      var clicked = document.getElementById("branded");
+      clicked.classList.toggle('show');
+    });
 
-  var element = document.getElementById("bell-icon");
-  element.addEventListener("click", () => {
-    var clicked = document.getElementById("branded");
-    clicked.classList.toggle('show');
-  });
+    var links = document.getElementsByClassName('notification-wrapper');
 
-  var links = document.getElementsByClassName('notification-wrapper');
-
-  function changeColor(e) {
-    e.target.style.backgroundColor = e.target.style.backgroundColor ? null : 'white';
-  }
-  for (var i = 0; i < links.length; i++) {
-    links[i].addEventListener('click', changeColor);
-  }
-</script>
+    function changeColor(e) {
+      e.target.style.backgroundColor = e.target.style.backgroundColor ? null : 'white';
+    }
+    for (var i = 0; i < links.length; i++) {
+      links[i].addEventListener('click', changeColor);
+    }
+  </script>

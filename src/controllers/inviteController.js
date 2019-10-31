@@ -12,6 +12,7 @@ import {
   searchInvites
 } from '../services/inviteServices';
 import { findCommentsForPost } from '../services/commentServices';
+import { findSingleUser } from '../services/userServices';
 
 export const getOneInvite = async (req, res) => {
   try {
@@ -70,6 +71,7 @@ export const renderSearchResults = async (req, res) => {
       invites: invites || [],
       isAuth: req.isAuth,
       isAdmin: req.auth.isAdmin,
+      username: req.auth.username, name: req.auth.name
     });
   } catch (error) {
     respondWithWarning(res, 500, 'Server error');
@@ -170,14 +172,17 @@ export const renderSinglePostPage = async (req, res) => {
     findCommentsForPost(inviteId),
     fetchOneInvite({
       inviteId
-    })
+    }),
+    findSingleUser({ userId: req.auth.userId })
   ]);
   return res.render('singlepost', {
     comments: data[0],
     invite: data[1],
+    user: data[2],
     isAuth: req.isAuth,
     isAdmin: req.auth.isAdmin,
     userId: req.auth.userId,
+    username: req.auth.username, name: req.auth.name
   });
 };
 
@@ -189,7 +194,12 @@ export const renderSinglePostPage = async (req, res) => {
 export const renderJobInvitesPage = async (req, res) => {
   const invites = await fetchAllInvites();
 
+  const user = await findSingleUser({ userId: req.auth.userId });
+
   return res.render('jobInvites', {
+    user,
+    username: req.auth.username,
+    name: req.auth.name,
     invites: invites || [],
     isAuth: req.isAuth,
     isAdmin: req.auth.isAdmin,
@@ -222,6 +232,7 @@ export const renderEditInvitePage = async (req, res) => {
     return res.render('401', {
       isAuth: req.isAuth,
       isAdmin: req.auth.isAdmin,
+      user: req.user
     });
   }
 
@@ -229,5 +240,6 @@ export const renderEditInvitePage = async (req, res) => {
     invite: req.invite,
     isAuth: req.isAuth,
     isAdmin: req.auth.isAdmin,
+    user: req.user
   });
 };

@@ -8,7 +8,7 @@
 <body>
   <div class="header">
     <section class="job-invites">
-      <div class="container mt-4" class="post-meta" id="<%=invite.inviteId%>">
+      <div class="container mt-4 post-meta" id="<%=invite.inviteId%>">
         <span class="d-flex flex-row-reverse justify-content-between">
           <span class="dropdown">
             <% if ((invite.userId === userId) || isAdmin ) { %>
@@ -28,7 +28,7 @@
           <h4><%=invite.title%></h4>
           <small class="text-muted"><%=invite.company%>, <em><%=invite.location%></em></small><br>
           <p class="post-author">
-            <a href="/users/<%=invite.user.username%>">Author: @<%=invite.user.username%></a>
+            Author: <a href="/users/<%=invite.user.username%>">@<%=invite.user.username%></a>
             <br>
             <span class="pt-2 d-block">Published: <%=new Date(invite.createdAt).toDateString()%></span>
           </p>
@@ -60,7 +60,7 @@
           <textarea class="form-control" id="comment-field" placeholder="Type something..." rows="3"></textarea>
         </div>
         <span class="comment-btn">
-          <button type="button" class="btn btn-primary post-btn">Comment</button>
+          <button type="button" class="btn btn-primary">Comment</button>
         </span>
       </div>
 
@@ -73,11 +73,18 @@
         <% if (comments.length > 0) { %>
         <% for (comment of comments) { %>
         <div class="container">
-          <p>@
-            <%=comment.user.username || 'guest'%>
+          <p>
+            <% if (comment.user.username) { %>
+            <a href="/users/<%=comment.user.username%>">@<%=comment.user.username%></a>
+            <% } else { %>
+            guest
+            <% } %>
           </p>
           <p>
             <%=comment.body%>
+          </p>
+          <p>
+            <small class="text-muted"><%=new Date(comment.createdAt).toDateString()%></small>
           </p>
         </div>
         <% } %>

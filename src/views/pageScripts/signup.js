@@ -39,9 +39,9 @@ if (document.forms.signup) {
         localStorage.setItem('token', res.data.token);
         window.location.href = '/posts';
       })
-      .catch(error => {
+      .catch(err => {
         togglePreloader('none');
-        notification.innerHTML = `<strong>${err.data.message}:</strong> ${err.data.payload}`;
+        notification.innerHTML = `<strong>${err.data.message || ''}:</strong> ${err.data.payload || ''}`;
         notification.className += ' show';
         setTimeout(() => {
           notification.className = 'notification';
