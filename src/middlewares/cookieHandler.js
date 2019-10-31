@@ -13,12 +13,14 @@ export const validateCookies = (req, res, next) => {
   const token = req.cookies.get('token', { signed: true });
   const username = req.cookies.get('username', { signed: true });
   const name = req.cookies.get('name', { signed: true });
+  const isAdmin = req.cookies.get('isAdmin', { signed: true });
   if (token) {
     try {
       const { key } = verifyToken(token);
       req.auth = key;
       req.auth.username = username;
       req.auth.name = name;
+      req.auth.isAdmin = isAdmin;
       req.isAuth = true;
 
       return next();
@@ -51,10 +53,12 @@ export const signUserIn = async (req, res, next) => {
       req.auth = key;
       req.auth.username = user.username;
       req.auth.name = user.name;
+      req.auth.isAdmin = user.isAdmin;
       req.isAuth = true;
       res.cookies.set('token', token, { signed: true }); // set httpOnly signed token
       res.cookies.set('username', user.username, { signed: true });
       res.cookies.set('name', user.name, { signed: true });
+      res.cookies.set('isAdmin', user.isAdmin, { signed: true });
 
       return next();
     } catch (error) {

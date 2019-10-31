@@ -43,7 +43,8 @@ import {
   renderAdminUsersPage,
   getUser,
   renderUserProfile,
-  getUserByUserId
+  getUserByUserId,
+  renderAdminReportedUsersPage
 } from '../controllers/userController';
 import { getNotifications, createNotification } from '../controllers/notificationController';
 import { validateNotificationData } from '../middlewares/validateNotification';
@@ -62,21 +63,29 @@ export const initRoutes = app => {
   app.get('/login', (req, res) => res.render('login', { isAuth: req.isAuth, isAdmin: req.auth.isAdmin }));
   app.get('/register', (req, res) => res.render('register', { isAuth: req.isAuth, isAdmin: req.auth.isAdmin }));
   app.get('/post', getUserByUserId, (req, res) => res.render('userPost', {
- isAuth: req.isAuth, isAdmin: req.auth.isAdmin, user: req.user, username: req.auth.username, name: req.auth.name 
-}));
+    isAuth: req.isAuth,
+    isAdmin: req.auth.isAdmin,
+    user: req.user,
+    username: req.auth.username,
+    name: req.auth.name,
+  }));
   app.get('/howitworks', (req, res) => res.render('howitworks', { isAuth: req.isAuth, isAdmin: req.auth.isAdmin }));
   app.get('/posts', renderJobInvitesPage);
   app.get('/post/:inviteId', renderSinglePostPage);
   app.get('/about', (req, res) => res.render('about', {
- isAuth: req.isAuth, isAdmin: req.auth.isAdmin, username: req.auth.username, name: req.auth.name 
-}));
-  app.get('/admin/reported', (req, res) => res.render('admin/reportedUsers', { isAuth: req.isAuth, isAdmin: req.auth.isAdmin }));
-  app.get('/reportUser', (req, res) => res.render('reportUser', { isAuth: false, username: req.auth.username, name: req.auth.name }));
+    isAuth: req.isAuth, isAdmin: req.auth.isAdmin, username: req.auth.username, name: req.auth.name
+  }));
+  app.get('/admin/reported', (req, res) => res.render('admin/reportedUsers', { isAuth: req.auth.isAuth, isAdmin: req.auth.isAdmin }));
+  app.get('/reportUser', (req, res) => res.render('reportUser', {
+    isAuth: false, username: req.auth.username, name: req.auth.name, isAdmin: req.auth.isAdmin
+  }));
   app.get('/users/:username', renderUserProfile);
-  app.get('/admin/reportedusers', (req, res) => res.render('admin/reported', { isAuth: false }));
+  app.get('/admin/reportedusers', renderAdminReportedUsersPage);
   // Search Invites - Renders view
   app.get('/invites/search', renderSearchResults);
-  app.get('/admin', (req, res) => res.render('./admin/index', { isAuth: false }));
+  app.get('/admin', (req, res) => res.render('./admin/index', {
+    isAuth: false, username: req.auth.username, name: req.auth.name, isAdmin: req.auth.isAdmin
+  }));
 
 
   // Edit post endpoint
