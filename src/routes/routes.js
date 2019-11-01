@@ -157,7 +157,7 @@ export const initRoutes = app => {
 
   // Twitter Auth
   app.get('/auth/twitter', twitterAuthenticate);
-  app.get('/auth/twitter/callback', twitterAuthCallback);
+  app.get('/auth/twitter/redirect', twitterAuthCallback);
 
   // Google Auth
   app.get('/auth/google', googleAuthenticate);
