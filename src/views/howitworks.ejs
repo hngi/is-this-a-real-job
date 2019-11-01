@@ -1,5 +1,81 @@
 <% include partials/header %> <% include partials/nav %>
+<style>
+  body {
+    padding: 0px;
+    margin: 0px;
+  }
 
+  .heading {
+    text-align: center;
+  }
+  div.heading h2 {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 40px;
+    line-height: 47px;
+  }
+
+  div.heading p {
+    color: #636b6f;
+    font-weight: 600;
+    font-size: 25px;
+    line-height: 29px;
+  }
+  .container {
+    width: 90%;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+  .cards {
+    margin-top: 50px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  .card {
+    border: 0px;
+    padding: 0.5em;
+  }
+
+  .card div.content h3 {
+    text-align: center;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 25px;
+    line-height: 29px;
+    margin-top: 20px;
+  }
+
+  .cards div.card div.content p {
+    font-style: normal;
+    font-size: 15px;
+    line-height: 18px;
+  }
+
+  .cards div.card button {
+    margin: 0 auto;
+    display: block;
+    background: #3087d1;
+    color: #fff;
+    padding: 15px 40px;
+    border-radius: 10px;
+  }
+
+  @media (max-width: 850px) {
+    .cards {
+      flex-direction: column;
+      align-items: center;
+    }
+    .card {
+      margin-bottom: 50px;
+      width: 80%;
+    }
+
+    div.card div.img {
+      align-self: center;
+    }
+  }
+</style>
 <div class="container">
   <div class="heading">
     <h2>How it Works</h2>
