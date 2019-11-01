@@ -22,6 +22,8 @@ if (document.querySelector('.edit-post')) {
       updateButton.disabled = true;
 
       const formData = {
+        company: editForm.querySelector("input[name='company']").value,
+        location: editForm.querySelector("input[name='location']").value,
         title: editForm.querySelector("input[name='title']").value,
         body: editForm.querySelector("textarea[name='body']").value,
       };

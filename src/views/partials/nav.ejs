@@ -31,8 +31,9 @@
   nav.navbar.navbar-expand-lg.navbar-light {
     margin-bottom: 2em;
   }
+  
   @media screen and (max-width: 600px) {
-    .navbar-brand{
+    .navbar-brand {
       font-size: 20px;
     }
   }
@@ -50,11 +51,11 @@
       <li class="nav-item">
         <a class="nav-link text-white" href="/">HOME</a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link text-white" href="/howitworks">HOW IT WORKS</a>
+      </li>
       <!-- Pass login status here to determine naavbarstatus -->
       <% if(isAuth){ %>
-        <li class="nav-item">
-          <a class="nav-link text-white" href="/posts">POSTS</a>
-        </li>
         <li class="nav-item">
           <a class="nav-link text-white" href="/post">NEW POST</a>
         </li>
@@ -64,36 +65,26 @@
           </li>
           <% } %>
             <li><a href="javascript:void(0)" id="logout" class="nav-link text-white">LOGOUT</a></li>
-      <% } else { %>
-        <li class="nav-item">
-          <a class="nav-link text-white" href="register">REGISTER</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-white" href="/login">LOG IN</a>
-        </li>
-        <% } %>
-
-
-
-                <!-- <li class="nav-item">
-                  <a class="nav-link text-white" href="#">BLOG</a>
-                </li> -->
-                <!-- <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          SAM
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">Profile</a>
-        </div> -->
-                </li>
+            <% } else { %>
+              <li class="nav-item">
+                <a class="nav-link text-white" href="/posts">POSTS</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-white" href="register">REGISTER</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-white" href="/login">LOG IN</a>
+              </li>
+              <% } %>
 
     </ul>
 
   </div>
 </nav>
 
-<div class="content-body"> <!-- This div is closed in the footer.ejs file -->
-  
+<div class="content-body">
+  <!-- This div is closed in the footer.ejs file -->
+
   <div class="notification">
     Simple Notification
   </div>
