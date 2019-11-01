@@ -15,7 +15,7 @@ const getNotificationHTML = notification => `
     </div>
   </a>
 `;
-
+console.log(localStorage.getItem('token'));
 api
   .Get('notifications', true)
   .then(res => {

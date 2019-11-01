@@ -1,23 +1,5 @@
 <% include ../partials/header %>
   <% include ../partials/nav2 %>
-    <script type="text/javascript">
-      const user = JSON.parse(localStorage.getItem('user'))
-      const notification = document.querySelector('.notification');
-      if (!user || !user.isAdmin) {
-        notification.innerHTML = `<strong>Contact the site administrator to complete this operation</strong>`;
-        notification.className += ' show';
-        if ( /*@cc_on!@*/ false || !!document.documentMode) {
-          document.execCommand("Stop");
-        } else {
-          window.stop()
-        };
-        setTimeout(() => {
-          notification.className = 'notification';
-        }, 5000);
-
-        window.location.href = '/forbiden'
-      }
-    </script>
     <!-- POSTS TAB -->
     <style>
       .post-item {

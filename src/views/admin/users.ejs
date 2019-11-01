@@ -1,24 +1,5 @@
 <% include ../partials/header %>
   <% include ../partials/nav2 %>
-    <script type="text/javascript">
-      const user = JSON.parse(localStorage.getItem('user'))
-      const notification = document.querySelector('.notification');
-      if (!user || !user.isAdmin) {
-        notification.innerHTML = `<strong>Contact the site administrator to complete this operation</strong>`;
-        notification.className += ' show';
-        if ( /*@cc_on!@*/ false || !!document.documentMode) {
-          document.execCommand("Stop");
-        } else {
-          window.stop()
-        };
-        setTimeout(() => {
-          notification.className = 'notification';
-        }, 5000);
-
-        window.location.href = '/forbiden'
-      }
-    </script>
-
     <style>
       h3 {
         color: #636B6F;
@@ -188,7 +169,7 @@
                           <!-- USER AVATAR HERE -->
                           <input type="hidden" class=".inviteId" value="<%=user.userId%>" />
                           <div class="col-lg-6 user-avatar-container">
-                            <img class="user-avatar" src="https://res.cloudinary.com/leankhan/image/upload/v1572542434/default_avatar2.png" alt="">
+                            <img class="user-avatar" src="<%=user.profileImage || 'https://res.cloudinary.com/leankhan/image/upload/v1572542434/default_avatar2.png'%>" alt="">
                           </div>
                           <!-- USER NAME & HANDLE HERE -->
                           <div class="col-lg-6">

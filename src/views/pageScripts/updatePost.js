@@ -6,10 +6,6 @@ function togglePreloader(state) {
 }
 
 if (document.querySelector('.edit-post')) {
-  if (!localStorage.getItem('token')) {
-    window.location.href = '/login';
-  }
-
   const editForm = document.querySelector('.edit-post');
   const updateButton = editForm.querySelector("button[type='submit']");
   const notification = document.querySelector('.notification');
