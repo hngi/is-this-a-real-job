@@ -164,9 +164,9 @@
       <div class="first-section">
         <div class="first-sec-row row">
             <div class="profile-img">
-              <img src="https://res.cloudinary.com/leankhan/image/upload/v1572542434/default_avatar2.png" alt="Profile-pix">
+              <img class="gravatar-img" src="https://www.gravatar.com/avatar/<%= typeof hash != 'undefined' ? hash : 'null' %>?d=identicon" alt="Profile-pix">
             </div>
-            <div class="user">
+            <div class="user" id="user-profile">
               <h2 class="username">
                 <%=user.name.split(" ")[0]%>
               </h2>
