@@ -1,33 +1,25 @@
 <% include ../partials/header %>
-  <% include ../partials/nav %>
-  <script type="text/javascript">
-    const user = JSON.parse(localStorage.getItem('user'))
-    const notification = document.querySelector('.notification');
-    if(!user || !user.isAdmin){
-      notification.innerHTML = `<strong>Contact the site administrator to complete this operation</strong>`;
-      notification.className += ' show';
-      if (/*@cc_on!@*/false || !!document.documentMode) {
-        console.log('Got here yay')
-        document.execCommand("Stop");
-      }else{
-        window.stop()
-      };
-      setTimeout(() => {
-        notification.className = 'notification';
-      }, 2500);
+  <% include ../partials/nav2 %>
+    <script type="text/javascript">
+      const user = JSON.parse(localStorage.getItem('user'))
+      const notification = document.querySelector('.notification');
+      if (!user || !user.isAdmin) {
+        notification.innerHTML = `<strong>Contact the site administrator to complete this operation</strong>`;
+        notification.className += ' show';
+        if ( /*@cc_on!@*/ false || !!document.documentMode) {
+          document.execCommand("Stop");
+        } else {
+          window.stop()
+        };
+        setTimeout(() => {
+          notification.className = 'notification';
+        }, 5000);
 
-      setTimeout(()=>{
-        window.location.href = '/jobInvites'
-      },3000)
-    }
-  </script>
+        window.location.href = '/forbiden'
+      }
+    </script>
     <!-- POSTS TAB -->
     <style>
-      .post-container {
-        margin-top: 30px;
-        margin-left: 50px;
-      }
-      
       .post-item {
         width: 100%;
       }
@@ -119,7 +111,7 @@
         .posts-list {
           width: 500px;
         }
-        .postr-container {
+        .post-container {
           margin-left: 100px;
         }
       }
@@ -157,7 +149,7 @@
     <div id="cover">
       <div class="loader"></div>
     </div>
-    <section>
+    <div class="section" style="margin-top: 2em;">
       <div class="container post-container">
         <div class="row">
           <div class="col-lg-4">
@@ -171,6 +163,9 @@
                   </li>
                   <li class="dashboard-tab-items dtab-margin">
                     <a href="/admin/posts">Posts</a>
+                  </li>
+                  <li class="dashboard-tab-items dtab-margin">
+                    <a href="/admin/reportedusers">Reports</a>
                   </li>
                 </ul>
               </div>

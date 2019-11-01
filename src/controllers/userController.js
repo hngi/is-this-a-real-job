@@ -6,7 +6,8 @@ import {
 import {
   updateOneUser,
   findUsers,
-  fetchSingleUser
+  fetchSingleUser,
+  findSingleUser
 } from '../services/userServices';
 
 /**
@@ -38,6 +39,18 @@ export const getUsers = async (req, res) => {
   const users = await findUsers();
 
   return respondWithSuccess(res, 200, 'Successful', users);
+};
+
+/**
+ * Fetch one user for render endpoints
+ * @param {object} req
+ * @param {object} res
+ * @returns {object} json response
+ */
+export const getUserByUserId = async (req, res, next) => {
+  const user = await findSingleUser({ userId: req.auth.userId });
+  req.user = user;
+  next();
 };
 
 /**
@@ -73,7 +86,13 @@ export const renderUserProfile = async (req, res) => {
   if (!user) {
     return res.render('404', { status: 404 });
   }
-  return res.render("userProfile", { user, isAuth: req.isAuth, isAdmin: req.auth.isAdmin });
+  return res.render('userProfile', {
+    user,
+    isAuth: req.isAuth,
+    isAdmin: req.auth.isAdmin,
+    username: req.auth.username,
+    name: req.auth.name
+  });
 };
 
 /**
@@ -87,6 +106,25 @@ export const renderAdminUsersPage = async (req, res) => {
   return res.render('admin/users', {
     users: users || [],
     isAuth: req.isAuth,
-    isAdmin: req.auth.isAdmin
+    isAdmin: req.auth.isAdmin,
+    username: req.auth.username,
+    name: req.auth.name
+  });
+};
+
+/**
+ * Render users page for admin
+ * @param {object} req
+ * @param {object} res
+ */
+export const renderAdminReportedUsersPage = async (req, res) => {
+  const users = await findUsers();
+
+  return res.render('admin/users', {
+    users: users || [],
+    isAuth: req.isAuth,
+    isAdmin: req.auth.isAdmin,
+    username: req.auth.username,
+    name: req.auth.name
   });
 };

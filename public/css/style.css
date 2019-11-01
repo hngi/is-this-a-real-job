@@ -1,6 +1,8 @@
 /* ----------------------------------------------- */
 
+
 /* BASIC SETUP */
+
 
 /* ----------------------------------------------- */
 
@@ -14,11 +16,19 @@ html,
 body {
   background-color: #fff;
   color: #000;
+  height: 100%;
   font-family: "Raleway", sans-serif;
   font-weight: 300;
   font-size: 15px;
   text-rendering: optimizeLegibility;
-  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  /* overflow-x: hidden; */
+}
+
+.content-body {
+  flex: 1 1 auto;
+  /*grow vertically*/
 }
 
 .go_back {
@@ -38,32 +48,6 @@ body {
   font-weight: 600;
 }
 
-/* NAV BAR */
-
-.nav-link {
-  font-weight: 600;
-  font-size: 12px;
-  line-height: 14px;
-}
-
-.nav-link:hover {
-  color: rgba(0, 0, 0, 0.5) !important;
-}
-
-.nav-item {
-  margin-right: 50px;
-}
-
-.navbar-brand {
-  font-weight: 600;
-  font-size: 32px;
-  line-height: 38px;
-  color: #fff !important;
-}
-
-.navbar {
-  background-color: #3087d1;
-}
 
 /* NEW POST PAGE */
 
@@ -95,22 +79,24 @@ body {
   border-radius: 6px;
 }
 
+
 /* Footer */
 
 .footer {
   background-color: #24659e;
   color: #fff;
-  bottom:0;
   margin-top: 5%;
-  position:relative;
-  width:100%;
+  position: static;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  text-align: center;
 }
 
 .subscribe {
   border-color: transparent !important;
   height: 100%;
   font-size: 70%;
-
 }
 
 .footer-heading {
@@ -151,9 +137,10 @@ body {
   margin-left: 0%;
 }
 
+
 /* Invite us section */
 
-[placeholder="Search a keyword or a sentence"] {
+.searchbar-1 {
   background: #ececec;
   border-radius: 6px;
   padding: 1.5rem;
@@ -162,8 +149,8 @@ body {
 }
 
 [value="Invite Search"] {
-  width: 206px;
-  height: 60px;
+  width: 113px;
+  height: 45px;
   background: #3087d1;
   border-radius: 6px;
   margin: 0.8rem auto;
@@ -204,6 +191,7 @@ body {
   margin: 1em auto;
 }
 
+
 /* SIngle Post */
 
 .post-container {
@@ -230,6 +218,7 @@ body {
 }
 
 .upvote-btn,
+.downvote-btn,
 .share-buttons a {
   padding: 0.5rem;
   margin-left: 0.5rem;
@@ -237,31 +226,70 @@ body {
   border-radius: 6px;
   transition: background-color ease-in-out 0.1s;
 }
-.upvote-btn {
+
+.upvote-btn[data-upvoted='true'] {
   color: var(--success) !important;
 }
+
+.downvote-btn[data-downvoted='true'] {
+  color: var(--danger) !important;
+}
+
 .upvote-btn:hover {
   background-color: var(--success);
   color: #fff !important;
 }
+
+.downvote-btn:hover {
+  background-color: var(--danger);
+  color: #fff !important;
+}
+
+
 /* 
 .share-buttons a {
   padding: ;
 } */
+
+.itarj-primary {
+  color: #3087d1;
+  /* background-color: #e3e9ef; */
+  background-color: #fff;
+  border-color: #73a9d9;
+}
+
+@media screen and (max-width: 900px) {
+.itarj-primary {
+    /* margin-top: 6rem!important; */
+    font-size: smaller !important;
+}
+}
+
+#main {
+  margin-top: 6rem!important;
+}
 
 /* INDEX */
 
 .page-desc {
   color: #636b6f;
   font-weight: 700;
-  font-size: 300%;
-  margin-top: 10%;
+  font-size: 3rem;
   margin-bottom: 0;
 }
 
+@media screen and (max-width: 900px) {
+  .page-desc {
+    color: #636b6f;
+    font-weight: 600;
+    font-size: 2rem;
+    margin-bottom: 0;
+  }
+};
+
 .under-text {
-  font-size: 80%;
-  font-weight: 600;
+  font-size: 1.1rem;
+  font-weight: 500;
   color: #636b6f;
 }
 
@@ -287,24 +315,32 @@ body {
   }
 }
 
+
 /* Make Placeholder Texts appear in italics */
+
 ::-webkit-input-placeholder {
   font-style: italic;
 }
+
 :-moz-placeholder {
   font-style: italic;
 }
+
 ::-moz-placeholder {
   font-style: italic;
 }
+
 :-ms-input-placeholder {
   font-style: italic;
 }
 
+
 /* style for how-it-works-page */
+
 .heading {
   text-align: center;
 }
+
 div.heading h2 {
   font-style: normal;
   font-weight: 600;
@@ -318,17 +354,20 @@ div.heading p {
   font-size: 25px;
   line-height: 29px;
 }
+
 .container {
   width: 90%;
   max-width: 1000px;
   margin: 0 auto;
 }
+
 .cards {
   margin-top: 50px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 }
+
 .card {
   width: 280px;
   padding: 0.5em;
@@ -366,25 +405,30 @@ div.heading p {
     margin-bottom: 50px;
     width: 80%;
   }
-
   div.card div.img {
     text-align: center;
   }
+  .social {
+    width: 200px;
+    font-size:13px
+  }
 }
 
-
-:-ms-input-placeholder {  
-  font-style: italic; 
+:-ms-input-placeholder {
+  font-style: italic;
 }
-.fa-ellipsis-h{
+
+.fa-ellipsis-h {
   transform: rotate(90deg) !important;
 }
 
 
 /* style for how-it-works page  */
+
 .heading {
   text-align: center;
 }
+
 div.heading h2 {
   font-style: normal;
   font-weight: 600;
@@ -398,17 +442,14 @@ div.heading p {
   font-size: 25px;
   line-height: 29px;
 }
-.container {
-  width: 90%;
-  max-width: 1000px;
-  margin: 0 auto;
-}
+
 .cards {
   margin-top: 50px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 }
+
 .card {
   width: 280px;
   padding: 0.5em;
@@ -446,9 +487,15 @@ div.heading p {
     margin-bottom: 50px;
     width: 80%;
   }
-
   div.card div.img {
     text-align: center;
   }
 }
 
+.social {
+  margin-bottom: 5px;
+}
+/* Text */
+.text-bold {
+  font-weight: bold !important;
+}

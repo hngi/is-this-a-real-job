@@ -1,15 +1,17 @@
 <% include partials/header %>
-<% include partials/nav %>
+  <div class="content-body">
+    <!-- This div is closed in the footer.ejs file -->
+
 
     <div class="container">
-        <div class="text-center">
-            <div class="card-body">
-                <h2 class="p-4 default-text"><%= status %></h2>
-                <span class="text-dark text-center"> the page you are looking for does not exist</span><br><br>
-                <span class="text-dark text-center"> <a class="go_back" href="/"> GO BACK HOME</a></span>
+      <div class="text-center">
+        <div class="card-body">
+          <h2 class="p-4 default-text">404</h2>
+          <span class="text-dark text-center"> the page you are looking for does not exist</span><br><br>
+          <span class="text-dark text-center"> <a class="go_back" href="/"> GO BACK HOME</a></span>
 
-            </div>
-            
+        </div>
+
+      </div>
     </div>
-    </div>
-<% include partials/footer %>
+    <% include partials/footer %>
