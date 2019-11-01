@@ -53,10 +53,11 @@ import {
   getUserByUserId,
   renderAdminReportedUsersPage
 } from '../controllers/userController';
-import { getNotifications, createNotification } from '../controllers/notificationController';
+import { getNotifications, createNotification, markNotificationAsRead } from '../controllers/notificationController';
 import { validateNotificationData } from '../middlewares/validateNotification';
 import { validateCookies, signUserIn, signUserOut } from '../middlewares/cookieHandler';
 import { getMetrics } from '../controllers/metricsController';
+import { validateNotificationId } from '../middlewares/validateUUID';
 
 export const initRoutes = app => {
   // Cookie handlers before all
@@ -219,9 +220,14 @@ export const initRoutes = app => {
   // Get the number of users, invites and comments in the database.
   app.get('/api/v1/metrics', getMetrics);
 
-  // Get all comments for a given Invite.
+  // Get all notifications for a given User.
   app.get('/api/v1/notifications', authenticateUserToken, getNotifications);
+
+  // Create a new notification
   app.post('/api/v1/notifications', validateNotificationData, createNotification);
+
+  // Mark a notification as read
+  app.patch('/api/v1/notifications/:notificationId', validateNotificationId, markNotificationAsRead);
 
   // Fallback case for unknown URIs.
   app.all('*', (req, res) => res.status(404).json({ message: 'Route Not Found' }));

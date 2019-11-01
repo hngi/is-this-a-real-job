@@ -17,8 +17,9 @@ const getNotificationHTML = notification => `
 api
   .Get('notifications', true)
   .then(res => {
-    console.log(res.data);
-    const notificationHTML = res.data.map(getNotificationHTML);
+    const notificationHTML = (res.data.length > 0)
+      ? res.data.map(getNotificationHTML)
+      : ['You have no notifications'];
     notificationContainer.innerHTML = notificationHTML.join('');
   })
   .catch(console.error);

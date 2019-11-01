@@ -5,10 +5,42 @@ function togglePreloader(state) {
   const preloader = document.querySelector('#cover');
   preloader.style.display = state;
 }
+
 const inviteBtn = document.querySelector('#newInviteBtn');
 
 const newApi = new ItarjApi('/api/v1');
 const notification = document.querySelector('.notification');
+
+const refresh = (inviteId) => {
+  newApi.Get(`invites/${inviteId}/votes`, true)
+    .then((res) => {
+      const inviteSelector = `[data-inviteId="${inviteId}"]`;
+      const up = document.querySelector(`${inviteSelector}.upvote-btn`);
+      const down = document.querySelector(`${inviteSelector}.downvote-btn`);
+
+      up.querySelector('.count').innerText = res.data.upvotes;
+      down.querySelector('.count').innerText = res.data.downvotes;
+
+      if (res.data.upvoted) {
+        up.dataset.upvoted = 'true';
+        down.dataset.downvoted = 'false';
+      } else if (res.data.downvoted) {
+        up.dataset.upvoted = 'false';
+        down.dataset.downvoted = 'true';
+      } else {
+        up.dataset.upvoted = 'false';
+        down.dataset.downvoted = 'false';
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+      notification.innerHTML = `<strong>${err.data ? err.data.message : 'Something happened while processing your request. Contact support or try again.'}:</strong> ${err.data.payload}`;
+      notification.className += ' show';
+      setTimeout(() => {
+        notification.className = 'notification';
+      }, 5000);
+    });
+};
 
 if (inviteBtn) {
   if (!localStorage.getItem('token')) {
@@ -45,6 +77,7 @@ if (inviteBtn) {
     };
 
     fetch('api/v1/invites', options)
+      .then(res => (res.ok ? res.json() : { success: false }))
       .then(res => {
         togglePreloader('none');
         if (res.success) {
@@ -56,7 +89,7 @@ if (inviteBtn) {
       })
       .catch(err => {
         togglePreloader('none');
-        notification.innerHTML = `<strong>${err.data.message}:</strong> ${err.data.payload}`;
+        notification.innerHTML = `<strong>${err.data ? err.data.message : 'Something happened while processing your request. Contact support or try again.'}:</strong> ${err.data.payload}`;
         notification.className += ' show';
         setTimeout(() => {
           notification.className = 'notification';
@@ -77,7 +110,7 @@ const upvotePostBtnHander = (event) => {
       })
       .catch((err) => {
         console.log(err);
-        notification.innerHTML = `<strong>${err.data.message}:</strong> ${err.data.payload}`;
+        notification.innerHTML = `<strong>${err.data ? err.data.message : 'Something happened while processing your request. Contact support or try again.'}:</strong> ${err.data.payload}`;
         notification.className += ' show';
         setTimeout(() => {
           notification.className = 'notification';
@@ -91,7 +124,7 @@ const upvotePostBtnHander = (event) => {
       })
       .catch((err) => {
         console.log(err);
-        notification.innerHTML = `<strong>${err.data.message}:</strong> ${err.data.payload}`;
+        notification.innerHTML = `<strong>${err.data ? err.data.message : 'Something happened while processing your request. Contact support or try again.'}:</strong> ${err.data.payload}`;
         notification.className += ' show';
         setTimeout(() => {
           notification.className = 'notification';
@@ -111,7 +144,7 @@ const downvotePostBtnHander = (event) => {
       })
       .catch((err) => {
         console.log(err);
-        notification.innerHTML = `<strong>${err.data.message}:</strong> ${err.data.payload}`;
+        notification.innerHTML = `<strong>${err.data ? err.data.message : 'Something happened while processing your request. Contact support or try again.'}:</strong> ${err.data.payload}`;
         notification.className += ' show';
         setTimeout(() => {
           notification.className = 'notification';
@@ -125,44 +158,13 @@ const downvotePostBtnHander = (event) => {
       })
       .catch((err) => {
         console.log(err);
-        notification.innerHTML = `<strong>${err.data.message}:</strong> ${err.data.payload}`;
+        notification.innerHTML = `<strong>${err.data ? err.data.message : 'Something happened while processing your request. Contact support or try again.'}:</strong> ${err.data.payload}`;
         notification.className += ' show';
         setTimeout(() => {
           notification.className = 'notification';
         }, 5000);
       });
   }
-};
-
-const refresh = (inviteId) => {
-  newApi.Get(`invites/${inviteId}/votes`, true)
-    .then((res) => {
-      const invite = document.querySelector(`[data-inviteId="${inviteId}"`);
-      const up = invite.querySelector('.upvote-btn');
-      const down = invite.querySelector('.downvote-btn');
-
-      up.querySelector('.count').innerText = res.data.upvotes;
-      down.querySelector('.count').innerText = res.data.downvotes;
-
-      if (res.data.upvoted) {
-        up.dataset.upvoted = 'true';
-        down.dataset.downvoted = 'false';
-      } else if (res.data.downvoted) {
-        up.dataset.upvoted = 'false';
-        down.dataset.downvoted = 'true';
-      } else {
-        up.dataset.upvoted = 'false';
-        down.dataset.downvoted = 'false';
-      }
-    })
-    .catch((err) => {
-      console.log(err);
-      notification.innerHTML = `<strong>${err.data.message}:</strong> ${err.data.payload}`;
-      notification.className += ' show';
-      setTimeout(() => {
-        notification.className = 'notification';
-      }, 5000);
-    });
 };
 
 const uiCanInteract = () => {

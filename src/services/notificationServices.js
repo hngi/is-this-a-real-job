@@ -1,5 +1,7 @@
 /* eslint-disable no-console */
 import Model from '../models';
+import { sendMail } from './emailServices';
+import { findSingleUser } from './userServices';
 
 const {
   Notification,
@@ -32,7 +34,10 @@ export const findNotificationsForUser = async (userId) => {
     //   return notification;
     // });
   } catch (error) {
-    console.log(error);
+    console.error(error);
+    error.message = 'An error occurred. Please contact technical support';
+    error.status = 500;
+    throw error;
   }
 };
 
@@ -58,7 +63,7 @@ export const createNotificationForUser = async (notificationData) => {
     },
     logging: false
   }).catch(err => {
-    console.log(err);
+    console.error(err);
     e.status = 500;
     e.message = 'A technical error occured. Contact support.';
     throw e;
@@ -81,4 +86,62 @@ export const createNotificationForUser = async (notificationData) => {
   });
   // notification.dataValues.user = userObj;
   return notification.dataValues;
+};
+
+
+/**
+ * Updates the status for a notification
+ * @param {string} notificationId
+ * @param {boolean} isSeen
+ * @returns {object} an object containing updated notification data
+ */
+export const setNotificationStatus = async (notificationId, isSeen) => {
+  const e = new Error();
+  try {
+    const notification = await Notification
+      .update({ isSeen }, { where: { notificationId }, returning: true });
+    console.info('at setnotification status: ', notification);
+    if (!notification[0]) {
+      e.message = `Unable to set notification status as ${isSeen ? 'read' : 'unread'}`;
+      e.status = 400;
+      throw e;
+    }
+    return notification[0];
+  } catch (error) {
+    console.error(error);
+    e.message = 'Unable to set notification status';
+    e.status = 500;
+    throw e;
+  }
+};
+
+
+export const notifyByEmail = async (res, notif) => {
+  let mailSent;
+
+  try {
+    if (notif.type === 'comment') {
+      /* notif.comment = await getSingleComment(notif.commentId);
+      notif.comment.author = notif.comment.user || {};
+      notif.targetPost = notif.comment.invite || {}; */
+      notif.title = 'One New Comment On Your Job Invite';
+    } else {
+      notif.title = 'Your Job Invite Was Upvoted';
+    }
+    notif.recipient = await findSingleUser({ userId: notif.userId });
+    notif.recipient = notif.recipient.dataValues;
+
+    // Use callback syntax for res.render to recieve the html text into a variable.
+    res.render('notificationEmail', notif, (error, renderedEmail) => {
+      if (error) throw error;
+
+      mailSent = sendMail(notif.recipient.email, notif.title, renderedEmail);
+    });
+
+    return mailSent;
+  } catch (error) {
+    mailSent = false;
+    console.log(error);
+    return mailSent;
+  }
 };
