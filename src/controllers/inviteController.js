@@ -70,12 +70,16 @@ export const renderSearchResults = async (req, res) => {
 
     const invites = await searchInvites(q);
 
+    const title = `Search for '${q}' - Is This A Real Job`;
+    const description = `Search results for ${q}`;
+
     return res.render('searchResults', {
       invites: invites || [],
       isAuth: req.isAuth,
       isAdmin: req.auth.isAdmin,
       username: req.auth.username,
-      name: req.auth.name
+      name: req.auth.name,
+      meta: { title, description }
     });
   } catch (error) {
     respondWithWarning(res, 500, 'Server error');
@@ -214,18 +218,24 @@ export const renderSinglePostPage = async (req, res) => {
     findCommentsForPost(inviteId),
     fetchOneInvite({
       inviteId
-    }),
-    findSingleUser({ userId: req.auth.userId })
+    })
   ]);
+
+
+  // Invite
+  const title = data[1].title + ' - Is This A Real Job?';
+  const description = data[1].body.length > 80 ? data[1].body.substr(0, 80) : data[1].body;
+
   return res.render('singlepost', {
     comments: data[0],
     invite: data[1],
-    user: data[2],
+    user: data[1].user,
     isAuth: req.isAuth,
     isAdmin: req.auth.isAdmin,
     userId: req.auth.userId,
     username: req.auth.username,
-    name: req.auth.name
+    name: req.auth.name,
+    meta: { title, description }
   });
 
   // const invite = await fetchOneInvite({ inviteId });
@@ -254,16 +264,22 @@ export const renderSinglePostPage = async (req, res) => {
 export const renderJobInvitesPage = async (req, res) => {
   const invites = await fetchAllInvites();
 
-  const user = await findSingleUser({ userId: req.auth.userId });
+  // This variable is not referenced on this page, so... :shrug:
+
+  // const user = await findSingleUser({ userId: req.auth.userId });
+
+  const title = `${invites.length} Posts - Is This A Real Job`;
+  const description = 'Browse the Job Invites on Is This A Real Job; don\'t go for that interview until you verify it!';
 
   return res.render('jobInvites', {
-    user,
+    // user,
     username: req.auth.username,
     name: req.auth.name,
     invites: invites || [],
     isAuth: req.isAuth,
     isAdmin: req.auth.isAdmin,
     userId: req.auth.userId,
+    meta: { title, description }
   });
 };
 
@@ -275,12 +291,16 @@ export const renderJobInvitesPage = async (req, res) => {
 export const renderAdminJobInvitesPage = async (req, res) => {
   const invites = await fetchAllInvites();
 
+  const title = `${invites.length} Posts - Is This A Real Job`;
+  const description = 'Browse the Job Invites on Is This A Real Job; don\'t go for that interview until you verify it!';
+
   return res.render('admin/posts', {
     invites: invites || [],
     isAuth: req.isAuth,
     isAdmin: req.auth.isAdmin,
     username: req.auth.username,
-    name: req.auth.name
+    name: req.auth.name,
+    meta: { title, description }
   });
 };
 
@@ -299,6 +319,9 @@ export const renderEditInvitePage = async (req, res) => {
     });
   }
 
+  const title = 'Edit: ' + req.invite.title + ' - ' + 'Is This A Real Job?';
+  const description = req.invite.body.length > 80 ? req.invite.body.substr(0, 80) : req.invite.body;
+
   return res.render('editPost', {
     invite: req.invite,
     isAuth: req.isAuth,
@@ -306,5 +329,6 @@ export const renderEditInvitePage = async (req, res) => {
     user: req.user,
     username: req.auth.username,
     name: req.auth.name,
+    meta: { title, description }
   });
 };
