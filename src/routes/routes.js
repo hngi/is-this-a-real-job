@@ -84,7 +84,7 @@ export const initRoutes = app => {
     name: req.auth.name
   }));
   app.get('/howitworks', (req, res) => res.render('howitworks', { isAuth: req.isAuth, isAdmin: req.auth.isAdmin }));
-  app.get('/reportuser', (req, res) => res.render('reportuser', { isAuth: req.isAuth, isAdmin: req.auth.isAdmin }));
+  app.get('/reportuser', getUserByUserId, (req, res) => res.render('reportuser', { isAuth: req.isAuth, isAdmin: req.auth.isAdmin }));
   app.get('/posts', renderJobInvitesPage);
   app.get('/post/:inviteId', renderSinglePostPage);
   app.get('/about', (req, res) => res.render('about', {
