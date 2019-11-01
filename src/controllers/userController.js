@@ -48,7 +48,11 @@ export const getUsers = async (req, res) => {
  * @returns {object} json response
  */
 export const getUserByUserId = async (req, res, next) => {
-  const user = await findSingleUser({ userId: req.auth.userId });
+  const { userId } = req.auth;
+  if (!userId) {
+    return res.redirect('/login');
+  }
+  const user = await findSingleUser({ userId });
   req.user = user;
   next();
 };
