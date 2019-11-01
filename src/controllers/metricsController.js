@@ -3,7 +3,7 @@ import {
   respondWithWarning
 } from '../helpers/responseHandler';
 
-import {findMetrics} from '../services/metricsServices';
+import { findMetrics } from '../services/metricsServices';
 
 /**
  * Fetch metrics for users, invites and comments
@@ -14,9 +14,10 @@ import {findMetrics} from '../services/metricsServices';
 export const getMetrics = async (req, res) => {
   try {
     const metricsList = await findMetrics();
-  
+    console.log(metricsList);
+
     return respondWithSuccess(res, 200, 'Successful', metricsList);
-  }catch (error) {
+  } catch (error) {
     respondWithWarning(res, 500, 'Server error');
   }
-  };
+};
