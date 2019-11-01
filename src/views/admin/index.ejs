@@ -1,6 +1,19 @@
 <% include ../partials/header %>
   <% include ../partials/nav2 %>
     <style>
+      .dashboard {
+        display: inline-block;
+      }
+      
+      .dashboard-tab li {
+        list-style: none;
+        margin: 1em;
+      }
+      
+      .dashboard-tab-items a {
+        text-decoration: none;
+      }
+      
       .metrics .navigation {
         position: relative;
         margin-left: 0px;
@@ -539,23 +552,39 @@
           margin: 24px 0px 50px 180px;
         }
       }
+      
+      @media screen and (max-width: 991px) {
+        .dashboard-tab {
+          display: flex;
+          justify-content: space-between;
+        }
+      }
     </style>
 
     <div class="section" style="margin-top: 2em;">
       <div class="container">
-        <div class="metrics">
-          <div class="navigation">
-            <h4 dashboard> Dashboard</h4>
-            <div class="list">
-              <span><a href="/admin/users">Users</a></span>
-              <span><a href="/admin/posts">Posts</a></span>
-              <span><a href="/admin/reportedusers">Reports</a></span>
-
-            </div>
-
-
+        <div class="row">
+          <div class="col-lg-4">
+            <section class="posts">
+              <div class="dashboard">
+                <a href="/admin" style="text-decoration: none;">
+                  <h4 dashboard> Dashboard</h4>
+                </a>
+                <!-- DASHBOARD TABS -->
+                <ul class="dashboard-tab">
+                  <li class="dashboard-tab-items dtab-margin">
+                    <a href="/admin/users">Users</a>
+                  </li>
+                  <li class="dashboard-tab-items dtab-margin">
+                    <a href="/admin/posts">Posts</a>
+                  </li>
+                  <li class="dashboard-tab-items dtab-margin">
+                    <a href="/admin/reportedusers">Reports</a>
+                  </li>
+                </ul>
+              </div>
           </div>
-          <section>
+          <div class="col-lg-8 invites-section">
             <div class="container admin-dashboard">
               <div class="row">
                 <div class="col-md-6">
@@ -563,14 +592,11 @@
                     <a href="/admin/users">
                       <i class="fas fa-user-alt"></i>
                       <div class="float-right">
-
                         <span class="text-primary" id="no-of-users"></span>
                         <p class="text-muted">No. of Users</p>
                       </div>
                     </a>
-
                   </div>
-
                 </div>
                 <div class="col-md-6">
                   <div class="shadow p-5 mb-5 bg-light rounded">
@@ -602,7 +628,7 @@
               </div>
 
             </div>
-          </section>
+          </div>
         </div>
       </div>
     </div>
