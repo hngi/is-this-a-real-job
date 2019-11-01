@@ -20,7 +20,7 @@ if (commentBtn) {
   const postMeta = document.querySelector('.post-meta');
   const noComment = document.querySelector('#no-comments');
 
-  const inviteId = postMeta ? postMeta.dataset.inviteid : null; // invite id
+  const { inviteId } = postMeta.dataset; // invite id
 
   const getCommentHTML = (comment) => `<div class="container">
   <p>
@@ -47,20 +47,18 @@ if (commentBtn) {
     api.Post(`comments/${inviteId}`, JSON.stringify(body), true)
       .then(res => {
         comments.innerHTML = getCommentHTML(res.data) + comments.innerHTML;
-        noComment.innerHTML = '';
+        if (noComment) noComment.innerHTML = '';
 
         commentCount.textContent = Number(commentCount.textContent) + 1;
         togglePreloader('none');
       })
       .catch(err => {
-        console.log('Error =>', err);
         togglePreloader('none');
         notification.innerHTML = `<strong>${err.data.message}:</strong> ${err.data.payload}`;
         notification.className += ' show';
         setTimeout(() => {
           notification.className = 'notification';
         }, 5000);
-        console.error(err.data);
       });
   });
 }

@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
     }
   }, {});
-  Vote.associate = function (models) {
+  Vote.associate = (models) => {
     Vote.belongsTo(models.User, {
       foreignKey: 'userId',
       as: 'user',
