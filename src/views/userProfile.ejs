@@ -49,9 +49,14 @@
       }
       
       .first-section {
-        padding: 50px;
+        padding-top: 50px;
+        padding-bottom: 50px;
       }
-      
+      .first-sec-row {
+        max-width: 20%;
+        margin-left: auto;
+        margin-right: auto;
+      }
       .first-section img {
         width: 102px;
         height: 102px;
@@ -59,15 +64,6 @@
         border: 0;
       }
       
-      .first-section button {
-        padding: 10px 20px 10px 20px;
-        border: 1px solid blue;
-        border-radius: 5px;
-        background: white;
-        color: blue;
-        margin-left: 70%;
-        margin-top: 40px;
-      }
       
       .post {
         width: 70%;
@@ -78,7 +74,6 @@
       .post h3 {
         padding-left: 50px;
         font-family: 'Raleway', sans-serif;
-        ;
       }
       
       .post ul li {
@@ -125,38 +120,26 @@
       .end-nav-bar button {
         margin-right: 10px;
       }
+      .alert-container {
+        margin-left: 15px;
+        margin-right: 15px;
+      }
       
       @media screen and (max-width: 450px) {
-        .first-section {
-          padding: 0;
-        }
-      .first-sec-row {
-        padding: 0;
-        margin: 0;
-      }
-      .first-sec-row > *  {
-        flex: 1;
-      }
-        .profile-img img {
-          margin-top: 10px;
-          width: 75px;
-          height: 75px; 
-        }
-        .edit button {
-        padding: 5px;
-        font-size: 12px;
-        margin-left: 65px;
-        }
         .post {
         width: 100%;
-        margin: auto;
-        padding: 10px;
+      }
+      .user {
+        text-align: center;
       }
       .user h1 {
         font-size: 20px;
       }
       .user p {
         font-size: 12px;
+      }
+      ul li h4 {
+        padding-left: 5px; 
       }
       }
     </style>
@@ -171,12 +154,11 @@
       <!-------Profile Section------->
 
       <div class="first-section">
-        <div class="row col-sm-12 first-sec-row">
-          <div class="row col-sm-6">
-            <div class="col-sm-3 profile-img">
+        <div class="first-sec-row row">
+            <div class="profile-img">
               <img src="https://res.cloudinary.com/leankhan/image/upload/v1572542434/default_avatar2.png" alt="Profile-pix">
             </div>
-            <div class="user col-sm-9">
+            <div class="user">
               <h2 class="username">
                 <%=user.name.split(" ")[0]%>
               </h2>
@@ -184,10 +166,9 @@
                 <%=user.username%>
               </p>
             </div>
-          </div>
-          <div class="col-sm-6 edit">
+          <!-- <div class="col-sm-6 edit">
             <button>Edit Profile</button>
-          </div>
+          </div> -->
 
         </div>
 
@@ -198,6 +179,7 @@
       <div class="post">
         <!-- <h3>
           <%=user.Invites.length %> Posts</h3> -->
+        <div class="alert-container">
         <div class="alert itarj-primary d-flex justify-content-between">
           <% if (isAuth && user.username != username) { %>
             <span>Welcome to <%=user.name%>'s profile, </span>
@@ -209,6 +191,7 @@
                 <span>Hello stranger, <a href="/register" class="text-bold">Register</a> here</span>
                 <span><%=user.name%> has <b class="text-bold"><%=user.Invites.length%></b> posts </span>
                 <% } %>
+        </div>
         </div>
         <% if (user.Invites.length === 0) { %>
           <span id="no-comments" class="bg-transparent container">The world is your oyseter. Fill it.</span>
@@ -257,12 +240,12 @@
                           <span class="float-right share-buttons">
           <!-- <a href="#"><i class="fab fa-facebook-f"></i></i></a> -->
           <a target="_blank"
-             href="https://twitter.com/intent/tweet?text=<%=invite.title+' - Is this a real job? \n Let us know: http://isthisarealjob.ng/post/'+invite.inviteId%>"><i
-               class="fab fa-twitter"></i></a>
+            href="https://twitter.com/intent/tweet?text=<%=invite.title+' - Is this a real job? \n Let us know: http://isthisarealjob.ng/post/'+invite.inviteId%>"><i
+              class="fab fa-twitter"></i></a>
           <!-- <a href="https://www.instagram.com/"><i class="fab fa-instagram"></i></a> -->
           <a target="_blank"
-             href="https://api.whatsapp.com/send?&text=<%=invite.title+' - Is this a real job? \n Let us know: http://isthisarealjob.ng/post/'+invite.inviteId%>"><i
-               class="fab fa-whatsapp"></i></a>
+          href="https://api.whatsapp.com/send?&text=<%=invite.title+' - Is this a real job? \n Let us know: http://isthisarealjob.ng/post/'+invite.inviteId%>"><i
+              class="fab fa-whatsapp"></i></a>
 
         </span>
                   </li>
