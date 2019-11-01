@@ -42,10 +42,12 @@ if (commentBtn) {
     };
     const notification = document.querySelector('.notification');
 
+    commentField.value = '';
+
     api.Post(`comments/${inviteId}`, JSON.stringify(body), true)
       .then(res => {
         comments.innerHTML = getCommentHTML(res.data) + comments.innerHTML;
-        noComment.innerHTML = '';
+        if (noComment) noComment.innerHTML = '';
 
         commentCount.textContent = Number(commentCount.textContent) + 1;
         togglePreloader('none');
@@ -57,7 +59,6 @@ if (commentBtn) {
         setTimeout(() => {
           notification.className = 'notification';
         }, 5000);
-        console.error(err.data);
       });
   });
 }

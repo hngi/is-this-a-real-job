@@ -1,8 +1,10 @@
+/* eslint-disable no-console */
 /* eslint-disable no-undef */
 console.log('notification loaded');
 
 const api = new ItarjApi('/api/v1');
 const notificationContainer = document.querySelector('#branded');
+const notificationBadge = document.querySelector('.badge');
 
 const getNotificationHTML = notification => `
   <a class="notification-link" href="/post/${notification.inviteId}">
@@ -21,5 +23,6 @@ api
       ? res.data.map(getNotificationHTML)
       : ['You have no notifications'];
     notificationContainer.innerHTML = notificationHTML.join('');
+    notificationBadge.innerHTML = res.data.filter(n => n.isSeen).length;
   })
   .catch(console.error);

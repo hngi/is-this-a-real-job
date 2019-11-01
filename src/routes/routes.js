@@ -22,7 +22,7 @@ import {
   facebookAuthCallback,
   multerUploads,
   verifyUniqueUserUsername,
-  verifyUniqueUserEmail,
+  verifyUniqueUserEmail
 } from '../middlewares/middlewares';
 
 import {
@@ -40,7 +40,7 @@ import {
   upvoteInvite,
   downvoteInvite,
   unvoteInvite,
-  fetchVoteCount,
+  fetchVoteCount
 } from '../controllers/inviteController';
 
 import { getComments, createComment } from '../controllers/commentController';
@@ -55,7 +55,11 @@ import {
 } from '../controllers/userController';
 import { getNotifications, createNotification, markNotificationAsRead } from '../controllers/notificationController';
 import { validateNotificationData } from '../middlewares/validateNotification';
-import { validateCookies, signUserIn, signUserOut } from '../middlewares/cookieHandler';
+import {
+  validateCookies,
+  signUserIn,
+  signUserOut
+} from '../middlewares/cookieHandler';
 import { getMetrics } from '../controllers/metricsController';
 import { validateNotificationId } from '../middlewares/validateUUID';
 
@@ -75,29 +79,45 @@ export const initRoutes = app => {
     isAdmin: req.auth.isAdmin,
     user: req.user,
     username: req.auth.username,
-    name: req.auth.name,
+    name: req.auth.name
   }));
   app.get('/howitworks', (req, res) => res.render('howitworks', { isAuth: req.isAuth, isAdmin: req.auth.isAdmin }));
+  app.get('/reportuser', (req, res) => res.render('reportuser', { isAuth: req.isAuth, isAdmin: req.auth.isAdmin }));
   app.get('/posts', renderJobInvitesPage);
   app.get('/post/:inviteId', renderSinglePostPage);
   app.get('/about', (req, res) => res.render('about', {
-    isAuth: req.isAuth, isAdmin: req.auth.isAdmin, username: req.auth.username, name: req.auth.name
+    isAuth: req.isAuth,
+    isAdmin: req.auth.isAdmin,
+    username: req.auth.username,
+    name: req.auth.name
   }));
-  app.get('/admin/reported', (req, res) => res.render('admin/reportedUsers', { isAuth: req.auth.isAuth, isAdmin: req.auth.isAdmin }));
+  app.get('/admin/reported', (req, res) => res.render('admin/reportedUsers', {
+    isAuth: req.auth.isAuth,
+    isAdmin: req.auth.isAdmin
+  }));
   app.get('/reportUser', (req, res) => res.render('reportUser', {
-    isAuth: false, username: req.auth.username, name: req.auth.name, isAdmin: req.auth.isAdmin
+    isAuth: false,
+    username: req.auth.username,
+    name: req.auth.name,
+    isAdmin: req.auth.isAdmin
   }));
   app.get('/users/:username', renderUserProfile);
   app.get('/admin/reportedusers', renderAdminReportedUsersPage);
   // Search Invites - Renders view
   app.get('/invites/search', renderSearchResults);
   app.get('/admin', (req, res) => res.render('./admin/index', {
-    isAuth: false, username: req.auth.username, name: req.auth.name, isAdmin: req.auth.isAdmin
+    isAuth: req.isAuth, username: req.auth.username, name: req.auth.name, isAdmin: req.auth.isAdmin
   }));
 
 
   // Edit post endpoint
-  app.get('/post/:inviteId/edit', validateInviteId, validateInvite, getUserByUserId, renderEditInvitePage);
+  app.get(
+    '/post/:inviteId/edit',
+    validateInviteId,
+    validateInvite,
+    getUserByUserId,
+    renderEditInvitePage
+  );
 
   app.get('/admin/users', renderAdminUsersPage);
   app.get('/admin/posts', renderAdminJobInvitesPage);
@@ -113,9 +133,10 @@ export const initRoutes = app => {
     signup
   );
 
+
   // Twitter Auth
   app.get('/auth/twitter', twitterAuthenticate);
-  app.get('/auth/twitter/callback', twitterAuthCallback);
+  app.get('/auth/twitter/redirect', twitterAuthCallback);
 
   // Google Auth
   app.get('/auth/google', googleAuthenticate);
@@ -125,11 +146,13 @@ export const initRoutes = app => {
   app.get('/auth/facebook', facebookAuthenticate);
   app.get('/auth/facebook/redirect', facebookAuthCallback);
 
+
   // Get all Users
   app.get('/api/v1/users', authenticateUserToken, validateAdmin, getUsers);
 
   // Get single User - return JSON
   app.get('/api/v1/users/json/:username', getUser);
+
 
   // Block a user
   app.patch(
@@ -194,28 +217,36 @@ export const initRoutes = app => {
   );
 
   // New Upvote stuff
-  app.get('/api/v1/invites/:inviteId/votes',
+  app.get(
+    '/api/v1/invites/:inviteId/votes',
     validateInviteId,
     validateInvite,
-    fetchVoteCount);
+    fetchVoteCount
+  );
 
-  app.patch('/api/v1/invites/:inviteId/upvote',
+  app.patch(
+    '/api/v1/invites/:inviteId/upvote',
     authenticateUserToken,
     validateInviteId,
     validateInvite,
-    upvoteInvite);
+    upvoteInvite
+  );
 
-  app.patch('/api/v1/invites/:inviteId/downvote',
+  app.patch(
+    '/api/v1/invites/:inviteId/downvote',
     authenticateUserToken,
     validateInviteId,
     validateInvite,
-    downvoteInvite);
+    downvoteInvite
+  );
 
-  app.delete('/api/v1/invites/:inviteId/vote',
+  app.delete(
+    '/api/v1/invites/:inviteId/vote',
     authenticateUserToken,
     validateInviteId,
     validateInvite,
-    unvoteInvite);
+    unvoteInvite
+  );
 
   // Get the number of users, invites and comments in the database.
   app.get('/api/v1/metrics', getMetrics);
@@ -225,10 +256,13 @@ export const initRoutes = app => {
 
   // Create a new notification
   app.post('/api/v1/notifications', validateNotificationData, createNotification);
+  app.get('/api/v1/notifications/:userId', validateUserId, getNotifications);
 
   // Mark a notification as read
   app.patch('/api/v1/notifications/:notificationId', validateNotificationId, markNotificationAsRead);
 
   // Fallback case for unknown URIs.
-  app.all('*', (req, res) => res.status(404).json({ message: 'Route Not Found' }));
+  app.get('/notAuthorized', (req, res) => res.render('401'));
+  app.get('/forbiden', (req, res) => res.render('403'));
+  app.all('*', (req, res) => res.render('404'));
 };

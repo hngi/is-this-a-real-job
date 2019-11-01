@@ -22,9 +22,7 @@ export const fetchOneInvite = async (queryOption = {}) => {
         {
           model: Vote,
           as: 'votes',
-        },
-        { model: Comment, as: 'comments' },
-
+        }
       ],
       where: queryOption,
       logging: false
@@ -32,7 +30,6 @@ export const fetchOneInvite = async (queryOption = {}) => {
 
     if (invite) {
       invite.dataValues.user = invite.dataValues.user.dataValues;
-      invite.dataValues.comments = invite.dataValues.comments.map((c) => c.dataValues);
       invite.dataValues.votes = invite.dataValues.votes.map((vote) => vote.dataValues);
     }
     return invite ? invite.dataValues : null;

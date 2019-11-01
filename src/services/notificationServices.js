@@ -120,14 +120,7 @@ export const notifyByEmail = async (res, notif) => {
   let mailSent;
 
   try {
-    if (notif.type === 'comment') {
-      /* notif.comment = await getSingleComment(notif.commentId);
-      notif.comment.author = notif.comment.user || {};
-      notif.targetPost = notif.comment.invite || {}; */
-      notif.title = 'One New Comment On Your Job Invite';
-    } else {
-      notif.title = 'Your Job Invite Was Upvoted';
-    }
+    notif.title = (notif.type === 'comment') ? 'One New Comment On Your Job Invite' : 'Your Job Invite Was Upvoted';
     notif.recipient = await findSingleUser({ userId: notif.userId });
     notif.recipient = notif.recipient.dataValues;
 

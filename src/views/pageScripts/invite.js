@@ -1,15 +1,14 @@
+/* eslint-disable no-console */
 /* eslint-disable no-undef */
 // create a new post
+
 
 function togglePreloader(state) {
   const preloader = document.querySelector('#cover');
   preloader.style.display = state;
 }
 
-const inviteBtn = document.querySelector('#newInviteBtn');
-
 const newApi = new ItarjApi('/api/v1');
-const notification = document.querySelector('.notification');
 
 const refresh = (inviteId) => {
   newApi.Get(`invites/${inviteId}/votes`, true)
@@ -42,7 +41,10 @@ const refresh = (inviteId) => {
     });
 };
 
-if (inviteBtn) {
+if (document.querySelector('#newInviteBtn')) {
+  const inviteBtn = document.querySelector('#newInviteBtn');
+
+  const notification = document.querySelector('.notification');
   if (!localStorage.getItem('token')) {
     window.location.href = '/login';
   }
@@ -80,12 +82,8 @@ if (inviteBtn) {
       .then(res => (res.ok ? res.json() : { success: false }))
       .then(res => {
         togglePreloader('none');
-        if (res.success) {
-          // navigate to somewhere. created post maybe
-          window.location.href = '/posts';
-        } else {
-          console.error(res);
-        }
+        // navigate to somewhere. created post maybe
+        window.location.href = '/posts';
       })
       .catch(err => {
         togglePreloader('none');
@@ -94,18 +92,16 @@ if (inviteBtn) {
         setTimeout(() => {
           notification.className = 'notification';
         }, 5000);
-        console.error(err.data);
       });
   });
 }
 
 const upvotePostBtnHander = (event) => {
-  const { inviteid: inviteId, upvoted } = (event.target.nodeName == 'A') ? event.target.dataset : event.target.parentNode.dataset;
+  const { inviteid: inviteId, upvoted } = (event.target.nodeName === 'A') ? event.target.dataset : event.target.parentNode.dataset;
 
-  if (upvoted == 'false') {
+  if (upvoted === 'false') {
     newApi.Patch(`invites/${inviteId}/upvote`, JSON.stringify({}), true)
       .then((res) => {
-        console.log(res);
         refresh(inviteId);
       })
       .catch((err) => {
@@ -119,7 +115,6 @@ const upvotePostBtnHander = (event) => {
   } else {
     newApi.Delete(`invites/${inviteId}/vote`, JSON.stringify({}), true)
       .then((res) => {
-        console.log(res);
         refresh(inviteId);
       })
       .catch((err) => {
@@ -134,12 +129,11 @@ const upvotePostBtnHander = (event) => {
 };
 
 const downvotePostBtnHander = (event) => {
-  const { inviteid: inviteId, downvoted } = (event.target.nodeName == 'A') ? event.target.dataset : event.target.parentNode.dataset;
+  const { inviteid: inviteId, downvoted } = (event.target.nodeName === 'A') ? event.target.dataset : event.target.parentNode.dataset;
 
-  if (downvoted == 'false') {
+  if (downvoted === 'false') {
     newApi.Patch(`invites/${inviteId}/downvote`, JSON.stringify({}), true)
       .then((res) => {
-        console.log(res);
         refresh(inviteId);
       })
       .catch((err) => {
@@ -153,7 +147,6 @@ const downvotePostBtnHander = (event) => {
   } else {
     newApi.Delete(`invites/${inviteId}/vote`, JSON.stringify({}), true)
       .then((res) => {
-        console.log(res);
         refresh(inviteId);
       })
       .catch((err) => {
