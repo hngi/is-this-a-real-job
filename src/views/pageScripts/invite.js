@@ -66,11 +66,8 @@ if (document.querySelector('#newInviteBtn')) {
     const options = {
       method: 'POST',
       body: formData,
-      headers: {
-        // If you add this, upload won't work
-        // 'Content-Type': 'multipart/form-data',
-        Authorization: localStorage.getItem('token')
-      }
+      // if this is set, the coockieHandler middleware will set token with req.headers.authorization
+      addToken: true
     };
 
     fetch('api/v1/invites', options)

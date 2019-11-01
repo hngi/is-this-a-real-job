@@ -10,7 +10,7 @@ import { verifyToken, formatJWTErrorMessage } from '../helpers/jwt';
  * @returns {Function} next middleware
  */
 export const authenticateUserToken = (req, res, next) => {
-  let token = req.headers.authorization;
+  let token = req.cookies.get('token', { signed: true }) || req.headers.authorization;
   if (token && token.startsWith('Bearer ')) {
     token = token.slice(7, token.length);
   }
