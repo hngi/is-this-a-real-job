@@ -62,7 +62,7 @@ describe('NOTIFICATION CONTROLLER', () => {
           done();
         });
     });
-    
+
     it('it should send the new notification via email', (done) => {
       chai.request(app)
         .post(signinUrl) // login

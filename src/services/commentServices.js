@@ -7,7 +7,7 @@ const {
 
 export const getSingleComment = async (commentId) => {
   try {
-    const comment = await Comment.findOne({
+    const data = await Comment.findOne({
       include: [
         { model: User, as: 'user' },
         { model: Invite, as: 'invite' }
@@ -16,7 +16,7 @@ export const getSingleComment = async (commentId) => {
       logging: false
     });
 
-    comment = comment.dataValues;
+    const comment = data.dataValues;
     comment.user = comment.user ? comment.user.dataValues : {};
     comment.invite = comment.invite ? comment.invite.dataValues : {};
     return comment;

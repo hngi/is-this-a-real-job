@@ -198,7 +198,6 @@ export const unvoteInvite = async (req, res) => {
 
   await unvoteOneInvite(userId, inviteId)
     .then((vote) => {
-      console.log(vote);
       respondWithSuccess(res, 200, 'Upvote is deleted');
     })
     .catch((error) => respondWithSuccess(res, 200, 'Deletion failed', JSON.stringify(error)));

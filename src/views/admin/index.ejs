@@ -574,16 +574,16 @@
 
           </div>
           <section>
-            <div class="container">
+            <div class="container admin-dashboard">
               <div class="row">
                 <div class="col-md-6">
                   <div class="shadow p-5 mb-5 bg-light rounded">
                     <a href="/admin/users">
                       <i class="fas fa-user-alt"></i>
                       <div class="float-right">
-                        <p class="text-muted">No. of Users</p>
 
-                        <span class="text-primary">100+</span>
+                        <span class="text-primary" id="no-of-users"></span>
+                        <p class="text-muted">No. of Users</p>
                       </div>
                     </a>
 
@@ -594,8 +594,8 @@
                   <div class="shadow p-5 mb-5 bg-light rounded">
                     <a href=""> <i class="far fa-comment"></i></a>
                     <div class="float-right">
+                      <span class="text-primary" id="no-of-comments" style="padding-left:120px;"></span>
                       <p class="text-muted">No. of Comments</p>
-                      <span class="text-primary" style="padding-left:120px;">100+</span>
                     </div>
                   </div>
                 </div>
@@ -606,8 +606,8 @@
                     <a href="/admin/posts">
                       <i class="far fa-comment-alt"></i>
                       <div class="float-right">
+                        <span id="no-of-posts" class="text-primary"></span>
                         <p class="text-muted">No. of Posts</p>
-                        <span class="text-primary">100+</span>
                       </div>
                     </a>
                   </div>
