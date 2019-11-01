@@ -1,14 +1,16 @@
 <% include partials/header %>
   <% include partials/nav2 %>
+    <!-- Should be nav if unauthenticated... -->
     <div id="cover">
       <div class="loader"></div>
     </div>
 
     <body>
-      <div class="header">
+      <div class="header mt-5">
         <section class="job-invites">
-          <div class="container mt-4 post-meta" id="<%=invite.inviteId%>">
+          <div class="container mt-4 post-meta" id="<%=invite.inviteId%>" data-inviteId="<%=invite.inviteId%>" data-invite-id="<%=invite.inviteId%>">
             <span class="d-flex flex-row-reverse justify-content-between">
+          <% if(userId) { %>
           <span class="dropdown">
             <% if ((invite.userId === userId) || isAdmin ) { %>
             <i class=" fas fa-ellipsis-h  dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown"
@@ -21,28 +23,44 @@
             </span>
             <% } %>
               </span>
-              </span>
+              <% } %>
+                </span>
 
-              <span>
-            <h4><%=invite.title%></h4>
-            <small class="text-muted"><%=invite.company%>, <em><%=invite.location%></em></small><br>
-            <p class="post-author">
-              Author: <a href="/users/<%=invite.user.username%>">@<%=invite.user.username%></a>
-              <br>
-              <span class="pt-2 d-block">Published: <%=new Date(invite.createdAt).toDateString()%></span>
-              </p>
-              </span>
-              </span>
+                <span>
+          <h4><%=invite.title%></h4>
+          <small class="text-muted"><%=invite.company%>, <em><%=invite.location%></em></small><br>
+          <p class="post-author">
+            Author: <a href="/users/<%=invite.user.username%>">@<%=invite.user.username%></a>
+            <br>
+            <span class="pt-2 d-block">Published: <%=new Date(invite.createdAt).toDateString()%></span>
+                </p>
+                </span>
+                </span>
 
-              <p class="post-body">
-                <%=invite.body%>
-              </p>
-              <span>
-          <a><i class="fas fa-comment"></i> <span id="comment-count"><%=comments.length%> </span></a>
-              <a class="upvote-btn"><span class="upvote-count"><%=invite.upVotes || 0 %></span> Upvotes</a>
-              </span>
+                <p class="post-body">
+                  <%=invite.body%>
+                </p>
+                <% if(isAuth) {%>
+                  <span>
+              <a><i class="fas fa-comment"></i> <span id="comment-count"><%=comments.length%> </span></a>
+                  <a class="upvote-btn" data-inviteid="<%= invite.inviteId %>" data-upvoted="<%= invite.votes.some( (vote) => (vote.userId === userId) && (vote.type === 'up') )%>">
+                    <i class="fas fa-arrow-alt-circle-up"></i>
+                    <span class="count">
+                  <%= invite.votes.reduce((p,vote) => (vote.type === 'up') ? ++p : p ,0) %>
+                </span>
+                  </a>
+                  <a class="downvote-btn" data-inviteid="<%= invite.inviteId %>" data-downvoted="<%= invite.votes.some( (vote) => (vote.userId === userId) && (vote.type === 'down') ) %>">
+                    <i class="fas fa-arrow-alt-circle-down"></i>
+                    <span class="count">
+                  <%= invite.votes.reduce((p,vote) => (vote.type === 'down') ? ++p : p ,0) %>
+                </span>
+                  </a>
+                  </span>
+                  <% } else { %>
+                    <span class="text-muted"><i>You have to be <a class="link" href="/login">logged</a> in to perform actions</i></span>
+                    <%}%>
 
-              <span class="float-right share-buttons">
+                      <span class="float-right share-buttons">
           <!-- <a href="#"><i class="fab fa-facebook-f"></i></i></a> -->
           <a target="_blank"
              href="https://twitter.com/intent/tweet?text=<%=invite.title+' - Is this a real job? \n Let us know: http://isthisarealjob.ng/post/'+invite.inviteId%>"><i
@@ -75,9 +93,9 @@
                       <p>
                         <% if (comment.user.username) { %>
                           <a href="/users/<%=comment.user.username%>">@<%=comment.user.username%></a>
-                        <% } else { %>
-                          guest
-                          <% } %>
+                          <% } else { %>
+                            guest
+                            <% } %>
                       </p>
                       <p>
                         <%=comment.body%>

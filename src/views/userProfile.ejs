@@ -124,6 +124,13 @@
       .end-nav-bar button {
         margin-right: 10px;
       }
+      
+      @media screen and (max-width: 450px) {
+        .first-section button {
+          margin-left: 0;
+          margin-top: 0;
+        }
+      }
     </style>
 
 
@@ -139,7 +146,7 @@
         <div class="row col-sm-12">
           <div class="row col-sm-6">
             <div class="col-sm-3">
-              <img src="https://avatars0.githubusercontent.com/u/44536178?s=460&v=4" alt="Profile-pix">
+              <img src="https://res.cloudinary.com/leankhan/image/upload/v1572542434/default_avatar2.png" alt="Profile-pix">
             </div>
             <div class="user col-sm-9">
               <h2 class="username">
@@ -161,8 +168,20 @@
       <!-------Post Section------->
 
       <div class="post">
-        <h3>
-          <%=user.Invites.length %> Posts</h3>
+        <!-- <h3>
+          <%=user.Invites.length %> Posts</h3> -->
+        <div class="alert itarj-primary d-flex justify-content-between">
+          <% if (isAuth && user.username != username) { %>
+            <span>Welcome to <%=user.name%>'s profile, </span>
+            <span><%=user.name%> has <b class="text-bold"><%=user.Invites.length%></b> posts </span>
+            <% } else if (isAuth && user.username === username) { %>
+              <span>Welcome back</span>
+              <span>You have <b class="text-bold"><%=user.Invites.length%></b> posts </span>
+              <% } else { %>
+                <span>Hello stranger, <a href="/register" class="text-bold">Register</a> here</span>
+                <span><%=user.name%> has <b class="text-bold"><%=user.Invites.length%></b> posts </span>
+                <% } %>
+        </div>
         <% if (user.Invites.length === 0) { %>
           <span id="no-comments" class="bg-transparent container">The world is your oyseter. Fill it.</span>
           <% } %>
@@ -183,41 +202,41 @@
                         <%=invite.body%> <a href="<%='/post/'+invite.inviteId%>">....Read more</a></p>
                       <% } else { %>
                         <p>
-                          <%=invite.body.substr(0, 40)%> <a href="<%='/post/'+invite.inviteId%>">....Read more</a>
+                          <%=invite.body.substr(0, 200)%> <a href="<%='/post/'+invite.inviteId%>">....Read more</a>
                         </p>
                         <% }%>
                           <span>
-            <a>
-              <img src="https://res.cloudinary.com/kayode/image/upload/v1572411991/cars/comment_gpmq5c.svg" alt="">
-              <span class="upvote-count">
-                0
-              </span>
+          <a>
+            <img src="https://res.cloudinary.com/kayode/image/upload/v1572411991/cars/comment_gpmq5c.svg" alt="">
+            <span class="upvote-count">
+              0
+            </span>
                           </a>
                           <a>
                             <img src="https://res.cloudinary.com/kayode/image/upload/v1572411991/cars/upVotes_reeuc3.svg" alt="">
                             <span>
-                <%=invite.upVotes || 0 %>
-              </span>
+              <%=invite.upVotes || 0 %>
+            </span>
                           </a>
                           <a>
                             <img src="https://res.cloudinary.com/kayode/image/upload/v1572411991/cars/downVotes_zajtop.svg" alt="">
                             <span>
-                0
-              </span>
+              0
+            </span>
                           </a>
                           </span>
 
                           <span class="float-right share-buttons">
-            <!-- <a href="#"><i class="fab fa-facebook-f"></i></i></a> -->
-            <a target="_blank"
-               href="https://twitter.com/intent/tweet?text=<%=invite.title+' - Is this a real job? \n Let us know: http://isthisarealjob.ng/post/'+invite.inviteId%>"><i
-                 class="fab fa-twitter"></i></a>
-            <!-- <a href="https://www.instagram.com/"><i class="fab fa-instagram"></i></a> -->
-            <a target="_blank"
-               href="https://api.whatsapp.com/send?&text=<%=invite.title+' - Is this a real job? \n Let us know: http://isthisarealjob.ng/post/'+invite.inviteId%>"><i
-                 class="fab fa-whatsapp"></i></a>
+          <!-- <a href="#"><i class="fab fa-facebook-f"></i></i></a> -->
+          <a target="_blank"
+             href="https://twitter.com/intent/tweet?text=<%=invite.title+' - Is this a real job? \n Let us know: http://isthisarealjob.ng/post/'+invite.inviteId%>"><i
+               class="fab fa-twitter"></i></a>
+          <!-- <a href="https://www.instagram.com/"><i class="fab fa-instagram"></i></a> -->
+          <a target="_blank"
+             href="https://api.whatsapp.com/send?&text=<%=invite.title+' - Is this a real job? \n Let us know: http://isthisarealjob.ng/post/'+invite.inviteId%>"><i
+               class="fab fa-whatsapp"></i></a>
 
-          </span>
+        </span>
                   </li>
                   <% }) %>
                     <% } %>

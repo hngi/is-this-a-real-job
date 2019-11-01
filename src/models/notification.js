@@ -1,3 +1,10 @@
+/**
+ * @typedef NotificationData
+ * @property {string} type ENUM('comment' || 'upvote')
+ * @property {string} userId user that will receive the notification
+ * @property {string} [commentId] id of comment that was created.
+ * OPTIONAL and depends on type = 'comment'
+ */
 export default (sequelize, DataTypes) => {
   const Notification = sequelize.define('Notification', {
     notificationId: {
@@ -9,6 +16,11 @@ export default (sequelize, DataTypes) => {
     commentId: {
       type: DataTypes.UUID,
       allowNull: true,
+      onDelete: 'CASCADE'
+    },
+    inviteId: {
+      type: DataTypes.UUID,
+      allowNull: false,
       onDelete: 'CASCADE'
     },
     userId: {
@@ -31,6 +43,9 @@ export default (sequelize, DataTypes) => {
     }
   }, {});
   Notification.associate = (models) => {
+    Notification.belongsTo(models.Invite, {
+      foreignKey: 'inviteId', as: 'invite', timestamps: false
+    });
     Notification.belongsTo(models.Comment, {
       foreignKey: 'commentId', as: 'comment', timestamps: false
     });
