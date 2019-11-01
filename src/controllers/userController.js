@@ -90,12 +90,23 @@ export const renderUserProfile = async (req, res) => {
   if (!user) {
     return res.render('404', { status: 404 });
   }
+
+  let title;
+  const description = `View ${user.name}'s profile on Is This A Real Job`;
+
+  if (req.auth.username === user.username) {
+    title = `My Profile ${user.name} - Is This A Real Job`;
+  } else {
+    title = `${user.name} - Is This A Real Job`;
+  };
+
   return res.render('userProfile', {
     user,
     isAuth: req.isAuth,
     isAdmin: req.auth.isAdmin,
     username: req.auth.username,
-    name: req.auth.name
+    name: req.auth.name,
+    meta: { title, description }
   });
 };
 
@@ -107,12 +118,16 @@ export const renderUserProfile = async (req, res) => {
 export const renderAdminUsersPage = async (req, res) => {
   const users = await findUsers();
 
+  const title = `${users.length} Users - Admin - Is This A Real Job`;
+  const description = 'Our app helps you check if job opportunities are real or not.';
+
   return res.render('admin/users', {
     users: users || [],
     isAuth: req.isAuth,
     isAdmin: req.auth.isAdmin,
     username: req.auth.username,
-    name: req.auth.name
+    name: req.auth.name,
+    meta: { title, description }
   });
 };
 
@@ -124,11 +139,15 @@ export const renderAdminUsersPage = async (req, res) => {
 export const renderAdminReportedUsersPage = async (req, res) => {
   const users = await findUsers();
 
+  const title = `${users.length} Users - Admin - Is This A Real Job`;
+  const description = 'Our app helps you check if job opportunities are real or not.';
+
   return res.render('admin/users', {
     users: users || [],
     isAuth: req.isAuth,
     isAdmin: req.auth.isAdmin,
     username: req.auth.username,
-    name: req.auth.name
+    name: req.auth.name,
+    meta: { title, description }
   });
 };
