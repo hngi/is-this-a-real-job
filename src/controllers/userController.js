@@ -98,7 +98,7 @@ export const renderUserProfile = async (req, res) => {
     title = `My Profile ${user.name} - Is This A Real Job`;
   } else {
     title = `${user.name} - Is This A Real Job`;
-  };
+  }
 
   return res.render('userProfile', {
     user,
