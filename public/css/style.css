@@ -125,6 +125,19 @@ body {
   margin-left: 0%;
 }
 
+.footer-links {
+  color: #fff;
+  font-weight: 600;
+  line-height: 18px;
+  font-size: 15px;
+  margin-bottom: 1%;
+  margin-top: 5%;
+}
+.footer-links:hover {
+  color: #aaa;
+  text-decoration: none;
+}
+
 /* Invite us section */
 
 [placeholder="Search a keyword or a sentence"] {
