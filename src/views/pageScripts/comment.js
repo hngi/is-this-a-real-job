@@ -9,10 +9,6 @@ function togglePreloader(state) {
 const commentBtn = document.querySelector('.comment-btn button');
 
 if (commentBtn) {
-  if (!localStorage.getItem('token')) {
-    commentBtn.disabled = true;
-  }
-
   const api = new ItarjApi('/api/v1');
   const commentField = document.querySelector('#comment-field');
   const commentCount = document.querySelector('#comment-count');

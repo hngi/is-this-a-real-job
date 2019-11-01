@@ -22,6 +22,7 @@ export const validateCookies = (req, res, next) => {
       req.auth.name = name;
       req.auth.isAdmin = isAdmin;
       req.isAuth = true;
+      req.headers.authorization = token;
 
       return next();
     } catch (error) {

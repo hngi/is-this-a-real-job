@@ -44,10 +44,6 @@ if (document.querySelector('#newInviteBtn')) {
   const inviteBtn = document.querySelector('#newInviteBtn');
 
   const notification = document.querySelector('.notification');
-  if (!localStorage.getItem('token')) {
-    window.location.href = '/login';
-  }
-
 
   const jobDetails = document.querySelector('#jobDetails');
   const jobTitle = document.querySelector('#jobTitle');
