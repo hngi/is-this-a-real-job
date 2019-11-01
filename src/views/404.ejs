@@ -1,9 +1,39 @@
 <% include partials/header %>
+
+<style>
+
+  .go_back{
+    color: #EE331F;
+  }
+  .go_back:hover{
+    color: #698410;
+  }
+</style>
+
   <div class="content-body">
     <!-- This div is closed in the footer.ejs file -->
 
+    <div class="container" style="height: 80vh;">
+      <div class="row align-items-center">
+          <div class="col-12  justify-content-center mt-5 mt-md-0">
+            <img src="https://res.cloudinary.com/dulniapvg/image/upload/v1572629548/icons%20-hng/95483df50a0a3324c4cf9ccb1094b825_a3worz.jpg" alt="404-error-image" class="img-fluid mt-5 mt-lg-0">
+          </div>
 
-    <div class="container">
+          <div class="col-12  mt-3 mt-lg-0 text-center">
+            <h1 class="font-weight-bold">Uh ohhh !</h1>
+            <span class="text-dark lead font-weight-bold"> we can't find the page that you are looking for :( </span>
+            
+            <br><br>
+            <span><a class="go_back font-weight-bold" href="/"> <u> GO BACK HOME</u> </a>
+            </span>
+          </div>
+            
+        
+      </div>
+    </div>
+
+      <!----------
+      <div class="container">
       <div class="text-center">
         <div class="card-body">
           <h2 class="p-4 default-text">404</h2>
@@ -12,6 +42,6 @@
 
         </div>
 
-      </div>
-    </div>
-    <% include partials/footer %>
+      </div>------------->
+  </div>
+<% include partials/footer %>
