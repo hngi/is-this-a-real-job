@@ -34,6 +34,7 @@ export const createUser = async userData => {
     return { success: false, error };
   }
 };
+
 /**
  * Get all users
  * @returns {object} an object containing the information of the user or null
@@ -57,6 +58,7 @@ export const fetchSingleUser = async query => {
     const user = await User.findOne({
       include: [{ model: Invite, as: 'Invites' }],
       where: query,
+      order: [[{ model: Invite }, 'createdAt', 'DESC']],
       logging: false
     });
 

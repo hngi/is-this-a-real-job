@@ -5,6 +5,12 @@
     line-height: 14px;
   }
 
+  .nav-btn {
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 14px;
+  }
+
   .nav-link:hover {
     color: rgba(0, 0, 0, .5) !important;
   }
@@ -22,7 +28,7 @@
     font-weight: 600;
     font-size: 18px;
     line-height: 21px;
-    color: black !important;
+    color: #3087d1 !important;
   }
 
   .navbar {
@@ -30,7 +36,8 @@
     border-top-color: #73A9D9;
     border-top-style: solid;
     border-top-width: 3px;
-    box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.15);
+    /* box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.15); */
+    /* Using Bootstrap shadow class */
   }
 
   li a {
@@ -56,8 +63,9 @@
     border-radius: 5px;
   }
 
-  .post-btn:hover {
+  .nav-link a.post-btn:hover {
     text-decoration: none;
+    color: white;
   }
 
   .dropdown-menu {
@@ -73,18 +81,23 @@
   }
 
   .user-name-initials {
-    font-size: 18px;
+    font-size: 14px;
     font-weight: bold;
   }
 
+  @media screen and (min-width: 900px) {
+    .search-bar {
+      width: 400px !important;
+      border-radius: 5px;
+    }
+  }
+
   .search-bar {
-    width: 80%;
     border-radius: 5px;
   }
 
   .form-inline .form-control {
-
-    height: 30px;
+    height: 36px;
     border-color: lightgray;
   }
 
@@ -104,7 +117,8 @@
   }
 
   .notification-menu {
-    overflow: scroll;
+    overflow-y: auto;
+    overflow-x: hidden;
     height: 300px;
     width: 300px;
     border-top: 2px solid #73A9D9;
@@ -135,10 +149,39 @@
     color: #24659e;
     text-decoration: none;
   }
+  
+  .notification-link:hover {
+    text-decoration: none;
+  }
+
+  .notification-link:hover .notification-wrapper {
+    background: #e7f0f8;
+  }
 
   .notification-wrapper {
-    padding: 3px;
-    background-color: rgba(115, 169, 217, 0.295);
+    padding: 1rem 0.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .notification-image {
+    margin: 0.5rem;
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    background-color: var(--light);
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .notification-no-image {
+    display: flex;
+    width: 40px; height: 40px; margin-right: 0.5rem;
+    justify-content: center;
+    align-items: center;
+    background: var(--primary);
+    color: #fff;
   }
 
   .badge {
@@ -148,14 +191,14 @@
 
   @media screen and (max-width: 990px) {
     .badge {
-      left: 10px
+      left: 10px;
     }
   }
 </style>
-<nav class="navbar fixed-top navbar-expand-lg">
+<nav class="navbar navbar-expand-lg shadow-sm">
   <a class="navbar-brand " href="/">isthisarealjob</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon">
       <i class="fas fa-bars" style="color: #73A9D9; font-size:28px;"></i>
 
@@ -165,82 +208,85 @@
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
+
     <ul class="navbar-nav ml-auto">
-      <form class="form-inline">
-        <input class="fa form-control mr-sm-4" type="search" placeholder="&#xf002; Search" aria-label="Search">
+      <form class="form-inline" action="/invites/search" method="GET">
+        <input class="fa form-control mr-sm-4 search-bar" name="q" type="search" placeholder="&#xf002; Search"
+               aria-label="Search">
       </form>
       <!-- NOTIFICATION NUMBER GOES HERE -->
+      <% if(isAuth){ %>
       <li class="nav-item dropdown notification-bar">
 
-        <a id="bell-icon" class="nav-link dropdown-toggle" style="padding-top: 3px;" href="#"><i
-            class="far fa-bell fa-2x notification-icon"></i><span class="badge">3</span></a>
-        <div id="branded" class="notification-menu hide">
-          <div class="notification-wrapper">
-            <p class="notification-title"> <a href="https://getbootstrap.com/docs/4.3/components/navbar/"> Shell
-                Recruitement Scam Interview Invite at LSDPC</a></p>
-            <small class="notification-title-user">
-              <a href="">Jon Snow</a>
-            </small>
-          </div>
-          <hr>
-          <div class="notification-wrapper">
-            <p class="notification-title"> <a href="https://getbootstrap.com/docs/4.3/components/navbar/"> Shell
-                Recruitement Scam Interview Invite at LSDPC</a></p>
-            <small class="notification-title-user">
-              <a href="">Jon Snow</a>
-            </small>
-          </div>
-          <hr>
-          <div class="notification-wrapper">
-            <p class="notification-title"> <a href="https://getbootstrap.com/docs/4.3/components/navbar/"> Shell
-                Recruitement Scam Interview Invite at LSDPC</a></p>
-            <small class="notification-title-user">
-              <a href="">Jon Snow</a>
-            </small>
-          </div>
-          <hr>
-
-
+        <a id="bell-icon" class="nav-link dropdown-toggle" style="padding-top: 3px;" href="javascript:void(0)"><i
+             class="far fa-bell fa-2x notification-icon"></i><span class="badge">3</span></a>
+        <div id="branded" class="notification-menu hide shadow">
+          <!-- notification goes here -->
         </div>
       </li>
 
       <!-- USERNAME & LOG OUT GOES HERE  -->
       <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-          aria-haspopup="true" aria-expanded="false">
-          <span class="user-name-initials">LK</span>
+        <a class="nav-link dropdown-toggle" href="javascript:void(0)" id="navbarDropdown" role="button"
+           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <span class="user-name-initials">
+            <%=name.substr(0, 2).toUpperCase()%>
+          </span>
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">Profile</a>
-          <a class="dropdown-item" href="#">Log Out</a>
+          <a class="dropdown-item" href="/users/<%=username%>">Profile</a>
+          <a href="javascript:void(0)" id="logout" class="dropdown-item">Log Out</a>
         </div>
 
       </li>
-      <li class="nav-item">
-        <button type="button" class="btn-primary nav-link" style="padding: 10px;"> <a class="post-btn" href="/post">NEW
-            POST</a></button>
 
-
+      <% } else { %>
+      <li class="nav-item mr-4">
+        <a class="nav-link" href="/register">REGISTER</a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/login">LOG IN</a>
+      </li>
+      <% } %>
+
+
+      <li class="nav-item">
+        <a class="post-btn" href="/post"><button type="button" class="btn-primary nav-btn" style="padding: 10px;"> NEW
+            POST</button></a>
+        <% if(isAuth){ %>
+        <a class="post-btn" href="/posts"><button type="button" class="btn-primary nav-btn" style="padding: 10px;">
+            POSTS</button></a>
+        <% } %>
+        <% if (isAdmin) { %>
+        <a class="post-btn" href="/admin"><button type="button" class="btn-primary nav-btn" style="padding: 10px;">
+            ADMIN</button></a>
+        <% } %>
+      </li>
+
     </ul>
 
   </div>
 </nav>
+<div class="content-body">
+  <!-- This div is closed in the footer.ejs file -->
 
-<script>
+  <div class="notification">
+    Simple Notification
+  </div>
+  <script>
 
-  var element = document.getElementById("bell-icon");
-  element.addEventListener("click", () => {
-    var clicked = document.getElementById("branded");
-    clicked.classList.toggle('show');
-  });
+    var element = document.getElementById("bell-icon");
+    element.addEventListener("click", () => {
+      var clicked = document.getElementById("branded");
+      clicked.classList.toggle('show');
+    });
 
-  var links = document.getElementsByClassName('notification-wrapper');
+    var links = document.getElementsByClassName('notification-wrapper');
 
-  function changeColor(e) {
-    e.target.style.backgroundColor = e.target.style.backgroundColor ? null : 'white';
-  }
-  for (var i = 0; i < links.length; i++) {
-    links[i].addEventListener('click', changeColor);
-  }
-</script>
+    function changeColor(e) {
+      e.target.style.backgroundColor = e.target.style.backgroundColor ? null : 'white';
+    }
+    for (var i = 0; i < links.length; i++) {
+      links[i].addEventListener('click', changeColor);
+    }
+  </script>

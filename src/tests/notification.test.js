@@ -35,22 +35,12 @@ describe('NOTIFICATION CONTROLLER', () => {
               userId: SEED_USER_ID, // test user
             })
             .end((err, res) => {
-              chai.request(app)
-                .post(`${notificationUrl}?type=comment`)
-                .send({
-                  target: SEED_USER_ID, // test user
-                  commentId: res.body.payload.commentId
-                })
-                .end((err, res) => {
-                  expect(res).to.have.status(200);
-                  expect(res.body.success).to.equal(true);
-                  expect(res.body.payload).to.have.property('notificationId');
-                  expect(res.body.payload).to.have.property('isSeen');
-                  expect(res.body.payload).not.to.have.property('target');
-                  expect(res.body.payload).to.have.property('userId');
-                  expect(res.body.payload).to.have.property('commentId');
-                  done();
-                });
+              expect(res).to.have.status(200);
+              expect(res.body.success).to.equal(true);
+              expect(res.body.payload).to.have.property('userId');
+              expect(res.body.payload).to.have.property('user');
+              expect(res.body.payload).to.have.property('commentId');
+              done();
             });
         });
     });
@@ -60,6 +50,7 @@ describe('NOTIFICATION CONTROLLER', () => {
         .post(`${notificationUrl}?type=upvote`)
         .send({
           target: SEED_USER_ID, // test user
+          inviteId: SEED_INVITE_ID
         })
         .end((err, res) => {
           expect(res).to.have.status(200);
@@ -69,6 +60,35 @@ describe('NOTIFICATION CONTROLLER', () => {
           expect(res.body.payload).not.to.have.property('target');
           expect(res.body.payload).to.have.property('userId');
           done();
+        });
+    });
+
+    it('it should send the new notification via email', (done) => {
+      chai.request(app)
+        .post(signinUrl) // login
+        .send(authDetails)
+        .end((error, res) => {
+          chai.request(app)
+            .post(commentUrl) // comment on post
+            .set('Authorization', `${res.body.payload.token}`) // add jwt header
+            .send({
+              body: 'A test comment on a nice post?',
+              userId: SEED_USER_ID, // test user
+            })
+            .end((err, res) => {
+              chai.request(app)
+                .post(`${notificationUrl}?type=comment`)
+                .send({
+                  target: SEED_USER_ID, // test user
+                  commentId: res.body.payload.commentId
+                })
+                .end((err, res) => {
+                  expect(res).to.have.status(200);
+                  expect(res.body.payload).to.have.property('mailSent');
+                  expect(res.body.payload.mailSent).to.equal(true);
+                  done();
+                });
+            });
         });
     });
 

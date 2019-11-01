@@ -1,7 +1,8 @@
 import { validateSigninFormData, validateSignupFormData } from './validateAuth';
 import {
   validUser,
-  verifyUniqueUser,
+  verifyUniqueUserEmail,
+  verifyUniqueUserUsername,
   authenticateUserToken
 } from './authentication';
 import { validateCommentData } from './validateComment';
@@ -17,7 +18,9 @@ import {
 } from './validateUUID';
 import { validateAdmin } from './validateAdmin';
 import { validateUserById } from './validateUser';
-import { passportAuthenticate, passportAuthCallback } from './twitterLogin';
+import { googleAuthenticate, googleAuthCallback } from './googleAuth';
+import { facebookAuthenticate, facebookAuthCallback } from './facebookAuth';
+import { twitterAuthenticate, twitterAuthCallback } from './twitterAuth';
 import { multerUploads } from './multer';
 
 export {
@@ -29,14 +32,19 @@ export {
   validateInviteData,
   validateInviteUpdateData,
   validateInviteId,
-  verifyUniqueUser,
   authenticateUserToken,
   validateAdmin,
   validateUserById,
   validateUserId,
   validateUpvoteInput,
   validateInviteOwner,
-  passportAuthCallback,
-  passportAuthenticate,
-  multerUploads
+  googleAuthenticate,
+  googleAuthCallback,
+  facebookAuthenticate,
+  facebookAuthCallback,
+  twitterAuthCallback,
+  twitterAuthenticate,
+  multerUploads,
+  verifyUniqueUserEmail,
+  verifyUniqueUserUsername,
 };

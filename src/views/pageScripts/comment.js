@@ -10,7 +10,7 @@ const commentBtn = document.querySelector('.comment-btn button');
 
 if (commentBtn) {
   if (!localStorage.getItem('token')) {
-    window.location.href = '/login';
+    commentBtn.disabled = true;
   }
 
   const api = new ItarjApi('/api/v1');
@@ -20,11 +20,17 @@ if (commentBtn) {
   const postMeta = document.querySelector('.post-meta');
   const noComment = document.querySelector('#no-comments');
 
-  const inviteId = postMeta ? postMeta.id : null; // invite id
+  const { inviteId } = postMeta.dataset; // invite id
 
   const getCommentHTML = (comment) => `<div class="container">
-  <p>@${comment.user.username}</p>
-  <p>${comment.body}</p> <span>&nbsp;</span>
+  <p>
+    ${comment.user.username ? `<a href="/users/${comment.user.username}">@${comment.user.username}</a>`
+    : 'guest'}
+  </p>
+  <p>${comment.body}</p>
+  <p>
+    <small class="text-muted">${new Date(comment.createdAt).toDateString()}</small>
+  </p> <span>&nbsp;</span>
 </div>`;
 
   commentBtn.addEventListener('click', e => {
@@ -36,10 +42,12 @@ if (commentBtn) {
     };
     const notification = document.querySelector('.notification');
 
+    commentField.value = '';
+
     api.Post(`comments/${inviteId}`, JSON.stringify(body), true)
       .then(res => {
         comments.innerHTML = getCommentHTML(res.data) + comments.innerHTML;
-        noComment.innerHTML = '';
+        if (noComment) noComment.innerHTML = '';
 
         commentCount.textContent = Number(commentCount.textContent) + 1;
         togglePreloader('none');
@@ -51,7 +59,6 @@ if (commentBtn) {
         setTimeout(() => {
           notification.className = 'notification';
         }, 5000);
-        console.error(err.data);
       });
   });
 }
