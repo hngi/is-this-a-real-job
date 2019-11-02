@@ -21,14 +21,14 @@ const refresh = (inviteId) => {
       down.querySelector('.count').innerText = res.data.downvotes;
 
       if (res.data.upvoted) {
-        up.dataset.upvoted = 'true';
-        down.dataset.downvoted = 'false';
+        up.dataset.voted = 'true';
+        down.dataset.voted = 'false';
       } else if (res.data.downvoted) {
-        up.dataset.upvoted = 'false';
-        down.dataset.downvoted = 'true';
+        up.dataset.voted = 'false';
+        down.dataset.voted = 'true';
       } else {
-        up.dataset.upvoted = 'false';
-        down.dataset.downvoted = 'false';
+        up.dataset.voted = 'false';
+        down.dataset.voted = 'false';
       }
     })
     .catch((err) => {
@@ -45,10 +45,6 @@ if (document.querySelector('#newInviteBtn')) {
   const inviteBtn = document.querySelector('#newInviteBtn');
 
   const notification = document.querySelector('.notification');
-  if (!localStorage.getItem('token')) {
-    window.location.href = '/login';
-  }
-
 
   const jobDetails = document.querySelector('#jobDetails');
   const jobTitle = document.querySelector('#jobTitle');
@@ -71,11 +67,8 @@ if (document.querySelector('#newInviteBtn')) {
     const options = {
       method: 'POST',
       body: formData,
-      headers: {
-        // If you add this, upload won't work
-        // 'Content-Type': 'multipart/form-data',
-        Authorization: localStorage.getItem('token')
-      }
+      // if this is set, the coockieHandler middleware will set token with req.headers.authorization
+      addToken: true
     };
 
     fetch('api/v1/invites', options)
@@ -96,10 +89,33 @@ if (document.querySelector('#newInviteBtn')) {
   });
 }
 
-const upvotePostBtnHander = (event) => {
-  const { inviteid: inviteId, upvoted } = (event.target.nodeName === 'A') ? event.target.dataset : event.target.parentNode.dataset;
+const setUp = (target, other, mode = 'set') => {
+  if (other.dataset.voted === 'true') {
+    const otherCount = other.querySelector('.count');
+    otherCount.innerText = +otherCount.innerText - 1;
+    other.dataset.voted = 'false';
+  }
 
-  if (upvoted === 'false') {
+  const targetCount = target.querySelector('.count');
+
+  if (mode === 'set') {
+    target.dataset.voted = 'true';
+    targetCount.innerText = +targetCount.innerText + 1;
+  } else if (mode === 'del') {
+    target.dataset.voted = 'false';
+    targetCount.innerText = +targetCount.innerText - 1;
+  }
+};
+
+const upvotePostBtnHander = (event) => {
+  const { inviteid: inviteId, voted } = (event.target.nodeName === 'A') ? event.target.dataset : event.target.parentNode.dataset;
+  const target = (event.target.nodeName === 'A') ? event.target : event.target.parentNode;
+  const other = (event.target.nodeName === 'A') ? event.target.parentNode.querySelector('.downvote-btn') : event.target.parentNode.parentNode.querySelector('.downvote-btn');
+
+  console.log('the target', target, 'the other', other);
+
+  if (voted === 'false') {
+    setUp(target, other);
     newApi.Patch(`invites/${inviteId}/upvote`, JSON.stringify({}), true)
       .then((res) => {
         refresh(inviteId);
@@ -107,12 +123,14 @@ const upvotePostBtnHander = (event) => {
       .catch((err) => {
         console.log(err);
         notification.innerHTML = `<strong>${err.data ? err.data.message : 'Something happened while processing your request. Contact support or try again.'}:</strong> ${err.data.payload}`;
+        refresh(inviteId);
         notification.className += ' show';
         setTimeout(() => {
           notification.className = 'notification';
         }, 5000);
       });
   } else {
+    setUp(target, other, 'del');
     newApi.Delete(`invites/${inviteId}/vote`, JSON.stringify({}), true)
       .then((res) => {
         refresh(inviteId);
@@ -120,6 +138,7 @@ const upvotePostBtnHander = (event) => {
       .catch((err) => {
         console.log(err);
         notification.innerHTML = `<strong>${err.data ? err.data.message : 'Something happened while processing your request. Contact support or try again.'}:</strong> ${err.data.payload}`;
+        refresh(inviteId);
         notification.className += ' show';
         setTimeout(() => {
           notification.className = 'notification';
@@ -129,9 +148,12 @@ const upvotePostBtnHander = (event) => {
 };
 
 const downvotePostBtnHander = (event) => {
-  const { inviteid: inviteId, downvoted } = (event.target.nodeName === 'A') ? event.target.dataset : event.target.parentNode.dataset;
+  const { inviteid: inviteId, voted } = (event.target.nodeName === 'A') ? event.target.dataset : event.target.parentNode.dataset;
+  const target = (event.target.nodeName === 'A') ? event.target : event.target.parentNode;
+  const other = (event.target.nodeName === 'A') ? event.target.parentNode.querySelector('.upvote-btn') : event.target.parentNode.parentNode.querySelector('.upvote-btn');
 
-  if (downvoted === 'false') {
+  if (voted === 'false') {
+    setUp(target, other);
     newApi.Patch(`invites/${inviteId}/downvote`, JSON.stringify({}), true)
       .then((res) => {
         refresh(inviteId);
@@ -139,12 +161,14 @@ const downvotePostBtnHander = (event) => {
       .catch((err) => {
         console.log(err);
         notification.innerHTML = `<strong>${err.data ? err.data.message : 'Something happened while processing your request. Contact support or try again.'}:</strong> ${err.data.payload}`;
+        refresh(inviteId);
         notification.className += ' show';
         setTimeout(() => {
           notification.className = 'notification';
         }, 5000);
       });
   } else {
+    setUp(target, other, 'del');
     newApi.Delete(`invites/${inviteId}/vote`, JSON.stringify({}), true)
       .then((res) => {
         refresh(inviteId);
@@ -152,6 +176,7 @@ const downvotePostBtnHander = (event) => {
       .catch((err) => {
         console.log(err);
         notification.innerHTML = `<strong>${err.data ? err.data.message : 'Something happened while processing your request. Contact support or try again.'}:</strong> ${err.data.payload}`;
+        refresh(inviteId);
         notification.className += ' show';
         setTimeout(() => {
           notification.className = 'notification';

@@ -23,16 +23,11 @@ export const findNotificationsForUser = async (userId) => {
       where: {
         userId
       },
+      order: [['createdAt', 'DESC']],
       logging: false
     });
 
     return notifications;
-    // return notifications.map(notification => {
-    //   notification = notification.dataValues;
-    //   notification.user = notification.user ? notification.user.dataValues : {};
-    //   notification.invite = notification.invite ? notification.invite.dataValues : {};
-    //   return notification;
-    // });
   } catch (error) {
     console.error(error);
     error.message = 'An error occurred. Please contact technical support';
@@ -41,72 +36,84 @@ export const findNotificationsForUser = async (userId) => {
   }
 };
 
-/**
- * @typedef NotificationData
- * @property {string} type ENUM('comment' || 'upvote')
- * @property {string} userId user that will receive the notification
- * @property {string} inviteId id of invite
- * @property {string} [commentId] id of comment that was created.
- * OPTIONAL and depends on type = 'comment'
- */
+// /**
+//  * @typedef NotificationData
+//  * @property {string} type ENUM('comment' || 'upvote')
+//  * @property {string} userId user that will receive the notification
+//  * @property {string} inviteId id of invite
+//  * @property {string} [commentId] id of comment that was created.
+//  * OPTIONAL and depends on type = 'comment'
+//  */
 
-/**
- * Creates a new notification for a specified user
- * @param {NotificationData} notificationData
- * @returns {object} an object containing created notification data
- */
-export const createNotificationForUser = async (notificationData) => {
-  const e = new Error();
-  const userObj = await User.findOne({
-    where: {
-      userId: notificationData.userId
-    },
-    logging: false
-  }).catch(err => {
-    console.error(err);
-    e.status = 500;
-    e.message = 'A technical error occured. Contact support.';
-    throw e;
-  });
+// /**
+//  * Creates a new notification for a specified user
+//  * @param {NotificationData} notificationData
+//  * @returns {object} an object containing created notification data
+//  */
+// export const createNotificationForUser = async (notificationData) => {
+//   const e = new Error();
+//   const userObj = await User.findOne({
+//     where: {
+//       userId: notificationData.userId
+//     },
+//     logging: false
+//   }).catch(err => {
+//     console.error(err);
+//     e.status = 500;
+//     e.message = 'A technical error occured. Contact support.';
+//     throw e;
+//   });
 
 
-  if (!userObj) { // user does not exist
-    e.status = 404;
-    e.message = 'user not found';
-    throw e;
-  }
+//   if (!userObj) { // user does not exist
+//     e.status = 404;
+//     e.message = 'user not found';
+//     throw e;
+//   }
 
-  notificationData.message = `@${userObj.username} ${notificationData.type === 'comment' ? 'commented your post' : 'upvoted your post'}`;
+// eslint-disable-next-line max-len
+//   notificationData.message = `@${userObj.username} ${notificationData.type === 'comment' ? 'commented your post' : 'upvoted your post'}`;
 
-  const notification = await Notification.create(notificationData).catch(err => {
-    console.error(err);
-    e.status = 500;
-    e.message = 'A technical error occured. Contact support.';
-    throw e;
-  });
-  // notification.dataValues.user = userObj;
-  return notification.dataValues;
-};
+//   const notification = await Notification.create(notificationData).catch(err => {
+//     console.error(err);
+//     e.status = 500;
+//     e.message = 'A technical error occured. Contact support.';
+//     throw e;
+//   });
+
+//   return notification.dataValues;
+// };
 
 
 /**
  * Updates the status for a notification
- * @param {string} notificationId
+ * @param {string} notifications an array of notifications
  * @param {boolean} isSeen
  * @returns {object} an object containing updated notification data
  */
-export const setNotificationStatus = async (notificationId, isSeen) => {
+export const setNotificationStatus = async (notifications, isSeen) => {
   const e = new Error();
   try {
+    if (!Array.isArray(notifications) || notifications.length === 0) {
+      e.message = 'You must pass in notifications as an array of UUIDs';
+      e.status = 400;
+      throw e;
+    }
+
     const notification = await Notification
-      .update({ isSeen }, { where: { notificationId }, returning: true });
-    console.info('at setnotification status: ', notification);
-    if (!notification[0]) {
+      .update({ isSeen }, { where: { notificationId: notifications } });
+    const notificationObjs = await Notification
+      .findAll({
+        where: { notificationId: notifications },
+        include: [{ model: User, as: 'target' }]
+      });
+
+    if (notification[0] !== notifications.length) {
       e.message = `Unable to set notification status as ${isSeen ? 'read' : 'unread'}`;
       e.status = 400;
       throw e;
     }
-    return notification[0];
+    return notificationObjs.map(n => n.dataValues);
   } catch (error) {
     console.error(error);
     e.message = 'Unable to set notification status';

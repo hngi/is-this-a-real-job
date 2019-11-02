@@ -51,17 +51,20 @@ import {
   getUser,
   renderUserProfile,
   getUserByUserId,
-  renderAdminReportedUsersPage
+  renderAdminReportedUsersPage,
+  checkRenderIsAdmin
 } from '../controllers/userController';
-import { getNotifications, createNotification, markNotificationAsRead } from '../controllers/notificationController';
-import { validateNotificationData } from '../middlewares/validateNotification';
+import { getNotifications, markNotificationAsRead } from '../controllers/notificationController';
 import {
   validateCookies,
   signUserIn,
   signUserOut
 } from '../middlewares/cookieHandler';
 import { getMetrics } from '../controllers/metricsController';
-import { validateNotificationId } from '../middlewares/validateUUID';
+
+import { descriptions } from '../helpers/metatags';
+
+const genericDescription = 'Our app helps you check if job opportunities are real or not.';
 
 export const initRoutes = app => {
   // Cookie handlers before all
@@ -71,42 +74,50 @@ export const initRoutes = app => {
 
   // All EJS frontend endpoints below --------------------------------------------------
 
-  app.get('/', (req, res) => res.render('index', { isAuth: req.isAuth, isAdmin: req.auth.isAdmin })); // Pass true or false to toggle state of navbar....
-  app.get('/login', (req, res) => res.render('login', { isAuth: req.isAuth, isAdmin: req.auth.isAdmin }));
-  app.get('/register', (req, res) => res.render('register', { isAuth: req.isAuth, isAdmin: req.auth.isAdmin }));
+  app.get('/', (req, res) => res.render('index', { isAuth: req.isAuth, isAdmin: req.auth.isAdmin, meta: { title: 'Is This A Real Job', description: genericDescription } })); // Pass true or false to toggle state of navbar....
+  app.get('/login', (req, res) => res.render('login', { isAuth: req.isAuth, isAdmin: req.auth.isAdmin, meta: { title: 'Login - Is This A Real Job', description: genericDescription } }));
+  app.get('/register', (req, res) => res.render('register', { isAuth: req.isAuth, isAdmin: req.auth.isAdmin, meta: { title: 'Register - Is This A Real Job', description: descriptions.register } }));
   app.get('/post', getUserByUserId, (req, res) => res.render('userPost', {
     isAuth: req.isAuth,
     isAdmin: req.auth.isAdmin,
     user: req.user,
     username: req.auth.username,
-    name: req.auth.name
+    name: req.auth.name,
+    meta: { title: 'New Post - Is This A Real Job', descripiton: genericDescription }
   }));
-  app.get('/howitworks', (req, res) => res.render('howitworks', { isAuth: req.isAuth, isAdmin: req.auth.isAdmin }));
-  app.get('/reportuser', (req, res) => res.render('reportuser', { isAuth: req.isAuth, isAdmin: req.auth.isAdmin }));
+  app.get('/howitworks', (req, res) => res.render('howitworks', { isAuth: req.isAuth, isAdmin: req.auth.isAdmin, meta: { title: 'How It Works - Is This A Real Job', description: genericDescription } }));
+  app.get('/reportuser', getUserByUserId, (req, res) => res.render('reportuser', { isAuth: req.isAuth, isAdmin: req.auth.isAdmin, meta: { title: 'Report User - Is This A Real Job', description: genericDescription } }));
   app.get('/posts', renderJobInvitesPage);
   app.get('/post/:inviteId', renderSinglePostPage);
   app.get('/about', (req, res) => res.render('about', {
     isAuth: req.isAuth,
     isAdmin: req.auth.isAdmin,
     username: req.auth.username,
-    name: req.auth.name
+    name: req.auth.name,
+    meta: { title: 'About - Is This A Real Job', description: genericDescription }
   }));
-  app.get('/admin/reported', (req, res) => res.render('admin/reportedUsers', {
+  app.get('/admin/reported', checkRenderIsAdmin, (req, res) => res.render('admin/reportedUsers', {
     isAuth: req.auth.isAuth,
-    isAdmin: req.auth.isAdmin
+    isAdmin: req.auth.isAdmin,
+    meta: { title: 'Reported Users - Is This A Real Job', description: genericDescription }
   }));
   app.get('/reportUser', (req, res) => res.render('reportUser', {
     isAuth: false,
     username: req.auth.username,
     name: req.auth.name,
-    isAdmin: req.auth.isAdmin
+    isAdmin: req.auth.isAdmin,
+    meta: { title: 'Report User - Is This A Real Job', description: genericDescription }
   }));
   app.get('/users/:username', renderUserProfile);
-  app.get('/admin/reportedusers', renderAdminReportedUsersPage);
+  app.get('/admin/reportedusers', checkRenderIsAdmin, renderAdminReportedUsersPage);
   // Search Invites - Renders view
   app.get('/invites/search', renderSearchResults);
-  app.get('/admin', (req, res) => res.render('./admin/index', {
-    isAuth: req.isAuth, username: req.auth.username, name: req.auth.name, isAdmin: req.auth.isAdmin
+  app.get('/admin', checkRenderIsAdmin, (req, res) => res.render('./admin/index', {
+    isAuth: req.isAuth,
+    username: req.auth.username,
+    name: req.auth.name,
+    isAdmin: req.auth.isAdmin,
+    meta: { title: 'Admin Home - Is This A Real Job', description: genericDescription }
   }));
 
 
@@ -119,8 +130,8 @@ export const initRoutes = app => {
     renderEditInvitePage
   );
 
-  app.get('/admin/users', renderAdminUsersPage);
-  app.get('/admin/posts', renderAdminJobInvitesPage);
+  app.get('/admin/users', checkRenderIsAdmin, renderAdminUsersPage);
+  app.get('/admin/posts', checkRenderIsAdmin, renderAdminJobInvitesPage);
 
   // All backend API endpoints below -----------------------------------------------------
   // Auth
@@ -255,14 +266,14 @@ export const initRoutes = app => {
   app.get('/api/v1/notifications', authenticateUserToken, getNotifications);
 
   // Create a new notification
-  app.post('/api/v1/notifications', validateNotificationData, createNotification);
+  // app.post('/api/v1/notifications', validateNotificationData, createNotification);
   app.get('/api/v1/notifications/:userId', validateUserId, getNotifications);
 
   // Mark a notification as read
-  app.patch('/api/v1/notifications/:notificationId', validateNotificationId, markNotificationAsRead);
+  app.patch('/api/v1/notifications', markNotificationAsRead);
 
   // Fallback case for unknown URIs.
-  app.get('/notAuthorized', (req, res) => res.render('401'));
-  app.get('/forbiden', (req, res) => res.render('403'));
-  app.all('*', (req, res) => res.render('404'));
+  app.get('/notAuthorized', (req, res) => res.render('401', { meta: { title: '404 - Page Not Found', description: genericDescription } }));
+  app.get('/forbiden', (req, res) => res.render('403', { meta: { title: '403 - Forbidden Route', description: genericDescription } }));
+  app.all('*', (req, res) => res.render('404', { meta: { title: '404 - Page Not Found', description: genericDescription } }));
 };

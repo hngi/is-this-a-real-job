@@ -1,10 +1,13 @@
 /* ----------------------------------------------- */
 
-
 /* BASIC SETUP */
 
-
 /* ----------------------------------------------- */
+
+  /*Color Vars*/
+:root {
+  --dark-blue: #24659E;
+} 
 
 * {
   margin: 0;
@@ -12,11 +15,10 @@
   box-sizing: border-box;
 }
 
-html,
-body {
+
+html, body {
   background-color: #fff;
   color: #000;
-  height: 100%;
   font-family: "Raleway", sans-serif;
   font-weight: 300;
   font-size: 15px;
@@ -48,7 +50,6 @@ body {
   font-weight: 600;
 }
 
-
 /* NEW POST PAGE */
 
 .new_post_heading {
@@ -73,68 +74,16 @@ body {
   color: red;
 }
 
+@media screen and (max-width: 768px) {
+  .search-btn {
+    text-align: center;
+  }
+}
+
 .post-btn {
   width: 206px;
   height: 60px;
   border-radius: 6px;
-}
-
-
-/* Footer */
-
-.footer {
-  background-color: #24659e;
-  color: #fff;
-  margin-top: 5%;
-  position: static;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  text-align: center;
-}
-
-.subscribe {
-  border-color: transparent !important;
-  height: 100%;
-  font-size: 70%;
-}
-
-.footer-heading {
-  margin-bottom: 1%;
-  margin-top: 5%;
-}
-
-.footer_email {
-  color: #fff;
-  font-weight: 600;
-  line-height: 18px;
-  font-size: 15px;
-}
-
-.footer_email:hover {
-  color: #aaa;
-  text-decoration: none;
-}
-
-.submit-div {
-  margin-left: 0%;
-}
-
-.submit-div {
-  font-size: 85%;
-}
-
-.footer_social {
-  color: #fff;
-  margin-left: 5%;
-}
-
-.footer_social:hover {
-  color: #aaa;
-}
-
-.first-social {
-  margin-left: 0%;
 }
 
 
@@ -156,14 +105,14 @@ body {
   margin: 0.8rem auto;
 }
 
-.job-invites p {
+/* .job-invites p {
   font-family: Raleway;
   font-style: normal;
   font-weight: normal;
   font-size: 16px;
   line-height: 19px;
   color: #000000;
-}
+} */
 
 .job_invite_h4 {
   width: 191px;
@@ -179,18 +128,32 @@ body {
   left: -50px !important;
 }
 
-.job-invites div:nth-child(odd):not(.form-group) {
+/* .job-invites div:nth-child(odd):not(.form-group) {
   background: #e3e9ef;
   padding: 20px;
   border-radius: 6px;
-}
+} */
 
-.job-invites div:nth-child(even) {
+/* .job-invites div:nth-child(even) {
   padding: 20px;
   background: #ffffff;
   margin: 1em auto;
-}
+} */
 
+/* Posts page */
+
+@media screen and (min-width: 768px){
+  #posts-page.section {
+    margin: 0 13rem;
+  }
+
+  .mx-13 {
+    margin: 0 13rem;
+  }
+};
+
+
+/* ===== */
 
 /* SIngle Post */
 
@@ -227,11 +190,11 @@ body {
   transition: background-color ease-in-out 0.1s;
 }
 
-.upvote-btn[data-upvoted='true'] {
+.upvote-btn[data-voted="true"] {
   color: var(--success) !important;
 }
 
-.downvote-btn[data-downvoted='true'] {
+.downvote-btn[data-voted="true"] {
   color: var(--danger) !important;
 }
 
@@ -244,7 +207,6 @@ body {
   background-color: var(--danger);
   color: #fff !important;
 }
-
 
 /* 
 .share-buttons a {
@@ -259,19 +221,27 @@ body {
 }
 
 @media screen and (max-width: 900px) {
-.itarj-primary {
+  .itarj-primary {
     /* margin-top: 6rem!important; */
     font-size: smaller !important;
-}
+  }
 }
 
 #main {
-  margin-top: 6rem!important;
+  margin-top: 6rem !important;
+}
+@media screen and (max-width: 600px) {
+  #main {
+    margin-top: 1rem !important;
+  }
 }
 
 /* INDEX */
+.search-invites {
+  padding: 15px;
+}
 
-.page-desc {
+.search-invites .heading {
   color: #636b6f;
   font-weight: 700;
   font-size: 3rem;
@@ -279,21 +249,29 @@ body {
 }
 
 @media screen and (max-width: 900px) {
-  .page-desc {
+  .search-invites .heading {
     color: #636b6f;
     font-weight: 600;
     font-size: 2rem;
     margin-bottom: 0;
   }
-};
+}
 
-.under-text {
+.search-invites .heading__line2 {
+  display: block;
   font-size: 1.1rem;
   font-weight: 500;
   color: #636b6f;
 }
 
-.search {
+.search-invites .search-summary {
+  text-align: initial;
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #636b6f;
+}
+
+.search-invites .search {
   width: 70%;
   margin-left: auto;
   margin-right: auto;
@@ -315,7 +293,6 @@ body {
   }
 }
 
-
 /* Make Placeholder Texts appear in italics */
 
 ::-webkit-input-placeholder {
@@ -334,83 +311,10 @@ body {
   font-style: italic;
 }
 
-
-/* style for how-it-works-page */
-
-.heading {
-  text-align: center;
-}
-
-div.heading h2 {
-  font-style: normal;
-  font-weight: 600;
-  font-size: 40px;
-  line-height: 47px;
-}
-
-div.heading p {
-  color: #636b6f;
-  font-weight: 600;
-  font-size: 25px;
-  line-height: 29px;
-}
-
-.container {
-  width: 90%;
-  max-width: 1000px;
-  margin: 0 auto;
-}
-
-.cards {
-  margin-top: 50px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-}
-
-.card {
-  width: 280px;
-  padding: 0.5em;
-}
-
-.card div.content h3 {
-  text-align: center;
-  font-style: normal;
-  font-weight: 600;
-  font-size: 25px;
-  line-height: 29px;
-}
-
-.cards div.card div.content p {
-  font-style: normal;
-  font-size: 15px;
-  line-height: 18px;
-}
-
-.cards div.card button {
-  margin: 0 auto;
-  display: block;
-  background: #3087d1;
-  color: #fff;
-  padding: 15px 40px;
-  border-radius: 10px;
-}
-
 @media (max-width: 850px) {
-  .cards {
-    flex-direction: column;
-    align-items: center;
-  }
-  .card {
-    margin-bottom: 50px;
-    width: 80%;
-  }
-  div.card div.img {
-    text-align: center;
-  }
   .social {
     width: 200px;
-    font-size:13px
+    font-size: 13px;
   }
 }
 
@@ -420,76 +324,6 @@ div.heading p {
 
 .fa-ellipsis-h {
   transform: rotate(90deg) !important;
-}
-
-
-/* style for how-it-works page  */
-
-.heading {
-  text-align: center;
-}
-
-div.heading h2 {
-  font-style: normal;
-  font-weight: 600;
-  font-size: 40px;
-  line-height: 47px;
-}
-
-div.heading p {
-  color: #636b6f;
-  font-weight: 600;
-  font-size: 25px;
-  line-height: 29px;
-}
-
-.cards {
-  margin-top: 50px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-}
-
-.card {
-  width: 280px;
-  padding: 0.5em;
-}
-
-.card div.content h3 {
-  text-align: center;
-  font-style: normal;
-  font-weight: 600;
-  font-size: 25px;
-  line-height: 29px;
-}
-
-.cards div.card div.content p {
-  font-style: normal;
-  font-size: 15px;
-  line-height: 18px;
-}
-
-.cards div.card button {
-  margin: 0 auto;
-  display: block;
-  background: #3087d1;
-  color: #fff;
-  padding: 15px 40px;
-  border-radius: 10px;
-}
-
-@media (max-width: 850px) {
-  .cards {
-    flex-direction: column;
-    align-items: center;
-  }
-  .card {
-    margin-bottom: 50px;
-    width: 80%;
-  }
-  div.card div.img {
-    text-align: center;
-  }
 }
 
 .social {

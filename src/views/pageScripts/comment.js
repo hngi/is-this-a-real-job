@@ -9,10 +9,6 @@ function togglePreloader(state) {
 const commentBtn = document.querySelector('.comment-btn button');
 
 if (commentBtn) {
-  if (!localStorage.getItem('token')) {
-    commentBtn.disabled = true;
-  }
-
   const api = new ItarjApi('/api/v1');
   const commentField = document.querySelector('#comment-field');
   const commentCount = document.querySelector('#comment-count');
@@ -22,18 +18,22 @@ if (commentBtn) {
 
   const inviteId = postMeta ? postMeta.id : null; // invite id
 
-  const getCommentHTML = (comment) => `<div class="container">
-  <p>
-    ${comment.user.username ? `<a href="/users/${comment.user.username}">@${comment.user.username}</a>`
+  const getCommentHTML = (comment) => `
+  <div class="card mb-2">
+
+  <div class="card-body">
+  ${comment.body}
+  </div>
+  <div class="card-footer">
+  <small>
+  ${comment.user.username ? `<a href="/users/${comment.user.username}">@${comment.user.username}</a>`
     : 'guest'}
-  </p>
-  <p>${comment.body}</p>
-  <p>
+</small>
     <small class="text-muted">${new Date(comment.createdAt).toDateString()}</small>
-  </p> <span>&nbsp;</span>
+  </div>
 </div>`;
 
-  commentBtn.addEventListener('click', e => {
+  commentBtn.addEventListener('click', (e) => {
     e.preventDefault();
     togglePreloader('block');
 
@@ -44,7 +44,7 @@ if (commentBtn) {
 
     commentField.value = '';
 
-    api.Post(`comments/${inviteId}`, JSON.stringify(body), true)
+    api.Post(`comments/${inviteid}`, JSON.stringify(body), true)
       .then(res => {
         comments.innerHTML = getCommentHTML(res.data) + comments.innerHTML;
         if (noComment) noComment.innerHTML = '';

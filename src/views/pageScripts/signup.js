@@ -9,13 +9,6 @@ function togglePreloader(state) {
 }
 
 if (document.forms.signup) {
-  if (
-    localStorage.getItem('token') !== 'undefined'
-    && localStorage.getItem('token')
-  ) {
-    window.location.href = '/posts';
-  }
-
   const signupForm = document.forms.signup;
   const signupBtn = document.querySelector('#signup-btn');
   const notification = document.querySelector('.notification');
@@ -36,8 +29,6 @@ if (document.forms.signup) {
       .then(res => {
         console.log(res);
         togglePreloader('none');
-        localStorage.setItem('token', res.data.token);
-        localStorage.setItem('user', JSON.stringify(res.data)); // convert from [object object]
 
         document.cookie = `login=${res.data.token};path=/`; // path required so cookie always sends.
         window.location.href = '/posts';

@@ -4,33 +4,33 @@
     font-size: 12px;
     line-height: 14px;
   }
-
+  
   .nav-btn {
     font-weight: 600;
     font-size: 12px;
     line-height: 14px;
   }
-
+  
   .nav-link:hover {
     color: rgba(0, 0, 0, .5) !important;
   }
-
+  
   .nav-item {
     margin-top: 5px;
     margin-right: 50px;
   }
-
+  
   input[type="search"]::placeholder {
     font-style: normal;
   }
-
+  
   .navbar-brand {
     font-weight: 600;
     font-size: 18px;
     line-height: 21px;
     color: #3087d1 !important;
   }
-
+  
   .navbar {
     background-color: #fff;
     border-top-color: #73A9D9;
@@ -39,83 +39,83 @@
     /* box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.15); */
     /* Using Bootstrap shadow class */
   }
-
+  
   li a {
     color: #3087d1;
   }
-
+  
   .btn-primary {
     background: #3087d1;
   }
-
+  
   nav.navbar.navbar-expand-lg.navbar-light {
     margin-bottom: 2em;
   }
-
+  
   button {
     padding: 10px;
     border: none;
     border-radius: 5px;
   }
-
+  
   .post-btn {
     color: white;
     border-radius: 5px;
   }
-
+  
   .nav-link a.post-btn:hover {
     text-decoration: none;
     color: white;
   }
-
+  
   .dropdown-menu {
     margin: 0;
     padding: 0;
     min-width: 0;
   }
-
+  
   .dropdown-item {
     padding: 2px 10px;
     color: #73A9D9;
     font-size: 1rem;
   }
-
+  
   .user-name-initials {
     font-size: 14px;
     font-weight: bold;
   }
-
+  
   @media screen and (min-width: 900px) {
     .search-bar {
       width: 400px !important;
       border-radius: 5px;
     }
   }
-
+  
   .search-bar {
     border-radius: 5px;
   }
-
+  
   .form-inline .form-control {
     height: 36px;
     border-color: lightgray;
   }
-
+  
   .notification-bar {
     position: relative;
   }
-
+  
   .notification-icon {
     position: relative;
   }
-
+  
   .badge {
     position: absolute;
     border-radius: 50px;
     bottom: 23px;
     left: 20px
   }
-
+  
   .notification-menu {
     overflow-y: auto;
     overflow-x: hidden;
@@ -131,26 +131,19 @@
     top: 3rem;
     transition: 2s ease-in-out;
   }
-
-  #no-comments {
-    padding-left: 9rem;
-    font-size: 2rem;
-    width: 100%;
-    display: inline-block;
-  }
-
+  
   .hide {
     display: none;
   }
-
+  
   .show {
     display: block;
   }
-
+  
   .notification-title {
     margin-bottom: 0;
   }
-
+  
   .notification-title a {
     /* font-size: 15px; */
     font-weight: bold;
@@ -161,42 +154,38 @@
   .notification-link:hover {
     text-decoration: none;
   }
-
+  
   .notification-link:hover .notification-wrapper {
     background: #e7f0f8;
   }
-
+  
   .notification-wrapper {
     padding: 1rem 0.5rem;
     display: flex;
     justify-content: center;
     align-items: center;
   }
-
+  
   .notification-image {
-    margin: 0.5rem;
-    height: 40px;
-    width: 40px;
-    border-radius: 50%;
-    background-color: var(--light);
-    object-fit: cover;
-    object-position: center;
+    margin-right: 0.5rem;
   }
-
+  
   .notification-no-image {
     display: flex;
-    width: 40px; height: 40px; margin-right: 0.5rem;
+    width: 40px;
+    height: 40px;
+    margin-right: 0.5rem;
     justify-content: center;
     align-items: center;
     background: var(--primary);
     color: #fff;
   }
-
+  
   .badge {
     background-color: #ffd740;
     color: #fff;
   }
-
+  
   @media screen and (max-width: 990px) {
     .badge {
       left: 10px;
@@ -205,8 +194,7 @@
 </style>
 <nav class="navbar navbar-expand-lg shadow-sm">
   <a class="navbar-brand " href="/">isthisarealjob</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon">
       <i class="fas fa-bars" style="color: #73A9D9; font-size:28px;"></i>
 
@@ -219,17 +207,14 @@
 
     <ul class="navbar-nav ml-auto">
       <form class="form-inline" action="/invites/search" method="GET">
-        <input class="fa form-control mr-sm-4 search-bar" name="q" type="search" placeholder="&#xf002; Search"
-               aria-label="Search">
+        <input class="fa form-control mr-sm-4 search-bar" name="q" type="search" placeholder="&#xf002; Search" required aria-label="Search">
       </form>
       <!-- NOTIFICATION NUMBER GOES HERE -->
       <% if(isAuth){ %>
       <li class="nav-item dropdown notification-bar">
 
-        <a id="bell-icon" class="nav-link dropdown-toggle" style="padding-top: 3px;" href="javascript:void(0)"><i
-             class="far fa-bell fa-2x notification-icon"></i>
-             <!-- <span class="badge">3</span> -->
-            </a>
+        <a class="nav-link dropdown-toggle" style="padding-top: 3px;" href="javascript:void(0)"><i 
+             class="far fa-bell fa-2x notification-icon" onclick="notificationToggle()" id="bell-icon"></i><span class="badge"></span></a>
         <div id="branded" class="notification-menu hide shadow">
           <!-- notification goes here -->
         </div>
@@ -242,36 +227,36 @@
           <span class="user-name-initials">
             <%=name.substr(0, 2).toUpperCase()%>
           </span>
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="/users/<%=username%>">Profile</a>
-          <a href="javascript:void(0)" id="logout" class="dropdown-item">Log Out</a>
-        </div>
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="/users/<%=username%>">Profile</a>
+            <a href="javascript:void(0)" id="logout" class="dropdown-item">Log Out</a>
+          </div>
 
-      </li>
-
-      <% } else { %>
-      <li class="nav-item mr-4">
-        <a class="nav-link" href="/register">REGISTER</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/login">LOG IN</a>
-      </li>
-      <% } %>
-
-
-      <li class="nav-item">
-        <a class="post-btn" href="/post"><button type="button" class="btn-primary nav-btn" style="padding: 10px;"> NEW
+        </li>
+        <li class="nav-item">
+          <a class="post-btn" href="/post"><button type="button" class="btn-primary nav-btn" style="padding: 10px;"> NEW
             POST</button></a>
-        <% if(isAuth){ %>
-        <a class="post-btn" href="/posts"><button type="button" class="btn-primary nav-btn" style="padding: 10px;">
+
+          <% } else { %>
+            <li class="nav-item mr-4">
+              <a class="nav-link" href="/register">REGISTER</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/login">LOG IN</a>
+            </li>
+            <% } %>
+
+
+              <% if(isAuth){ %>
+                <a class="post-btn" href="/posts"><button type="button" class="btn-primary nav-btn" style="padding: 10px;">
             POSTS</button></a>
-        <% } %>
-        <% if (isAdmin) { %>
-        <a class="post-btn" href="/admin"><button type="button" class="btn-primary nav-btn" style="padding: 10px;">
+                <% } %>
+                  <% if (isAdmin) { %>
+                    <a class="post-btn" href="/admin"><button type="button" class="btn-primary nav-btn" style="padding: 10px;">
             ADMIN</button></a>
-        <% } %>
-      </li>
+                    <% } %>
+        </li>
 
     </ul>
 
@@ -285,13 +270,30 @@
   </div>
   <script>
 
-    var element = document.getElementById("bell-icon");
-    element.addEventListener("click", () => {
-      var clicked = document.getElementById("branded");
-      clicked.classList.toggle('show');
+    //Clicking notification icon will toggle display
+    function notificationToggle(){
+      document.getElementById("branded").classList.toggle("show");
+    }
+    //Menu does not close when clicked inside
+    document.getElementById("branded").addEventListener('click', function(event){
+      event.stopPropagation();
     });
+    // Close menu on click outside
+    window.onclick = function(event){
+      if(!event.target.matches('#bell-icon')){
+        var dropdowns = document.getElementsByClassName("notification-menu");
+      }
+      var i;
+      for(i=0; i< dropdowns.length; i++){
+        var openDropdown = dropdowns[i];
+        if(openDropdown.classList.contains('show')){
+          openDropdown.classList.remove('show');
+        }
+      }
+    }
 
-    var links = document.getElementsByClassName('notification-wrapper');
+
+    const links = document.getElementsByClassName('notification-wrapper');
 
     function changeColor(e) {
       e.target.style.backgroundColor = e.target.style.backgroundColor ? null : 'white';

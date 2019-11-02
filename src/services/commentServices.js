@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 import Model from '../models';
 import { notifyByEmail } from './notificationServices';
+import { SocketMethods } from '../routes/events';
 
 const {
   Comment, Invite, User, Notification
@@ -78,7 +79,7 @@ export const createCommentForPost = async (res, commentData) => {
 
   const userObj = objs[0].dataValues;
   const inviteObj = objs[1].dataValues;
-  console.log('at create comment/notificaiton', inviteObj.userId);
+
   return Model.sequelize.transaction(t => Comment
     .create(commentData, { transaction: t })
     .then(comment => {
@@ -95,6 +96,7 @@ export const createCommentForPost = async (res, commentData) => {
       };
       return Notification.create(data, { transaction: t })
         .then(async notification => {
+          SocketMethods.emitNotification(notification);
           notification.mailSent = await notifyByEmail(res, { ...notification });
           return Object.assign(comment, { notification });
         });
