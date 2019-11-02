@@ -4,7 +4,7 @@
 
 <head>
   <title>
-    Is-This-A-Real-Job
+    <%= typeof meta != 'undefined' ? meta.title : 'Is This A Real Job' %>
   </title>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -17,8 +17,9 @@
 
   <!-- SEO META TAGS -->
   <!-- Primary Meta Tags -->
-  <meta name="title" content="Is This A Real Job" />
-  <meta name="description" content=" Our app helps you check if job oppurtunities are real or not. " />
+  <meta name="title" content="<%= typeof meta != 'undefined' ? meta.title : 'Is This A Real Job' %>" />
+  <meta name="description"
+        content="<%= typeof meta != 'undefined' ? meta.description : 'Our app helps you check if job oppurtunities are real or not.' %>" />
   <meta name="image" content="https://res.cloudinary.com/goldolar/image/upload/v1571871893/Desktop_-_15.png" />
   <meta name="keywords" content="Real,Job, Scam, job oppurtunity, " />
   <meta name="robots" content="index, follow" />
@@ -26,24 +27,29 @@
   <meta name="language" content="English" />
 
   <!-- Schema.org : Google -->
-  <meta itemprop="name" content="Is This A Real Job" />
-  <meta itemprop="description" content="Our app helps you check if job oppurtunities are real or not." />
+  <meta itemprop="name" content="<%= typeof meta != 'undefined' ? meta.name : 'Is This A Real Job' %>" />
+  <meta itemprop="description"
+        content="<%= typeof meta != 'undefined' ? meta.description : 'Our app helps you check if job oppurtunities are real or not.' %>" />
   <meta itemprop="image" content="https://res.cloudinary.com/goldolar/image/upload/v1571871893/Desktop_-_15.png" />
   <!-- Schema.org : Google -->
 
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website" />
   <meta property="og:url" content="http://isthisarealjob.ng" />
-  <meta property="og:title" content="Is-This-A-Real-Job : Check if job oppurtunities are real..." />
+  <meta property="og:title"
+        content="<%= typeof meta != 'undefined' ? meta.title : 'Is-This-A-Real-Job : Check if job oppurtunities are real...' %>" />
   <meta property="og:site_name" content="Is-This-A-Real-Job" />
-  <meta property="og:description" content="Our app helps you check if job oppurtunities are real or not." />
+  <meta property="og:description"
+        content="<%= typeof meta != 'undefined' ? meta.description : 'Our app helps you check if job oppurtunities are real or not.' %>" />
   <meta property="og:image" content="https://res.cloudinary.com/goldolar/image/upload/v1571871893/Desktop_-_15.png" />
 
   <!-- Twitter -->
   <meta property="twitter:card" content="summary_large_image" />
   <meta property="twitter:url" content="http://isthisarealjob.ng" />
-  <meta property="twitter:title" content="Is-This-A-Real-Job : Check if job oppurtunities are real..." />
-  <meta property="twitter:description" content="Our app helps you check if job oppurtunities are real or not." />
+  <meta property="twitter:title"
+        content="<%= typeof meta != 'undefined' ? meta.title : 'Is-This-A-Real-Job : Check if job oppurtunities are real...' %>" />
+  <meta property="twitter:description"
+        content="<%= typeof meta != 'undefined' ? meta.description : 'Our app helps you check if job oppurtunities are real or not.' %>" />
   <meta property="twitter:image"
         content="https://res.cloudinary.com/goldolar/image/upload/v1571871893/Desktop_-_15.png" />
 
