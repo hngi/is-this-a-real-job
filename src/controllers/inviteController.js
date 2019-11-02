@@ -300,6 +300,7 @@ export const renderAdminJobInvitesPage = async (req, res) => {
     isAdmin: req.auth.isAdmin,
     username: req.auth.username,
     name: req.auth.name,
+    userId: req.auth.userId,
     meta: { title, description }
   });
 };
