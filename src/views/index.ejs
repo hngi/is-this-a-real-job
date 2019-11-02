@@ -1,11 +1,6 @@
 <% include partials/header %>
 <% include partials/nav %>
-
-<style>
-  .card {
-    margin-bottom: 7%;
-  }
-</style>
+<link rel="stylesheet" href="/css/index.css">
 
 <div id="cover">
   <div class="loader"></div>
@@ -46,14 +41,22 @@
 
 <section class="usage-stats">
   <div class="stat-card" title="Not really, the numbers are made up.">
-
+    <i class="stat-card__figure">18.09k</i>
+    <span class="stat-card__label">Users</span>
   </div>
   <div class="stat-card" title="Not really, the numbers are made up.">
-
+    <i class="stat-card__figure">190.17k</i>
+    <span class="stat-card__label">Posts</span>
   </div>
   <div class="stat-card" title="Not really, the numbers are made up.">
-
+    <i class="stat-card__figure">10M</i>
+    <span class="stat-card__label">searches</span>
   </div>
+
+  <a class="usage-stats__cta" href="/register"> <!--cta in the class name is short for Call To Action.-->
+    Join The community
+    <small>Help protect against fraudsters.</small>
+  </a>
 </section>
 
 <% include partials/footer %>

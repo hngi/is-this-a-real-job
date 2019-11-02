@@ -1,0 +1,44 @@
+/* Styles for the home (search) page live here. */
+.card {
+  margin-bottom: 7%;
+}
+
+.usage-stats {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+  overflow-x: auto;
+  padding-bottom: 50px;
+  position: relative;
+}
+
+.stat-card {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 30px;
+  margin: 20px;
+  background-color: blue;
+  color: white;
+}
+
+.stat-card__figure {
+  display: block;
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.stat-card__label {
+  display: block;
+}
+
+.usage-stats__cta { /*cta in the class name is short for Call To Action.*/
+  position: absolute;
+  bottom: 10px;
+  left: 50vw;
+  transform: translateX(-50%);
+  height: 30px;
+  padding: 20px;
+  text-align: center;
+}
