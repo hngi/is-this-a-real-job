@@ -1,5 +1,12 @@
 <% include partials/header %>
 <% include partials/nav2 %>
+
+<style>
+.verify:hover{
+ border: thin solid white;
+}
+
+</style>
 <div id="cover">
   <div class="loader"></div>
 </div>
@@ -25,6 +32,11 @@
       <span id="no-comments" class="bg-transparent container">The world is your oyseter. Fill it.</span>
       <% } %> <% if (invites.length > 0) { %> <% for (invite of invites) { %>
       <div class="container post-meta" data-inviteId="<%=invite.inviteId%>">
+
+        <a href="/verify" class="btn btn-defualt float-right">
+          <button class="btn btn-primary text-uppercase font-weight-bold verify" style="font-size: 12px;">verify</button>
+        </a>
+
         <h4>
           <a href="<%='/post/'+invite.inviteId%>">
             <%=invite.title%>
