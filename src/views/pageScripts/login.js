@@ -28,8 +28,6 @@ if (document.querySelector('#login-btn')) {
       .then(res => {
         console.log(res);
         togglePreloader('none');
-        localStorage.setItem('token', res.data.token);
-        localStorage.setItem('user', JSON.stringify(res.data)); // convert from [object object]
 
         document.cookie = `login=${res.data.token};path=/`; // path required so cookie always sends.
         window.location.href = '/posts';

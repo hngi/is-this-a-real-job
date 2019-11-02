@@ -4,20 +4,10 @@
   <div class="loader"></div>
 </div>
 
-<body>
+<div class="section">
+  <div class="container">
   <div class="header" id="main">
     <div class="container p-0 mb-md-4">
-      <!-- <form action="/invites/search" method="GET">
-        <div class="form-row">
-          <div class="col-md-8">
-            <input type="text" name="q" class="searchbar-1 form-control" placeholder="Search a keyword or a sentence e.g 'Lagos'" />
-          </div>
-
-          <div class="col-md-4">
-            <input type="submit" value="Invite Search" class=" btn btn-primary" />
-          </div>
-        </div>
-      </form> -->
 
       <div class="alert itarj-primary d-flex justify-content-between">
         <% if (isAuth) { %>
@@ -74,18 +64,27 @@
         </span>
 
         <span class="float-right share-buttons">
-          <!-- <a href="#"><i class="fab fa-facebook-f"></i></i></a> -->
-          <a target="_blank"
-             href="https://twitter.com/intent/tweet?text=<%=invite.title+' - Is this a real job? \n Let us know: http://isthisarealjob.ng/post/'+invite.inviteId%>"><i
-               class="fab fa-twitter"></i></a>
-          <!-- <a href="https://www.instagram.com/"><i class="fab fa-instagram"></i></a> -->
-          <a target="_blank"
-             href="https://api.whatsapp.com/send?&text=<%=invite.title+' - Is this a real job? \n Let us know: http://isthisarealjob.ng/post/'+invite.inviteId%>"><i
-               class="fab fa-whatsapp"></i></a>
-        </span>
+            <a target="_blank"
+              href=" https://www.facebook.com/sharer.php?u=http://itarj.com/post/'<%=invite.inviteId%>"> 
+              <i class="fab fa-facebook"></i>
+            </a>
+  
+            <a target="_blank"
+                href="https://twitter.com/intent/tweet?text=<%=invite.title+' - Is this a real job? \n Let us know: http://itarj.com/post/'+invite.inviteId%>">
+                <i class="fab fa-twitter"></i></a>
+  
+            <a target="_blank"
+                href="https://api.whatsapp.com/send?&text=<%=invite.title+' - Is this a real job? \n Let us know: http://itarj.com/post/'+invite.inviteId%>">
+                <span style="color:#25D366;">
+                  <i class="fab fa-whatsapp"></i>
+                </span>
+            </a>
+          </span>
       </div>
       <% } %> <% } %>
     </section>
+  </div>
+  </div>
   </div>
 
 
