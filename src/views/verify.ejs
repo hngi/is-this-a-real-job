@@ -1,84 +1,103 @@
 <% include partials/header %>
   <% include partials/nav %>
 
-  <style>
-      .btn-default{
-          background-color: #3087d1;
-          color: white;
-          font-size: 1em;
+    <style>
+      .btn-default {
+        background-color: #3087d1;
+        color: white;
+        font-size: 1em;
       }
-  </style>
+    </style>
 
     <div id="cover">
-    <div class="loader"></div>
+      <div class="loader"></div>
     </div>
 
     <div class="container">
-        <div class="text-center m-5">
-            <h2 class="font-weight-bold">Verify Job Invites</h2>
-            <p class="lead"> Verify any information on your Job invite using the appropriate section below.</p>
-        </div>
-        
-        <div class="p-2">
-            <form action="myform.cgi">
-                <div class="d-flex">
-                    <ul class="list-unstyled list-inline mx-auto justify-content-center ">
-                        <li class="mb-4 ">
-                            <label for="fileupload" class="font-weight-bold"> Upload an image for OCR check</label>
-                            <div class="d-flex">
-                                <input type="file" name="fileupload" id="fileupload" class="form-control-file col-8 col-lg-12 mr-2">
-                                <input type="submit" value="&#xf002 Analyze" class="btn btn-default fas fa-search">
-                            </div>
-                        </li>
-                        <li class="mb-4">
-                            <label for="email_checker" class="font-weight-bold"> Check if the email is valid</label>
-                            <div class="d-flex">
-                                <input type="text" name="email_checker" value="Insert the mail" class="form-control col-8 col-lg-12 mr-2">
-                                <input type="submit" value=" &#xf002 Analyze" class="btn btn-default fas fa-search">
-                            </div>
-                        </li>
-                        <li class="mb-4">
-                            <label for="error_checker" class="font-weight-bold"> Check the mail for grammatical errors</label>
-                            <div class="d-flex">
-                                <input type="text" name="error_checker" value="Insert the mail" class="form-control col-8 col-lg-12 mr-2">
-                                <input type="submit" value=" &#xf002 Analyze" class="btn btn-default fas fa-search">
-                            </div>
-                        </li>
-                        <li class="mb-4">
-                            <label for="address_checker" class="font-weight-bold"> Check if the address exists</label>
-                            <div class="d-flex">
-                                <input type="text" name="address_checker" value="Insert the address" class="form-control col-8 col-lg-12 mr-2">
-                                <input type="submit" value=" &#xf002 Analyze" class="btn btn-default fas fa-search">
-                            </div>
-                        </li>
-                        <li class="mb-4">
-                            <label for="nairaland_checker" class="font-weight-bold"> Check the companies' visibility on nairaland</label>
-                            <div class="d-flex">
-                                <input type="text" name="nairaland_checker" value="Insert the company name" class="form-control col-8 col-lg-12 mr-2">
-                                <input type="submit" value=" &#xf002 Analyze" class="btn btn-default fas fa-search">
-                            </div>
-                        </li>
-                        <li class="mb-4">
-                            <label for="linkedin_checker" class="font-weight-bold"> Check the company exists on linkedin</label>
-                            <div class="d-flex">
-                                <input type="text" name="linkedin_checker" value="Insert the company name" class="form-control col-8 col-lg-12 mr-2">
-                                <input type="submit" value=" &#xf002 Analyze" class="btn btn-default fas fa-search">
-                            </div>
-                        </li>
-                        <li class="mb-4">
-                            <label for="cac_checker" class="font-weight-bold"> Check the company exists on the CAC page</label>
-                            <div class="d-flex">
-                                <input type="text" name="nairaland_checker" value="Insert the company name" class="form-control col-8 col-lg-12 mr-2">
-                                <input type="submit" value=" &#xf002 Analyze" class="btn btn-default fas fa-search">
-                            </div>
-                        </li>         
-                    </ul>  
-                </div>       
-            </form>
-        </div>
-        </div>
-        
-    </div>
-   
+      <div class="text-center m-5">
+        <h2 class="font-weight-bold">Verify Job Invites</h2>
+        <p class="lead"> Verify any information on your Job invite using the appropriate section below.</p>
+      </div>
 
-<% include partials/footer %>
+      <div class="p-2">
+        <form>
+          <div class="d-flex">
+            <ul class="list-unstyled list-inline mx-auto justify-content-center ">
+              <li class="mb-4 ">
+                <label for="fileupload" class="font-weight-bold"> Upload an image for OCR check</label>
+                <div class="d-flex">
+                  <input type="file" name="fileupload" id="fileupload" class="form-control-file col-8 col-lg-12 mr-2">
+                  <input type="submit" value="&#xf002 Analyze" class="btn btn-default fas fa-search">
+                </div>
+              </li>
+              <li class="mb-4">
+                <label for="email_checker" class="font-weight-bold"> Check if the email is valid</label>
+                <div class="d-flex">
+                  <input type="text" name="email_checker" value="Insert the mail" class="form-control col-8 col-lg-12 mr-2">
+                  <input type="submit" value=" &#xf002 Analyze" class="btn btn-default fas fa-search">
+                </div>
+              </li>
+              <li class="mb-4">
+                <label for="error_checker" class="font-weight-bold"> Check the mail for grammatical errors</label>
+                <div class="d-flex">
+                  <input type="text" name="error_checker" value="Insert the mail" class="form-control col-8 col-lg-12 mr-2">
+                  <input type="submit" value=" &#xf002 Analyze" class="btn btn-default fas fa-search">
+                </div>
+              </li>
+              <li class="mb-4">
+                <label for="address_checker" class="font-weight-bold"> Check if the address exists</label>
+                <div class="d-flex">
+                  <input type="text" name="address_checker" value="Insert the address" class="form-control col-8 col-lg-12 mr-2">
+                  <input type="submit" value=" &#xf002 Analyze" class="btn btn-default fas fa-search">
+                </div>
+              </li>
+              <li class="mb-4">
+                <label for="nairaland_checker" class="font-weight-bold"> Check the companies' visibility on nairaland</label>
+                <div class="d-flex">
+                  <input type="text" name="nairaland_checker" value="Insert the company name" class="form-control col-8 col-lg-12 mr-2">
+                  <input type="submit" value=" &#xf002 Analyze" class="btn btn-default fas fa-search">
+                </div>
+              </li>
+              <li class="mb-4">
+                <label for="linkedin_checker" class="font-weight-bold"> Check the company exists on linkedin</label>
+                <div class="d-flex">
+                  <input type="text" name="linkedin_checker" value="Insert the company name" class="form-control col-8 col-lg-12 mr-2">
+                  <input type="submit" value=" &#xf002 Analyze" class="btn btn-default fas fa-search">
+                </div>
+              </li>
+              <li class="mb-4">
+                <label for="cac_checker" class="font-weight-bold"> Check the company exists on the CAC page</label>
+                <div class="d-flex">
+                  <input type="text" name="nairaland_checker" value="Insert the company name" class="form-control col-8 col-lg-12 mr-2">
+                  <input type="submit" value=" &#xf002 Analyze" class="btn btn-default fas fa-search">
+                </div>
+              </li>
+            </ul>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    </div>
+
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="resultModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">Analysis Result</h4>
+          </div>
+          <div class="modal-body">
+            <div id="result"></div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <% include partials/footer %>

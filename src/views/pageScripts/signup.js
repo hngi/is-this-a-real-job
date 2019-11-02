@@ -9,13 +9,6 @@ function togglePreloader(state) {
 }
 
 if (document.forms.signup) {
-  if (
-    localStorage.getItem('token') !== 'undefined'
-    && localStorage.getItem('token')
-  ) {
-    window.location.href = '/posts';
-  }
-
   const signupForm = document.forms.signup;
   const signupBtn = document.querySelector('#signup-btn');
   const notification = document.querySelector('.notification');
