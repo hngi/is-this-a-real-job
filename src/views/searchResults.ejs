@@ -42,7 +42,11 @@
       <!-- No invites -->
       <div class="card card-secondary text-center container my-4">
         No invites found :(
+<<<<<<< HEAD
         <p>Create a new invite or make a new post about your invite<a href="/singlepost.ejs">here</a></p>
+=======
+        <p>Create a new invite <a href="/post">here</a></p>
+>>>>>>> upstream/develop
       </div>
 
       <% } %> <% if (invites.length > 0) { %> <% for (invite of invites) { %>
@@ -59,17 +63,22 @@
         </p>
 
         <span class="float-right share-buttons">
-          <!-- <a href="#"><i class="fab fa-facebook-f"></i></i></a> -->
-          <a target="_blank"
-             href="https://twitter.com/intent/tweet?text=<%=invite.title+' - Is this a real job? \n Let us know: http://isthisarealjob.ng/post/'+invite.inviteId%>"><i
-               class="fab fa-twitter"></i></a>
-          <!-- <a href="https://www.instagram.com/"><i class="fab fa-instagram"></i></a> -->
-          <a target="_blank"
-             href="https://api.whatsapp.com/send?&text=<%=invite.title+' - Is this a real job? \n Let us know: http://isthisarealjob.ng/post/'+invite.inviteId%>">
-             <span style="color: #25D366;">
-              <i class="fab fa-whatsapp"></i></a>
-            </span>
-        </span>
+            <a target="_blank"
+              href=" https://www.facebook.com/sharer.php?u=http://itarj.com/post/'<%=invite.inviteId%>"> 
+              <i class="fab fa-facebook"></i>
+            </a>
+  
+            <a target="_blank"
+                href="https://twitter.com/intent/tweet?text=<%=invite.title+' - Is this a real job? \n Let us know: http://itarj.com/post/'+invite.inviteId%>">
+                <i class="fab fa-twitter"></i></a>
+  
+            <a target="_blank"
+                href="https://api.whatsapp.com/send?&text=<%=invite.title+' - Is this a real job? \n Let us know: http://itarj.com/post/'+invite.inviteId%>">
+                <span style="color:#25D366;">
+                  <i class="fab fa-whatsapp"></i>
+                </span>
+            </a>
+          </span>
 
       </div>
       <% } %> <% } %>
