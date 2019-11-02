@@ -38,50 +38,48 @@
 
     <section class="job-invites">
       <% if (invites.length === 0) { %>
+        <!-- No invites -->
+        <div class="card card-secondary text-center container my-4">
+          No matching invites were found 😢
+          <p>Submit your invite <a href="/post">here</a>, to get feedback from the community.</p>
+        </div>
+      <% } %> 
 
-      <!-- No invites -->
-      <div class="card card-secondary text-center container my-4">
-        No invites found :(
-<<<<<<< HEAD
-        <p>Create a new invite or make a new post about your invite<a href="/singlepost.ejs">here</a></p>
-=======
-        <p>Create a new invite <a href="/post">here</a></p>
->>>>>>> upstream/develop
-      </div>
-
-      <% } %> <% if (invites.length > 0) { %> <% for (invite of invites) { %>
-      <div class="container post-meta p-4" id="<%=invite.inviteId%>">
-
-        <h4>
-          <a href="<%='/post/'+invite.inviteId%>">
-            <%=invite.title%>
-          </a>
-        </h4>
-
-        <p>
-          <%=invite.body%>
-        </p>
-
-        <span class="float-right share-buttons">
-            <a target="_blank"
-              href=" https://www.facebook.com/sharer.php?u=http://itarj.com/post/'<%=invite.inviteId%>"> 
-              <i class="fab fa-facebook"></i>
-            </a>
-  
-            <a target="_blank"
-                href="https://twitter.com/intent/tweet?text=<%=invite.title+' - Is this a real job? \n Let us know: http://itarj.com/post/'+invite.inviteId%>">
-                <i class="fab fa-twitter"></i></a>
-  
-            <a target="_blank"
-                href="https://api.whatsapp.com/send?&text=<%=invite.title+' - Is this a real job? \n Let us know: http://itarj.com/post/'+invite.inviteId%>">
-                <span style="color:#25D366;">
-                  <i class="fab fa-whatsapp"></i>
-                </span>
-            </a>
-          </span>
-
-      </div>
-      <% } %> <% } %>
+      <% if (invites.length > 0) { %> 
+        <% for (invite of invites) { %>
+          <div class="container post-meta p-4" id="<%=invite.inviteId%>">
+            <h4>
+              <a href="<%='/post/'+invite.inviteId%>">
+                <%=invite.title%>
+              </a>
+            </h4>
+            <p>
+              <%=invite.body%>
+            </p>
+            <span class="float-right share-buttons">
+              <a target="_blank"
+                href=" https://www.facebook.com/sharer.php?u=http://itarj.com/post/'<%=invite.inviteId%>"> 
+                <i class="fab fa-facebook"></i>
+              </a>
+              <a target="_blank"
+                  href="https://twitter.com/intent/tweet?text=<%=invite.title+' - Is this a real job? \n Let us know: http://itarj.com/post/'+invite.inviteId%>">
+                  <i class="fab fa-twitter"></i>
+              </a>
+              <a target="_blank"
+                  href="https://api.whatsapp.com/send?&text=<%=invite.title+' - Is this a real job? \n Let us know: http://itarj.com/post/'+invite.inviteId%>">
+                  <span style="color:#25D366;">
+                    <i class="fab fa-whatsapp"></i>
+                  </span>
+              </a>
+            </span>
+          </div>
+        <% } %>
+        <!-- Users choice wasn't in the list -->
+        <div class="card card-secondary text-center container my-4">
+          Didn't find what you were looking for?
+          <p>Submit your invite <a href="/post">here</a>, to get feedback from the community.</p>
+        </div>
+      <% } %>
     </section>
   </div>
 </body>

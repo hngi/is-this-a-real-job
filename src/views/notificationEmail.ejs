@@ -1,87 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>E-mail Notification</title>
-    <style>
-    
-.blue-container{
-    background-color: rgb(124, 215, 245);
-    width: 80%;
-    display: inline-block;
-    text-align: center;
-    margin-left: 100px;
-    
-}
-p{
-    font-family: sans-serif;
-    font-size: 20px;
-    text-align: justify;
-    margin-left: 2cm;
-}
-table{
-    background-color: white;
-    width:80%;
-    margin-top: 2cm;
-    margin-left: 3cm;
-    padding: 20px;
-}
-h6{
-    font-family: sans-serif;
-    font-size: 18px;
-    text-align: left;
-    margin-bottom: 1cm;
-    margin-left: 2cm;
-}
-
-button{
-    background-color: white;
-    margin-top: 2cm;
-    margin-bottom: 2cm;
-    margin-right: 19cm;
-    padding: 15px 25px;
-    text-align: center;
-   font-size: 16px;
-  cursor: pointer;
-  border-radius: 5px;
-  margin-bottom: 2cm;
-}
-button:hover {
-    background-color:rgb(112, 209, 241);
-  }
-  
-    </style>
+  <meta charset="UTF-8">
+  <style>* {margin: 0px; padding: 0px;}</style>
 </head>
-<body>
-  
-<div class="blue-container">
-        <table style="width: 80%;">
-                <th>You have a new Notification from</th>
-                <th><a href="idex.js">Isitarealjob</a></th>
-                
-              
-              </table>
-<h6>Hello Feranmi</h6>
-<p>You have a new comment on your post. 
-    
-    
-            <br>@reizqah comment on your post at
-             at 2019-10-31      3:37pm 
-           
-            </p>
-     <br><a href="https/figma.com/notification" style="float: left; margin-left: 2cm;">https/figma.com/notification</a>
 
-    
-    
-    
-    
-     <button type="submit">
-         View Profile
+<body style="box-sizing:border-box; min-width:350px; max-width:768px; padding:0px; margin:0px; font-family:sans-serif;">
+<div style="box-sizing:border-box; padding:0px; margin:0px; background-color:#3087D1; padding:20px; min-width:350px; max-width:768px; margin:0px;">
+  <table style="box-sizing:border-box; padding:0px; margin:0px;  width:100%;">
+    <thead style="box-sizing:border-box; padding:0px; width:100%; margin: 0px;"><tr><th style="box-sizing:border-box; background-color:white; padding:5%; margin:0px; ">
+      <em style="box-sizing:border-box; display:inline-block; width:45%; padding:0px; text-align:left; font-weight:500; margin:0px;">
+        You have a new Notification from
+      </em>
+      <strong style="box-sizing:border-box; display:inline-block; width:45%; padding-right:5%; text-align:right; margin:0px;">
+        <a style="box-sizing:border-box; color:black; padding:0px; margin:0px; text-decoration: none;"
+           href="http://itarj.com">
+          IsThisARealJob
+        </a>
+      </strong>
+    </th></tr></thead>
 
-     </button>
-     <a href="#" style="float: inline-end; margin-right: 1cm; margin-top: 1cm;" > Unsubscribe Notification</a>
-    </div>
+    <tbody style="box-sizing:border-box; padding:0px; text-align: center; color:white;">
+    <tr><td style="box-sizing:border-box; text-align:left; padding-left: 20px;">
+      <h6 style="box-sizing:border-box; margin-top:20px; font-size:18px; line-height:1.5em;">
+        Hello <%=target.name%>,
+      </h6>
+      <span style="padding-left: 15px; display: inline-block;">
+        <%=title%> 
+        <br />
+        <br />
+        <%=details%>
+      </span>
+    </td></tr>
+
+    <tr><td>
+      &nbsp;
+      <br>
+      &nbsp;
+    </td></tr>
+
+    <tr><td style="text-align:center; box-sizing:border-box;">
+      <a style="background-color:white; color:black; padding:15px 25px; font-size:16px; cursor:pointer; border-radius:5px; text-decoration: none;"
+         href="http://itarj.com/login">
+        Open App
+      </a>
+    </td></tr>
+
+    <!--tr><td style="text-align:center;">
+      <a href="#" style="float: inline-end; margin-right: 1cm; margin-top: 1cm;">
+        Unsubscribe Notification
+      </a>
+    </td></tr-->
+    </tbody>
+  </table>
+</div>
 </body>
 </html>
