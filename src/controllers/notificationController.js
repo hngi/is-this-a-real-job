@@ -61,13 +61,12 @@ export const validateNotificationData = (req, res, next) => {
 };
 
 
-export const createNotification = async (req, res) => {
+export const createNotification = async ({target, type, comment, upvote, report}) => {
   try {
-    const { target, commentId, inviteId } = req.body;
-    const { type } = req.query;
+    
 
     const notification = await createNotificationForUser({
-      type, userId: target, commentId, inviteId
+      type, userId: target, commentId: comment.id, inviteId: comment.inviteId
     }).catch(e => { throw e; });
 
     if (notification) {

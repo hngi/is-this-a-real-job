@@ -7,8 +7,11 @@ import {
   updateOneUser,
   findUsers,
   fetchSingleUser,
-  findSingleUser
+  findSingleUser,
+  submitUserReport
 } from '../services/userServices';
+
+import { createNotification } from '../controllers/notificationController'
 
 /**
  * @param {object} req
@@ -164,3 +167,23 @@ export const renderAdminReportedUsersPage = async (req, res) => {
     meta: { title, description }
   });
 };
+
+export const reportUser = async (req, res)=> {
+  const { reporter, offender, reason, details } = req.body;
+  const report = { reporter, offender, reason, details };
+
+  try {
+    if(!reporter || !offender || !reason || !details)
+      respondWithWarning(res, 400, "Missing required data", report);
+
+    const newReport = await submitUserReport(report);
+
+    await createNotification(newReport);
+
+    return respondWithSuccess(res, 201, "Report successfully submitted", newReport);
+  }
+  catch(error) {
+    console.log(error);
+    return respondWithWarning(res, 500, "Server error");
+  }
+}

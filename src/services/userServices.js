@@ -95,3 +95,7 @@ export const updateOneUser = async (data, queryOption = {}) => {
     console.log(error);
   }
 };
+
+export const submitUserReport = (report)=> {
+  { reporter, offender, reason, details }
+}

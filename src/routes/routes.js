@@ -269,6 +269,9 @@ export const initRoutes = app => {
   //app.post('/api/v1/notifications', validateNotificationData, createNotification);
   app.get('/api/v1/notifications/:userId', validateUserId, getNotifications);
 
+  // Report a user and notify admin.
+  app.post('/reportuser', getUserByUserId, reportUser);
+
   // Fallback case for unknown URIs.
   app.get('/notAuthorized', (req, res) => res.render('401', { meta: { title: '404 - Page Not Found', description: genericDescription } }));
   app.get('/forbiden', (req, res) => res.render('403', { meta: { title: '403 - Forbidden Route', description: genericDescription } }));
