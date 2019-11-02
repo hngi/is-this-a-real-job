@@ -76,62 +76,6 @@ body {
   border-radius: 6px;
 }
 
-/* Footer */
-
-.footer {
-  background-color: #24659e;
-  color: #fff;
-  margin-top: 5%;
-  position: static;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  text-align: center;
-}
-
-.subscribe {
-  border-color: transparent !important;
-  height: 100%;
-  font-size: 70%;
-}
-
-.footer-heading {
-  margin-bottom: 1%;
-  margin-top: 5%;
-}
-
-.footer_email {
-  color: #fff;
-  font-weight: 600;
-  line-height: 18px;
-  font-size: 15px;
-}
-
-.footer_email:hover {
-  color: #aaa;
-  text-decoration: none;
-}
-
-.submit-div {
-  margin-left: 0%;
-}
-
-.submit-div {
-  font-size: 85%;
-}
-
-.footer_social {
-  color: #fff;
-  margin-left: 5%;
-}
-
-.footer_social:hover {
-  color: #aaa;
-}
-
-.first-social {
-  margin-left: 0%;
-}
 
 /* Invite us section */
 
