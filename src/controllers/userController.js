@@ -58,6 +58,19 @@ export const getUserByUserId = async (req, res, next) => {
 };
 
 /**
+ * check if user is admin for admin render endpoints
+ * @param {object} req
+ * @param {object} res
+ * @returns {object} json response
+ */
+export const checkRenderIsAdmin = async (req, res, next) => {
+  if (!req.auth.isAdmin) {
+    return res.redirect('/404');
+  }
+  next();
+};
+
+/**
  * Fetch single user
  *
  * @param {*} req
