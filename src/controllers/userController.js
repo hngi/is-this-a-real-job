@@ -1,4 +1,5 @@
 /* eslint-disable no-unneeded-ternary */
+import crypto from 'crypto';
 import {
   respondWithSuccess,
   respondWithWarning
@@ -10,7 +11,6 @@ import {
   findSingleUser
 } from '../services/userServices';
 
-import crypto from 'crypto';
 
 /**
  * @param {object} req
@@ -70,6 +70,20 @@ export const checkRenderIsAdmin = async (req, res, next) => {
     return res.redirect('/404');
   }
   next();
+};
+
+/**
+ * check if user is already logged in
+ * This code only applies to login and signup pages only
+ * @param {object} req
+ * @param {object} res
+ * @returns {object} json response
+ */
+export const checkRenderIsAuth = async (req, res, next) => {
+  if (req.isAuth) {
+    return res.redirect('/posts');
+  }
+  return next();
 };
 
 /**
