@@ -160,11 +160,11 @@
     <div class="container overall">
 
       <!-------Profile Section------->
-
+      <% const image = user.profileImage || "https://res.cloudinary.com/leankhan/image/upload/v1572542434/default_avatar2.png" %>
       <div class="first-section">
         <div class="first-sec-row row">
             <div class="profile-img">
-              <img src="https://res.cloudinary.com/leankhan/image/upload/v1572542434/default_avatar2.png" alt="Profile-pix">
+              <img src="<%=image%>" alt="Profile-pix">
             </div>
             <div class="user">
               <h2 class="username">
