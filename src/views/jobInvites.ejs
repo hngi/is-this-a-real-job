@@ -1,6 +1,12 @@
 <% include partials/header %>
 <% include partials/nav2 %>
 <% include partials/postComponent %>
+
+<style>
+  .verify:hover {
+    border: thin solid white;
+  }
+</style>
 <div id="cover">
   <div class="loader"></div>
 </div>
@@ -30,6 +36,7 @@
         <% if (invites.length === 0) { %>
         <span id="no-comments" class="bg-transparent container">The world is your oyseter. Fill it.</span>
         <% } %> <% if (invites.length > 0) { %> <% for (invite of invites) { %>
+        <!-- Render Post Component here (check partials/postComponent) -->
         <%= renderPostComponent(invite) %>
         <% } %> <% } %>
       </section>

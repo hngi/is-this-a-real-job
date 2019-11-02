@@ -4,17 +4,21 @@
 
 /* ----------------------------------------------- */
 
+  /*Color Vars*/
+:root {
+  --dark-blue: #24659E;
+} 
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-html,
-body {
+
+html, body {
   background-color: #fff;
   color: #000;
-  height: 100%;
   font-family: "Raleway", sans-serif;
   font-weight: 300;
   font-size: 15px;
@@ -76,62 +80,6 @@ body {
   border-radius: 6px;
 }
 
-/* Footer */
-
-.footer {
-  background-color: #24659e;
-  color: #fff;
-  margin-top: 5%;
-  position: static;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  text-align: center;
-}
-
-.subscribe {
-  border-color: transparent !important;
-  height: 100%;
-  font-size: 70%;
-}
-
-.footer-heading {
-  margin-bottom: 1%;
-  margin-top: 5%;
-}
-
-.footer_email {
-  color: #fff;
-  font-weight: 600;
-  line-height: 18px;
-  font-size: 15px;
-}
-
-.footer_email:hover {
-  color: #aaa;
-  text-decoration: none;
-}
-
-.submit-div {
-  margin-left: 0%;
-}
-
-.submit-div {
-  font-size: 85%;
-}
-
-.footer_social {
-  color: #fff;
-  margin-left: 5%;
-}
-
-.footer_social:hover {
-  color: #aaa;
-}
-
-.first-social {
-  margin-left: 0%;
-}
 
 /* Invite us section */
 
@@ -232,11 +180,11 @@ body {
   transition: background-color ease-in-out 0.1s;
 }
 
-.upvote-btn[data-upvoted="true"] {
+.upvote-btn[data-voted="true"] {
   color: var(--success) !important;
 }
 
-.downvote-btn[data-downvoted="true"] {
+.downvote-btn[data-voted="true"] {
   color: var(--danger) !important;
 }
 
@@ -279,8 +227,11 @@ body {
 }
 
 /* INDEX */
+.search-invites {
+  padding: 15px;
+}
 
-.page-desc {
+.search-invites .heading {
   color: #636b6f;
   font-weight: 700;
   font-size: 3rem;
@@ -288,7 +239,7 @@ body {
 }
 
 @media screen and (max-width: 900px) {
-  .page-desc {
+  .search-invites .heading {
     color: #636b6f;
     font-weight: 600;
     font-size: 2rem;
@@ -296,13 +247,21 @@ body {
   }
 }
 
-.under-text {
+.search-invites .heading__line2 {
+  display: block;
   font-size: 1.1rem;
   font-weight: 500;
   color: #636b6f;
 }
 
-.search {
+.search-invites .search-summary {
+  text-align: initial;
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #636b6f;
+}
+
+.search-invites .search {
   width: 70%;
   margin-left: auto;
   margin-right: auto;

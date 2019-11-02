@@ -95,7 +95,7 @@
               <input type="username" placeholder="Username" name="username" class="form-control" required>
             </div>
             <div class="form-group">
-              <input type="password" placeholder="Password" name="password" class="form-control" required>
+              <input type="password" placeholder="Password" name="password" class="form-control" id="password1" required>
             </div>
             <div class="form-group">
               <input type="password" placeholder="Password Confirmation" class="form-control" name="password2" id="password2">
@@ -112,5 +112,20 @@
 
     </div>
     </div>
+    <script>
+			const pass1 = document.querySelector("#password1");
+			const pass2 = document.querySelector("#password2");
 
+
+function validate(){
+  if(pass1.value !== pass2.value) {
+    pass2.setCustomValidity("Passwords Don't Match");
+  } else {
+    pass2.setCustomValidity('');
+      }
+}
+
+pass1.onchange = validate;
+pass2.onkeyup = validate;
+</script>
     <% include partials/footer %>

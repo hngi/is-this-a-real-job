@@ -218,6 +218,7 @@
     <% if (user.Invites.length > 0) {%>
     <% user.Invites.forEach(invite => { %>
 
+    <!-- Render Post Component here (check partials/postComponent) -->
     <%= renderPostComponent(invite) %>
 
     <% }) %>
