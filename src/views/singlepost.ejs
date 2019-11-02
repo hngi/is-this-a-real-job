@@ -13,14 +13,15 @@
         <%= renderPostComponent(invite) %>
         <div class="container p-0">
           <div class="form-group">
-            <textarea class="form-control" id="comment-field" placeholder="Type something..." rows="3"></textarea>
+            <textarea class="form-control" id="comment-field" style="border: 1px solid #3087d1"
+                      placeholder="Type something..." rows="3"></textarea>
           </div>
           <span class="comment-btn">
             <button type="button" class="btn btn-primary">Comment</button>
           </span>
         </div>
 
-        <h5 class="container p-0">Comments</h5>
+        <h5 class="container p-0 mt-3"><%= comments.length %> Comments</h5>
         <section id="comments">
           <% if (comments.length === 0) { %>
           <div id="no-comments" class="bg-transparent container">There no comments for this post.</div>
