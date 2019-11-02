@@ -165,11 +165,11 @@ body {
   transition: background-color ease-in-out 0.1s;
 }
 
-.upvote-btn[data-upvoted="true"] {
+.upvote-btn[data-voted="true"] {
   color: var(--success) !important;
 }
 
-.downvote-btn[data-downvoted="true"] {
+.downvote-btn[data-voted="true"] {
   color: var(--danger) !important;
 }
 
