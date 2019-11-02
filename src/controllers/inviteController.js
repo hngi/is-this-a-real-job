@@ -13,8 +13,8 @@ import {
   unvoteOneInvite,
   downVoteOneInvite,
   fetchOneVoteCount,
-} from "../services/inviteServices";
-import { findCommentsForPost } from "../services/commentServices";
+} from '../services/inviteServices';
+import { findCommentsForPost } from '../services/commentServices';
 import { findSingleUser } from '../services/userServices';
 
 export const getOneInvite = async (req, res) => {
@@ -47,7 +47,7 @@ export const getAllInvites = async (req, res) => {
 export const saveNewInvite = async (req, res) => {
   try {
     req.body.userId = req.auth.userId;
-    req.body.media = !req.files ? '' : req.files[0].secure_url;
+    req.body.media = req.files && !req.files[0] ? '' : req.files[0].secure_url;
     const invite = await saveInvite(req.body).catch(error => {
       throw error;
     });
@@ -70,12 +70,16 @@ export const renderSearchResults = async (req, res) => {
 
     const invites = await searchInvites(q);
 
+    const title = `Search for '${q}' - Is This A Real Job`;
+    const description = `Search results for ${q}`;
+
     return res.render('searchResults', {
       invites: invites || [],
       isAuth: req.isAuth,
       isAdmin: req.auth.isAdmin,
       username: req.auth.username,
-      name: req.auth.name
+      name: req.auth.name,
+      meta: { title, description }
     });
   } catch (error) {
     respondWithWarning(res, 500, 'Server error');
@@ -158,13 +162,9 @@ export const fetchVoteCount = async (req, res) => {
   const { userId } = req.auth;
 
   await fetchOneVoteCount(inviteId, userId)
-    .then((votes) => {
-      return respondWithSuccess(res, 200, "Successfully fetched all votes", votes);
-    })
-    .catch((error) => {
-      return respondWithSuccess(res, error.status, error.message, JSON.stringify(error));
-    });
-}
+    .then((votes) => respondWithSuccess(res, 200, 'Successfully fetched all votes', votes))
+    .catch((error) => respondWithSuccess(res, error.status, error.message, JSON.stringify(error)));
+};
 
 /**
  * Upvote Invite
@@ -177,13 +177,9 @@ export const upvoteInvite = async (req, res) => {
   const { userId } = req.auth;
 
   await upvoteOneInvite(userId, inviteId)
-    .then((vote) => {
-      return respondWithSuccess(res, 200, "Upvote successful", vote);
-    })
-    .catch((error) => {
-      return respondWithSuccess(res, error.status, error.message, JSON.stringify(error));
-    });
-}
+    .then((vote) => respondWithSuccess(res, 200, 'Upvote successful', vote))
+    .catch((error) => respondWithSuccess(res, error.status, error.message, JSON.stringify(error)));
+};
 
 /**
  * Downvote Invite
@@ -196,13 +192,9 @@ export const downvoteInvite = async (req, res) => {
   const { userId } = req.auth;
 
   await downVoteOneInvite(userId, inviteId)
-    .then((vote) => {
-      return respondWithSuccess(res, 200, "Downvote successful", vote);
-    })
-    .catch((error) => {
-      return respondWithSuccess(res, error.status, error.message, JSON.stringify(error));
-    });
-}
+    .then((vote) => respondWithSuccess(res, 200, 'Downvote successful', vote))
+    .catch((error) => respondWithSuccess(res, error.status, error.message, JSON.stringify(error)));
+};
 
 export const unvoteInvite = async (req, res) => {
   const { inviteId } = req.invite;
@@ -210,13 +202,10 @@ export const unvoteInvite = async (req, res) => {
 
   await unvoteOneInvite(userId, inviteId)
     .then((vote) => {
-      console.log(vote);
-      respondWithSuccess(res, 200, "Upvote is deleted");
+      respondWithSuccess(res, 200, 'Upvote is deleted');
     })
-    .catch((error) => {
-      return respondWithSuccess(res, 200, "Deletion failed", JSON.stringify(error));
-    });
-}
+    .catch((error) => respondWithSuccess(res, 200, 'Deletion failed', JSON.stringify(error)));
+};
 
 /**
  * Render single invite page
@@ -225,31 +214,46 @@ export const unvoteInvite = async (req, res) => {
  */
 export const renderSinglePostPage = async (req, res) => {
   const { inviteId } = req.params;
+  const data = await Promise.all([
+    findCommentsForPost(inviteId),
+    fetchOneInvite({
+      inviteId
+    })
+  ]);
 
-  // const data = await Promise.all([
-  //   findCommentsForPost(inviteId),
-  //   fetchOneInvite({
-  //     inviteId
-  //   }),
-  //   findSingleUser({ userId: req.auth.userId })
-  // ]);
 
-  const invite = await fetchOneInvite({ inviteId });
-  console.log('Invite =>', invite)
-  if (invite) {
-    return res.render('singlepost', {
-      comments: invite.comments,
-      invite: invite,
-      user: invite.user,
-      isAuth: req.isAuth,
-      isAdmin: req.auth.isAdmin,
-      userId: req.auth.userId,
-      username: req.auth.username,
-      name: req.auth.name
-    });
-  } else {
-    res.render('404', { status: 404 });
-  }
+  // Invite
+  const title = data[1].title + ' - Is This A Real Job?';
+  const description = data[1].body.length > 80 ? data[1].body.substr(0, 80) : data[1].body;
+
+  return res.render('singlepost', {
+    comments: data[0],
+    invite: data[1],
+    user: data[1].user,
+    isAuth: req.isAuth,
+    isAdmin: req.auth.isAdmin,
+    userId: req.auth.userId,
+    username: req.auth.username,
+    name: req.auth.name,
+    meta: { title, description }
+  });
+
+  // const invite = await fetchOneInvite({ inviteId });
+  // console.log('Invite =>', invite)
+  // if (invite) {
+  //   return res.render('singlepost', {
+  //     comments: invite.comments,
+  //     invite: invite,
+  //     user: invite.user,
+  //     isAuth: req.isAuth,
+  //     isAdmin: req.auth.isAdmin,
+  //     userId: req.auth.userId,
+  //     username: req.auth.username,
+  //     name: req.auth.name
+  //   });
+  // } else {
+  //   res.render('404', { status: 404 });
+  // }
 };
 
 /**
@@ -260,16 +264,22 @@ export const renderSinglePostPage = async (req, res) => {
 export const renderJobInvitesPage = async (req, res) => {
   const invites = await fetchAllInvites();
 
-  const user = await findSingleUser({ userId: req.auth.userId });
+  // This variable is not referenced on this page, so... :shrug:
+
+  // const user = await findSingleUser({ userId: req.auth.userId });
+
+  const title = `${invites.length} Posts - Is This A Real Job`;
+  const description = 'Browse the Job Invites on Is This A Real Job; don\'t go for that interview until you verify it!';
 
   return res.render('jobInvites', {
-    user,
+    // user,
     username: req.auth.username,
     name: req.auth.name,
     invites: invites || [],
     isAuth: req.isAuth,
     isAdmin: req.auth.isAdmin,
     userId: req.auth.userId,
+    meta: { title, description }
   });
 };
 
@@ -281,12 +291,16 @@ export const renderJobInvitesPage = async (req, res) => {
 export const renderAdminJobInvitesPage = async (req, res) => {
   const invites = await fetchAllInvites();
 
+  const title = `${invites.length} Posts - Is This A Real Job`;
+  const description = 'Browse the Job Invites on Is This A Real Job; don\'t go for that interview until you verify it!';
+
   return res.render('admin/posts', {
     invites: invites || [],
     isAuth: req.isAuth,
     isAdmin: req.auth.isAdmin,
     username: req.auth.username,
-    name: req.auth.name
+    name: req.auth.name,
+    meta: { title, description }
   });
 };
 
@@ -305,6 +319,9 @@ export const renderEditInvitePage = async (req, res) => {
     });
   }
 
+  const title = 'Edit: ' + req.invite.title + ' - ' + 'Is This A Real Job?';
+  const description = req.invite.body.length > 80 ? req.invite.body.substr(0, 80) : req.invite.body;
+
   return res.render('editPost', {
     invite: req.invite,
     isAuth: req.isAuth,
@@ -312,5 +329,6 @@ export const renderEditInvitePage = async (req, res) => {
     user: req.user,
     username: req.auth.username,
     name: req.auth.name,
+    meta: { title, description }
   });
 };

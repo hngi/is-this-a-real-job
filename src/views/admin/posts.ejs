@@ -1,26 +1,5 @@
 <% include ../partials/header %>
   <% include ../partials/nav2 %>
-    <script type="text/javascript">
-      const user = JSON.parse(localStorage.getItem('user'))
-      const notification = document.querySelector('.notification');
-      if (!user || !user.isAdmin) {
-        notification.innerHTML = `<strong>Contact the site administrator to complete this operation</strong>`;
-        notification.className += ' show';
-        if ( /*@cc_on!@*/ false || !!document.documentMode) {
-          console.log('Got here yay')
-          document.execCommand("Stop");
-        } else {
-          window.stop()
-        };
-        setTimeout(() => {
-          notification.className = 'notification';
-        }, 2500);
-
-        setTimeout(() => {
-          window.location.href = '/posts'
-        }, 3000)
-      }
-    </script>
     <!-- POSTS TAB -->
     <style>
       .post-item {
@@ -37,6 +16,7 @@
       
       .dashboard-tab li {
         list-style: none;
+        margin: 1em;
       }
       
       .dashboard-tab-items a {
@@ -158,7 +138,9 @@
           <div class="col-lg-4">
             <section class="posts">
               <div class="dashboard">
-                <h3 class="dtab-margin">Dashboard</h3>
+                <a href="/admin" style="text-decoration: none;">
+                  <h4 dashboard> Dashboard</h4>
+                </a>
                 <!-- DASHBOARD TABS -->
                 <ul class="dashboard-tab">
                   <li class="dashboard-tab-items dtab-margin">
