@@ -16,12 +16,12 @@ if (commentBtn) {
   const postMeta = document.querySelector('.post-meta');
   const noComment = document.querySelector('#no-comments');
 
-  const { inviteId } = postMeta.dataset; // invite id
+  const { inviteid } = postMeta.dataset; // invite id
 
   const getCommentHTML = (comment) => `<div class="container">
   <p>
     ${comment.user.username ? `<a href="/users/${comment.user.username}">@${comment.user.username}</a>`
-    : 'guest'}
+      : 'guest'}
   </p>
   <p>${comment.body}</p>
   <p>
@@ -29,7 +29,7 @@ if (commentBtn) {
   </p> <span>&nbsp;</span>
 </div>`;
 
-  commentBtn.addEventListener('click', e => {
+  commentBtn.addEventListener('click', (e) => {
     e.preventDefault();
     togglePreloader('block');
 
@@ -40,7 +40,7 @@ if (commentBtn) {
 
     commentField.value = '';
 
-    api.Post(`comments/${inviteId}`, JSON.stringify(body), true)
+    api.Post(`comments/${inviteid}`, JSON.stringify(body), true)
       .then(res => {
         comments.innerHTML = getCommentHTML(res.data) + comments.innerHTML;
         if (noComment) noComment.innerHTML = '';

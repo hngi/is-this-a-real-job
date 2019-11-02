@@ -1,14 +1,15 @@
 <% include partials/header %>
-  <% include partials/nav2 %>
-    <!-- Should be nav if unauthenticated... -->
-    <div id="cover">
-      <div class="loader"></div>
-    </div>
+<% include partials/nav2 %>
+<% include partials/postComponent %>
+<!-- Should be nav if unauthenticated... -->
+<div id="cover">
+  <div class="loader"></div>
+</div>
 <div class="section">
   <div class="container">
-      <div class="header mt-5">
-        <section class="job-invites">
-          <div class="container mt-4 post-meta" id="<%=invite.inviteId%>" data-inviteId="<%=invite.inviteId%>" data-invite-id="<%=invite.inviteId%>">
+    <div class="header mt-5">
+      <section class="job-invites">
+        <!-- <div class="container mt-4 post-meta" id="<%=invite.inviteId%>" data-inviteId="<%=invite.inviteId%>" data-invite-id="<%=invite.inviteId%>">
             <span class="d-flex flex-row-reverse justify-content-between">
           <% if(userId) { %>
           <span class="dropdown">
@@ -18,7 +19,6 @@
             </i>
             <span class="dropdown-menu" aria-labelledby="dropdownMenuButton">
               <a class="dropdown-item" href="/post/<%=invite.inviteId%>/edit">Edit</a>
-              <!-- <a class="dropdown-item" href="#">Report</a> -->
               <a class="dropdown-item" href="#">Delete Post </a>
             </span>
             <% } %>
@@ -77,48 +77,48 @@
                     </span>
                 </a>
               </span>
+          </div> -->
+        <%= renderPostComponent(invite) %>
+        <div class="container p-0">
+          <div class="form-group">
+            <textarea class="form-control" id="comment-field" placeholder="Type something..." rows="3"></textarea>
           </div>
+          <span class="comment-btn">
+            <button type="button" class="btn btn-primary">Comment</button>
+          </span>
+        </div>
 
-          <div class="container p-0">
-            <div class="form-group">
-              <textarea class="form-control" id="comment-field" placeholder="Type something..." rows="3"></textarea>
-            </div>
-            <span class="comment-btn">
-          <button type="button" class="btn btn-primary">Comment</button>
-        </span>
-          </div>
+        <h5 class="container p-0">Comments</h5>
+        <section id="comments">
+          <% if (comments.length === 0) { %>
+          <div id="no-comments" class="bg-transparent container">There no comments for this post.</div>
+          <% } %>
 
-          <h5 class="container p-0">Comments</h5>
-          <section id="comments">
-            <% if (comments.length === 0) { %>
-              <div id="no-comments" class="bg-transparent container">There no comments for this post.</div>
+          <% if (comments.length > 0) { %>
+          <% for (comment of comments) { %>
+          <div class="container">
+            <p>
+              <% if (comment.user.username) { %>
+              <a href="/users/<%=comment.user.username%>">@<%=comment.user.username%></a>
+              <% } else { %>
+              guest
               <% } %>
-
-                <% if (comments.length > 0) { %>
-                  <% for (comment of comments) { %>
-                    <div class="container">
-                      <p>
-                        <% if (comment.user.username) { %>
-                          <a href="/users/<%=comment.user.username%>">@<%=comment.user.username%></a>
-                          <% } else { %>
-                            guest
-                            <% } %>
-                      </p>
-                      <p>
-                        <%=comment.body%>
-                      </p>
-                      <p>
-                        <small class="text-muted"><%=new Date(comment.createdAt).toDateString()%></small>
-                      </p>
-                    </div>
-                    <% } %>
-                      <% } %>
-          </section>
+            </p>
+            <p>
+              <%=comment.body%>
+            </p>
+            <p>
+              <small class="text-muted"><%=new Date(comment.createdAt).toDateString()%></small>
+            </p>
+          </div>
+          <% } %>
+          <% } %>
         </section>
+      </section>
 
-      </div>
-      </div>
-      </div>
+    </div>
+  </div>
+</div>
 
 
-    <% include partials/footer %>
+<% include partials/footer %>
