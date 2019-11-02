@@ -51,7 +51,8 @@ import {
   getUser,
   renderUserProfile,
   getUserByUserId,
-  renderAdminReportedUsersPage
+  renderAdminReportedUsersPage,
+  checkRenderIsAdmin
 } from '../controllers/userController';
 import {
   getNotifications,
@@ -88,7 +89,7 @@ export const initRoutes = app => {
     name: req.auth.name,
     meta: { title: 'New Post - Is This A Real Job', descripiton: genericDescription }
   }));
-  app.get('/howitworks', (req, res) => res.render('howitworks', { isAuth: req.isAuth, isAdmin: req.auth.isAdmin, meta: { title: 'How It Works - Is This A Real Job', description: genericDescription } }));
+  app.get('/howitworks', (req, res) => res.render('howitworks', { isAuth: req.isAuth, isAdmin: req.auth.isAdmi, meta: { title: 'How It Works - Is This A Real Job', description: genericDescription } }));
   app.get('/reportuser', getUserByUserId, (req, res) => res.render('reportuser', { isAuth: req.isAuth, isAdmin: req.auth.isAdmin, meta: { title: 'Report User - Is This A Real Job', description: genericDescription } }));
   app.get('/posts', renderJobInvitesPage);
   app.get('/post/:inviteId', renderSinglePostPage);
@@ -99,7 +100,7 @@ export const initRoutes = app => {
     name: req.auth.name,
     meta: { title: 'About - Is This A Real Job', description: genericDescription }
   }));
-  app.get('/admin/reported', (req, res) => res.render('admin/reportedUsers', {
+  app.get('/admin/reported', checkRenderIsAdmin, (req, res) => res.render('admin/reportedUsers', {
     isAuth: req.auth.isAuth,
     isAdmin: req.auth.isAdmin,
     meta: { title: 'Reported Users - Is This A Real Job', description: genericDescription }
@@ -112,10 +113,10 @@ export const initRoutes = app => {
     meta: { title: 'Report User - Is This A Real Job', description: genericDescription }
   }));
   app.get('/users/:username', renderUserProfile);
-  app.get('/admin/reportedusers', renderAdminReportedUsersPage);
+  app.get('/admin/reportedusers', checkRenderIsAdmin, renderAdminReportedUsersPage);
   // Search Invites - Renders view
   app.get('/invites/search', renderSearchResults);
-  app.get('/admin', (req, res) => res.render('./admin/index', {
+  app.get('/admin', checkRenderIsAdmin, (req, res) => res.render('./admin/index', {
     isAuth: req.isAuth,
     username: req.auth.username,
     name: req.auth.name,
@@ -133,8 +134,8 @@ export const initRoutes = app => {
     renderEditInvitePage
   );
 
-  app.get('/admin/users', renderAdminUsersPage);
-  app.get('/admin/posts', renderAdminJobInvitesPage);
+  app.get('/admin/users', checkRenderIsAdmin, renderAdminUsersPage);
+  app.get('/admin/posts', checkRenderIsAdmin, renderAdminJobInvitesPage);
 
   // All backend API endpoints below -----------------------------------------------------
   // Auth

@@ -132,7 +132,7 @@ passport.use(new FacebookAuthStrategy(facebookConfig,
         const newData = {};
         newData.name = displayName;
         newData.facebookId = id;
-        newData.profileImage = photos[0].value;
+        // newData.profileImage = photos[0].value;
         newData.email = email;
         newData.username = username;
         newData.password = password;

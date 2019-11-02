@@ -160,11 +160,15 @@
     <div class="container overall">
 
       <!-------Profile Section------->
-
+      <% const image = user.profileImage || "https://res.cloudinary.com/leankhan/image/upload/v1572542434/default_avatar2.png" %>
       <div class="first-section">
         <div class="first-sec-row row">
             <div class="profile-img">
+<<<<<<< HEAD
               <img class="gravatar-img" src="https://www.gravatar.com/avatar/<%= typeof hash != 'undefined' ? hash : 'null' %>?d=identicon" alt="Profile-pix">
+=======
+              <img src="<%=image%>" alt="Profile-pix">
+>>>>>>> develop
             </div>
             <div class="user" id="user-profile">
               <h2 class="username">

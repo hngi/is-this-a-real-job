@@ -212,23 +212,24 @@
 
     <ul class="navbar-nav ml-auto">
       <form class="form-inline" action="/invites/search" method="GET">
-        <input class="fa form-control mr-sm-4 search-bar" name="q" type="search" placeholder="&#xf002; Search" aria-label="Search">
+        <input class="fa form-control mr-sm-4 search-bar" name="q" type="search" placeholder="&#xf002; Search" required aria-label="Search">
       </form>
       <!-- NOTIFICATION NUMBER GOES HERE -->
       <% if(isAuth){ %>
-        <li class="nav-item dropdown notification-bar">
+      <li class="nav-item dropdown notification-bar">
 
-          <a id="bell-icon" class="nav-link dropdown-toggle" style="padding-top: 3px;" href="javascript:void(0)"><i
-             class="far fa-bell fa-2x notification-icon"></i><span class="badge"></span></a>
-          <div id="branded" class="notification-menu hide shadow">
-            <!-- notification goes here -->
-          </div>
-        </li>
+        <a class="nav-link dropdown-toggle" style="padding-top: 3px;" href="javascript:void(0)"><i 
+             class="far fa-bell fa-2x notification-icon" onclick="notificationToggle()" id="bell-icon"></i><span class="badge">3</span></a>
+        <div id="branded" class="notification-menu hide shadow">
+          <!-- notification goes here -->
+        </div>
+      </li>
 
-        <!-- USERNAME & LOG OUT GOES HERE  -->
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="javascript:void(0)" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <span class="user-name-initials">
+      <!-- USERNAME & LOG OUT GOES HERE  -->
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="javascript:void(0)" id="navbarDropdown" role="button"
+           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <span class="user-name-initials">
             <%=name.substr(0, 2).toUpperCase()%>
           </span>
           </a>
@@ -273,13 +274,31 @@
     Simple Notification
   </div>
   <script>
-    var element = document.getElementById("bell-icon");
-    element.addEventListener("click", () => {
-      var clicked = document.getElementById("branded");
-      clicked.classList.toggle('show');
-    });
 
-    var links = document.getElementsByClassName('notification-wrapper');
+    //Clicking notification icon will toggle display
+    function notificationToggle(){
+      document.getElementById("branded").classList.toggle("show");
+    }
+    //Menu does not close when clicked inside
+    document.getElementById("branded").addEventListener('click', function(event){
+      event.stopPropagation();
+    });
+    // Close menu on click outside
+    window.onclick = function(event){
+      if(!event.target.matches('#bell-icon')){
+        var dropdowns = document.getElementsByClassName("notification-menu");
+      }
+      var i;
+      for(i=0; i< dropdowns.length; i++){
+        var openDropdown = dropdowns[i];
+        if(openDropdown.classList.contains('show')){
+          openDropdown.classList.remove('show');
+        }
+      }
+    }
+
+
+    const links = document.getElementsByClassName('notification-wrapper');
 
     function changeColor(e) {
       e.target.style.backgroundColor = e.target.style.backgroundColor ? null : 'white';

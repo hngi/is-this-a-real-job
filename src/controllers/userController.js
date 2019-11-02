@@ -60,6 +60,19 @@ export const getUserByUserId = async (req, res, next) => {
 };
 
 /**
+ * check if user is admin for admin render endpoints
+ * @param {object} req
+ * @param {object} res
+ * @returns {object} json response
+ */
+export const checkRenderIsAdmin = async (req, res, next) => {
+  if (!req.auth.isAdmin) {
+    return res.redirect('/404');
+  }
+  next();
+};
+
+/**
  * Fetch single user
  *
  * @param {*} req
@@ -103,7 +116,7 @@ export const renderUserProfile = async (req, res) => {
     title = `My Profile ${user.name} - Is This A Real Job`;
   } else {
     title = `${user.name} - Is This A Real Job`;
-  };
+  }
 
   return res.render('userProfile', {
     user,
