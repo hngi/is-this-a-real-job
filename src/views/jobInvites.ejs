@@ -44,7 +44,7 @@
           <a
             class="upvote-btn"
             data-inviteid="<%= invite.inviteId %>"
-            data-upvoted="<%= invite.votes.some( (vote) => (vote.userId === userId) && (vote.type === 'up') )%>"
+            data-voted="<%= invite.votes.some( (vote) => (vote.userId === userId) && (vote.type === 'up') )%>"
           >
             <i class="fas fa-arrow-alt-circle-up"></i>
             <span class="count">
@@ -54,7 +54,7 @@
           <a
             class="downvote-btn"
             data-inviteid="<%= invite.inviteId %>"
-            data-downvoted="<%= invite.votes.some( (vote) => (vote.userId === userId) && (vote.type === 'down') ) %>"
+            data-voted="<%= invite.votes.some( (vote) => (vote.userId === userId) && (vote.type === 'down') ) %>"
           >
             <i class="fas fa-arrow-alt-circle-down"></i>
             <span class="count">
