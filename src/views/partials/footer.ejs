@@ -1,25 +1,127 @@
 </div> <!-- close div opened inside the nav.ejs or nav2.ejs -->
+<style>
+  /* Footer */
 
+    .footer {
+      background-color: #24659e;
+      color: #fff;
+      margin-top: 4%;
+      position: static;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      margin-right: 0;
+    }
+
+    .subscribe {
+      border-color: transparent !important;
+      height: 100%;
+      font-size: 70%;
+    }
+
+    .footer-heading {
+      margin-bottom: 1%;
+      margin-top: 5%;
+    }
+
+    .footer_email {
+      color: #fff;
+      font-weight: 600;
+      line-height: 18px;
+      font-size: 15px;
+    }
+
+    .footer_email:hover {
+      color: #aaa;
+      text-decoration: none;
+    }
+
+    .submit-div {
+      margin-left: 0%;
+    }
+
+    .submit-div {
+      font-size: 85%;
+    }
+
+    .footer_social {
+      color: #fff;
+      margin-left: 5%;
+    }
+
+    .footer_social:hover {
+      color: #aaa;
+    }
+
+    .first-social {
+      margin-left: 0%;
+    }
+
+    .links {
+      margin-right: 4%
+    }
+    .fix-align {
+      text-align: center;
+    }
+    
+    
+    @media screen and (max-width: 991px) {
+      .footer_email {
+          font-size: 10px;
+          line-height: 12px;
+      }
+      .mobile-margin {
+        margin-left: 4%;
+        margin-top: 4%;
+      }
+
+      .footer-heading {
+        font-size: 15px
+      }
+    }
+
+    @media screen and (max-width: 767px) {
+      .footer_email {
+          font-size: 13px;
+          line-height: 10px;
+      }
+      .mobile-margin {
+        margin-left: 3%;
+        margin-top: 4%;
+      }
+      .footer-heading {
+        font-size: 10px
+      }
+    }
+
+    @media screen and (max-width: 479px) {
+      .footer_email {
+          font-size: 10px;
+          line-height: 8px;
+      }
+      .mobile-margin {
+        margin-left: 2%;
+        margin-top: 4%;
+      }
+      .footer-heading {
+        font-size: 10px
+      }
+    }
+
+</style>
 <footer class="footer">
   <div class="container">
     <div class="row">
-      <div class="col span-md-4 span-sm-12">
-        <h6 class="footer-heading">Follow Us</h6>
-        <div>
-          <a class="footer_social first-social" href="#"><i class="fab fa-facebook-f"></i></i></a>
-          <a class="footer_social" href="https://www.twitter.com/"><i class="fab fa-twitter"></i></a>
-          <a class="footer_social" href="https://www.instagram.com/"><i class="fab fa-instagram"></i></a>
-          <a class="footer_social" href="#"><i class="fab fa-linkedin"></i></a>
-
-        </div>
-
-
+      <div class="col span-md-4 mobile-margin">
+        <div class="row">
+        <p class="footer-heading links"><a class="footer_email" href="/howitworks">How it works</a></p>
+        <p class="footer-heading links"><a class="footer_email" href="/about">About Us</a></p>
       </div>
-      <div class="col span-md-4">
+      </div>
+      <div class="col span-md-4 text-center">
         <h6 class="footer-heading">Contact Us</h6>
         <p><a href="mailto:info@isthisarealjob.ng" class="footer_email"> info@isthisarealjob.ng</a></p>
       </div>
-
     </div>
   </div>
 </footer>
