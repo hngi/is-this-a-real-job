@@ -55,10 +55,8 @@ import {
   checkRenderIsAdmin
 } from '../controllers/userController';
 import {
-  getNotifications,
-  createNotification
+  getNotifications
 } from '../controllers/notificationController';
-import { validateNotificationData } from '../middlewares/validateNotification';
 import {
   validateCookies,
   signUserIn,
@@ -268,7 +266,7 @@ export const initRoutes = app => {
 
   // Get all notifications for a given user.
   app.get('/api/v1/notifications', authenticateUserToken, getNotifications);
-  app.post('/api/v1/notifications', validateNotificationData, createNotification);
+  //app.post('/api/v1/notifications', validateNotificationData, createNotification);
   app.get('/api/v1/notifications/:userId', validateUserId, getNotifications);
 
   // Fallback case for unknown URIs.
