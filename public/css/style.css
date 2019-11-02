@@ -212,8 +212,11 @@ body {
 }
 
 /* INDEX */
+.search-invites {
+  padding: 15px;
+}
 
-.page-desc {
+.search-invites .heading {
   color: #636b6f;
   font-weight: 700;
   font-size: 3rem;
@@ -221,7 +224,7 @@ body {
 }
 
 @media screen and (max-width: 900px) {
-  .page-desc {
+  .search-invites .heading {
     color: #636b6f;
     font-weight: 600;
     font-size: 2rem;
@@ -229,13 +232,21 @@ body {
   }
 }
 
-.under-text {
+.search-invites .heading__line2 {
+  display: block;
   font-size: 1.1rem;
   font-weight: 500;
   color: #636b6f;
 }
 
-.search {
+.search-invites .search-summary {
+  text-align: initial;
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #636b6f;
+}
+
+.search-invites .search {
   width: 70%;
   margin-left: auto;
   margin-right: auto;
