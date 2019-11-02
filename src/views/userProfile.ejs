@@ -170,14 +170,15 @@
 <div class="container overall">
 
   <!-------Profile Section------->
-  <% const image = user.profileImage || "https://res.cloudinary.com/leankhan/image/upload/v1572542434/default_avatar2.png" %>
-  <div class="first-section">
+  <% const createHash = (email) => { return crypto.createHash('md5').update(email.trim()).digest('hex')} %>
+  <% const image = user.profileImage || `https://www.gravatar.com/avatar/${createHash(user.email)}?d=identicon` %> <div
+       class="first-section">
     <div class="first-sec-row row">
       <div class="profile-img">
-        <img src="<%=image%>" alt="Profile-pix">
+        <img class="user-avatar" src="<%= image %>" alt="Profile-pix">
       </div>
       <div class="user">
-        <h2 class="username">
+        <h2 class="username" id="user-profile">
           <%=user.name.split(" ")[0]%>
         </h2>
         <p>@
