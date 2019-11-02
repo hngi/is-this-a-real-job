@@ -4,7 +4,35 @@ import {
   respondWithSuccess
 } from '../helpers/responseHandler';
 import { findNotificationsForUser, createNotificationForUser } from '../services/notificationServices';
-import { notifyByEmail } from '../services/emailServices';
+import { sendMail } from '../services/emailServices';
+import { getSingleComment } from '../services/commentServices';
+import { findSingleUser } from '../services/userServices';
+
+const notifyByEmail = async (res, notif) => {
+  let mailSent;
+
+  try {
+    if (notif.type === 'comment') {
+      notif.title = 'One New Comment On Your Job Invite';
+    } else notif.title = 'Your Job Invite Was Upvoted';
+
+    notif.recipient = await findSingleUser({ userId: notif.userId });
+    notif.recipient = notif.recipient.dataValues;
+
+    // Use callback syntax for res.render to recieve the html text into a variable.
+    res.render('notificationEmail', notif, (error, renderedEmail) => {
+      if (error) throw error;
+
+      mailSent = sendMail(notif.recipient.email, notif.title, renderedEmail);
+    });
+
+    return mailSent;
+  } catch (error) {
+    mailSent = false;
+    console.log(error);
+    return mailSent;
+  }
+};
 
 /**
  * class handles notifications
@@ -16,51 +44,6 @@ import { notifyByEmail } from '../services/emailServices';
  * @param {object} res
  * @returns {object} json response
  */
-
-import Joi from '@hapi/joi';
-import {
-  joiValidator
-} from '../helpers/joiValidator';
-import {
-  respondWithWarning
-} from '../helpers/responseHandler';
-import {
-  VALID_UUID
-} from '../config/constants';
-
-/**
- * validate comment entry
- * @param {Object} req
- * @param {Object} res
- * @param {Function} next
- * @returns {Object} error
- */
-export const validateNotificationData = (req, res, next) => {
-  const { type } = req.query;
-
-  const schemaMap = {
-    target: Joi.string().pattern(VALID_UUID).required().trim()
-  };
-
-  if (!type) {
-    return respondWithWarning(res, 400, 'Query param \'type\' must be specified.');
-  }
-
-  if (type === 'comment') {
-    schemaMap.commentId = Joi.string().required().trim();
-  }
-
-  const notificationSchema = Joi.object().keys(schemaMap);
-
-  const errors = joiValidator(req.body, notificationSchema);
-
-  if (!errors) {
-    return next();
-  }
-  return respondWithWarning(res, 400, 'Bad Input', errors);
-};
-
-
 export const createNotification = async (req, res) => {
   try {
     const { target, commentId, inviteId } = req.body;
