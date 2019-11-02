@@ -1,4 +1,5 @@
 /* eslint-disable no-unneeded-ternary */
+import crypto from 'crypto';
 import {
   respondWithSuccess,
   respondWithWarning
@@ -9,6 +10,7 @@ import {
   fetchSingleUser,
   findSingleUser
 } from '../services/userServices';
+
 
 /**
  * @param {object} req
@@ -71,6 +73,20 @@ export const checkRenderIsAdmin = async (req, res, next) => {
 };
 
 /**
+ * check if user is already logged in
+ * This code only applies to login and signup pages only
+ * @param {object} req
+ * @param {object} res
+ * @returns {object} json response
+ */
+export const checkRenderIsAuth = async (req, res, next) => {
+  if (req.isAuth) {
+    return res.redirect('/posts');
+  }
+  return next();
+};
+
+/**
  * Fetch single user
  *
  * @param {*} req
@@ -104,6 +120,8 @@ export const renderUserProfile = async (req, res) => {
     return res.render('404', { status: 404 });
   }
 
+  // Get users email hash
+
   let title;
   const description = `View ${user.name}'s profile on Is This A Real Job`;
 
@@ -119,7 +137,8 @@ export const renderUserProfile = async (req, res) => {
     isAdmin: req.auth.isAdmin,
     username: req.auth.username,
     name: req.auth.name,
-    meta: { title, description }
+    meta: { title, description },
+    crypto
   });
 };
 
@@ -140,7 +159,8 @@ export const renderAdminUsersPage = async (req, res) => {
     isAdmin: req.auth.isAdmin,
     username: req.auth.username,
     name: req.auth.name,
-    meta: { title, description }
+    meta: { title, description },
+    crypto
   });
 };
 
@@ -161,6 +181,7 @@ export const renderAdminReportedUsersPage = async (req, res) => {
     isAdmin: req.auth.isAdmin,
     username: req.auth.username,
     name: req.auth.name,
-    meta: { title, description }
+    meta: { title, description },
+    crypto
   });
 };
