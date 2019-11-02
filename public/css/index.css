@@ -3,13 +3,19 @@
   margin-bottom: 7%;
 }
 
+body {
+  background-image: linear-gradient(to top, #24659E, white); /*Fallback for browsers without support for --vars*/
+  background-image: linear-gradient(to top, var(--dark-blue), white);
+}
+
 .usage-stats {
   display: flex;
   flex-wrap: nowrap;
   justify-content: center;
   overflow-x: auto;
-  padding-bottom: 50px;
   position: relative;
+  margin: 50px 0px;
+  padding: 0px 15px 70px 15px;
 }
 
 .stat-card {
@@ -18,9 +24,26 @@
   justify-content: center;
   align-items: center;
   padding: 20px 30px;
-  margin: 20px;
-  background-color: blue;
+  margin: 20px 30px;
+  background-color: #24659E; /*Fallback for browsers without support for --vars*/
+  background-color: var(--dark-blue, #24659E); /*var(--color-variable, fallback value);*/
   color: white;
+}
+
+.stat-card.scroll-padding {
+  opacity: 0;
+  display: none;
+  padding: 0px;
+}
+
+@media screen and (max-width: 650px) {
+  .usage-stats {
+    justify-content: flex-start;
+  }
+
+  .stat-card.scroll-padding {
+    display: flex;
+  }
 }
 
 .stat-card__figure {
@@ -31,14 +54,29 @@
 
 .stat-card__label {
   display: block;
+  font-weight: normal;
 }
 
 .usage-stats__cta { /*cta in the class name is short for Call To Action.*/
   position: absolute;
-  bottom: 10px;
+  bottom: 20px;
   left: 50vw;
   transform: translateX(-50%);
   height: 30px;
-  padding: 20px;
-  text-align: center;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  white-space: nowrap;
+}
+
+.usage-stats__cta__link {
+  display: block;
+  height: initial;
+  font-weight: bold;
+}
+
+.usage-stats__cta__reason {
+  display: block;
+  color: black;
 }
