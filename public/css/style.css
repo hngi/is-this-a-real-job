@@ -74,6 +74,12 @@ html, body {
   color: red;
 }
 
+@media screen and (max-width: 768px) {
+  .search-btn {
+    text-align: center;
+  }
+}
+
 .post-btn {
   width: 206px;
   height: 60px;
@@ -99,14 +105,14 @@ html, body {
   margin: 0.8rem auto;
 }
 
-.job-invites p {
+/* .job-invites p {
   font-family: Raleway;
   font-style: normal;
   font-weight: normal;
   font-size: 16px;
   line-height: 19px;
   color: #000000;
-}
+} */
 
 .job_invite_h4 {
   width: 191px;
@@ -122,17 +128,32 @@ html, body {
   left: -50px !important;
 }
 
-.job-invites div:nth-child(odd):not(.form-group) {
+/* .job-invites div:nth-child(odd):not(.form-group) {
   background: #e3e9ef;
   padding: 20px;
   border-radius: 6px;
-}
+} */
 
-.job-invites div:nth-child(even) {
+/* .job-invites div:nth-child(even) {
   padding: 20px;
   background: #ffffff;
   margin: 1em auto;
-}
+} */
+
+/* Posts page */
+
+@media screen and (min-width: 768px){
+  #posts-page.section {
+    margin: 0 13rem;
+  }
+
+  .mx-13 {
+    margin: 0 13rem;
+  }
+};
+
+
+/* ===== */
 
 /* SIngle Post */
 
