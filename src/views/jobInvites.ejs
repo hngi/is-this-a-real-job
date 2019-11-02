@@ -1,91 +1,94 @@
 <% include partials/header %>
 <% include partials/nav2 %>
+<% include partials/postComponent %>
 <div id="cover">
   <div class="loader"></div>
 </div>
 
+<!-- Post component - Section -->
+
+<!-- Post component - Section -->
+
 <div class="section">
   <div class="container">
-  <div class="header" id="main">
-    <div class="container p-0 mb-md-4">
+    <div class="header" id="main">
+      <div class="container p-0 mb-md-4">
 
-      <div class="alert itarj-primary d-flex justify-content-between">
-        <% if (isAuth) { %>
-        <span>Welcome back, <%=name%></span>
-        <span>There are <b class="text-bold"><%=invites.length%></b> posts </span>
-        <% } else { %>
-        <span>Hello stranger, <a href="/register" class="text-bold">Register</a> here</span>
-        <span>There are <b class="text-bold"><%=invites.length%></b> posts </span>
-        <% } %>
+        <div class="alert itarj-primary d-flex justify-content-between">
+          <% if (isAuth) { %>
+          <span>Welcome back, <%=name%></span>
+          <span>There are <b class="text-bold"><%=invites.length%></b> posts </span>
+          <% } else { %>
+          <span>Hello stranger, <a href="/register" class="text-bold">Register</a> here</span>
+          <span>There are <b class="text-bold"><%=invites.length%></b> posts </span>
+          <% } %>
+        </div>
       </div>
-    </div>
 
-    <section class="job-invites">
-      <% if (invites.length === 0) { %>
-      <span id="no-comments" class="bg-transparent container">The world is your oyseter. Fill it.</span>
-      <% } %> <% if (invites.length > 0) { %> <% for (invite of invites) { %>
-      <div class="container post-meta" data-inviteId="<%=invite.inviteId%>">
-        <h4>
-          <a href="<%='/post/'+invite.inviteId%>">
-            <%=invite.title%>
-          </a>
-        </h4>
-        <small class="text-muted"><%=invite.company%>, <em><%=invite.location%></em></small><br>
-        <p>
-          <a href="/users/<%=invite.user.username%>">
-            @<%=invite.user.username%>
-          </a>
-        </p>
-        <p>
-          <%=invite.body%>
-        </p>
-        <span>
-          <a><i class="fas fa-comment"></i> <%=invite.comments.length%></a>
-          <a
-            class="upvote-btn"
-            data-inviteid="<%= invite.inviteId %>"
-            data-upvoted="<%= invite.votes.some( (vote) => (vote.userId === userId) && (vote.type === 'up') )%>"
-          >
-            <i class="fas fa-arrow-alt-circle-up"></i>
-            <span class="count">
-              <%= invite.votes.reduce((p,vote) => (vote.type === 'up') ? ++p : p ,0) %>
-            </span>
-          </a>
-          <a
-            class="downvote-btn"
-            data-inviteid="<%= invite.inviteId %>"
-            data-downvoted="<%= invite.votes.some( (vote) => (vote.userId === userId) && (vote.type === 'down') ) %>"
-          >
-            <i class="fas fa-arrow-alt-circle-down"></i>
-            <span class="count">
-              <%= invite.votes.reduce((p,vote) => (vote.type === 'down') ? ++p : p ,0) %>
-            </span>
-          </a>
-        </span>
+      <p>
+        Say hi! <%= doStuff() %>
+      </p>
 
-        <span class="float-right share-buttons">
-            <a target="_blank"
-              href=" https://www.facebook.com/sharer.php?u=http://itarj.com/post/'<%=invite.inviteId%>"> 
-              <i class="fab fa-facebook"></i>
+      <section class="job-invites">
+        <% if (invites.length === 0) { %>
+        <span id="no-comments" class="bg-transparent container">The world is your oyseter. Fill it.</span>
+        <% } %> <% if (invites.length > 0) { %> <% for (invite of invites) { %>
+        <div class="container post-meta" data-inviteId="<%=invite.inviteId%>">
+          <h4>
+            <a href="<%='/post/'+invite.inviteId%>">
+              <%=invite.title%>
             </a>
-  
-            <a target="_blank"
-                href="https://twitter.com/intent/tweet?text=<%=invite.title+' - Is this a real job? \n Let us know: http://itarj.com/post/'+invite.inviteId%>">
-                <i class="fab fa-twitter"></i></a>
-  
-            <a target="_blank"
-                href="https://api.whatsapp.com/send?&text=<%=invite.title+' - Is this a real job? \n Let us know: http://itarj.com/post/'+invite.inviteId%>">
-                <span style="color:#25D366;">
-                  <i class="fab fa-whatsapp"></i>
-                </span>
+          </h4>
+          <small class="text-muted"><%=invite.company%>, <em><%=invite.location%></em></small><br>
+          <p>
+            <a href="/users/<%=invite.user.username%>">
+              @<%=invite.user.username%>
+            </a>
+          </p>
+          <p>
+            <%=invite.body%>
+          </p>
+          <span>
+            <a><i class="fas fa-comment"></i> <%=invite.comments.length%></a>
+            <a class="upvote-btn" data-inviteid="<%= invite.inviteId %>"
+               data-upvoted="<%= invite.votes.some( (vote) => (vote.userId === userId) && (vote.type === 'up') )%>">
+              <i class="fas fa-arrow-alt-circle-up"></i>
+              <span class="count">
+                <%= invite.votes.reduce((p,vote) => (vote.type === 'up') ? ++p : p ,0) %>
+              </span>
+            </a>
+            <a class="downvote-btn" data-inviteid="<%= invite.inviteId %>"
+               data-downvoted="<%= invite.votes.some( (vote) => (vote.userId === userId) && (vote.type === 'down') ) %>">
+              <i class="fas fa-arrow-alt-circle-down"></i>
+              <span class="count">
+                <%= invite.votes.reduce((p,vote) => (vote.type === 'down') ? ++p : p ,0) %>
+              </span>
             </a>
           </span>
-      </div>
-      <% } %> <% } %>
-    </section>
+
+          <span class="float-right share-buttons">
+            <a target="_blank"
+               href=" https://www.facebook.com/sharer.php?u=http://itarj.com/post/'<%=invite.inviteId%>">
+              <i class="fab fa-facebook"></i>
+            </a>
+
+            <a target="_blank"
+               href="https://twitter.com/intent/tweet?text=<%=invite.title+' - Is this a real job? \n Let us know: http://itarj.com/post/'+invite.inviteId%>">
+              <i class="fab fa-twitter"></i></a>
+
+            <a target="_blank"
+               href="https://api.whatsapp.com/send?&text=<%=invite.title+' - Is this a real job? \n Let us know: http://itarj.com/post/'+invite.inviteId%>">
+              <span style="color:#25D366;">
+                <i class="fab fa-whatsapp"></i>
+              </span>
+            </a>
+          </span>
+        </div>
+        <% } %> <% } %>
+      </section>
+    </div>
   </div>
-  </div>
-  </div>
+</div>
 
 
 <% include partials/footer %>
