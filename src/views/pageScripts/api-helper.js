@@ -1,7 +1,7 @@
 /* eslint-disable max-len */
 /* eslint-disable no-undef */
 /* eslint-disable no-console */
-const httpFetch = fetch, storage = localStorage;
+// const httpFetch = fetch, storage = localStorage;
 
 /**
  * ItarjApi is a generic REST Api handler. Set your API base url (`e.g /api/v1`) first.
@@ -53,9 +53,9 @@ function ItarjApi(apiBase) {
         headers['Content-Type'] = 'application/json';
       }
 
-      if (includeToken) {
-        headers.Authorization = localStorage.getItem('token'); // assign the auth header
-      }
+      // if (includeToken) {
+      //   headers.Authorization = localStorage.getItem('token'); // assign the auth header
+      // }
 
       if (body) {
         headers.Accept = 'application/json';
