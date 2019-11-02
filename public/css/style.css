@@ -74,6 +74,12 @@ html, body {
   color: red;
 }
 
+@media screen and (max-width: 768px) {
+  .search-btn {
+    text-align: center;
+  }
+}
+
 .post-btn {
   width: 206px;
   height: 60px;
@@ -138,6 +144,10 @@ html, body {
 
 @media screen and (min-width: 768px){
   #posts-page.section {
+    margin: 0 13rem;
+  }
+
+  .mx-13 {
     margin: 0 13rem;
   }
 };

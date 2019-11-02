@@ -18,15 +18,19 @@ if (commentBtn) {
 
   const { inviteid } = postMeta.dataset; // invite id
 
-  const getCommentHTML = (comment) => `<div class="container">
-  <p>
-    ${comment.user.username ? `<a href="/users/${comment.user.username}">@${comment.user.username}</a>`
+  const getCommentHTML = (comment) => `
+  <div class="card mb-2">
+
+  <div class="card-body">
+  ${comment.body}
+  </div>
+  <div class="card-footer">
+  <small>
+  ${comment.user.username ? `<a href="/users/${comment.user.username}">@${comment.user.username}</a>`
       : 'guest'}
-  </p>
-  <p>${comment.body}</p>
-  <p>
+</small>
     <small class="text-muted">${new Date(comment.createdAt).toDateString()}</small>
-  </p> <span>&nbsp;</span>
+  </div>
 </div>`;
 
   commentBtn.addEventListener('click', (e) => {

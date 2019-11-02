@@ -28,20 +28,22 @@
 
           <% if (comments.length > 0) { %>
           <% for (comment of comments) { %>
-          <div class="container">
-            <p>
-              <% if (comment.user.username) { %>
-              <a href="/users/<%=comment.user.username%>">@<%=comment.user.username%></a>
-              <% } else { %>
-              guest
-              <% } %>
-            </p>
-            <p>
+
+          <div class="card mb-2">
+
+            <div class="card-body">
               <%=comment.body%>
-            </p>
-            <p>
+            </div>
+            <div class="card-footer">
+              <small>
+                <% if (comment.user.username) { %>
+                <a href="/users/<%=comment.user.username%>">@<%=comment.user.username%></a>
+                <% } else { %>
+                guest
+                <% } %>
+              </small>
               <small class="text-muted"><%=new Date(comment.createdAt).toDateString()%></small>
-            </p>
+            </div>
           </div>
           <% } %>
           <% } %>
