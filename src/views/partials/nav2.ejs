@@ -218,8 +218,8 @@
       <% if(isAuth){ %>
       <li class="nav-item dropdown notification-bar">
 
-        <a id="bell-icon" class="nav-link dropdown-toggle" style="padding-top: 3px;" href="javascript:void(0)"><i
-             class="far fa-bell fa-2x notification-icon"></i><span class="badge">3</span></a>
+        <a class="nav-link dropdown-toggle" style="padding-top: 3px;" href="javascript:void(0)"><i 
+             class="far fa-bell fa-2x notification-icon" onclick="notificationToggle()" id="bell-icon"></i><span class="badge">3</span></a>
         <div id="branded" class="notification-menu hide shadow">
           <!-- notification goes here -->
         </div>
@@ -275,13 +275,30 @@
   </div>
   <script>
 
-    var element = document.getElementById("bell-icon");
-    element.addEventListener("click", () => {
-      var clicked = document.getElementById("branded");
-      clicked.classList.toggle('show');
+    //Clicking notification icon will toggle display
+    function notificationToggle(){
+      document.getElementById("branded").classList.toggle("show");
+    }
+    //Menu does not close when clicked inside
+    document.getElementById("branded").addEventListener('click', function(event){
+      event.stopPropagation();
     });
+    // Close menu on click outside
+    window.onclick = function(event){
+      if(!event.target.matches('#bell-icon')){
+        var dropdowns = document.getElementsByClassName("notification-menu");
+      }
+      var i;
+      for(i=0; i< dropdowns.length; i++){
+        var openDropdown = dropdowns[i];
+        if(openDropdown.classList.contains('show')){
+          openDropdown.classList.remove('show');
+        }
+      }
+    }
 
-    var links = document.getElementsByClassName('notification-wrapper');
+
+    const links = document.getElementsByClassName('notification-wrapper');
 
     function changeColor(e) {
       e.target.style.backgroundColor = e.target.style.backgroundColor ? null : 'white';
