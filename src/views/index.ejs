@@ -1,14 +1,6 @@
 <% include partials/header %>
 <% include partials/nav %>
-
-<style>
-  .card {
-    margin-bottom: 7%;
-  }
-  .search-summary {
-    max-width: 700px;
-  }
-</style>
+<link rel="stylesheet" href="/css/index.css">
 
 <div id="cover">
   <div class="loader"></div>
@@ -28,7 +20,7 @@
     <p class="search-summary">
       Did you get an email inviting you to an interview but you're not sure if it's legit? 
       Search here to find out.<br>
-      Search with company name, or location. 
+      Search with company name, location, or other keywords. 
       All content is community generated, so if you don't find what you're looking for, 
       please go ahead and create a new post with your job invite 
       and other users will comment and vote on it.
@@ -49,13 +41,30 @@
 
 <section class="usage-stats">
   <div class="stat-card" title="Not really, the numbers are made up.">
-
+    <i class="stat-card__figure">18.09k</i>
+    <span class="stat-card__label">Users</span>
   </div>
   <div class="stat-card" title="Not really, the numbers are made up.">
-
+    <i class="stat-card__figure">190.17k</i>
+    <span class="stat-card__label">Posts</span>
   </div>
   <div class="stat-card" title="Not really, the numbers are made up.">
+    <i class="stat-card__figure">10M</i>
+    <span class="stat-card__label">searches</span>
+  </div>
+  <!--This last item is used to provide extra padding at the ending of the scroll. It is never displayed.-->
+  <div class="stat-card scroll-padding">
+    <i class="stat-card__figure">10M</i> 
+    <span class="stat-card__label">searches</span>
+  </div>
 
+  <div class="usage-stats__cta"> <!--cta in the class name is short for Call To Action.-->
+    <a class="usage-stats__cta__link btn btn-primary" href="/register">
+      Join The community
+    </a>
+    <small class="usage-stats__cta__reason">
+      Help protect against fraudsters.
+    </small>
   </div>
 </section>
 
