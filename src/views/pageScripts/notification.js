@@ -6,11 +6,25 @@ const socket = io();
 const api = new ItarjApi('/api/v1');
 const notificationContainer = document.querySelector('#branded');
 const notificationBadge = document.querySelector('.badge');
+const globalNotification = document.querySelector('.notification');
+const bell = document.querySelector('#bell-icon');
+
 const userElem = document.querySelector('#user');
 
 if (userElem) {
   setTimeout(() => localStorage.setItem('userId', userElem.dataset.userid), 500);
 }
+
+let snackBarTimeout;
+const showSnackBar = message => {
+  if (snackBarTimeout) {
+    return;
+  }
+  const sb = document.getElementById('snackbar');
+  sb.innerHTML = message;
+  sb.classList.add('show');
+  snackBarTimeout = setTimeout(() => { sb.classList.remove('show'); }, 3500);
+};
 
 const getNotificationHTML = notification => {
   let icon = '<i class="far fa-flag"></i>';
@@ -85,9 +99,16 @@ const markNotificationsAsRead = () => {
   }
 };
 
-if (notificationContainer) {
+// eslint-disable-next-line max-len
+if (notificationContainer) { // mark `visible` notifications as seen when notification dropdown is scrolled
   notificationContainer.addEventListener('scroll', e => {
     scrollStopped(() => markNotificationsAsRead());
+  });
+}
+
+if (bell) { // mark `visible` notifications as seen when notification dropdown is clicked
+  bell.addEventListener('click', () => {
+    setTimeout(() => markNotificationsAsRead(), 500);
   });
 }
 
@@ -97,5 +118,8 @@ socket.on('new:notification', notification => {
     notificationBadge.innerHTML = Number(notificationBadge.innerHTML) + 1;
     notificationContainer.innerHTML = getNotificationHTML(notification)
     + notificationContainer.innerHTML;
+
+    // show on-screen notification
+    showSnackBar(notification.message);
   }
 });
