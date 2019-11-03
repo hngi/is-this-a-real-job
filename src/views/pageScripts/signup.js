@@ -25,7 +25,6 @@ if (document.forms.signup) {
     const api = new ItarjApi('/api/v1');
     if(pass1.value !== pass2.value) {
     pass2.setCustomValidity("Passwords Don't Match");
-    console.log("delayed");
     errAlert.style.display = "block"
   } else {
     errAlert.style.display = "none"
