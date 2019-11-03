@@ -50,40 +50,54 @@ if (document.querySelector('#newInviteBtn')) {
   const jobTitle = document.querySelector('#jobTitle');
   const jobLocation = document.querySelector('#jobLocation');
   const companyName = document.querySelector('#companyName');
-  const media = document.querySelector('#media');
+  // const media = document.querySelector('#media'); //No more file upload.
+
   inviteBtn.addEventListener('click', e => {
     e.preventDefault();
     togglePreloader('block');
 
-    const formData = new FormData();
+    const formData = {
+      company: companyName.value,
+      location: jobLocation.value,
+      title: jobTitle.value,
+      body: jobDetails.value
+    };
+    console.log(JSON.stringify(formData));
 
+    /* Native form data object seems to send empty req.body. Using manually built formData above.
+    const formData = new FormData();
     formData.append('title', jobTitle.value);
     formData.append('location', jobLocation.value);
     formData.append('body', jobDetails.value);
     formData.append('company', companyName.value);
-    formData.append('media', media.files[0]);
+    //formData.append('media', media.files[0]);  //No more file upload.
+    */
 
+    /* Switching to api-helper implementation. Options object no more needed.
     const options = {
       method: 'POST',
-      body: formData,
+      body: JSON.stringify(formData),
       // if this is set, the coockieHandler middleware will set token with req.headers.authorization
       addToken: true
     };
+    */
 
-    fetch('api/v1/invites', options)
-      .then(res => (res.ok ? res.json() : { success: false }))
+    // fetch('api/v1/invites', options) //Now using api-helper.
+    newApi.Post('invites', JSON.stringify(formData), true)
       .then(res => {
         togglePreloader('none');
-        // navigate to somewhere. created post maybe
+        // Navigate to somewhere, created post maybe.
         window.location.href = '/posts';
       })
       .catch(err => {
+        console.log(err);
         togglePreloader('none');
         notification.innerHTML = `<strong>${err.data ? err.data.message : 'Something happened while processing your request. Contact support or try again.'}:</strong> ${err.data.payload}`;
-        notification.className += ' show';
+        notification.classList.add('show');
         setTimeout(() => {
-          notification.className = 'notification';
-        }, 5000);
+          notification.classList.remove('show');
+          // notification.className = 'notification'; //Using classList is better.
+        }, 8000);
       });
   });
 }
@@ -111,7 +125,7 @@ const upvotePostBtnHander = (event) => {
   const target = (event.target.nodeName === 'A') ? event.target : event.target.parentNode;
   const other = (event.target.nodeName === 'A') ? event.target.parentNode.querySelector('.downvote-btn') : event.target.parentNode.parentNode.querySelector('.downvote-btn');
 
-  console.log('the target', target, 'the other', other);
+  // console.log('the target', target, 'the other', other);
 
   if (voted === 'false') {
     setUp(target, other);

@@ -28,16 +28,17 @@
               </div>
             </div>
             <div class="row">
-              <div class="col-md-6">
+              <div class="col-md-12">
                 <div class=" form-group ">
                   <input type="text" class="form-control" name="title" id="title" required placeholder="Title" value="<%=invite.title%>">
                 </div>
               </div>
-              <div class="col-md-6">
+              <!--No more file upload-->
+              <!--div class="col-md-6">
                 <div class="form-group">
                   <input type="file" class="form-control" name="media" id="media" placeholder="Media">
                 </div>
-              </div>
+              </div-->
             </div>
             <div class="form-group">
               <textarea class="form-control" id="body" name="body" rows="5" placeholder="Type Something..." required><%=invite.body%></textarea>

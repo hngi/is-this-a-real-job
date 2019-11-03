@@ -15,12 +15,22 @@ body {
 
 .usage-stats {
   display: flex;
+  flex-direction: column;
   flex-wrap: nowrap;
   justify-content: center;
-  overflow-x: auto;
-  position: relative;
+  align-items: center;
   margin: 50px 0px;
-  padding: 0px 15px 70px 15px;
+  width: 100vw;
+}
+
+.usage-stats__wrapper {
+  max-width: 100%;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  overflow-x: scroll; /*Fallback if auto is unsupported*/
+  overflow-x: auto;
+  padding: 15px;
 }
 
 .stat-card {
@@ -42,9 +52,9 @@ body {
 }
 
 @media screen and (max-width: 650px) {
-  .usage-stats {
+  /*.usage-stats {
     justify-content: flex-start;
-  }
+  }*/
 
   .stat-card.scroll-padding {
     display: flex;
@@ -63,16 +73,12 @@ body {
 }
 
 .usage-stats__cta { /*cta in the class name is short for Call To Action.*/
-  position: absolute;
-  bottom: 20px;
-  left: 50vw;
-  transform: translateX(-50%);
-  height: 30px;
   display: flex;
   flex-flow: column nowrap;
   justify-content: center;
   align-items: center;
   white-space: nowrap;
+  margin: 20px;
 }
 
 .usage-stats__cta__link {
