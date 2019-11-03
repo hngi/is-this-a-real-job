@@ -52,7 +52,8 @@ import {
   renderUserProfile,
   getUserByUserId,
   renderAdminReportedUsersPage,
-  checkRenderIsAdmin
+  checkRenderIsAdmin,
+  checkRenderIsAuth
 } from '../controllers/userController';
 import { getNotifications, markNotificationAsRead } from '../controllers/notificationController';
 import {
@@ -75,8 +76,8 @@ export const initRoutes = app => {
   // All EJS frontend endpoints below --------------------------------------------------
 
   app.get('/', (req, res) => res.render('index', { isAuth: req.isAuth, isAdmin: req.auth.isAdmin, meta: { title: 'Is This A Real Job', description: genericDescription } })); // Pass true or false to toggle state of navbar....
-  app.get('/login', (req, res) => res.render('login', { isAuth: req.isAuth, isAdmin: req.auth.isAdmin, meta: { title: 'Login - Is This A Real Job', description: genericDescription } }));
-  app.get('/register', (req, res) => res.render('register', { isAuth: req.isAuth, isAdmin: req.auth.isAdmin, meta: { title: 'Register - Is This A Real Job', description: descriptions.register } }));
+  app.get('/login', checkRenderIsAuth, (req, res) => res.render('login', { isAuth: req.isAuth, isAdmin: req.auth.isAdmi, meta: { title: 'Login - Is This A Real Job', description: genericDescription } }));
+  app.get('/register', checkRenderIsAuth, (req, res) => res.render('register', { isAuth: req.isAuth, isAdmin: req.auth.isAdmin, meta: { title: 'Register - Is This A Real Job', description: descriptions.register } }));
   app.get('/post', getUserByUserId, (req, res) => res.render('userPost', {
     isAuth: req.isAuth,
     isAdmin: req.auth.isAdmin,
@@ -86,6 +87,7 @@ export const initRoutes = app => {
     meta: { title: 'New Post - Is This A Real Job', descripiton: genericDescription }
   }));
   app.get('/howitworks', (req, res) => res.render('howitworks', { isAuth: req.isAuth, isAdmin: req.auth.isAdmin, meta: { title: 'How It Works - Is This A Real Job', description: genericDescription } }));
+  app.get('/verify', (req, res) => res.render('verify', { isAuth: req.isAuth, isAdmin: req.auth.isAdmi, meta: { title: 'Verify Post - Is This A Real Job', description: genericDescription } }));
   app.get('/reportuser', getUserByUserId, (req, res) => res.render('reportuser', { isAuth: req.isAuth, isAdmin: req.auth.isAdmin, meta: { title: 'Report User - Is This A Real Job', description: genericDescription } }));
   app.get('/posts', renderJobInvitesPage);
   app.get('/post/:inviteId', renderSinglePostPage);

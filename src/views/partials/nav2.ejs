@@ -282,12 +282,12 @@
     window.onclick = function(event){
       if(!event.target.matches('#bell-icon')){
         var dropdowns = document.getElementsByClassName("notification-menu");
-      }
-      var i;
-      for(i=0; i< dropdowns.length; i++){
-        var openDropdown = dropdowns[i];
-        if(openDropdown.classList.contains('show')){
-          openDropdown.classList.remove('show');
+        var i;
+        for(i=0; i< dropdowns.length; i++){
+          var openDropdown = dropdowns[i];
+          if(openDropdown.classList.contains('show')){
+            openDropdown.classList.remove('show');
+          }
         }
       }
     }

@@ -55,7 +55,6 @@ if (document.querySelector('#newInviteBtn')) {
     e.preventDefault();
     togglePreloader('block');
 
-    const api = new ItarjApi('/api/v1');
     const formData = new FormData();
 
     formData.append('title', jobTitle.value);

@@ -130,6 +130,8 @@ export const notifyByEmail = async (res, notif) => {
     notif.title = (notif.type === 'comment') ? 'One New Comment On Your Job Invite' : 'Your Job Invite Was Upvoted';
     notif.recipient = await findSingleUser({ userId: notif.userId });
     notif.recipient = notif.recipient.dataValues;
+    notif.target = notif.target || notif.recipient; // set target if not present
+    notif.details = notif.details || '';
 
     // Use callback syntax for res.render to recieve the html text into a variable.
     res.render('notificationEmail', notif, (error, renderedEmail) => {
