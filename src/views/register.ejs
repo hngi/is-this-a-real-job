@@ -64,7 +64,9 @@
         font-size: 16px;
         line-height: 19px;
       }
-      
+      #error{
+        display: none;
+      }
       @media (max-width: 767px) {
         h3 {
           font-size: 35px;
@@ -102,7 +104,7 @@
             </div>
             <div class="form-group">
               <button class="btn btn-success btn-block btn-custom" id="signup-btn">Register</button>
-            </div>
+            </div><span id="error">Passwords do not match</span>
             <div class="register">
               <p><a href="/login">Login</a></p>
             </div>
@@ -112,20 +114,5 @@
 
     </div>
     </div>
-    <script>
-			const pass1 = document.querySelector("#password1");
-			const pass2 = document.querySelector("#password2");
-
-
-function validate(){
-  if(pass1.value !== pass2.value) {
-    pass2.setCustomValidity("Passwords Don't Match");
-  } else {
-    pass2.setCustomValidity('');
-      }
-}
-
-pass1.onchange = validate;
-pass2.onkeyup = validate;
-</script>
+    
     <% include partials/footer %>
