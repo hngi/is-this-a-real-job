@@ -142,15 +142,16 @@
     <% if (users.length === 0) { %>
     <span id="no-users" class="bg-transparent container">The world is your oyseter. Fill it.</span>
     <% } %>
-
-    <% if (users.length > 0) { %>
-    <% for (report of users) { %>
     <div class="col-md-10 listed_users">
       <div class="all_users row">
+
+        <% if (users.length > 0) { %>
+        <% for (report of users) { %>
         <div class="single_user col-md-6">
           <span class="row">
             <span class="col-md-3">
-              <img class="rounded-circle user-img" src="<%=report.offender.profileImage || getGravatar(report.offender.email) %>" alt="">
+              <img class="rounded-circle user-img"
+                src="<%=report.offender.profileImage || getGravatar(report.offender.email) %>" alt="">
             </span>
             <span class="col-md-6 name-div">
               <span class="name"><%=report.offender.name%></span> <br>
@@ -164,10 +165,10 @@
           </span>
 
         </div>
+        <% } %>
+        <% } %>
       </div>
     </div>
-    <% } %>
-    <% } %>
   </div>
 </div>
 </div>
