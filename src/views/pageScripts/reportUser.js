@@ -9,6 +9,8 @@ function showSuccessDialog() {
 }
 
 function showErrorMessage(err) {
+
+  const notification = document.querySelector('.notification');
   notification.innerHTML = `<strong>${err.data.message}:</strong> ${err.data.payload}`;
   notification.classList.add('show');
 
@@ -18,6 +20,8 @@ function showErrorMessage(err) {
 }
 
 window.onload = (event)=> {
+
+  const notification = document.querySelector('.notification');
   const formData = {
     offender: document.querySelector('.report-form__username'),
     offence: document.querySelector('.report-form__offence'),
