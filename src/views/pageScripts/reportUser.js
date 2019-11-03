@@ -8,6 +8,15 @@ function showSuccessDialog() {
   successDialog.classList.remove('is-hidden');
 }
 
+function showErrorMessage(err) {
+  notification.innerHTML = `<strong>${err.data.message}:</strong> ${err.data.payload}`;
+  notification.classList.add('show');
+
+  setTimeout(() => {
+    notification.classList.remove('show');
+  }, 8000);
+}
+
 window.onload = (event)=> {
   const formData = {
     offender: document.querySelector('.report-form__username'),
@@ -19,26 +28,24 @@ window.onload = (event)=> {
   submit.onclick = (event)=> {
     event.preventDefault();
 
-    /*Dummy implementation*/
-    togglePreloader('block');
-    setTimeout(() => {
-      showSuccessDialog();
-    }, 2000);
+    if (!formData.offender || !formData.offence || !formData.details) {
+      return window.alert('Please fill in all fields.')
+    }
 
-    /*Work In Progress. Dummy implementation above will be removed once completed.*/
-    return;
+    if (formData.details.length < 20) {
+      return window.alert('Please fill in the details fields with enough information. Include links to the offending posts or comment. \n(We expect at least 20 characters)');
+    }
+
+    togglePreloader('block');
+
     api.Post('/reportuser', JSON.stringify(formData), true)
       .then(res => {
-        togglePreloader('none');
+        showSuccessDialog();
       })
       .catch(err => {
         console.log(err);
         togglePreloader('none');
-        notification.innerHTML = `<strong>${err.data.message}:</strong> ${err.data.payload}`;
-        notification.classList.add('show');
-        setTimeout(() => {
-          notification.classList.remove('show');
-        }, 8000);
+        showErrorMessage(err);
       });
   }
 }
