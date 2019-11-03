@@ -177,7 +177,7 @@ export const upvoteInvite = async (req, res) => {
   const { inviteId } = req.invite;
   const { userId } = req.auth;
 
-  await upvoteOneInvite(userId, inviteId)
+  await upvoteOneInvite(res, userId, inviteId)
     .then((vote) => respondWithSuccess(res, 200, 'Upvote successful', vote))
     .catch((error) => respondWithSuccess(res, error.status, error.message, JSON.stringify(error)));
 };

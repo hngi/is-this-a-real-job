@@ -31,8 +31,7 @@ describe('NOTIFICATION CONTROLLER', () => {
             .post(commentUrl) // comment on post
             .set('Authorization', `${res.body.payload.token}`) // add jwt header
             .send({
-              body: 'A test comment on a nice post?',
-              userId: SEED_USER_ID, // test user
+              body: 'A test comment on a nice post?'
             })
             .end((err, res) => {
               expect(res).to.have.status(200);
@@ -40,6 +39,7 @@ describe('NOTIFICATION CONTROLLER', () => {
               expect(res.body.payload).to.have.property('userId');
               expect(res.body.payload).to.have.property('user');
               expect(res.body.payload).to.have.property('commentId');
+              expect(res.body.payload).to.have.property('notification');
               done();
             });
         });
@@ -56,7 +56,8 @@ describe('NOTIFICATION CONTROLLER', () => {
           expect(res).to.have.status(200);
           expect(res.body.success).to.equal(true);
           expect(res.body.payload).to.have.property('notificationId');
-          expect(res.body.payload).to.have.property('isSeen');
+          expect(res.body.payload).to.have.property('notification');
+          expect(res.body.payload).to.have.property('isSeen').to.equal(false);
           expect(res.body.payload).not.to.have.property('target');
           expect(res.body.payload).to.have.property('userId');
           done();
@@ -80,7 +81,8 @@ describe('NOTIFICATION CONTROLLER', () => {
                 .post(`${notificationUrl}?type=comment`)
                 .send({
                   target: SEED_USER_ID, // test user
-                  commentId: res.body.payload.commentId
+                  commentId: res.body.payload.commentId,
+                  inviteId: res.body.payload.inviteId
                 })
                 .end((err, res) => {
                   expect(res).to.have.status(200);
@@ -108,6 +110,7 @@ describe('NOTIFICATION CONTROLLER', () => {
         .post(`${notificationUrl}?type=upvote`)
         .send({
           target: 'ff7a2a37-530d-4961-a9ec-fda2ddd2c279', // invalid user
+          inviteId: SEED_INVITE_ID
         }) // omitted target
         .end((err, res) => {
           expect(res).to.have.status(404);
@@ -133,12 +136,32 @@ describe('NOTIFICATION CONTROLLER', () => {
   describe('GET LIST NOTIFICATIONS', () => {
     it('it should return all notifications or an empty array for a user', (done) => {
       chai.request(app)
-        .get(`${notificationUrl}/${SEED_USER_ID}`)
+        .post(signinUrl) // login
+        .send(authDetails)
+        .end((error, res) => {
+          chai.request(app)
+            .get(`${notificationUrl}`)
+            .set('Authorization', `${res.body.payload.token}`) // add jwt header
+            .end((err, res) => {
+              expect(res).to.have.status(200);
+              expect(res.body.success).to.equal(true);
+              expect(res.body.payload).to.be.an.instanceof(Array);
+              expect(res.body.payload).to.have.length.that.is.at.least(0);
+              done();
+            });
+        });
+    });
+  });
+
+  describe('PATCH MARK NOTIFICATION AS SEEN', () => {
+    it('it should mark a specified notification as seen', (done) => {
+      chai.request(app)
+        .patch(`${notificationUrl}/${SEED_USER_ID}`)
         .end((error, res) => {
           expect(res).to.have.status(200);
           expect(res.body.success).to.equal(true);
-          expect(res.body.payload).to.be.an.instanceof(Array);
-          expect(res.body.payload).to.have.length.that.is.at.least(0);
+          expect(res.body.payload).to.have.property('notificationId');
+          expect(res.body.payload).to.have.property('isSeen').to.equal(true);
           done();
         });
     });

@@ -56,11 +56,7 @@ import {
   checkRenderIsAdmin,
   checkRenderIsAuth
 } from '../controllers/userController';
-import {
-  getNotifications,
-  createNotification
-} from '../controllers/notificationController';
-import { validateNotificationData } from '../middlewares/validateNotification';
+import { getNotifications, markNotificationAsRead } from '../controllers/notificationController';
 import {
   validateCookies,
   signUserIn,
@@ -91,7 +87,7 @@ export const initRoutes = app => {
     name: req.auth.name,
     meta: { title: 'New Post - Is This A Real Job', descripiton: genericDescription }
   }));
-  app.get('/howitworks', (req, res) => res.render('howitworks', { isAuth: req.isAuth, isAdmin: req.auth.isAdmi, meta: { title: 'How It Works - Is This A Real Job', description: genericDescription } }));
+  app.get('/howitworks', (req, res) => res.render('howitworks', { isAuth: req.isAuth, isAdmin: req.auth.isAdmin, meta: { title: 'How It Works - Is This A Real Job', description: genericDescription } }));
   app.get('/analyse/:inviteId', renderInviteAnalysisPage);
   app.get('/reportuser', getUserByUserId, (req, res) => res.render('reportuser', { isAuth: req.isAuth, isAdmin: req.auth.isAdmin, meta: { title: 'Report User - Is This A Real Job', description: genericDescription } }));
   app.get('/posts', renderJobInvitesPage);
@@ -269,10 +265,15 @@ export const initRoutes = app => {
   // Get the number of users, invites and comments in the database.
   app.get('/api/v1/metrics', getMetrics);
 
-  // Get all notifications for a given user.
+  // Get all notifications for a given User.
   app.get('/api/v1/notifications', authenticateUserToken, getNotifications);
-  app.post('/api/v1/notifications', validateNotificationData, createNotification);
+
+  // Create a new notification
+  // app.post('/api/v1/notifications', validateNotificationData, createNotification);
   app.get('/api/v1/notifications/:userId', validateUserId, getNotifications);
+
+  // Mark a notification as read
+  app.patch('/api/v1/notifications', markNotificationAsRead);
 
   // Fallback case for unknown URIs.
   app.get('/notAuthorized', (req, res) => res.render('401', { meta: { title: '404 - Page Not Found', description: genericDescription } }));

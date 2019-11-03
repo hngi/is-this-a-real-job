@@ -20,7 +20,7 @@ export const createComment = async (req, res) => {
     const { body } = req.body;
     const { inviteId } = req.params;
 
-    const comment = await createCommentForPost({ inviteId, body, userId: req.auth.userId })
+    const comment = await createCommentForPost(res, { inviteId, body, userId: req.auth.userId })
       .catch(e => { throw e; });
 
     if (comment) {

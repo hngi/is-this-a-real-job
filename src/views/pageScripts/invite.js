@@ -13,9 +13,9 @@ const newApi = new ItarjApi('/api/v1');
 const refresh = (inviteId) => {
   newApi.Get(`invites/${inviteId}/votes`, true)
     .then((res) => {
-      const invite = document.querySelector(`[data-inviteId="${inviteId}"`);
-      const up = invite.querySelector('.upvote-btn');
-      const down = invite.querySelector('.downvote-btn');
+      const inviteSelector = `[data-inviteId="${inviteId}"]`;
+      const up = document.querySelector(`${inviteSelector}.upvote-btn`);
+      const down = document.querySelector(`${inviteSelector}.downvote-btn`);
 
       up.querySelector('.count').innerText = res.data.upvotes;
       down.querySelector('.count').innerText = res.data.downvotes;
@@ -32,7 +32,8 @@ const refresh = (inviteId) => {
       }
     })
     .catch((err) => {
-      notification.innerHTML = `<strong>${err.data.message}:</strong> ${err.data.payload}`;
+      console.log(err);
+      notification.innerHTML = `<strong>${err.data ? err.data.message : 'Something happened while processing your request. Contact support or try again.'}:</strong> ${err.data.payload}`;
       notification.className += ' show';
       setTimeout(() => {
         notification.className = 'notification';
@@ -54,8 +55,6 @@ if (document.querySelector('#newInviteBtn')) {
   inviteBtn.addEventListener('click', e => {
     e.preventDefault();
     togglePreloader('block');
-
-    const api = new ItarjApi('/api/v1');
 
     const formData = {
       company: companyName.value,
@@ -84,7 +83,7 @@ if (document.querySelector('#newInviteBtn')) {
     */
 
     // fetch('api/v1/invites', options) //Now using api-helper.
-    api.Post('invites', JSON.stringify(formData), true)
+    newApi.Post('invites', JSON.stringify(formData), true)
       .then(res => {
         togglePreloader('none');
         // Navigate to somewhere, created post maybe.
@@ -93,7 +92,7 @@ if (document.querySelector('#newInviteBtn')) {
       .catch(err => {
         console.log(err);
         togglePreloader('none');
-        notification.innerHTML = `<strong>${err.data.message}:</strong> ${err.data.payload}`;
+        notification.innerHTML = `<strong>${err.data ? err.data.message : 'Something happened while processing your request. Contact support or try again.'}:</strong> ${err.data.payload}`;
         notification.classList.add('show');
         setTimeout(() => {
           notification.classList.remove('show');
@@ -135,8 +134,9 @@ const upvotePostBtnHander = (event) => {
         refresh(inviteId);
       })
       .catch((err) => {
+        console.log(err);
+        notification.innerHTML = `<strong>${err.data ? err.data.message : 'Something happened while processing your request. Contact support or try again.'}:</strong> ${err.data.payload}`;
         refresh(inviteId);
-        notification.innerHTML = `<strong>${err.data.message}:</strong> ${err.data.payload}`;
         notification.className += ' show';
         setTimeout(() => {
           notification.className = 'notification';
@@ -149,8 +149,9 @@ const upvotePostBtnHander = (event) => {
         refresh(inviteId);
       })
       .catch((err) => {
+        console.log(err);
+        notification.innerHTML = `<strong>${err.data ? err.data.message : 'Something happened while processing your request. Contact support or try again.'}:</strong> ${err.data.payload}`;
         refresh(inviteId);
-        notification.innerHTML = `<strong>${err.data.message}:</strong> ${err.data.payload}`;
         notification.className += ' show';
         setTimeout(() => {
           notification.className = 'notification';
@@ -171,8 +172,9 @@ const downvotePostBtnHander = (event) => {
         refresh(inviteId);
       })
       .catch((err) => {
+        console.log(err);
+        notification.innerHTML = `<strong>${err.data ? err.data.message : 'Something happened while processing your request. Contact support or try again.'}:</strong> ${err.data.payload}`;
         refresh(inviteId);
-        notification.innerHTML = `<strong>${err.data.message}:</strong> ${err.data.payload}`;
         notification.className += ' show';
         setTimeout(() => {
           notification.className = 'notification';
@@ -185,8 +187,9 @@ const downvotePostBtnHander = (event) => {
         refresh(inviteId);
       })
       .catch((err) => {
+        console.log(err);
+        notification.innerHTML = `<strong>${err.data ? err.data.message : 'Something happened while processing your request. Contact support or try again.'}:</strong> ${err.data.payload}`;
         refresh(inviteId);
-        notification.innerHTML = `<strong>${err.data.message}:</strong> ${err.data.payload}`;
         notification.className += ' show';
         setTimeout(() => {
           notification.className = 'notification';
