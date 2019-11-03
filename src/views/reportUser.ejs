@@ -1,5 +1,6 @@
 <% include partials/header %>
 <% include partials/nav %>
+<link rel="stylesheet" href="/css/reportUser.css">
 
 <div class="container">
 <div class=" container-flex">
@@ -14,8 +15,8 @@
       <input type="text" class="report-form__offence" placeholder="Offence" aria-label="Offence"/><br />
       <textarea cols="30" rows="10" class="report-form__details"
         placeholder="Give further details. Include links to the offending posts or comments."
-        aria-label="Give further details. Include links to the offending posts or comments.">
-      </textarea>
+        aria-label="Give further details. Include links to the offending posts or comments."
+      ></textarea> <!--The closing textarea tag must be on the same line with the last character from opening tag in order for the placeholder to show.-->
       <br />
       <button id="cancel">
         <a href="/posts">CANCEL</a>

@@ -92,7 +92,6 @@ export const initRoutes = app => {
   }));
   app.get('/howitworks', (req, res) => res.render('howitworks', { isAuth: req.isAuth, isAdmin: req.auth.isAdmi, meta: { title: 'How It Works - Is This A Real Job', description: genericDescription } }));
   app.get('/verify', (req, res) => res.render('verify', { isAuth: req.isAuth, isAdmin: req.auth.isAdmi, meta: { title: 'Verify Post - Is This A Real Job', description: genericDescription } }));
-  app.get('/reportuser', getUserByUserId, (req, res) => res.render('reportuser', { isAuth: req.isAuth, isAdmin: req.auth.isAdmin, meta: { title: 'Report User - Is This A Real Job', description: genericDescription } }));
   app.get('/posts', renderJobInvitesPage);
   app.get('/post/:inviteId', renderSinglePostPage);
   app.get('/about', (req, res) => res.render('about', {
@@ -102,18 +101,27 @@ export const initRoutes = app => {
     name: req.auth.name,
     meta: { title: 'About - Is This A Real Job', description: genericDescription }
   }));
+
   app.get('/admin/reported', checkRenderIsAdmin, (req, res) => res.render('admin/reportedUsers', {
     isAuth: req.auth.isAuth,
     isAdmin: req.auth.isAdmin,
     meta: { title: 'Reported Users - Is This A Real Job', description: genericDescription }
   }));
-  app.get('/reportUser', (req, res) => res.render('reportUser', {
-    isAuth: false,
-    username: req.auth.username,
-    name: req.auth.name,
-    isAdmin: req.auth.isAdmin,
-    meta: { title: 'Report User - Is This A Real Job', description: genericDescription }
-  }));
+
+  app.get('/reportuser', getUserByUserId, (req, res)=> {
+    res.render('reportUser', { 
+      isAuth: req.isAuth, 
+      username: req.auth.username,
+      isAdmin: req.auth.isAdmin, 
+      meta: { 
+        title: 'Report User - Is This A Real Job', 
+        description: genericDescription 
+      }
+    })
+  });
+
+  app.post('/reportuser', getUserByUserId, )
+
   app.get('/users/:username', renderUserProfile);
   app.get('/admin/reportedusers', checkRenderIsAdmin, renderAdminReportedUsersPage);
   // Search Invites - Renders view
