@@ -149,7 +149,7 @@
             <span class="dropdown-menu" aria-labelledby="dropdownMenuButton">
               <a class="dropdown-item" href="/post/<%=invite.inviteId%>/edit">Edit</a>
               <!-- <a class="dropdown-item" href="#">Report</a> -->
-              <a class="dropdown-item" href="#">Delete Post </a>
+              <a class="dropdown-item delete" data-inviteid="<%= invite.inviteId %>" href="#">Delete Post </a>
             </span>
             <% } %>
             <% } else { %>
@@ -162,7 +162,7 @@
             <span class="dropdown-menu" aria-labelledby="dropdownMenuButton">
               <a class="dropdown-item" href="/post/<%=invite.inviteId%>/edit">Edit</a>
               <!-- <a class="dropdown-item" href="#">Report</a> -->
-              <a class="dropdown-item" href="#">Delete Post </a>
+              <a class="dropdown-item delete" data-inviteid="<%= invite.inviteId %>" href="#">Delete Post </a>
             </span>
             <% } %>
             <% } %>
