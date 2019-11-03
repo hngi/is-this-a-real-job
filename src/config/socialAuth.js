@@ -11,8 +11,7 @@ import {
 export const twitterConfig = {
   consumerKey: TWITTER_CONSUMER_KEY,
   consumerSecret: TWITTER_CONSUMER_SECRET,
-  callbackURL: '/auth/twitter/redirect',
-  includeEmail: true
+  callbackURL: '/auth/twitter/redirect'
 };
 
 export const googleConfig = {

@@ -119,10 +119,10 @@ export const initRoutes = app => {
         title: 'Report User - Is This A Real Job',
         description: genericDescription
       }
-    })
+    });
   });
 
-  app.post('/reportuser', getUserByUserId)
+  app.post('/reportuser', getUserByUserId,);
 
   app.get('/users/:username', renderUserProfile);
   app.get('/admin/reportedusers', checkRenderIsAdmin, renderAdminReportedUsersPage);
