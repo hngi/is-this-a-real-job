@@ -76,11 +76,11 @@ export const initRoutes = app => {
   app.use(signUserIn);
   app.use(signUserOut);
 
-  // All EJS frontend endpoints below --------------------------------------------------
-
+  // All EJS frontend routess below --------------------------------------------------
   app.get('/', (req, res) => res.render('index', { isAuth: req.isAuth, isAdmin: req.auth.isAdmin, meta: { title: 'Is This A Real Job', description: genericDescription } })); // Pass true or false to toggle state of navbar....
   app.get('/login', checkRenderIsAuth, (req, res) => res.render('login', { isAuth: req.isAuth, isAdmin: req.auth.isAdmi, meta: { title: 'Login - Is This A Real Job', description: genericDescription } }));
   app.get('/register', checkRenderIsAuth, (req, res) => res.render('register', { isAuth: req.isAuth, isAdmin: req.auth.isAdmin, meta: { title: 'Register - Is This A Real Job', description: descriptions.register } }));
+
   app.get('/post', getUserByUserId, (req, res) => res.render('userPost', {
     isAuth: req.isAuth,
     isAdmin: req.auth.isAdmin,
@@ -89,11 +89,13 @@ export const initRoutes = app => {
     name: req.auth.name,
     meta: { title: 'New Post - Is This A Real Job', descripiton: genericDescription }
   }));
+
+  app.get('/verify', (req, res) => res.render('verify', { isAuth: req.isAuth, isAdmin: req.auth.isAdmi, meta: { title: 'Verify Post - Is This A Real Job', description: genericDescription } }));
   app.get('/howitworks', (req, res) => res.render('howitworks', { isAuth: req.isAuth, isAdmin: req.auth.isAdmin, meta: { title: 'How It Works - Is This A Real Job', description: genericDescription } }));
   app.get('/analyse/:inviteId', renderInviteAnalysisPage);
-  app.get('/reportuser', getUserByUserId, (req, res) => res.render('reportuser', { isAuth: req.isAuth, isAdmin: req.auth.isAdmin, meta: { title: 'Report User - Is This A Real Job', description: genericDescription } }));
   app.get('/posts', renderJobInvitesPage);
   app.get('/post/:inviteId', renderSinglePostPage);
+
   app.get('/about', (req, res) => res.render('about', {
     isAuth: req.isAuth,
     isAdmin: req.auth.isAdmin,
@@ -101,18 +103,27 @@ export const initRoutes = app => {
     name: req.auth.name,
     meta: { title: 'About - Is This A Real Job', description: genericDescription }
   }));
+
   app.get('/admin/reported', checkRenderIsAdmin, (req, res) => res.render('admin/reportedUsers', {
     isAuth: req.auth.isAuth,
     isAdmin: req.auth.isAdmin,
     meta: { title: 'Reported Users - Is This A Real Job', description: genericDescription }
   }));
-  app.get('/reportUser', (req, res) => res.render('reportUser', {
-    isAuth: false,
-    username: req.auth.username,
-    name: req.auth.name,
-    isAdmin: req.auth.isAdmin,
-    meta: { title: 'Report User - Is This A Real Job', description: genericDescription }
-  }));
+
+  app.get('/reportuser', getUserByUserId, (req, res)=> {
+    res.render('reportUser', { 
+      isAuth: req.isAuth, 
+      username: req.auth.username,
+      isAdmin: req.auth.isAdmin, 
+      meta: { 
+        title: 'Report User - Is This A Real Job', 
+        description: genericDescription 
+      }
+    })
+  });
+
+  app.post('/reportuser', getUserByUserId, )
+
   app.get('/users/:username', renderUserProfile);
   app.get('/admin/reportedusers', checkRenderIsAdmin, renderAdminReportedUsersPage);
   // Search Invites - Renders view
