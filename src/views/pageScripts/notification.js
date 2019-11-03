@@ -114,6 +114,7 @@ if (bell) { // mark `visible` notifications as seen when notification dropdown i
 
 socket.on('connect', () => console.log('connected socket'));
 socket.on('new:notification', notification => {
+  console.log(notification, localStorage.getItem('userId'));
   if (notification.userId === localStorage.getItem('userId')) {
     notificationBadge.innerHTML = Number(notificationBadge.innerHTML) + 1;
     notificationContainer.innerHTML = getNotificationHTML(notification)
