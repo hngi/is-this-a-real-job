@@ -64,7 +64,9 @@
         font-size: 16px;
         line-height: 19px;
       }
-      
+      #error{
+        display: none;
+      }
       @media (max-width: 767px) {
         h3 {
           font-size: 35px;
@@ -84,6 +86,20 @@
       <div id="register-flex">
         <div class="register-form-container register-item" id="register-form">
           <h3>Register</h3>
+          <div class="text-center">
+            <a href="/auth/twitter" class="btn btn-info social"
+            ><span class="fa fa-twitter"></span> Continue with Twitter</a
+            >
+            
+            <a href="/auth/google" class="btn btn-danger social"
+              ><span class="fa fa-google"></span> Continue with Google</a
+            >
+            
+            <a href="/auth/facebook" class="btn btn-primary social"
+            ><span class="fa fa-facebook"></span> Continue with Facebook</a
+            >
+            <p>OR</p>
+          </div>
           <form class="register-form" name="signup" action="javascript:void(0);" method="POST">
             <div class="form-group">
               <input type="text" placeholder="Name" name="name" class="form-control">
@@ -102,7 +118,7 @@
             </div>
             <div class="form-group">
               <button class="btn btn-success btn-block btn-custom" id="signup-btn">Register</button>
-            </div>
+            </div><span id="error">Passwords do not match</span>
             <div class="register">
               <p><a href="/login">Login</a></p>
             </div>
@@ -112,20 +128,5 @@
 
     </div>
     </div>
-    <script>
-			const pass1 = document.querySelector("#password1");
-			const pass2 = document.querySelector("#password2");
-
-
-function validate(){
-  if(pass1.value !== pass2.value) {
-    pass2.setCustomValidity("Passwords Don't Match");
-  } else {
-    pass2.setCustomValidity('');
-      }
-}
-
-pass1.onchange = validate;
-pass2.onkeyup = validate;
-</script>
+    
     <% include partials/footer %>

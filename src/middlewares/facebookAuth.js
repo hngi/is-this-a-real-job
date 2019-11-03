@@ -15,7 +15,7 @@ export const facebookAuthCallback = (req, res, next) => passport.authenticate('f
     username,
     name
   } = sanitizedUser;
-  
+
   const payload = { userId, isAdmin };
   const token = await generateToken(payload);
   localStorage.setItem('token', token);
