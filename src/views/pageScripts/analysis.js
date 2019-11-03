@@ -25,16 +25,19 @@ function getAnalysis(btnType) {
       mode: 'no-cors'
     };
   } else if (btnType === 3) {
-    uri = 'https://isthisarealjob-api.herokuapp.com';
+    uri = 'https://itarj-cors.appspot.com/https://isthisarealjob-api.appspot.com';
     const company = document.querySelector('#company');
     const location = document.querySelector('#location');
     const jobDetails = document.querySelector('#jobDetails');
     const data = { company, address: location, invite: jobDetails };
     options = {
       method: 'POST',
-      body: JSON.stringify(data),
-      mode: 'no-cors',
-      'Content-Type': 'application/json',
+      body: JSON.stringify({
+        company: 'NNPC',
+        address: 'no. 21 adesanya aguda, surulere',
+        invite: 'You are welcom'
+      }),
+      headers: new Headers({ 'Content-Type': 'application/json', Origin: 'x-requested-with' })
     };
   } else {
     formData.append('title', analysisText.value);
