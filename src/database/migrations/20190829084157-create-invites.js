@@ -28,7 +28,7 @@ export default {
       type: Sequelize.TEXT,
       allowNull: false,
     },
-    media: {
+    /*media: {
       type: Sequelize.STRING,
       allowNull: false,
       get() {
@@ -37,7 +37,7 @@ export default {
       set(val) {
         this.setDataValue('media', val.join(';'));
       },
-    },
+    },*/ //No more file upload.
     upVotes: {
       type: Sequelize.INTEGER,
     },

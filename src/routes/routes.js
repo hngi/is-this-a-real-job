@@ -183,7 +183,7 @@ export const initRoutes = app => {
   app.post(
     '/api/v1/invites',
     authenticateUserToken,
-    multerUploads,
+    //multerUploads, //No more file upload.
     validateInviteData,
     saveNewInvite
   );

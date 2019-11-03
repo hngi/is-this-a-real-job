@@ -10,8 +10,9 @@ export default {
         company: 'Howard Schools',
         location: '52 Abeokuta Street',
         userId: SEED_USER_ID,
-        upVotes: 0,
-        media: ["https://images.unsplash.com/photo-1572210297784-87d9eb73e323?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1355&q=80"]
+        upVotes: 0
+        //No more file upload.
+        //media: ["https://images.unsplash.com/photo-1572210297784-87d9eb73e323?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1355&q=80"]
       },
       {
         inviteId: SEED_INVITE_ID_2,
@@ -20,8 +21,9 @@ export default {
         company: 'Nigerian Bottling Ltd',
         location: 'Berger, Lagos',
         userId: SEED_USER_ID,
-        upVotes: 0,
-        media: ["https://images.unsplash.com/photo-1572173733176-96bced653611?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=700&q=80"]
+        upVotes: 0
+        //No more file upload.
+        //media: ["https://images.unsplash.com/photo-1572173733176-96bced653611?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=700&q=80"]
       },
       {
         inviteId: SEED_INVITE_ID_3,
@@ -30,8 +32,9 @@ export default {
         company: 'Automobile Corp',
         location: 'Kano State',
         userId: SEED_USER_ID,
-        upVotes: 0,
-        media: ["https://images.unsplash.com/photo-1572236765640-7cc48f671668?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80"]
+        upVotes: 0
+        //No more file upload.
+        //media: ["https://images.unsplash.com/photo-1572236765640-7cc48f671668?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80"]
       },
     ], {});
   },
