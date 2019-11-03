@@ -79,7 +79,7 @@ passport.use(new GoogleStrategy(googleConfig,
         sub, name, picture, email
       } = profile._json;
       const username = name.replace(/\s/g, '').toLowerCase(); // Create username by joining name string
-      const user = await findSingleUser({ googleId: sub });
+      const user = await findSingleUser({ email });
       const password = await passwordHash(accessToken);
       const usernameTaken = await findSingleUser({ username });
       // Create new user if not exists
@@ -88,7 +88,7 @@ passport.use(new GoogleStrategy(googleConfig,
         newData.name = name;
         newData.googleId = sub;
         newData.profileImage = picture;
-        newData.email = `${username}@itarj-google.com`;
+        newData.email = email;
         newData.username = username;
         newData.password = password;
         if (usernameTaken) {
@@ -123,7 +123,7 @@ passport.use(new FacebookAuthStrategy(facebookConfig,
       } = profile;
       const email = emails[0].value;
       const username = displayName.replace(/\s/g, '').toLowerCase(); // Create username by joining name string
-      const user = await findSingleUser({ facebookId: id });
+      const user = await findSingleUser({ email });
       const password = await passwordHash(accessToken);
       const usernameTaken = await findSingleUser({ username });
       // Create new user if not exists
@@ -132,7 +132,7 @@ passport.use(new FacebookAuthStrategy(facebookConfig,
         newData.name = displayName;
         newData.facebookId = id;
         // newData.profileImage = photos[0].value;
-        newData.email = `${username}@itarj-facebook.com`;
+        newData.email = email;
         newData.username = username;
         newData.password = password;
         if (usernameTaken) {
