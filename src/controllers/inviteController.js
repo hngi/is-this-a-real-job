@@ -13,6 +13,7 @@ import {
   unvoteOneInvite,
   downVoteOneInvite,
   fetchOneVoteCount,
+  fetchAllInvitesWithLimit,
 } from '../services/inviteServices';
 import { findCommentsForPost } from '../services/commentServices';
 import { findSingleUser } from '../services/userServices';
@@ -282,6 +283,18 @@ export const renderJobInvitesPage = async (req, res) => {
     userId: req.auth.userId,
     meta: { title, description }
   });
+};
+
+export const renderHomePage = async (req, res) => {
+  const invites = await fetchAllInvitesWithLimit(3);
+
+  return res.render('index', {
+    invites: invites || [],
+    isAuth: req.isAuth,
+    isAdmin: req.auth.isAdmin,
+    meta: { title: 'Is This A Real Job', description: 'Our app helps you check if job opportunities are real or not.' }
+  });
+
 };
 
 /**
