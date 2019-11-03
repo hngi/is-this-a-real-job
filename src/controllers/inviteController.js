@@ -47,7 +47,8 @@ export const getAllInvites = async (req, res) => {
 export const saveNewInvite = async (req, res) => {
   try {
     req.body.userId = req.auth.userId;
-    //req.body.media = req.files && !req.files[0] ? '' : req.files[0].secure_url; //No more file upload.
+    // req.body.media = req.files && !req.files[0]
+    //  ? '' : req.files[0].secure_url; //No more file upload.
     const invite = await saveInvite(req.body).catch(error => {
       throw error;
     });
@@ -122,7 +123,7 @@ export const updateInvite = async (req, res) => {
     body: req.body.body || req.invite.body,
     location: req.body.location || req.invite.location,
     company: req.body.company || req.invite.company,
-    //media: req.body.media || req.invite.media, //No more file upload.
+    // media: req.body.media || req.invite.media, //No more file upload.
   };
 
   try {
@@ -223,7 +224,7 @@ export const renderSinglePostPage = async (req, res) => {
 
 
   // Invite
-  const title = data[1].title + ' - Is This A Real Job?';
+  const title = `${data[1].title} - Is This A Real Job?`;
   const description = data[1].body.length > 80 ? data[1].body.substr(0, 80) : data[1].body;
 
   return res.render('singlepost', {
@@ -320,7 +321,7 @@ export const renderEditInvitePage = async (req, res) => {
     });
   }
 
-  const title = 'Edit: ' + req.invite.title + ' - ' + 'Is This A Real Job?';
+  const title = `Edit: ${req.invite.title} - Is This A Real Job?`;
   const description = req.invite.body.length > 80 ? req.invite.body.substr(0, 80) : req.invite.body;
 
   return res.render('editPost', {
@@ -328,6 +329,38 @@ export const renderEditInvitePage = async (req, res) => {
     isAuth: req.isAuth,
     isAdmin: req.auth.isAdmin,
     user: req.user,
+    username: req.auth.username,
+    name: req.auth.name,
+    meta: { title, description }
+  });
+};
+
+/**
+ * Render invite analysis page
+ * @param {object} req
+ * @param {object} res
+ */
+export const renderInviteAnalysisPage = async (req, res) => {
+  const { inviteId } = req.params;
+
+  const invite = await fetchOneInvite({
+    inviteId
+  });
+  if (!invite) {
+    return res.render('404', {
+      isAuth: req.isAuth,
+      isAdmin: req.auth.isAdmin,
+      user: req.user
+    });
+  }
+
+  const title = `Analyze: ${invite.title} - Is This A Real Job ?`;
+  const description = 'Browse the Job Invites on Is This A Real Job; don\'t go for that interview until you verify it!';
+
+  return res.render('analyse', {
+    invite: invite || [],
+    isAuth: req.isAuth,
+    isAdmin: req.auth.isAdmin,
     username: req.auth.username,
     name: req.auth.name,
     meta: { title, description }
