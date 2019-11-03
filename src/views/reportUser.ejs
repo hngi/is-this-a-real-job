@@ -1,107 +1,30 @@
-<% include partials/header %> <% include partials/nav %>
-<style>
-  body {
-    padding: 0;
-    margin: 0;
-    font-family: "raleway", sans-serif;
-  }
+<% include partials/header %>
+<% include partials/nav %>
 
-  .container {
-    width: 80%;
-    max-width: 900px;
-    margin: 0px auto;
-  }
-
-  .container-flex {
-    display: flex;
-    justify-content: center;
-  }
-
-  .heading-text {
-    border-right: 5px solid #636b6f;
-    padding-right: 10px;
-    color: #636b6f;
-  }
-  .content {
-    width: 70%;
-    margin-left: 10px;
-    padding-top: 5px;
-  }
-
-  .content-header {
-    margin-bottom: 40px;
-  }
-
-  input,
-  textarea {
-    width: 80%;
-    padding: 10px;
-    border: 1px solid #636b6f;
-  }
-
-  input {
-    margin-bottom: 30px;
-  }
-
-  button {
-    margin-top: 20px;
-    border-radius: 10px;
-    padding: 10px 30px;
-  }
-
-  button#cancel {
-    background: #ffffff;
-  }
-  button#report {
-    background: #3087d1;
-    color: #fff;
-  }
-  @media (max-width: 700px) {
-    .container-flex {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-    }
-    .content {
-      margin: 0;
-      width: 100%;
-    }
-
-    .content-header {
-      margin: 20px 0;
-    }
-    .heading-text {
-      border-right: 0;
-      border-bottom: 5px solid #636b6f;
-      padding-bottom: 5px;
-    }
-    input,
-    textarea {
-      width: 100%;
-    }
-  }
-</style>
 <div class="container">
-  <div class=" container-flex">
-    <div class="heading">
-      <h3 class="heading-text">Report User</h3>
-    </div>
-    <div class="content">
-      <h5 class="content-header">Tell us more</h5>
-      <form>
-        <input type="text" placeholder="User_name" /><br />
-        <input type="text" placeholder="what will you like to report" /><br />
-        <textarea
-          cols="30"
-          rows="10"
-          placeholder="Enter a complaint"
-        ></textarea>
-        <br />
-        <button id="cancel">CANCEL</button>
-        <button id="report">REPORT</button>
-      </form>
-    </div>
+<div class=" container-flex">
+  <div class="heading">
+    <h3 class="heading-text">Report User</h3>
+  </div>
+
+  <div class="content">
+    <h5 class="content-header">Tell us more</h5>
+    <form class="report-form">
+      <input type="text" class="report-form__username" placeholder="user_name" aria-label="user name"/><br />
+      <input type="text" class="report-form__offence" placeholder="Offence" aria-label="Offence"/><br />
+      <textarea cols="30" rows="10" class="report-form__details"
+        placeholder="Give further details. Include links to the offending posts or comments."
+        aria-label="Give further details. Include links to the offending posts or comments.">
+      </textarea>
+      <br />
+      <button id="cancel">
+        <a href="/posts">CANCEL</a>
+      </button>
+      <button id="report" class="report-form__submit">REPORT</button>
+    </form>
   </div>
 </div>
+</div>
 
+<script type="text/javascript" src="/reportUser.js"></script>
 <% include partials/footer %>

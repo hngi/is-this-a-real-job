@@ -71,6 +71,10 @@
     border: 0;
   }
 
+  .user__report {
+    white-space: nowrap;
+  }
+
 
   .main {
     width: 70%;
@@ -175,7 +179,7 @@
        class="first-section">
     <div class="first-sec-row row">
       <div class="profile-img">
-        <img class="user-avatar" src="<%= image %>" alt="Profile-pix">
+        <img class="user-avatar" src="<%= image %>" alt="Profile picture">
       </div>
       <div class="user">
         <h2 class="username" id="user-profile">
@@ -184,6 +188,7 @@
         <p>@
           <%=user.username%>
         </p>
+        <a href="/reportuser" class="user__report">Report this user</a>
       </div>
       <!-- <div class="col-sm-6 edit">
             <button>Edit Profile</button>
