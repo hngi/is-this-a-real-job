@@ -104,25 +104,17 @@ export const initRoutes = app => {
     meta: { title: 'About - Is This A Real Job', description: genericDescription }
   }));
 
-  app.get('/admin/reported', checkRenderIsAdmin, (req, res) => res.render('admin/reportedUsers', {
-    isAuth: req.auth.isAuth,
-    isAdmin: req.auth.isAdmin,
-    meta: { title: 'Reported Users - Is This A Real Job', description: genericDescription }
-  }));
-
-  app.get('/reportuser', getUserByUserId, (req, res)=> {
-    res.render('reportUser', { 
-      isAuth: req.isAuth, 
+  app.get('/reportuser', getUserByUserId, (req, res) => {
+    res.render('reportUser', {
+      isAuth: req.isAuth,
       username: req.auth.username,
-      isAdmin: req.auth.isAdmin, 
-      meta: { 
-        title: 'Report User - Is This A Real Job', 
-        description: genericDescription 
+      isAdmin: req.auth.isAdmin,
+      meta: {
+        title: 'Report User - Is This A Real Job',
+        description: genericDescription
       }
-    })
+    });
   });
-
-  app.post('/reportuser', getUserByUserId, )
 
   app.get('/users/:username', renderUserProfile);
   app.get('/admin/reportedusers', checkRenderIsAdmin, renderAdminReportedUsersPage);
