@@ -66,6 +66,8 @@ import {
 import { getMetrics } from '../controllers/metricsController';
 
 import { descriptions } from '../helpers/metatags';
+import { validateReport } from '../middlewares/validateReport';
+import { createReport } from '../controllers/reportController';
 
 const genericDescription = 'Our app helps you check if job opportunities are real or not.';
 
@@ -103,13 +105,6 @@ export const initRoutes = app => {
     name: req.auth.name,
     meta: { title: 'About - Is This A Real Job', description: genericDescription }
   }));
-
-  app.get('/admin/reported', checkRenderIsAdmin, (req, res) => res.render('admin/reportedUsers', {
-    isAuth: req.auth.isAuth,
-    isAdmin: req.auth.isAdmin,
-    meta: { title: 'Reported Users - Is This A Real Job', description: genericDescription }
-  }));
-
   app.get('/reportuser', getUserByUserId, (req, res) => {
     res.render('reportUser', {
       isAuth: req.isAuth,
@@ -121,9 +116,6 @@ export const initRoutes = app => {
       }
     });
   });
-
-  app.post('/reportuser', getUserByUserId,);
-
   app.get('/users/:username', renderUserProfile);
   app.get('/admin/reportedusers', checkRenderIsAdmin, renderAdminReportedUsersPage);
   // Search Invites - Renders view
@@ -287,6 +279,9 @@ export const initRoutes = app => {
 
   // Mark a notification as read
   app.patch('/api/v1/notifications', markNotificationAsRead);
+
+  // Report a user
+  app.post('/api/v1/reports', authenticateUserToken, validateReport, createReport);
 
   // Fallback case for unknown URIs.
   app.get('/notAuthorized', (req, res) => res.render('401', { meta: { title: '404 - Page Not Found', description: genericDescription } }));

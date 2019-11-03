@@ -10,6 +10,7 @@ import {
   fetchSingleUser,
   findSingleUser
 } from '../services/userServices';
+import { findReports } from '../services/reportServices';
 
 
 /**
@@ -170,12 +171,12 @@ export const renderAdminUsersPage = async (req, res) => {
  * @param {object} res
  */
 export const renderAdminReportedUsersPage = async (req, res) => {
-  const users = await findUsers();
+  const users = await findReports();
 
-  const title = `${users.length} Users - Admin - Is This A Real Job`;
+  const title = `${users.length} Reported Users - Admin - Is This A Real Job`;
   const description = 'Our app helps you check if job opportunities are real or not.';
 
-  return res.render('admin/users', {
+  return res.render('admin/reportedUsers', {
     users: users || [],
     isAuth: req.isAuth,
     isAdmin: req.auth.isAdmin,

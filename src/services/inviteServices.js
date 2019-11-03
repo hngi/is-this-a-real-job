@@ -200,16 +200,19 @@ export const upvoteOneInvite = async (res, userId, inviteId) => {
       }
     });
 
-    const userObj = await User.findOne({
-      where: { userId },
-      logging: false
-    });
+    const objs = await Promise.all([
+      User.findOne({ where: { userId }, logging: false }),
+      Invite.findOne({ where: { inviteId }, logging: false })
+    ]);
 
-    if (!userObj) {
-      const e = new Error('User not found');
+    if (!Array.isArray(objs) || objs.length !== 2) {
+      const e = new Error('User/Invite not found');
       e.status = 400;
       throw e;
     }
+
+    const userObj = objs[0];
+    const inviteObj = objs[1];
 
     if (vote) {
       await vote.update({ type: 'up' });
@@ -221,7 +224,7 @@ export const upvoteOneInvite = async (res, userId, inviteId) => {
       .then(v => v.dataValues)
       .then(voteObj => {
         const data = {
-          userId,
+          userId: inviteObj.userId,
           type: 'upvote',
           inviteId,
           message: `@${userObj.username} has upvoted your post`,
