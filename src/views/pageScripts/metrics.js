@@ -6,7 +6,7 @@ function togglePreloader(state) {
   preloader.style.display = state;
 }
 
-if (document.querySelector('.admin-dashboard')) {
+if (document.querySelector('.admin-dashboard') || document.querySelector('#site-stats')) {
   const api = new ItarjApi('/api/v1');
   const noOfUsers = document.querySelector('#no-of-users');
   const noOfComments = document.querySelector('#no-of-comments');
