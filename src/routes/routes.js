@@ -41,7 +41,8 @@ import {
   downvoteInvite,
   unvoteInvite,
   fetchVoteCount,
-  renderInviteAnalysisPage
+  renderInviteAnalysisPage,
+  renderHomePage
 } from '../controllers/inviteController';
 
 import { getComments, createComment } from '../controllers/commentController';
@@ -75,7 +76,8 @@ export const initRoutes = app => {
   app.use(signUserOut);
 
   // All EJS frontend routess below --------------------------------------------------
-  app.get('/', (req, res) => res.render('index', { isAuth: req.isAuth, isAdmin: req.auth.isAdmin, meta: { title: 'Is This A Real Job', description: genericDescription } })); // Pass true or false to toggle state of navbar....
+  // app.get('/', (req, res) => res.render('index', { isAuth: req.isAuth, isAdmin: req.auth.isAdmin, meta: { title: 'Is This A Real Job', description: genericDescription } })); // Pass true or false to toggle state of navbar....
+  app.get('/', renderHomePage);
   app.get('/login', checkRenderIsAuth, (req, res) => res.render('login', { isAuth: req.isAuth, isAdmin: req.auth.isAdmi, meta: { title: 'Login - Is This A Real Job', description: genericDescription } }));
   app.get('/register', checkRenderIsAuth, (req, res) => res.render('register', { isAuth: req.isAuth, isAdmin: req.auth.isAdmin, meta: { title: 'Register - Is This A Real Job', description: descriptions.register } }));
 
@@ -108,19 +110,19 @@ export const initRoutes = app => {
     meta: { title: 'Reported Users - Is This A Real Job', description: genericDescription }
   }));
 
-  app.get('/reportuser', getUserByUserId, (req, res)=> {
-    res.render('reportUser', { 
-      isAuth: req.isAuth, 
+  app.get('/reportuser', getUserByUserId, (req, res) => {
+    res.render('reportUser', {
+      isAuth: req.isAuth,
       username: req.auth.username,
-      isAdmin: req.auth.isAdmin, 
-      meta: { 
-        title: 'Report User - Is This A Real Job', 
-        description: genericDescription 
+      isAdmin: req.auth.isAdmin,
+      meta: {
+        title: 'Report User - Is This A Real Job',
+        description: genericDescription
       }
     })
   });
 
-  app.post('/reportuser', getUserByUserId, )
+  app.post('/reportuser', getUserByUserId)
 
   app.get('/users/:username', renderUserProfile);
   app.get('/admin/reportedusers', checkRenderIsAdmin, renderAdminReportedUsersPage);
