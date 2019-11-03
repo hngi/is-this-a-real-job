@@ -5,7 +5,7 @@
 /* eslint-disable no-undef */
 // fetch all invites for admin
 
-if (true) {
+if (document.querySelectorAll('.delete')) {
   const api = new ItarjApi('/api/v1');
   const deleteBtns = document.querySelectorAll('.delete');
   const notification = document.querySelector('.notification');
