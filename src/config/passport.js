@@ -44,7 +44,7 @@ passport.use(new TwitterAuthStrategy(twitterConfig,
         newData.twitterId = id;
         newData.email = screen_name + '@itarj-twitter.com';
         newData.password = password;
-        newData.profileImage = profile_image_url_https;
+        // newData.profileImage = profile_image_url_https;
         if (usernameTaken) {
           newData.username = screen_name + randomstring.generate({ length: 7, charset: 'numeric' });
         } else {
