@@ -8,7 +8,7 @@ function showSuccessDialog() {
   successDialog.classList.remove('is-hidden');
 }
 
-window.onload = (event)=> {
+window.onload = (event) => {
   const formData = {
     offender: document.querySelector('.report-form__username'),
     offence: document.querySelector('.report-form__offence'),
@@ -16,16 +16,16 @@ window.onload = (event)=> {
   };
 
   const submit = document.querySelector('.report-form__submit');
-  submit.onclick = (event)=> {
+  submit.onclick = (event) => {
     event.preventDefault();
 
-    /*Dummy implementation*/
+    /* Dummy implementation */
     togglePreloader('block');
     setTimeout(() => {
       showSuccessDialog();
     }, 2000);
 
-    /*Work In Progress. Dummy implementation above will be removed once completed.*/
+    /* Work In Progress. Dummy implementation above will be removed once completed. */
     return;
     api.Post('/reportuser', JSON.stringify(formData), true)
       .then(res => {
@@ -40,5 +40,5 @@ window.onload = (event)=> {
           notification.classList.remove('show');
         }, 8000);
       });
-  }
-}
+  };
+};

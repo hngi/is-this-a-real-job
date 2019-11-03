@@ -33,7 +33,9 @@ passport.deserializeUser((id, done) => {
 passport.use(new TwitterAuthStrategy(twitterConfig,
   async (token, tokenSecret, profile, done) => {
     try {
-      const { id, name, screen_name, profile_image_url_https } = profile._json;
+      const {
+        id, name, screen_name, profile_image_url_https
+      } = profile._json;
       const user = await findSingleUser({ twitterId: id });
       const password = await passwordHash(token);
       const usernameTaken = await findSingleUser({ username: screen_name });
@@ -42,7 +44,7 @@ passport.use(new TwitterAuthStrategy(twitterConfig,
         const newData = {};
         newData.name = name;
         newData.twitterId = id;
-        newData.email = screen_name + '@itarj-twitter.com';
+        newData.email = `${screen_name}@itarj-twitter.com`;
         newData.password = password;
         // newData.profileImage = profile_image_url_https;
         if (usernameTaken) {
@@ -77,7 +79,7 @@ passport.use(new GoogleStrategy(googleConfig,
         sub, name, picture, email
       } = profile._json;
       const username = name.replace(/\s/g, '').toLowerCase(); // Create username by joining name string
-      const user = await findSingleUser({ email });
+      const user = await findSingleUser({ googleId: sub });
       const password = await passwordHash(accessToken);
       const usernameTaken = await findSingleUser({ username });
       // Create new user if not exists
@@ -86,7 +88,7 @@ passport.use(new GoogleStrategy(googleConfig,
         newData.name = name;
         newData.googleId = sub;
         newData.profileImage = picture;
-        newData.email = email;
+        newData.email = `${username}@itarj-google.com`;
         newData.username = username;
         newData.password = password;
         if (usernameTaken) {
@@ -121,7 +123,7 @@ passport.use(new FacebookAuthStrategy(facebookConfig,
       } = profile;
       const email = emails[0].value;
       const username = displayName.replace(/\s/g, '').toLowerCase(); // Create username by joining name string
-      const user = await findSingleUser({ email });
+      const user = await findSingleUser({ facebookId: id });
       const password = await passwordHash(accessToken);
       const usernameTaken = await findSingleUser({ username });
       // Create new user if not exists
@@ -130,7 +132,7 @@ passport.use(new FacebookAuthStrategy(facebookConfig,
         newData.name = displayName;
         newData.facebookId = id;
         // newData.profileImage = photos[0].value;
-        newData.email = email;
+        newData.email = `${username}@itarj-facebook.com`;
         newData.username = username;
         newData.password = password;
         if (usernameTaken) {
