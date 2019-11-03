@@ -19,13 +19,14 @@ html, body {
   background-color: #fff;
   color: #000;
   min-height: 100vh; /*Ensure footer isn't detached from the bottom of screen of small pages. Set minimum height to 100% of the viewport height.*/
+  width: 100vw;
   font-family: "Raleway", sans-serif;
   font-weight: 300;
   font-size: 15px;
   text-rendering: optimizeLegibility;
   display: flex;
   flex-direction: column;
-  /* overflow-x: hidden; */
+  overflow-x: hidden;
 }
 
 body { /*Using flexbox to ensure the footer is always attached to the bottom of page, and the main content <main></main> is centered on the page.*/
