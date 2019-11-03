@@ -67,6 +67,33 @@ export const fetchAllInvites = async () => {
 };
 
 /**
+ * Fetch invites with limit
+ */
+export const fetchAllInvitesWithLimit = async (limit) => {
+  try {
+    const invites = await Invite.findAll({
+      include: [
+        { model: User, as: 'user' },
+        { model: Comment, as: 'comments' },
+        { model: Vote, as: 'votes' }
+      ],
+      order: [['createdAt', 'DESC']],
+      logging: false,
+      limit
+    });
+
+    return invites.map(invite => {
+      invite = invite.dataValues;
+      invite.user = invite.user ? invite.user.dataValues : {};
+      invite.votes = invite.votes.map((vote) => vote.dataValues);
+      return invite;
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+/**
  * @param {object} inviteData Data to be stored for the new job invite.
  * @returns {object} an object containing the newly created invite data.
  */

@@ -12,17 +12,18 @@
         <!-- Render Post Component here (check partials/postComponent) -->
         <%= renderPostComponent(invite) %>
         <div class="container p-0">
-          <div class="form-group">
+          <div class="form-group <%= !isAuth ? 'd-none': '' %>">
             <textarea class="form-control" id="comment-field" style="border: 1px solid #3087d1"
                       placeholder="Type something..." rows="3"></textarea>
           </div>
           <span class="comment-btn">
-            <button type="button" class="btn btn-primary">Comment</button>
+            <button type="button" class="btn btn-primary <%= !isAuth ? 'd-none': '' %>">Comment</button>
           </span>
+          <span>You must be <a href="/login">logged in</a> to comment</span>
         </div>
 
         <h5 class="container p-0 mt-3"><%= comments.length %> Comments</h5>
-        <section id="comments">
+        <section id=" comments">
           <% if (comments.length === 0) { %>
           <div id="no-comments" class="bg-transparent container">There no comments for this post.</div>
           <% } %>
