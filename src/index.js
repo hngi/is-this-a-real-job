@@ -3,6 +3,7 @@ const path = require('path');
 const express = require('express');
 const Cookies = require('cookies');
 const Keygrip = require('keygrip');
+const session = require('express-session');
 const cors = require('cors');
 const passport = require('passport');
 const { PORT, NODE_ENV, SECRET_KEY } = require('./config/constants');
@@ -14,6 +15,12 @@ const { cloudinaryConfig } = require('./config/cloudinaryConfig');
 const keys = Keygrip([SECRET_KEY]);
 
 const app = express();
+app.use(session({
+  secret: SECRET_KEY,
+  resave: false,
+  saveUninitialized: true,
+  cookies: { secure: true }
+}));
 
 app.use((req, res, next) => {
   // res.setHeader('Access-Control-Allow-Origin', '*'); //Don't think we need CORS here.
@@ -30,6 +37,7 @@ app.use((req, res, next) => {
 // Handle image upload
 app.use(cors());
 app.use('*', cloudinaryConfig);
+
 
 app.set('views', path.join(__dirname, 'views')); // Redirect to the views directory inside the src directory
 app.use(express.static(path.join(__dirname, '../public'))); // load local css and js files
