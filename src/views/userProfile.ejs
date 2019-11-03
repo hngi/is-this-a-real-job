@@ -1,0 +1,234 @@
+<% include partials/header %>
+<% include partials/nav2 %>
+<% include partials/postComponent %>
+<style>
+  footer .row {
+    margin-right: 0;
+  }
+
+  .overall {
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  .container {
+    width: 100%;
+    padding: 0;
+    margin: 0;
+  }
+
+  .navigate {
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
+  }
+
+  .navigate h4 {
+    padding-left: 40px;
+    font-family: 'Raleway', sans-serif;
+    color: grey;
+  }
+
+  .end-nav div {
+    margin-left: 30%;
+  }
+
+  .end-nav span {
+    margin-left: 20px;
+  }
+
+  .end-nav input {
+    width: 50%;
+    border: 1px solid c4c4c4;
+    border-radius: 5px;
+    padding-left: 40px;
+    box-sizing: border-box;
+    background: url('https://res.cloudinary.com/kayode/image/upload/v1570641135/icons/search_ah4hi2.svg') no-repeat left top;
+  }
+
+  .end-nav input:focus {
+    background: 0;
+    padding-left: 3px;
+  }
+
+  .end-nav span {
+    padding-right: 10px;
+  }
+
+  .first-section {
+    padding-top: 50px;
+    padding-bottom: 50px;
+  }
+
+  .first-sec-row {
+    max-width: 20%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .first-section img {
+    width: 102px;
+    height: 102px;
+    border-radius: 50px;
+    border: 0;
+  }
+
+  .user__report {
+    white-space: nowrap;
+  }
+
+
+  .main {
+    width: 70%;
+    margin: auto;
+    padding: 10px;
+  }
+
+  .main h3 {
+    padding-left: 50px;
+    font-family: 'Raleway', sans-serif;
+  }
+
+  .main ul li {
+    list-style-type: none;
+    border: 1px solid #c4c4c4;
+    padding: 20px;
+    margin: 15px;
+    background: #e3e9ef;
+    border-radius: 3px;
+  }
+
+  .location {
+    font-size: 10px;
+    font-weight: bold;
+  }
+
+  .isReal {
+    border-radius: 25px;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .username {
+    padding-top: 5px;
+  }
+
+  .user {
+    position: relative;
+    left: 10px;
+  }
+
+  .end-nav-bar input {
+    margin-right: 50px;
+  }
+
+  .end-nav-bar img {
+    margin-right: 20px;
+  }
+
+  .end-nav-bar .initial {
+    margin-right: 20px;
+  }
+
+  .end-nav-bar button {
+    margin-right: 10px;
+  }
+
+  .alert-container {
+    margin-left: 15px;
+    margin-right: 15px;
+  }
+
+  @media screen and (max-width: 450px) {
+    .first-sec-row {
+      max-width: 70%;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .width100 {
+      width: 100%;
+    }
+
+    .user {
+      text-align: center;
+    }
+
+    .user h1 {
+      font-size: 20px;
+    }
+
+    .user p {
+      font-size: 12px;
+    }
+
+    ul li h4 {
+      padding-left: 5px;
+    }
+  }
+</style>
+
+
+<div id="cover">
+  <div class="loader"></div>
+</div>
+
+<div class="container overall">
+
+  <!-------Profile Section------->
+  <% const createHash = (email) => { return crypto.createHash('md5').update(email.trim()).digest('hex')} %>
+  <% const image = user.profileImage || `https://www.gravatar.com/avatar/${createHash(user.email)}?d=identicon` %> <div
+       class="first-section">
+    <div class="first-sec-row row">
+      <div class="profile-img">
+        <img class="user-avatar" src="<%= image %>" alt="Profile picture">
+      </div>
+      <div class="user">
+        <h2 class="username" id="user-profile">
+          <%=user.name.split(" ")[0]%>
+        </h2>
+        <p>@
+          <%=user.username%>
+        </p>
+        <a href="/reportuser" class="user__report" style="display:none;">Report this user</a> <!--Remove the style hiding this once implementation is finished. No incomplete features in deployment-->
+      </div>
+      <!-- <div class="col-sm-6 edit">
+            <button>Edit Profile</button>
+          </div> -->
+
+    </div>
+
+  </div>
+
+  <!-------Post Section------->
+
+  <div class="main">
+    <!-- <h3>
+          <%=user.Invites.length %> Posts</h3> -->
+    <div class="alert-container m-0">
+      <div class="alert itarj-primary d-flex justify-content-between">
+        <% if (isAuth && user.username != username) { %>
+        <span>Welcome to <%=user.name%>'s profile, </span>
+        <span><%=user.name%> has <b class="text-bold"><%=user.Invites.length%></b> posts </span>
+        <% } else if (isAuth && user.username === username) { %>
+        <span>Welcome back</span>
+        <span>You have <b class="text-bold"><%=user.Invites.length%></b> posts </span>
+        <% } else { %>
+        <span>Hello stranger, <a href="/register" class="text-bold">Register</a> here</span>
+        <span><%=user.name%> has <b class="text-bold"><%=user.Invites.length%></b> posts </span>
+        <% } %>
+      </div>
+    </div>
+    <% if (user.Invites.length === 0) { %>
+    <span id="no-comments" class="bg-transparent container">The world is your oyseter. Fill it.</span>
+    <% } %>
+
+    <% if (user.Invites.length > 0) {%>
+    <% user.Invites.forEach(invite => { %>
+
+    <!-- Render Post Component here (check partials/postComponent) -->
+    <%= renderPostComponent(invite) %>
+
+    <% }) %>
+    <% } %>
+  </div>
+</div>
+<% include partials/footer %>

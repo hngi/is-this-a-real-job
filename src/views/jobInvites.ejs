@@ -1,0 +1,49 @@
+<% include partials/header %>
+<% include partials/nav2 %>
+<% include partials/postComponent %>
+
+<style>
+  .verify:hover {
+    border: thin solid white;
+  }
+</style>
+<div id="cover">
+  <div class="loader"></div>
+</div>
+
+<!-- Post component - Section -->
+
+<!-- Post component - Section -->
+
+<div class="section" id="posts-page">
+  <div class="container">
+    <div class="header" id="main">
+      <div class="container p-0 mb-md-4">
+        <div style="display: none;" id="user" data-userid="<%=userId%>"></div>
+        <div class="alert itarj-primary d-flex justify-content-between">
+          <% if (isAuth) { %>
+          <span>Welcome back, <%=name%></span>
+          <span>There are <b class="text-bold"><%=invites.length%></b> posts </span>
+          <% } else { %>
+          <span>Hello stranger, <a href="/register" class="text-bold">Register</a> here</span>
+          <span>There are <b class="text-bold"><%=invites.length%></b> posts </span>
+          <% } %>
+        </div>
+      </div>
+
+      <!-- Render Posts -->
+      <section class="job-invites">
+        <% if (invites.length === 0) { %>
+        <span id="no-comments" class="bg-transparent container">The world is your oyseter. Fill it.</span>
+        <% } %> <% if (invites.length > 0) { %> <% for (invite of invites) { %>
+        <!-- Render Post Component here (check partials/postComponent) -->
+        <%= renderPostComponent(invite) %>
+        <% } %> <% } %>
+      </section>
+      <!-- Render Posts -->
+    </div>
+  </div>
+</div>
+
+
+<% include partials/footer %>

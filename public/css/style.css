@@ -1,0 +1,343 @@
+/* ----------------------------------------------- */
+
+/* BASIC SETUP */
+
+/* ----------------------------------------------- */
+
+  /*Color Vars*/
+:root {
+  --dark-blue: #24659E;
+} 
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  background-color: #fff;
+  color: #000;
+  min-height: 100vh; /*Ensure footer isn't detached from the bottom of screen of small pages. Set minimum height to 100% of the viewport height.*/
+  width: 100vw;
+  font-family: "Raleway", sans-serif;
+  font-weight: 300;
+  font-size: 15px;
+  text-rendering: optimizeLegibility;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+}
+
+body { /*Using flexbox to ensure the footer is always attached to the bottom of page, and the main content <main></main> is centered on the page.*/
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.content-body { /* The <main> content of every page.*/
+  flex: 1 1 auto; /*grow vertically*/
+  width: 100vw;
+}
+
+.go_back {
+  color: black;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.go_back:hover {
+  color: #aaa;
+  text-decoration: none;
+}
+
+.default-text {
+  font-size: 200px;
+  font-weight: 600;
+}
+
+/* NEW POST PAGE */
+
+.new_post_heading {
+  font-size: 40px;
+  font-weight: 600;
+  text-align: center;
+  line-height: 47px;
+  color: #636b6f;
+  margin-bottom: 5%;
+  margin-top: 2%;
+}
+
+.post-form {
+  margin: auto;
+}
+
+.form-control {
+  border-color: #000;
+}
+
+.cancel-button {
+  color: red;
+}
+
+@media screen and (max-width: 768px) {
+  .search-btn {
+    text-align: center;
+  }
+}
+
+.post-btn {
+  width: 206px;
+  height: 60px;
+  border-radius: 6px;
+}
+
+
+/* Invite us section */
+
+.searchbar-1 {
+  background: #ececec;
+  border-radius: 6px;
+  padding: 1.5rem;
+  border: 1px solid #ececec;
+  margin: 0.8rem auto;
+}
+
+[value="Invite Search"] {
+  width: 113px;
+  height: 45px;
+  background: #3087d1;
+  border-radius: 6px;
+  margin: 0.8rem auto;
+}
+
+/* .job-invites p {
+  font-family: Raleway;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 19px;
+  color: #000000;
+} */
+
+.job_invite_h4 {
+  width: 191px;
+  height: 28px;
+  font-family: Raleway;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 24px;
+  line-height: 28px;
+}
+
+.job-invites span.dropdown-menu {
+  left: -50px !important;
+}
+
+/* .job-invites div:nth-child(odd):not(.form-group) {
+  background: #e3e9ef;
+  padding: 20px;
+  border-radius: 6px;
+} */
+
+/* .job-invites div:nth-child(even) {
+  padding: 20px;
+  background: #ffffff;
+  margin: 1em auto;
+} */
+
+/* Posts page */
+
+@media screen and (min-width: 768px){
+  #posts-page.section {
+    margin: 0 13rem;
+  }
+
+  .mx-13 {
+    margin: 0 13rem;
+  }
+};
+
+
+/* ===== */
+
+/* SIngle Post */
+
+.post-container {
+  box-sizing: border-box;
+  text-overflow: scroll;
+  height: auto !important;
+}
+
+.dropdown-toggle::after {
+  content: none !important;
+}
+
+.post-body {
+  margin-bottom: 15%;
+}
+
+.post-author {
+  font-weight: bold;
+}
+
+.post-date {
+  font-size: 12px;
+  line-height: 14px;
+}
+
+.upvote-btn,
+.downvote-btn,
+.share-buttons a {
+  padding: 0.5rem;
+  margin-left: 0.5rem;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: background-color ease-in-out 0.1s;
+}
+
+.upvote-btn[data-voted="true"] {
+  color: var(--success) !important;
+}
+
+.downvote-btn[data-voted="true"] {
+  color: var(--danger) !important;
+}
+
+.upvote-btn:hover {
+  background-color: var(--success);
+  color: #fff !important;
+}
+
+.downvote-btn:hover {
+  background-color: var(--danger);
+  color: #fff !important;
+}
+
+/* 
+.share-buttons a {
+  padding: ;
+} */
+
+.itarj-primary {
+  color: #3087d1;
+  /* background-color: #e3e9ef; */
+  background-color: #fff;
+  border-color: #73a9d9;
+}
+
+@media screen and (max-width: 900px) {
+  .itarj-primary {
+    /* margin-top: 6rem!important; */
+    font-size: smaller !important;
+  }
+}
+
+#main {
+  margin-top: 6rem !important;
+}
+@media screen and (max-width: 600px) {
+  #main {
+    margin-top: 1rem !important;
+  }
+}
+
+/* INDEX */
+.search-invites {
+  padding: 15px;
+}
+
+.search-invites .heading {
+  color: #636b6f;
+  font-weight: 700;
+  font-size: 3rem;
+  margin-bottom: 0;
+}
+
+@media screen and (max-width: 900px) {
+  .search-invites .heading {
+    color: #636b6f;
+    font-weight: 600;
+    font-size: 2rem;
+    margin-bottom: 0;
+  }
+}
+
+.search-invites .heading__line2 {
+  display: block;
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #636b6f;
+}
+
+.search-invites .search-summary {
+  text-align: initial;
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #636b6f;
+}
+
+.search-invites .search {
+  width: 70%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.blog {
+  margin-top: 5%;
+  padding: 3%;
+}
+
+.blog-desc {
+  font-weight: 500;
+}
+
+@media (max-width: 1000px) {
+  .index-search {
+    width: 80%;
+    margin-left: 9%;
+  }
+}
+
+/* Make Placeholder Texts appear in italics */
+
+::-webkit-input-placeholder {
+  font-style: italic;
+}
+
+:-moz-placeholder {
+  font-style: italic;
+}
+
+::-moz-placeholder {
+  font-style: italic;
+}
+
+:-ms-input-placeholder {
+  font-style: italic;
+}
+
+@media (max-width: 850px) {
+  .social {
+    width: 200px;
+    font-size: 13px;
+  }
+}
+
+:-ms-input-placeholder {
+  font-style: italic;
+}
+
+.fa-ellipsis-h {
+  transform: rotate(90deg) !important;
+}
+
+.social {
+  margin-bottom: 5px;
+}
+/* Text */
+.text-bold {
+  font-weight: bold !important;
+}

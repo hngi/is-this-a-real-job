@@ -1,0 +1,139 @@
+<% include partials/header %> <% include partials/nav %>
+<style>
+  body {
+    padding: 0px;
+    margin: 0px;
+  }
+
+  .heading {
+    text-align: center;
+  }
+  div.heading h2 {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 40px;
+    line-height: 47px;
+  }
+
+  div.heading p {
+    color: #636b6f;
+    font-weight: 600;
+    font-size: 25px;
+    line-height: 29px;
+  }
+  .container {
+    width: 90%;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+  .cards {
+    margin-top: 50px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  .card {
+    border: 0px;
+    padding: 0.5em;
+    width: 30%;
+  }
+
+  .card div.content h3 {
+    text-align: center;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 25px;
+    line-height: 29px;
+    margin-top: 20px;
+  }
+
+  .cards div.card div.content p {
+    font-style: normal;
+    font-size: 15px;
+    line-height: 18px;
+  }
+
+  .cards div.card button {
+    margin: 0 auto;
+    display: block;
+    background: #3087d1;
+    color: #fff;
+    padding: 15px 40px;
+    border-radius: 10px;
+  }
+
+  @media (max-width: 850px) {
+    .cards {
+      flex-direction: column;
+      align-items: center;
+    }
+    .card {
+      margin-bottom: 50px;
+      width: 80%;
+    }
+
+    div.card div.img {
+      align-self: center;
+    }
+  }
+</style>
+<div class="container">
+  <div class="heading">
+    <h2>How it Works</h2>
+    <p>Learn more about our features</p>
+  </div>
+  <div class="cards ">
+    <div class="card ">
+      <div class="img">
+        <img
+          src="https://res.cloudinary.com/dthwqcdxe/image/upload/v1572454204/img1_ondlnv.png"
+          alt="Search-image"
+        />
+      </div>
+      <div class="content">
+        <h3>Search</h3>
+        <p>
+          Did you get an email inviting you to an interview but you're not sure if it's legit? 
+          Search on our homepage to find out.<br>
+          Search with company name, location, or other keywords.
+        </p>
+      </div>
+    </div>
+    <div class="card">
+      <div class="img">
+        <img
+          src="https://res.cloudinary.com/dthwqcdxe/image/upload/v1572454204/img2_ngpflv.png"
+          alt="Post-image"
+        />
+      </div>
+      <div class="content">
+        <h3>Post</h3>
+        <p>
+          All content is community generated. So if you don't find what you're looking for, 
+          please go ahead and create a new post with your job invite.
+          Other users can then share their experiences in the comments 
+          and vote on the authenticity of your invite.
+        </p>
+      </div>
+    </div>
+    <div class="card">
+      <div class="img">
+        <img
+          src="https://res.cloudinary.com/dthwqcdxe/image/upload/v1572454204/img3_sb8ffd.png"
+          alt="verify-image"
+        />
+      </div>
+      <div class="content">
+        <h3>Verify</h3>
+        <p>
+          Review upvotes and comments to get a sense of how legitimate your invite is based on 
+          what others are saying.<br>
+          Want to get instant feedback? Use <a href="/verify">our AI powered analysis tool</a> to do a quick verification based
+          on the details included in the invite sent to you.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<% include partials/footer %>

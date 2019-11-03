@@ -1,0 +1,59 @@
+<% include partials/header %>
+<% include partials/nav2 %>
+<% include partials/postComponent %>
+<!-- Should be nav if unauthenticated... -->
+<div id="cover">
+  <div class="loader"></div>
+</div>
+<div class="section">
+  <div class="container">
+    <div class="header mt-5">
+      <section class="job-invites">
+        <!-- Render Post Component here (check partials/postComponent) -->
+        <%= renderPostComponent(invite) %>
+        <div class="container p-0">
+          <div class="form-group">
+            <textarea class="form-control" id="comment-field" style="border: 1px solid #3087d1"
+                      placeholder="Type something..." rows="3"></textarea>
+          </div>
+          <span class="comment-btn">
+            <button type="button" class="btn btn-primary">Comment</button>
+          </span>
+        </div>
+
+        <h5 class="container p-0 mt-3"><%= comments.length %> Comments</h5>
+        <section id="comments">
+          <% if (comments.length === 0) { %>
+          <div id="no-comments" class="bg-transparent container">There no comments for this post.</div>
+          <% } %>
+
+          <% if (comments.length > 0) { %>
+          <% for (comment of comments) { %>
+
+          <div class="card mb-2">
+
+            <div class="card-body">
+              <%=comment.body%>
+            </div>
+            <div class="card-footer">
+              <small>
+                <% if (comment.user.username) { %>
+                <a href="/users/<%=comment.user.username%>">@<%=comment.user.username%></a>
+                <% } else { %>
+                guest
+                <% } %>
+              </small>
+              <small class="text-muted"><%=new Date(comment.createdAt).toDateString()%></small>
+            </div>
+          </div>
+          <% } %>
+          <% } %>
+        </section>
+      </section>
+
+    </div>
+  </div>
+</div>
+
+
+<% include partials/footer %>
