@@ -13,9 +13,9 @@ const newApi = new ItarjApi('/api/v1');
 const refresh = (inviteId) => {
   newApi.Get(`invites/${inviteId}/votes`, true)
     .then((res) => {
-      const invite = document.querySelector(`[data-inviteId="${inviteId}"`);
-      const up = invite.querySelector('.upvote-btn');
-      const down = invite.querySelector('.downvote-btn');
+      const inviteSelector = `[data-inviteId="${inviteId}"]`;
+      const up = document.querySelector(`${inviteSelector}.upvote-btn`);
+      const down = document.querySelector(`${inviteSelector}.downvote-btn`);
 
       up.querySelector('.count').innerText = res.data.upvotes;
       down.querySelector('.count').innerText = res.data.downvotes;
@@ -32,7 +32,8 @@ const refresh = (inviteId) => {
       }
     })
     .catch((err) => {
-      notification.innerHTML = `<strong>${err.data.message}:</strong> ${err.data.payload}`;
+      console.log(err);
+      notification.innerHTML = `<strong>${err.data ? err.data.message : 'Something happened while processing your request. Contact support or try again.'}:</strong> ${err.data.payload}`;
       notification.className += ' show';
       setTimeout(() => {
         notification.className = 'notification';
@@ -49,14 +50,12 @@ if (document.querySelector('#newInviteBtn')) {
   const jobTitle = document.querySelector('#jobTitle');
   const jobLocation = document.querySelector('#jobLocation');
   const companyName = document.querySelector('#companyName');
-  //const media = document.querySelector('#media'); //No more file upload.
+  // const media = document.querySelector('#media'); //No more file upload.
 
   inviteBtn.addEventListener('click', e => {
     e.preventDefault();
     togglePreloader('block');
 
-    const api = new ItarjApi('/api/v1');
-    
     const formData = {
       company: companyName.value,
       location: jobLocation.value,
@@ -74,7 +73,7 @@ if (document.querySelector('#newInviteBtn')) {
     //formData.append('media', media.files[0]);  //No more file upload.
     */
 
-    /*Switching to api-helper implementation. Options object no more needed.
+    /* Switching to api-helper implementation. Options object no more needed.
     const options = {
       method: 'POST',
       body: JSON.stringify(formData),
@@ -83,8 +82,8 @@ if (document.querySelector('#newInviteBtn')) {
     };
     */
 
-    //fetch('api/v1/invites', options) //Now using api-helper.
-    api.Post('invites', JSON.stringify(formData), true)
+    // fetch('api/v1/invites', options) //Now using api-helper.
+    newApi.Post('invites', JSON.stringify(formData), true)
       .then(res => {
         togglePreloader('none');
         // Navigate to somewhere, created post maybe.
@@ -93,11 +92,11 @@ if (document.querySelector('#newInviteBtn')) {
       .catch(err => {
         console.log(err);
         togglePreloader('none');
-        notification.innerHTML = `<strong>${err.data.message}:</strong> ${err.data.payload}`;
+        notification.innerHTML = `<strong>${err.data ? err.data.message : 'Something happened while processing your request. Contact support or try again.'}:</strong> ${err.data.payload}`;
         notification.classList.add('show');
         setTimeout(() => {
           notification.classList.remove('show');
-          //notification.className = 'notification'; //Using classList is better.
+          // notification.className = 'notification'; //Using classList is better.
         }, 8000);
       });
   });
@@ -119,14 +118,14 @@ const setUp = (target, other, mode = 'set') => {
     target.dataset.voted = 'false';
     targetCount.innerText = +targetCount.innerText - 1;
   }
-}
+};
 
 const upvotePostBtnHander = (event) => {
   const { inviteid: inviteId, voted } = (event.target.nodeName === 'A') ? event.target.dataset : event.target.parentNode.dataset;
   const target = (event.target.nodeName === 'A') ? event.target : event.target.parentNode;
   const other = (event.target.nodeName === 'A') ? event.target.parentNode.querySelector('.downvote-btn') : event.target.parentNode.parentNode.querySelector('.downvote-btn');
 
-  console.log('the target', target, "the other", other);
+  // console.log('the target', target, 'the other', other);
 
   if (voted === 'false') {
     setUp(target, other);
@@ -135,8 +134,9 @@ const upvotePostBtnHander = (event) => {
         refresh(inviteId);
       })
       .catch((err) => {
+        console.log(err);
+        notification.innerHTML = `<strong>${err.data ? err.data.message : 'Something happened while processing your request. Contact support or try again.'}:</strong> ${err.data.payload}`;
         refresh(inviteId);
-        notification.innerHTML = `<strong>${err.data.message}:</strong> ${err.data.payload}`;
         notification.className += ' show';
         setTimeout(() => {
           notification.className = 'notification';
@@ -149,8 +149,9 @@ const upvotePostBtnHander = (event) => {
         refresh(inviteId);
       })
       .catch((err) => {
+        console.log(err);
+        notification.innerHTML = `<strong>${err.data ? err.data.message : 'Something happened while processing your request. Contact support or try again.'}:</strong> ${err.data.payload}`;
         refresh(inviteId);
-        notification.innerHTML = `<strong>${err.data.message}:</strong> ${err.data.payload}`;
         notification.className += ' show';
         setTimeout(() => {
           notification.className = 'notification';
@@ -171,8 +172,9 @@ const downvotePostBtnHander = (event) => {
         refresh(inviteId);
       })
       .catch((err) => {
+        console.log(err);
+        notification.innerHTML = `<strong>${err.data ? err.data.message : 'Something happened while processing your request. Contact support or try again.'}:</strong> ${err.data.payload}`;
         refresh(inviteId);
-        notification.innerHTML = `<strong>${err.data.message}:</strong> ${err.data.payload}`;
         notification.className += ' show';
         setTimeout(() => {
           notification.className = 'notification';
@@ -185,8 +187,9 @@ const downvotePostBtnHander = (event) => {
         refresh(inviteId);
       })
       .catch((err) => {
+        console.log(err);
+        notification.innerHTML = `<strong>${err.data ? err.data.message : 'Something happened while processing your request. Contact support or try again.'}:</strong> ${err.data.payload}`;
         refresh(inviteId);
-        notification.innerHTML = `<strong>${err.data.message}:</strong> ${err.data.payload}`;
         notification.className += ' show';
         setTimeout(() => {
           notification.className = 'notification';

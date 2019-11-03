@@ -16,7 +16,7 @@ if (commentBtn) {
   const postMeta = document.querySelector('.post-meta');
   const noComment = document.querySelector('#no-comments');
 
-  const { inviteid } = postMeta.dataset; // invite id
+  const inviteid = postMeta ? postMeta.id : null; // invite id
 
   const getCommentHTML = (comment) => `
   <div class="card mb-2">
@@ -27,7 +27,7 @@ if (commentBtn) {
   <div class="card-footer">
   <small>
   ${comment.user.username ? `<a href="/users/${comment.user.username}">@${comment.user.username}</a>`
-      : 'guest'}
+    : 'guest'}
 </small>
     <small class="text-muted">${new Date(comment.createdAt).toDateString()}</small>
   </div>

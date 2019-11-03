@@ -143,7 +143,7 @@ describe('AUTH CONTROLLER', () => {
               expect(res).to.have.status(409);
               expect(res.body.success).to.be.equal(false);
               expect(res.body.message).to.be.equal(
-                'User Already exists: Duplicate User'
+                'User with this email already exists'
               );
               done();
             });

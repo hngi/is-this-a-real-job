@@ -2,9 +2,11 @@
 /* eslint-disable no-console */
 import Sequelize from 'sequelize';
 import Model from '../models';
+import { SocketMethods } from '../routes/events';
+import { notifyByEmail } from './notificationServices';
 
 const {
-  Invite, User, Comment, Vote
+  Invite, User, Comment, Vote, Notification
 } = Model;
 
 /**
@@ -139,16 +141,10 @@ export const fetchOneVoteCount = async (inviteId, userId) => {
     const invite = await fetchOneInvite({ inviteId });
 
     const voteCount = invite.votes.reduce((p, val) => {
-      if (val.type === 'up') {
-        p.upvotes += 1;
-      }
-
-      if (val.type === 'down') {
-        p.downvotes += 1;
-      }
+      p[`${val.type}votes`] += 1;
 
       if (val.userId === userId) {
-        (val.type === 'up') ? p.upvoted = true : p.downvoted = true;
+        p[`${val.type}voted`] = true;
       }
 
       return p;
@@ -168,22 +164,48 @@ export const fetchOneVoteCount = async (inviteId, userId) => {
   }
 };
 
-export const upvoteOneInvite = async (userId, inviteId) => {
+export const upvoteOneInvite = async (res, userId, inviteId) => {
   try {
-    let vote = await Vote.findOne({
+    const vote = await Vote.findOne({
       where: {
         userId,
         inviteId,
       }
     });
 
+    const userObj = await User.findOne({
+      where: { userId },
+      logging: false
+    });
+
+    if (!userObj) {
+      const e = new Error('User not found');
+      e.status = 400;
+      throw e;
+    }
+
     if (vote) {
       await vote.update({ type: 'up' });
       return vote.dataValues;
     }
 
-    vote = await Vote.create({ userId, inviteId, type: 'up' });
-    return vote.dataValues;
+    return Model.sequelize.transaction(t => Vote
+      .create({ userId, inviteId, type: 'up' })
+      .then(v => v.dataValues)
+      .then(voteObj => {
+        const data = {
+          userId,
+          type: 'upvote',
+          inviteId,
+          message: `@${userObj.username} has upvoted your post`,
+        };
+        return Notification.create(data, { transaction: t })
+          .then(async notification => {
+            SocketMethods.emitNotification(notification);
+            notification.mailSent = await notifyByEmail(res, notification);
+            return Object.assign(voteObj, { notification });
+          });
+      }));
   } catch (error) {
     console.log(error);
     error.status = 500;
