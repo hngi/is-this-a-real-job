@@ -125,7 +125,6 @@ const upvotePostBtnHander = (event) => {
   const target = (event.target.nodeName === 'A') ? event.target : event.target.parentNode;
   const other = (event.target.nodeName === 'A') ? event.target.parentNode.querySelector('.downvote-btn') : event.target.parentNode.parentNode.querySelector('.downvote-btn');
 
-  // console.log('the target', target, 'the other', other);
 
   if (voted === 'false') {
     setUp(target, other);
