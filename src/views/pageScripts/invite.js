@@ -119,14 +119,14 @@ const setUp = (target, other, mode = 'set') => {
     target.dataset.voted = 'false';
     targetCount.innerText = +targetCount.innerText - 1;
   }
-}
+};
 
 const upvotePostBtnHander = (event) => {
   const { inviteid: inviteId, voted } = (event.target.nodeName === 'A') ? event.target.dataset : event.target.parentNode.dataset;
   const target = (event.target.nodeName === 'A') ? event.target : event.target.parentNode;
   const other = (event.target.nodeName === 'A') ? event.target.parentNode.querySelector('.downvote-btn') : event.target.parentNode.parentNode.querySelector('.downvote-btn');
 
-  console.log('the target', target, "the other", other);
+  console.log('the target', target, 'the other', other);
 
   if (voted === 'false') {
     setUp(target, other);
