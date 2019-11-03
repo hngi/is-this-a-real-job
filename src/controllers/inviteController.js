@@ -47,7 +47,8 @@ export const getAllInvites = async (req, res) => {
 export const saveNewInvite = async (req, res) => {
   try {
     req.body.userId = req.auth.userId;
-    //req.body.media = req.files && !req.files[0] ? '' : req.files[0].secure_url; //No more file upload.
+    // req.body.media = req.files && !req.files[0]
+    //  ? '' : req.files[0].secure_url; //No more file upload.
     const invite = await saveInvite(req.body).catch(error => {
       throw error;
     });
@@ -122,7 +123,7 @@ export const updateInvite = async (req, res) => {
     body: req.body.body || req.invite.body,
     location: req.body.location || req.invite.location,
     company: req.body.company || req.invite.company,
-    //media: req.body.media || req.invite.media, //No more file upload.
+    // media: req.body.media || req.invite.media, //No more file upload.
   };
 
   try {
