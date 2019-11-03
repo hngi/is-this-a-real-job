@@ -23,7 +23,7 @@ window.onload = (event)=> {
     togglePreloader('block');
     setTimeout(() => {
       showSuccessDialog();
-    }, 3000);
+    }, 2000);
 
     /*Work In Progress. Dummy implementation above will be removed once completed.*/
     return;
