@@ -1,3 +1,13 @@
+function togglePreloader(state) {
+  const preloader = document.querySelector('#cover');
+  preloader.style.display = state;
+}
+
+function showSuccessDialog() {
+  successDialog = document.querySelector('.success-dialog');
+  successDialog.classList.remove('is-hidden');
+}
+
 window.onload = (event)=> {
   const formData = {
     offender: document.querySelector('.report-form__username'),
@@ -7,6 +17,16 @@ window.onload = (event)=> {
 
   const submit = document.querySelector('.report-form__submit');
   submit.onclick = (event)=> {
+    event.preventDefault();
+
+    /*Dummy implementation*/
+    togglePreloader('block');
+    setTimeout(() => {
+      showSuccessDialog();
+    }, 3000);
+
+    /*Work In Progress. Dummy implementation above will be removed once completed.*/
+    return;
     api.Post('/reportuser', JSON.stringify(formData), true)
       .then(res => {
         togglePreloader('none');

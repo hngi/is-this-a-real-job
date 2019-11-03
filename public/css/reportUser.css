@@ -61,7 +61,29 @@ button#report {
   color: #fff;
 }
 
+.success-dialog {
+  height: 30vw;
+  width: 40vw;
+  background-color: white;
+  border-radius: 10px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: block;
+  z-index: 999999999;
+}
+
+.is-hidden {
+  display: none
+}
+
 @media (max-width: 700px) {
+  .success-dialog {
+    height: 40vw;
+    width: 50vw;
+  }
+
   .container-flex {
     display: flex;
     flex-direction: column;
@@ -85,5 +107,13 @@ button#report {
 
   input, textarea {
     width: 100%;
+  }
+}
+
+
+@media (max-width: 480px) {
+  .success-dialog {
+    height: 100vw;
+    width: 80vw;
   }
 }
