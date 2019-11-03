@@ -1,637 +1,637 @@
 <% include ../partials/header %>
-  <% include ../partials/nav2 %>
-    <style>
-      .dashboard {
-        display: inline-block;
-      }
-      
-      .dashboard-tab li {
-        list-style: none;
-        margin: 1em;
-      }
-      
-      .dashboard-tab-items a {
-        text-decoration: none;
-      }
-      
-      .metrics .navigation {
-        position: relative;
-        margin-left: 0px;
-        margin-right: 0;
-      }
-      
-      .metrics [dashboard] {
-        position: absolute;
-        left: 64px;
-        font-size: 1.7rem;
-        font-weight: normal;
-        color: #636B6F;
-      }
-      
-      .metrics .list>span:first-child {
-        position: absolute;
-        width: 85px;
-        height: 38px;
-        left: 64px;
-        top: 42px;
-        font-family: Raleway;
-        font-style: normal;
-        font-weight: normal;
-        font-size: 15px;
-        line-height: 38px;
-      }
-      
-      .metrics .list>span:nth-child(2) {
-        position: absolute;
-        width: 112px;
-        height: 38px;
-        left: 64px;
-        top: 82px;
-        font-family: Raleway;
-        font-style: normal;
-        font-weight: normal;
-        font-size: 15px;
-        line-height: 38px;
-        /* identical to box height */
-      }
-      
-      .metrics .list>span:nth-child(3) {
-        position: absolute;
-        width: 116px;
-        height: 38px;
-        left: 64px;
-        top: 122px;
-        font-family: Raleway;
-        font-style: normal;
-        font-weight: normal;
-        font-size: 15px;
-        line-height: 38px;
-        /* identical to box height */
-      }
-      
-      .metrics .list>span:nth-child(4) {
-        position: absolute;
-        width: 108px;
-        height: 38px;
-        left: 64px;
-        top: 162px;
-        font-family: Raleway;
-        font-style: normal;
-        font-weight: normal;
-        font-size: 15px;
-        line-height: 38px;
-        /* identical to box height */
-        color: #3087D1;
-      }
-      
-      .metrics span a {
-        color: #007bff;
-      }
-      
-      .metrics span a:hover {
-        text-decoration: none;
-        color: #0056b3;
-      }
-      
-      .metrics section {
-        margin-left: 250px;
-        margin-top: 30px;
-      }
-      
-      .metrics .text-primary {
-        padding-left: 68px;
-      }
-      
-      .shadow {
-        padding: 60px !important;
-      }
-      
-      @media screen and (min-width: 350px) and (max-width: 410px) {
-        .metrics .navigation {
-          position: relative;
-          margin-left: 50px;
-          margin-right: 0;
-        }
-        .metrics [dashboard] {
-          position: absolute;
-          left: 64px;
-          font-size: 28px;
-          font-weight: normal;
-        }
-        .metrics .list>span:first-child {
-          position: absolute;
-          width: 85px;
-          height: 38px;
-          left: 90px;
-          top: 45px;
-          font-family: Raleway;
-          font-style: normal;
-          font-weight: normal;
-          font-size: 20px;
-          line-height: 38px;
-        }
-        .metrics .list>span:nth-child(2) {
-          position: absolute;
-          width: 112px;
-          height: 38px;
-          left: 90px;
-          top: 95px;
-          font-family: Raleway;
-          font-style: normal;
-          font-weight: normal;
-          font-size: 20px;
-          line-height: 38px;
-          /* identical to box height */
-          color: #000000;
-        }
-        .metrics .list>span:nth-child(3) {
-          position: absolute;
-          width: 116px;
-          height: 38px;
-          left: 90px;
-          top: 145px;
-          font-family: Raleway;
-          font-style: normal;
-          font-weight: normal;
-          font-size: 20px;
-          line-height: 38px;
-          /* identical to box height */
-          color: #000000;
-        }
-        .metrics .list>span:nth-child(4) {
-          position: absolute;
-          width: 108px;
-          height: 38px;
-          left: 90px;
-          top: 195px;
-          font-family: Raleway;
-          font-style: normal;
-          font-weight: normal;
-          font-size: 20px;
-          line-height: 38px;
-          /* identical to box height */
-          color: #3087D1;
-        }
-        .metrics section {
-          margin-left: 0px;
-          margin-top: 280px;
-          margin-bottom: 50px;
-        }
-      }
-      
-      @media screen and (min-width: 411px) and (max-width: 460px) {
-        .metrics .navigation {
-          position: relative;
-          margin-left: 80px;
-          margin-right: 0;
-        }
-        .metrics [dashboard] {
-          position: absolute;
-          left: 64px;
-          font-size: 28px;
-          font-weight: normal;
-        }
-        .metrics .list>span:first-child {
-          position: absolute;
-          width: 85px;
-          height: 38px;
-          left: 90px;
-          top: 45px;
-          font-family: Raleway;
-          font-style: normal;
-          font-weight: normal;
-          font-size: 20px;
-          line-height: 38px;
-        }
-        .metrics .list>span:nth-child(2) {
-          position: absolute;
-          width: 112px;
-          height: 38px;
-          left: 90px;
-          top: 95px;
-          font-family: Raleway;
-          font-style: normal;
-          font-weight: normal;
-          font-size: 20px;
-          line-height: 38px;
-          /* identical to box height */
-          color: #000000;
-        }
-        .metrics .list>span:nth-child(3) {
-          position: absolute;
-          width: 116px;
-          height: 38px;
-          left: 90px;
-          top: 145px;
-          font-family: Raleway;
-          font-style: normal;
-          font-weight: normal;
-          font-size: 20px;
-          line-height: 38px;
-          /* identical to box height */
-          color: #000000;
-        }
-        .metrics .list>span:nth-child(4) {
-          position: absolute;
-          width: 108px;
-          height: 38px;
-          left: 90px;
-          top: 195px;
-          font-family: Raleway;
-          font-style: normal;
-          font-weight: normal;
-          font-size: 20px;
-          line-height: 38px;
-          /* identical to box height */
-          color: #3087D1;
-        }
-        .metrics section {
-          margin-left: 0px;
-          margin-top: 280px;
-          margin-bottom: 50px;
-        }
-      }
-      
-      @media screen and (min-width: 461px) and (max-width: 520px) {
-        .metrics .navigation {
-          position: relative;
-          margin-left: 100px;
-          margin-right: 0;
-        }
-        .metrics [dashboard] {
-          position: absolute;
-          left: 64px;
-          font-size: 28px;
-          font-weight: normal;
-        }
-        .metrics .list>span:first-child {
-          position: absolute;
-          width: 85px;
-          height: 38px;
-          left: 90px;
-          top: 45px;
-          font-family: Raleway;
-          font-style: normal;
-          font-weight: normal;
-          font-size: 20px;
-          line-height: 38px;
-        }
-        .metrics .list>span:nth-child(2) {
-          position: absolute;
-          width: 112px;
-          height: 38px;
-          left: 90px;
-          top: 95px;
-          font-family: Raleway;
-          font-style: normal;
-          font-weight: normal;
-          font-size: 20px;
-          line-height: 38px;
-          /* identical to box height */
-          color: #000000;
-        }
-        .metrics .list>span:nth-child(3) {
-          position: absolute;
-          width: 116px;
-          height: 38px;
-          left: 90px;
-          top: 145px;
-          font-family: Raleway;
-          font-style: normal;
-          font-weight: normal;
-          font-size: 20px;
-          line-height: 38px;
-          /* identical to box height */
-          color: #000000;
-        }
-        .metrics .list>span:nth-child(4) {
-          position: absolute;
-          width: 108px;
-          height: 38px;
-          left: 90px;
-          top: 195px;
-          font-family: Raleway;
-          font-style: normal;
-          font-weight: normal;
-          font-size: 20px;
-          line-height: 38px;
-          /* identical to box height */
-          color: #3087D1;
-        }
-        .metrics section {
-          margin-left: 30px;
-          margin-top: 280px;
-          margin-bottom: 50px;
-          margin-right: 40px;
-          margin: 280px 40px 50px 30px;
-        }
-      }
-      
-      @media screen and (min-width: 521px) and (max-width: 570px) {
-        .metrics .navigation {
-          position: relative;
-          margin-left: 120px;
-          margin-right: 0;
-        }
-        .metrics [dashboard] {
-          position: absolute;
-          left: 64px;
-          font-size: 28px;
-          font-weight: normal;
-        }
-        .metrics .list>span:first-child {
-          position: absolute;
-          width: 85px;
-          height: 38px;
-          left: 90px;
-          top: 45px;
-          font-family: Raleway;
-          font-style: normal;
-          font-weight: normal;
-          font-size: 20px;
-          line-height: 38px;
-        }
-        .metrics .list>span:nth-child(2) {
-          position: absolute;
-          width: 112px;
-          height: 38px;
-          left: 90px;
-          top: 95px;
-          font-family: Raleway;
-          font-style: normal;
-          font-weight: normal;
-          font-size: 20px;
-          line-height: 38px;
-          /* identical to box height */
-          color: #000000;
-        }
-        .metrics .list>span:nth-child(3) {
-          position: absolute;
-          width: 116px;
-          height: 38px;
-          left: 90px;
-          top: 145px;
-          font-family: Raleway;
-          font-style: normal;
-          font-weight: normal;
-          font-size: 20px;
-          line-height: 38px;
-          /* identical to box height */
-          color: #000000;
-        }
-        .metrics .list>span:nth-child(4) {
-          position: absolute;
-          width: 108px;
-          height: 38px;
-          left: 90px;
-          top: 195px;
-          font-family: Raleway;
-          font-style: normal;
-          font-weight: normal;
-          font-size: 20px;
-          line-height: 38px;
-          /* identical to box height */
-          color: #3087D1;
-        }
-        .metrics section {
-          margin: 260px 60px 50px 40px;
-        }
-      }
-      
-      @media screen and (min-width: 570px) and (max-width: 700px) {
-        .metrics .navigation {
-          position: relative;
-          margin-left: 160px;
-          margin-right: 0;
-        }
-        .metrics [dashboard] {
-          position: absolute;
-          left: 64px;
-          font-size: 28px;
-          font-weight: normal;
-        }
-        .metrics .list>span:first-child {
-          position: absolute;
-          width: 85px;
-          height: 38px;
-          left: 90px;
-          top: 45px;
-          font-family: Raleway;
-          font-style: normal;
-          font-weight: normal;
-          font-size: 20px;
-          line-height: 38px;
-        }
-        .metrics .list>span:nth-child(2) {
-          position: absolute;
-          width: 112px;
-          height: 38px;
-          left: 90px;
-          top: 95px;
-          font-family: Raleway;
-          font-style: normal;
-          font-weight: normal;
-          font-size: 22px;
-          line-height: 38px;
-          /* identical to box height */
-          color: #000000;
-        }
-        .metrics .list>span:nth-child(3) {
-          position: absolute;
-          width: 116px;
-          height: 38px;
-          left: 90px;
-          top: 145px;
-          font-family: Raleway;
-          font-style: normal;
-          font-weight: normal;
-          font-size: 20px;
-          line-height: 38px;
-          /* identical to box height */
-          color: #000000;
-        }
-        .metrics .list>span:nth-child(4) {
-          position: absolute;
-          width: 108px;
-          height: 38px;
-          left: 90px;
-          top: 195px;
-          font-family: Raleway;
-          font-style: normal;
-          font-weight: normal;
-          font-size: 20px;
-          line-height: 38px;
-          /* identical to box height */
-          color: #3087D1;
-        }
-        .metrics section {
-          margin: 280px 60px 50px 70px;
-        }
-      }
-      
-      @media screen and (min-width: 701px) and (max-width: 766px) {
-        .metrics .navigation {
-          position: relative;
-          margin-left: 200px;
-          margin-right: 0;
-        }
-        .metrics [dashboard] {
-          position: absolute;
-          left: 64px;
-          font-size: 28px;
-          font-weight: normal;
-        }
-        .metrics .list>span:first-child {
-          position: absolute;
-          width: 85px;
-          height: 38px;
-          left: 90px;
-          top: 45px;
-          font-family: Raleway;
-          font-style: normal;
-          font-weight: normal;
-          font-size: 22px;
-          line-height: 38px;
-        }
-        .metrics .list>span:nth-child(2) {
-          position: absolute;
-          width: 112px;
-          height: 38px;
-          left: 90px;
-          top: 95px;
-          font-family: Raleway;
-          font-style: normal;
-          font-weight: normal;
-          font-size: 22px;
-          line-height: 38px;
-          /* identical to box height */
-          color: #000000;
-        }
-        .metrics .list>span:nth-child(3) {
-          position: absolute;
-          width: 116px;
-          height: 38px;
-          left: 90px;
-          top: 145px;
-          font-family: Raleway;
-          font-style: normal;
-          font-weight: normal;
-          font-size: 22px;
-          line-height: 38px;
-          /* identical to box height */
-          color: #000000;
-        }
-        .metrics .list>span:nth-child(4) {
-          position: absolute;
-          width: 108px;
-          height: 38px;
-          left: 90px;
-          top: 195px;
-          font-family: Raleway;
-          font-style: normal;
-          font-weight: normal;
-          font-size: 22px;
-          line-height: 38px;
-          /* identical to box height */
-          color: #3087D1;
-        }
-        .metrics section {
-          margin: 280px 80px 50px 100px;
-        }
-      }
-      
-      @media screen and (min-width: 767px) and (max-width: 999px) {
-        .metrics section {
-          margin: 24px 0px 50px 100px;
-          padding-left: 80px;
-        }
-      }
-      
-      @media screen and (min-width: 1000px) and (max-width: 1300px) {
-        .metrics section {
-          margin: 24px 0px 50px 180px;
-        }
-      }
-      
-      @media screen and (max-width: 991px) {
-        .dashboard-tab {
-          display: flex;
-          justify-content: space-between;
-        }
-      }
-    </style>
+    <% include ../partials/nav2 %>
+        <style>
+            .dashboard {
+                display: inline-block;
+            }
+            
+            .dashboard-tab li {
+                list-style: none;
+                margin: 1em;
+            }
+            
+            .dashboard-tab-items a {
+                text-decoration: none;
+            }
+            
+            .metrics .navigation {
+                position: relative;
+                margin-left: 0px;
+                margin-right: 0;
+            }
+            
+            .metrics [dashboard] {
+                position: absolute;
+                left: 64px;
+                font-size: 1.7rem;
+                font-weight: normal;
+                color: #636B6F;
+            }
+            
+            .metrics .list>span:first-child {
+                position: absolute;
+                width: 85px;
+                height: 38px;
+                left: 64px;
+                top: 42px;
+                font-family: Raleway;
+                font-style: normal;
+                font-weight: normal;
+                font-size: 15px;
+                line-height: 38px;
+            }
+            
+            .metrics .list>span:nth-child(2) {
+                position: absolute;
+                width: 112px;
+                height: 38px;
+                left: 64px;
+                top: 82px;
+                font-family: Raleway;
+                font-style: normal;
+                font-weight: normal;
+                font-size: 15px;
+                line-height: 38px;
+                /* identical to box height */
+            }
+            
+            .metrics .list>span:nth-child(3) {
+                position: absolute;
+                width: 116px;
+                height: 38px;
+                left: 64px;
+                top: 122px;
+                font-family: Raleway;
+                font-style: normal;
+                font-weight: normal;
+                font-size: 15px;
+                line-height: 38px;
+                /* identical to box height */
+            }
+            
+            .metrics .list>span:nth-child(4) {
+                position: absolute;
+                width: 108px;
+                height: 38px;
+                left: 64px;
+                top: 162px;
+                font-family: Raleway;
+                font-style: normal;
+                font-weight: normal;
+                font-size: 15px;
+                line-height: 38px;
+                /* identical to box height */
+                color: #3087D1;
+            }
+            
+            .metrics span a {
+                color: #007bff;
+            }
+            
+            .metrics span a:hover {
+                text-decoration: none;
+                color: #0056b3;
+            }
+            
+            .metrics section {
+                margin-left: 250px;
+                margin-top: 30px;
+            }
+            
+            .metrics .text-primary {
+                padding-left: 68px;
+            }
+            
+            .shadow {
+                padding: 60px !important;
+            }
+            
+            @media screen and (min-width: 350px) and (max-width: 410px) {
+                .metrics .navigation {
+                    position: relative;
+                    margin-left: 50px;
+                    margin-right: 0;
+                }
+                .metrics [dashboard] {
+                    position: absolute;
+                    left: 64px;
+                    font-size: 28px;
+                    font-weight: normal;
+                }
+                .metrics .list>span:first-child {
+                    position: absolute;
+                    width: 85px;
+                    height: 38px;
+                    left: 90px;
+                    top: 45px;
+                    font-family: Raleway;
+                    font-style: normal;
+                    font-weight: normal;
+                    font-size: 20px;
+                    line-height: 38px;
+                }
+                .metrics .list>span:nth-child(2) {
+                    position: absolute;
+                    width: 112px;
+                    height: 38px;
+                    left: 90px;
+                    top: 95px;
+                    font-family: Raleway;
+                    font-style: normal;
+                    font-weight: normal;
+                    font-size: 20px;
+                    line-height: 38px;
+                    /* identical to box height */
+                    color: #000000;
+                }
+                .metrics .list>span:nth-child(3) {
+                    position: absolute;
+                    width: 116px;
+                    height: 38px;
+                    left: 90px;
+                    top: 145px;
+                    font-family: Raleway;
+                    font-style: normal;
+                    font-weight: normal;
+                    font-size: 20px;
+                    line-height: 38px;
+                    /* identical to box height */
+                    color: #000000;
+                }
+                .metrics .list>span:nth-child(4) {
+                    position: absolute;
+                    width: 108px;
+                    height: 38px;
+                    left: 90px;
+                    top: 195px;
+                    font-family: Raleway;
+                    font-style: normal;
+                    font-weight: normal;
+                    font-size: 20px;
+                    line-height: 38px;
+                    /* identical to box height */
+                    color: #3087D1;
+                }
+                .metrics section {
+                    margin-left: 0px;
+                    margin-top: 280px;
+                    margin-bottom: 50px;
+                }
+            }
+            
+            @media screen and (min-width: 411px) and (max-width: 460px) {
+                .metrics .navigation {
+                    position: relative;
+                    margin-left: 80px;
+                    margin-right: 0;
+                }
+                .metrics [dashboard] {
+                    position: absolute;
+                    left: 64px;
+                    font-size: 28px;
+                    font-weight: normal;
+                }
+                .metrics .list>span:first-child {
+                    position: absolute;
+                    width: 85px;
+                    height: 38px;
+                    left: 90px;
+                    top: 45px;
+                    font-family: Raleway;
+                    font-style: normal;
+                    font-weight: normal;
+                    font-size: 20px;
+                    line-height: 38px;
+                }
+                .metrics .list>span:nth-child(2) {
+                    position: absolute;
+                    width: 112px;
+                    height: 38px;
+                    left: 90px;
+                    top: 95px;
+                    font-family: Raleway;
+                    font-style: normal;
+                    font-weight: normal;
+                    font-size: 20px;
+                    line-height: 38px;
+                    /* identical to box height */
+                    color: #000000;
+                }
+                .metrics .list>span:nth-child(3) {
+                    position: absolute;
+                    width: 116px;
+                    height: 38px;
+                    left: 90px;
+                    top: 145px;
+                    font-family: Raleway;
+                    font-style: normal;
+                    font-weight: normal;
+                    font-size: 20px;
+                    line-height: 38px;
+                    /* identical to box height */
+                    color: #000000;
+                }
+                .metrics .list>span:nth-child(4) {
+                    position: absolute;
+                    width: 108px;
+                    height: 38px;
+                    left: 90px;
+                    top: 195px;
+                    font-family: Raleway;
+                    font-style: normal;
+                    font-weight: normal;
+                    font-size: 20px;
+                    line-height: 38px;
+                    /* identical to box height */
+                    color: #3087D1;
+                }
+                .metrics section {
+                    margin-left: 0px;
+                    margin-top: 280px;
+                    margin-bottom: 50px;
+                }
+            }
+            
+            @media screen and (min-width: 461px) and (max-width: 520px) {
+                .metrics .navigation {
+                    position: relative;
+                    margin-left: 100px;
+                    margin-right: 0;
+                }
+                .metrics [dashboard] {
+                    position: absolute;
+                    left: 64px;
+                    font-size: 28px;
+                    font-weight: normal;
+                }
+                .metrics .list>span:first-child {
+                    position: absolute;
+                    width: 85px;
+                    height: 38px;
+                    left: 90px;
+                    top: 45px;
+                    font-family: Raleway;
+                    font-style: normal;
+                    font-weight: normal;
+                    font-size: 20px;
+                    line-height: 38px;
+                }
+                .metrics .list>span:nth-child(2) {
+                    position: absolute;
+                    width: 112px;
+                    height: 38px;
+                    left: 90px;
+                    top: 95px;
+                    font-family: Raleway;
+                    font-style: normal;
+                    font-weight: normal;
+                    font-size: 20px;
+                    line-height: 38px;
+                    /* identical to box height */
+                    color: #000000;
+                }
+                .metrics .list>span:nth-child(3) {
+                    position: absolute;
+                    width: 116px;
+                    height: 38px;
+                    left: 90px;
+                    top: 145px;
+                    font-family: Raleway;
+                    font-style: normal;
+                    font-weight: normal;
+                    font-size: 20px;
+                    line-height: 38px;
+                    /* identical to box height */
+                    color: #000000;
+                }
+                .metrics .list>span:nth-child(4) {
+                    position: absolute;
+                    width: 108px;
+                    height: 38px;
+                    left: 90px;
+                    top: 195px;
+                    font-family: Raleway;
+                    font-style: normal;
+                    font-weight: normal;
+                    font-size: 20px;
+                    line-height: 38px;
+                    /* identical to box height */
+                    color: #3087D1;
+                }
+                .metrics section {
+                    margin-left: 30px;
+                    margin-top: 280px;
+                    margin-bottom: 50px;
+                    margin-right: 40px;
+                    margin: 280px 40px 50px 30px;
+                }
+            }
+            
+            @media screen and (min-width: 521px) and (max-width: 570px) {
+                .metrics .navigation {
+                    position: relative;
+                    margin-left: 120px;
+                    margin-right: 0;
+                }
+                .metrics [dashboard] {
+                    position: absolute;
+                    left: 64px;
+                    font-size: 28px;
+                    font-weight: normal;
+                }
+                .metrics .list>span:first-child {
+                    position: absolute;
+                    width: 85px;
+                    height: 38px;
+                    left: 90px;
+                    top: 45px;
+                    font-family: Raleway;
+                    font-style: normal;
+                    font-weight: normal;
+                    font-size: 20px;
+                    line-height: 38px;
+                }
+                .metrics .list>span:nth-child(2) {
+                    position: absolute;
+                    width: 112px;
+                    height: 38px;
+                    left: 90px;
+                    top: 95px;
+                    font-family: Raleway;
+                    font-style: normal;
+                    font-weight: normal;
+                    font-size: 20px;
+                    line-height: 38px;
+                    /* identical to box height */
+                    color: #000000;
+                }
+                .metrics .list>span:nth-child(3) {
+                    position: absolute;
+                    width: 116px;
+                    height: 38px;
+                    left: 90px;
+                    top: 145px;
+                    font-family: Raleway;
+                    font-style: normal;
+                    font-weight: normal;
+                    font-size: 20px;
+                    line-height: 38px;
+                    /* identical to box height */
+                    color: #000000;
+                }
+                .metrics .list>span:nth-child(4) {
+                    position: absolute;
+                    width: 108px;
+                    height: 38px;
+                    left: 90px;
+                    top: 195px;
+                    font-family: Raleway;
+                    font-style: normal;
+                    font-weight: normal;
+                    font-size: 20px;
+                    line-height: 38px;
+                    /* identical to box height */
+                    color: #3087D1;
+                }
+                .metrics section {
+                    margin: 260px 60px 50px 40px;
+                }
+            }
+            
+            @media screen and (min-width: 570px) and (max-width: 700px) {
+                .metrics .navigation {
+                    position: relative;
+                    margin-left: 160px;
+                    margin-right: 0;
+                }
+                .metrics [dashboard] {
+                    position: absolute;
+                    left: 64px;
+                    font-size: 28px;
+                    font-weight: normal;
+                }
+                .metrics .list>span:first-child {
+                    position: absolute;
+                    width: 85px;
+                    height: 38px;
+                    left: 90px;
+                    top: 45px;
+                    font-family: Raleway;
+                    font-style: normal;
+                    font-weight: normal;
+                    font-size: 20px;
+                    line-height: 38px;
+                }
+                .metrics .list>span:nth-child(2) {
+                    position: absolute;
+                    width: 112px;
+                    height: 38px;
+                    left: 90px;
+                    top: 95px;
+                    font-family: Raleway;
+                    font-style: normal;
+                    font-weight: normal;
+                    font-size: 22px;
+                    line-height: 38px;
+                    /* identical to box height */
+                    color: #000000;
+                }
+                .metrics .list>span:nth-child(3) {
+                    position: absolute;
+                    width: 116px;
+                    height: 38px;
+                    left: 90px;
+                    top: 145px;
+                    font-family: Raleway;
+                    font-style: normal;
+                    font-weight: normal;
+                    font-size: 20px;
+                    line-height: 38px;
+                    /* identical to box height */
+                    color: #000000;
+                }
+                .metrics .list>span:nth-child(4) {
+                    position: absolute;
+                    width: 108px;
+                    height: 38px;
+                    left: 90px;
+                    top: 195px;
+                    font-family: Raleway;
+                    font-style: normal;
+                    font-weight: normal;
+                    font-size: 20px;
+                    line-height: 38px;
+                    /* identical to box height */
+                    color: #3087D1;
+                }
+                .metrics section {
+                    margin: 280px 60px 50px 70px;
+                }
+            }
+            
+            @media screen and (min-width: 701px) and (max-width: 766px) {
+                .metrics .navigation {
+                    position: relative;
+                    margin-left: 200px;
+                    margin-right: 0;
+                }
+                .metrics [dashboard] {
+                    position: absolute;
+                    left: 64px;
+                    font-size: 28px;
+                    font-weight: normal;
+                }
+                .metrics .list>span:first-child {
+                    position: absolute;
+                    width: 85px;
+                    height: 38px;
+                    left: 90px;
+                    top: 45px;
+                    font-family: Raleway;
+                    font-style: normal;
+                    font-weight: normal;
+                    font-size: 22px;
+                    line-height: 38px;
+                }
+                .metrics .list>span:nth-child(2) {
+                    position: absolute;
+                    width: 112px;
+                    height: 38px;
+                    left: 90px;
+                    top: 95px;
+                    font-family: Raleway;
+                    font-style: normal;
+                    font-weight: normal;
+                    font-size: 22px;
+                    line-height: 38px;
+                    /* identical to box height */
+                    color: #000000;
+                }
+                .metrics .list>span:nth-child(3) {
+                    position: absolute;
+                    width: 116px;
+                    height: 38px;
+                    left: 90px;
+                    top: 145px;
+                    font-family: Raleway;
+                    font-style: normal;
+                    font-weight: normal;
+                    font-size: 22px;
+                    line-height: 38px;
+                    /* identical to box height */
+                    color: #000000;
+                }
+                .metrics .list>span:nth-child(4) {
+                    position: absolute;
+                    width: 108px;
+                    height: 38px;
+                    left: 90px;
+                    top: 195px;
+                    font-family: Raleway;
+                    font-style: normal;
+                    font-weight: normal;
+                    font-size: 22px;
+                    line-height: 38px;
+                    /* identical to box height */
+                    color: #3087D1;
+                }
+                .metrics section {
+                    margin: 280px 80px 50px 100px;
+                }
+            }
+            
+            @media screen and (min-width: 767px) and (max-width: 999px) {
+                .metrics section {
+                    margin: 24px 0px 50px 100px;
+                    padding-left: 80px;
+                }
+            }
+            
+            @media screen and (min-width: 1000px) and (max-width: 1300px) {
+                .metrics section {
+                    margin: 24px 0px 50px 180px;
+                }
+            }
+            
+            @media screen and (max-width: 991px) {
+                .dashboard-tab {
+                    display: flex;
+                    justify-content: space-between;
+                }
+            }
+        </style>
 
-    <div class="section" style="margin-top: 2em;">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-4">
-            <section class="posts">
-              <div class="dashboard">
-                <a href="/admin" style="text-decoration: none;">
-                  <h4 dashboard> Dashboard</h4>
-                </a>
-                <!-- DASHBOARD TABS -->
-                <ul class="dashboard-tab">
-                  <li class="dashboard-tab-items dtab-margin">
-                    <a href="/admin/users">Users</a>
-                  </li>
-                  <li class="dashboard-tab-items dtab-margin">
-                    <a href="/admin/posts">Posts</a>
-                  </li>
-                  <li class="dashboard-tab-items dtab-margin">
-                    <a href="/admin/reportedusers">Reports</a>
-                  </li>
-                </ul>
-              </div>
-          </div>
-          <div class="col-lg-8 invites-section">
-            <div class="container admin-dashboard">
-              <div class="row">
-                <div class="col-md-6">
-                  <div class="shadow p-5 mb-5 bg-light rounded">
-                    <a href="/admin/users">
-                      <i class="fas fa-user-alt"></i>
-                      <div class="float-right">
-                        <span class="text-primary" id="no-of-users"></span>
-                        <p class="text-muted">No. of Users</p>
-                      </div>
-                    </a>
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="shadow p-5 mb-5 bg-light rounded">
-                    <a href=""> <i class="far fa-comment"></i></a>
-                    <div class="float-right">
-                      <span class="text-primary" id="no-of-comments" style="padding-left:120px;"></span>
-                      <p class="text-muted">No. of Comments</p>
+        <div class="section" style="margin-top: 2em;">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-4">
+                        <section class="posts">
+                            <div class="dashboard">
+                                <a href="/admin" style="text-decoration: none;">
+                                    <h4 dashboard> Dashboard</h4>
+                                </a>
+                                <!-- DASHBOARD TABS -->
+                                <ul class="dashboard-tab">
+                                    <li class="dashboard-tab-items dtab-margin">
+                                        <a href="/admin/users">Users</a>
+                                    </li>
+                                    <li class="dashboard-tab-items dtab-margin">
+                                        <a href="/admin/posts">Posts</a>
+                                    </li>
+                                    <li class="dashboard-tab-items dtab-margin">
+                                        <a href="/admin/reportedusers">Reports</a>
+                                    </li>
+                                </ul>
+                            </div>
                     </div>
-                  </div>
+                    <div class="col-lg-8 invites-section">
+                        <div class="container admin-dashboard">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="shadow p-5 mb-5 bg-light rounded">
+                                        <a href="/admin/users">
+                                            <i class="fas fa-user-alt"></i>
+                                            <div class="float-right">
+                                                <span class="text-primary" id="no-of-users"></span>
+                                                <p class="text-muted">No. of Users</p>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="shadow p-5 mb-5 bg-light rounded">
+                                        <a href=""> <i class="far fa-comment"></i></a>
+                                        <div class="float-right">
+                                            <span class="text-primary" id="no-of-comments" style="padding-left:120px;"></span>
+                                            <p class="text-muted">No. of Comments</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="shadow p-5 mb-5 bg-light rounded">
+                                        <a href="/admin/posts">
+                                            <i class="far fa-comment-alt"></i>
+                                            <div class="float-right">
+                                                <span id="no-of-posts" class="text-primary"></span>
+                                                <p class="text-muted">No. of Posts</p>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div id="Comments">
+
+                            </div>
+
+                        </div>
+                    </div>
                 </div>
-              </div>
-              <div class="row">
-                <div class="col-md-6">
-                  <div class="shadow p-5 mb-5 bg-light rounded">
-                    <a href="/admin/posts">
-                      <i class="far fa-comment-alt"></i>
-                      <div class="float-right">
-                        <span id="no-of-posts" class="text-primary"></span>
-                        <p class="text-muted">No. of Posts</p>
-                      </div>
-                    </a>
-                  </div>
-                </div>
-              </div>
-
-
-              <div id="Comments">
-
-              </div>
-
             </div>
-          </div>
         </div>
-      </div>
-    </div>
 
 
-    <% include ../partials/footer %>
+        <% include ../partials/footer %>
