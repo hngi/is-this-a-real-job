@@ -1,5 +1,7 @@
 /* eslint-disable no-console */
 import Model from '../models';
+import { notifyByEmail } from './notificationServices';
+import { SocketMethods } from '../routes/events';
 
 const {
   Comment, Invite, User, Notification
@@ -51,10 +53,11 @@ export const findCommentsForPost = async (inviteId) => {
 };
 
 /**
+ * @param {object} res http response object
  * @param {object} commentData id of the job invite to retrieve comments for
  * @returns {object} an object containing created comment data
  */
-export const createCommentForPost = async (commentData) => {
+export const createCommentForPost = async (res, commentData) => {
   const e = new Error();
   const objs = await Promise.all([User.findOne({
     where: {
@@ -76,6 +79,7 @@ export const createCommentForPost = async (commentData) => {
 
   const userObj = objs[0].dataValues;
   const inviteObj = objs[1].dataValues;
+
   return Model.sequelize.transaction(t => Comment
     .create(commentData, { transaction: t })
     .then(comment => {
@@ -90,7 +94,12 @@ export const createCommentForPost = async (commentData) => {
         inviteId: comment.inviteId,
         message: `@${userObj.username} commented on your post`,
       };
-      return Notification.create(data, { transaction: t }).then(_ => comment);
+      return Notification.create(data, { transaction: t })
+        .then(async notification => {
+          SocketMethods.emitNotification(notification);
+          notification.mailSent = await notifyByEmail(res, { ...notification });
+          return Object.assign(comment, { notification });
+        });
     }))
     .catch(err => {
       console.error(err);

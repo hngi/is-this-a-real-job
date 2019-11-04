@@ -57,10 +57,12 @@ function ItarjApi(apiBase) {
       //   headers.Authorization = localStorage.getItem('token'); // assign the auth header
       // }
 
+      /* Same if statement repeated again?
       if (body) {
         headers.Accept = 'application/json';
         headers['Content-Type'] = 'application/json';
       }
+      */
 
       return fetch(`${url}/${endpoint}`, {
         headers,
@@ -68,6 +70,7 @@ function ItarjApi(apiBase) {
         body: method !== 'GET' ? body : undefined
       })
         .then(async res => {
+          // console.log(res);
           if (!res.ok) {
             e.message = `It seems there's a problem with your request.\n\nRequest URL: ${url}/${endpoint}.\n\nKindly check it or ensure you have an internet connection.`;
             e.data = await res.json(); // add API response data (if available)
@@ -89,6 +92,7 @@ function ItarjApi(apiBase) {
           });
         })
         .catch(err => { // handle exception
+          console.log(err);
           reject(err);
         });
     })

@@ -2,9 +2,11 @@
 /* eslint-disable no-console */
 import Sequelize from 'sequelize';
 import Model from '../models';
+import { SocketMethods } from '../routes/events';
+import { notifyByEmail } from './notificationServices';
 
 const {
-  Invite, User, Comment, Vote
+  Invite, User, Comment, Vote, Notification
 } = Model;
 
 /**
@@ -51,6 +53,33 @@ export const fetchAllInvites = async () => {
       ],
       order: [['createdAt', 'DESC']],
       logging: false
+    });
+
+    return invites.map(invite => {
+      invite = invite.dataValues;
+      invite.user = invite.user ? invite.user.dataValues : {};
+      invite.votes = invite.votes.map((vote) => vote.dataValues);
+      return invite;
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+/**
+ * Fetch invites with limit
+ */
+export const fetchAllInvitesWithLimit = async (limit) => {
+  try {
+    const invites = await Invite.findAll({
+      include: [
+        { model: User, as: 'user' },
+        { model: Comment, as: 'comments' },
+        { model: Vote, as: 'votes' }
+      ],
+      order: [['createdAt', 'DESC']],
+      logging: false,
+      limit
     });
 
     return invites.map(invite => {
@@ -139,16 +168,10 @@ export const fetchOneVoteCount = async (inviteId, userId) => {
     const invite = await fetchOneInvite({ inviteId });
 
     const voteCount = invite.votes.reduce((p, val) => {
-      if (val.type === 'up') {
-        p.upvotes += 1;
-      }
-
-      if (val.type === 'down') {
-        p.downvotes += 1;
-      }
+      p[`${val.type}votes`] += 1;
 
       if (val.userId === userId) {
-        (val.type === 'up') ? p.upvoted = true : p.downvoted = true;
+        p[`${val.type}voted`] = true;
       }
 
       return p;
@@ -168,22 +191,51 @@ export const fetchOneVoteCount = async (inviteId, userId) => {
   }
 };
 
-export const upvoteOneInvite = async (userId, inviteId) => {
+export const upvoteOneInvite = async (res, userId, inviteId) => {
   try {
-    let vote = await Vote.findOne({
+    const vote = await Vote.findOne({
       where: {
         userId,
         inviteId,
       }
     });
 
+    const objs = await Promise.all([
+      User.findOne({ where: { userId }, logging: false }),
+      Invite.findOne({ where: { inviteId }, logging: false })
+    ]);
+
+    if (!Array.isArray(objs) || objs.length !== 2) {
+      const e = new Error('User/Invite not found');
+      e.status = 400;
+      throw e;
+    }
+
+    const userObj = objs[0];
+    const inviteObj = objs[1];
+
     if (vote) {
       await vote.update({ type: 'up' });
       return vote.dataValues;
     }
 
-    vote = await Vote.create({ userId, inviteId, type: 'up' });
-    return vote.dataValues;
+    return Model.sequelize.transaction(t => Vote
+      .create({ userId, inviteId, type: 'up' })
+      .then(v => v.dataValues)
+      .then(voteObj => {
+        const data = {
+          userId: inviteObj.userId,
+          type: 'upvote',
+          inviteId,
+          message: `@${userObj.username} has upvoted your post`,
+        };
+        return Notification.create(data, { transaction: t })
+          .then(async notification => {
+            SocketMethods.emitNotification(notification);
+            notification.mailSent = await notifyByEmail(res, notification);
+            return Object.assign(voteObj, { notification });
+          });
+      }));
   } catch (error) {
     console.log(error);
     error.status = 500;

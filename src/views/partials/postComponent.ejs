@@ -1,0 +1,248 @@
+<style>
+  .post {
+    width: 100%;
+    border: solid 1px transparent;
+    /* padding: 0px 0.75rem; */
+    border: 1px solid #dddddd;
+    /* border-right: 1px solid #73a9d9 !important;
+        border-top: 1px solid #73a9d9 !important;
+        border-bottom: 1px solid #73a9d9 !important; */
+    border-left: solid 4px #3087d1;
+    position: relative;
+    display: -ms-flexbox;
+    display: flex;
+    /* -ms-flex-direction: column;
+        flex-direction: column; */
+    min-width: 0;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    word-break: break-all;
+    background-color: #fff;
+    background-clip: border-box;
+    border-radius: 0.25rem;
+  }
+
+  /* .post:hover {
+        box-shadow: 0 .125rem .25rem rgba(0, 0, 0, .075) !important;
+        transition: all ease-in 0.1s;
+    } */
+
+  .post-title {
+    font-family: 'Raleway';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 24px;
+    /* colors/dark */
+  }
+
+  .post-title a {
+    color: #2B4052 !important;
+  }
+
+  .post-footer {
+    border-radius: 0 0 calc(0.25rem - 1px) calc(0.25rem - 1px);
+    padding: 0.25rem 0.2rem;
+    /* background-color: rgba(0, 0, 0, 0.03); */
+    background-color: #fff;
+    /* border-top: 1px solid #e6e6e6; */
+    border-top: 1px solid #dddddd;
+    font-size: 16px !important;
+  }
+
+  .action-buttons {
+    padding: 0.15rem 0.25rem;
+    /* border-left: 1px solid #e6e6e6; */
+    background-color: #e6e6e6;
+    color: #2B4052 !important;
+  }
+
+  .action-buttons a i {
+    font-size: 25px !important;
+  }
+
+  .whats-this {
+    font-size: 9px;
+  }
+
+  .post-detail {
+    font-size: 12px;
+    line-height: 12px;
+    color: #636B6F;
+  }
+
+  .post-content {
+    font-size: 16px;
+    line-height: 19px;
+    color: #2B4052;
+  }
+
+  .dropdown-toggle {
+    cursor: pointer !important;
+  }
+
+  .valign-middle {
+    vertical-align: middle;
+  }
+
+  /* Media Queries */
+
+  @media screen and (max-width: 768px) {
+    .post-title {
+      font-size: 20px;
+      line-height: 20px;
+    }
+
+    .action-buttons a i {
+      font-size: 22px !important;
+    }
+  }
+
+  /* ===== */
+</style>
+<!-- Render Post Component here (check partials/postComponent) -->
+<% renderPostComponent = function(invite) { %>
+
+
+<div class="post flex-row mb-3 post-meta" style="text-align: initial;" data-inviteId="<%=invite.inviteId%>">
+
+  <div class="d-flex flex-column flex-fill">
+    <!-- Main content -->
+    <div class="d-flex flex-row justify-content-between p-3">
+      <div>
+        <h4 class="post-title mb-0">
+          <a href="<%='/post/'+invite.inviteId%>">
+            <%=invite.title%>
+          </a>
+        </h4>
+
+        <small class="post-detail text-muted"><em><%=invite.company%>, <%=invite.location%></em></small><br>
+        <% if (invite.user) { %>
+
+        <p>
+          <a href="/users/<%=invite.user.username %>">
+            @<%= invite.user.username %>
+          </a>
+          <span class="text-muted" style="font-size: 12px;">Posted on
+            <%= new Date(invite.createdAt).toDateString() %></span>
+        </p>
+
+        <% } %>
+
+
+        <!-- Post content -->
+        <p class="post-content">
+          <%=invite.body%>
+        </p>
+      </div>
+
+      <% if(isAuth) { %>
+      <div>
+        <span class="d-flex flex-row-reverse justify-content-between">
+
+          <span class="dropdown text-black-50">
+            <% if (typeof invite.user != 'undefined' && typeof username != 'undefined') { %>
+            <% if ( (invite.user.username === username) || isAdmin ) { %>
+            <i class=" fas fa-ellipsis-h  dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown"
+               aria-haspopup="true" aria-expanded="false">
+            </i>
+            <span class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <a class="dropdown-item" href="/post/<%=invite.inviteId%>/edit">Edit</a>
+              <!-- <a class="dropdown-item" href="#">Report</a> -->
+              <a class="dropdown-item delete" data-inviteid="<%= invite.inviteId %>" href="#">Delete Post </a>
+            </span>
+            <% } %>
+            <% } else { %>
+
+            <% if (typeof user != 'undefined') { %>
+            <% if ( (invite.userId === user.userId) || isAdmin ) { %>
+            <i class=" fas fa-ellipsis-h  dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown"
+               aria-haspopup="true" aria-expanded="false">
+            </i>
+            <span class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <a class="dropdown-item" href="/post/<%=invite.inviteId%>/edit">Edit</a>
+              <!-- <a class="dropdown-item" href="#">Report</a> -->
+              <a class="dropdown-item delete" data-inviteid="<%= invite.inviteId %>" href="#">Delete Post </a>
+            </span>
+            <% } %>
+            <% } %>
+            <% } %>
+          </span>
+
+        </span>
+      </div>
+      <% } %>
+    </div>
+
+    <!-- Footer content -->
+    <div class="post-footer text-black-50 px-1 px-md-3">
+      <% if (invite.comments ) { %>
+      <a href="<%='/post/'+invite.inviteId %>" class="float-left btn text-black-50 p-1"><i class="fas fa-comment"></i>
+        <%= invite.comments.length %> <span class="d-none d-md-inline-block">Comments</span>
+      </a>
+      <% } %>
+
+      <% if ( typeof comments != 'undefined' ) { %>
+      <a href="<%='/post/'+invite.inviteId %>" class="float-left btn text-black-50 p-1"><i class="fas fa-comment"></i>
+        <%= comments.length %> <span class="d-none d-md-inline-block">Comments</span>
+      </a>
+      <% } %>
+
+
+      <a href="/analyse/<%=invite.inviteId%>" class="float-left ml-3 btn text-black-50 p-1"><i class="fas fa-check"></i>
+        <span class="d-none d-md-inline-block">Analyse</span>
+      </a>
+
+      <!-- Share button -->
+
+      <span class="float-right share-buttons btn">
+        <a target="_blank" class="m-0"
+           href=" https://www.facebook.com/sharer.php?u=http://itarj.com/post/'<%=invite.inviteId%>">
+          <i class="fab fa-facebook"></i>
+        </a>
+
+        <a target="_blank" class="m-0"
+           href="https://twitter.com/intent/tweet?text=<%=invite.title+' - Is this a real job? \n Let us know: http://itarj.com/post/'+invite.inviteId%>">
+          <i class="fab fa-twitter"></i></a>
+
+        <a target="_blank" class="m-0"
+           href="https://api.whatsapp.com/send?&text=<%=invite.title+' - Is this a real job? \n Let us know: http://itarj.com/post/'+invite.inviteId%>">
+          <span style="color:#25D366;">
+            <i class="fab fa-whatsapp"></i>
+          </span>
+        </a>
+      </span>
+    </div>
+  </div>
+
+
+
+
+  <% if (invite.votes && typeof userId != 'undefined') { %>
+  <!-- Side content -->
+  <div class="d-flex flex-column action-buttons">
+    <div class="d-flex flex-column justify-content-around flex-fill actions">
+      <a class="m-0 align-items-center d-flex flex-column upvote-btn" data-inviteid="<%= invite.inviteId %>"
+         data-voted="<%= invite.votes.some( (vote) => (vote.userId === userId) && (vote.type === 'up') )%>">
+        <i class="fas fa-arrow-alt-circle-up"></i>
+        <span class="count">
+          <%= invite.votes.reduce((p,vote) => (vote.type === 'up') ? ++p : p ,0) %>
+        </span>
+      </a>
+      <a class="m-0 align-items-center d-flex flex-column downvote-btn" data-inviteid="<%= invite.inviteId %>"
+         data-voted="<%= invite.votes.some( (vote) => (vote.userId === userId) && (vote.type === 'down') ) %>">
+        <i class="fas fa-arrow-alt-circle-down"></i>
+        <span class="count">
+          <%= invite.votes.reduce((p,vote) => (vote.type === 'down') ? ++p : p ,0) %>
+        </span>
+      </a>
+    </div>
+    <span class="whats-this text-center"><a href="/howitworks">What's this?</a></span>
+
+  </div>
+  <% } %>
+
+
+</div>
+
+<% } %>

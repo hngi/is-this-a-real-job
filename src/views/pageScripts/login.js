@@ -7,10 +7,6 @@ function togglePreloader(state) {
 }
 
 if (document.querySelector('#login-btn')) {
-  if (localStorage.getItem('token')) {
-    window.location.href = '/posts';
-  }
-
   const loginBtn = document.querySelector('#login-btn');
   const notification = document.querySelector('.notification');
   loginBtn.addEventListener('click', (e) => {

@@ -1,110 +1,139 @@
 <% include partials/header %>
 <% include partials/nav %>
-<style>
-    .card {
-        margin-bottom: 7%;
-    }
-</style>
+<% include partials/postComponent %>
+
+<link rel="stylesheet" href="/css/index.css">
 
 <div id="cover">
-    <div class="loader"></div>
+  <div class="loader"></div>
 </div>
-<div class="container">
+
+<div id="hero" class="overlay">
+  <div class="container" id="hero-section">
+    <div class="row align-items-center hero-container">
+      <div class="col-12 text-center mb-md-5">
+        <h2 class="text-white text-bold heading">Scam or Real?</h2>
+        <p class="text-white">
+          Don’t go for that interview until you’re sure it’s real.
+        </p>
+
+        <form action="/invites/search" method="GET">
+          <div class="row">
+            <div class="col-12 col-md-9">
+              <input type="search" name="q" class="shadow-sm bg-white searchbar-1 my-md-0 form-control"
+                     placeholder="Search a keyword or a sentence e.g 'Lagos'" required>
+            </div>
+            <div class="col-12 col-md-3 pl-md-0">
+              <input type="submit" value="Search Job Invites"
+                     class="search-invites-btn btn-block shadow-sm float-md-left btn btn-primary">
+            </div>
+          </div>
+        </form>
+
+        <div class="col-12 mt-2 mt-md-4 text-center">
+          <small class="text-muted-white">
+            Search by company name, location, or other keywords. Like <span><a class="btn-link"
+                 href="/invites/search?q=Lagos">Lagos</a></span>
+            or <span><a class="btn-link" href="/invites/search?q=Dangote%20Cement">Dangote Cement</a></span>
+          </small>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- How it works section -->
+<section class="container my-4" id="how-it-works">
+  <div class="mt-5 text-center">
+    <h4 class="mb-5 text-primary">How it works</h4>
+
     <div class="row">
-        <div class="col text-center p-0 px-md-4 bottom-footer">
-            <div class="mb-md-4 mt-md-3">
-                    <h1 class="page-desc">
-                            Scam or Real?
-                        </h1>
-                        <span class="under-text">Don’t go for that interview until you’re sure it’s real</span>
-                        <span class="under-text">Did you get an email inviting you to an interview but you're not sure if it's legit? Search here to find out. Search with company name, or location. All content is community generated, so if you don't find what you're looking for, please go ahead and create a new post with your job invite and other users will comment and vote on it.</span>
-
-                        
-            </div>
-            <div class="container search">
-                <form action="/invites/search" method="GET">
-                    <input type="search" name="q" class="searchbar-1 form-control index-search"
-                           placeholder="Search a keyword or a sentence e.g 'Lagos'" required>
-
-                    <input type="submit" value="Search Job Invites" class=" btn btn-primary">
-            </div>
-            </form>
+      <div class="col-12 col-md-4">
+        <div class="card point">
+          <span>
+            <!-- Icon -->
+          </span>
+          <h3>Post</h3>
+          <span>
+            Post a job invitation
+          </span>
+          <p class="mb-1"><a href="/howitworks" class="nav-link">Read More</a></p>
         </div>
+      </div>
 
-    </div>
-</div>
-</div>
-<!-- <section class="blog">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-3">
-                <div class="card">
-                    <img src="image/blog_1.png" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <p class="card-text text blog-desc center">Landing your first job</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="card">
-                    <img src="image/blog_1.png" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <p class="card-text blog-desc text-center">Landing your first job</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="card">
-                    <img src="image/blog_1.png" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <p class="card-text blog-desc text-center">Landing your first job</p>
-                    </div>
-                </div>
-            </div>
+      <div class="col-12 col-md-4">
 
-            <div class="col-md-3">
-                    <div class="card">
-                        <img src="image/blog_1.png" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <p class="card-text blog-desc text-center">Landing your first job</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="col-md-3">
-                        <div class="card">
-                            <img src="image/blog_1.png" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <p class="card-text blog-desc text-center">Landing your first job</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                            <div class="card">
-                                <img src="image/blog_1.png" class="card-img-top" alt="...">
-                                <div class="card-body">
-                                    <p class="card-text blog-desc text-center">Landing your first job</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                                <div class="card">
-                                    <img src="image/blog_1.png" class="card-img-top" alt="...">
-                                    <div class="card-body">
-                                        <p class="card-text blog-desc text-center">Landing your first job</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                    <div class="card">
-                        <img src="image/blog_1.png" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <p class="card-text blog-desc text-center">Landing your first job</p>
-                        </div>
-                    </div>
-                </div> 
+        <div class="card point">
+          <span>
+            <!-- Icon -->
+          </span>
+          <h3>Verify</h3>
+          <span>
+            View the jobs legit-rating
+          </span>
+          <p class="mb-1"><a href="/howitworks" class="nav-link">Read More</a></p>
         </div>
+      </div>
+
+      <div class="col-12 col-md-4">
+        <div class="card point">
+          <span>
+            <!-- Icon -->
+          </span>
+          <h3>Decide</h3>
+          <span>
+            Make a decision
+          </span>
+          <p class="mb-1"><a href="/howitworks" class="nav-link">Read More</a></p>
+        </div>
+      </div>
     </div>
-</section> -->
+  </div>
+</section>
+
+
+<!-- Recent posts section -->
+<section id="recent-posts">
+  <div class="container">
+  <div class="mt-5 text-center">
+    <h4 class="mb-5 text-primary">Recent Posts</h4>
+    <div class="mr-auto">
+      <% if (invites.length === 0) { %>
+      <span id="no-invites" class="bg-transparent container">Woops! No posts yet</span>
+      <p>Create a <a class="nav-link" href="/post">New Post</a></p>
+      <% } %>
+
+      <% if (invites.length > 0) { %>
+      <% for (invite of invites) { %>
+      <%= renderPostComponent(invite) %>
+
+      <% } %>
+      <% } %>
+    </div>
+  </div>
+  </div>
+</section>
+
+<!-- Stats -->
+<section class="mt-4" id="site-stats">
+  <div class="mt-5 text-center ribbon">
+    <div class="mx-4 d-block d-md-inline">
+      <span class="text-primary" id="no-of-users"></span> <span>Users</span>
+    </div>
+    <div class="mx-4 d-block d-md-inline">
+      <span class="text-primary" id="no-of-posts"></span> <span>Posts</span>
+    </div>
+    <div class="mx-4 d-block d-md-inline">
+      <span class="text-primary" id="no-of-comments"></span> <span>Discussions</span>
+    </div>
+    <div>
+      <p class="text-dark mb-0 mt-4 d-none d-md-block">Join the community</p>
+      <p class="mb-0 mt-4 mt-md-0">
+        <a href="/register" class="btn btn-primary" style="width: 160px;">Join</a>
+      </p>
+    </div>
+  </div>
+</section>
 
 <% include partials/footer %>

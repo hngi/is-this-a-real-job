@@ -1,4 +1,5 @@
 /* eslint-disable no-unneeded-ternary */
+import crypto from 'crypto';
 import {
   respondWithSuccess,
   respondWithWarning
@@ -9,8 +10,8 @@ import {
   fetchSingleUser,
   findSingleUser
 } from '../services/userServices';
+import { findReports } from '../services/reportServices';
 
-import crypto from 'crypto';
 
 /**
  * @param {object} req
@@ -70,6 +71,20 @@ export const checkRenderIsAdmin = async (req, res, next) => {
     return res.redirect('/404');
   }
   next();
+};
+
+/**
+ * check if user is already logged in
+ * This code only applies to login and signup pages only
+ * @param {object} req
+ * @param {object} res
+ * @returns {object} json response
+ */
+export const checkRenderIsAuth = async (req, res, next) => {
+  if (req.isAuth) {
+    return res.redirect('/posts');
+  }
+  return next();
 };
 
 /**
@@ -156,12 +171,12 @@ export const renderAdminUsersPage = async (req, res) => {
  * @param {object} res
  */
 export const renderAdminReportedUsersPage = async (req, res) => {
-  const users = await findUsers();
+  const users = await findReports();
 
-  const title = `${users.length} Users - Admin - Is This A Real Job`;
+  const title = `${users.length} Reported Users - Admin - Is This A Real Job`;
   const description = 'Our app helps you check if job opportunities are real or not.';
 
-  return res.render('admin/users', {
+  return res.render('admin/reportedUsers', {
     users: users || [],
     isAuth: req.isAuth,
     isAdmin: req.auth.isAdmin,

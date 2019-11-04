@@ -41,6 +41,24 @@ export const validateUserId = (req, res, next) => {
   return respondWithWarning(res, 400, 'Bad Request', errors);
 };
 
+
+const validateSingleParamId = (key, req, res, next) => {
+  const schema = Joi.object().keys({
+    [key]: Joi.string()
+      .pattern(VALID_UUID)
+      .required()
+  });
+
+  const errors = joiValidator(req.params, schema);
+
+  if (!errors) {
+    return next();
+  }
+  return respondWithWarning(res, 400, 'Bad Request', errors);
+};
+
+export const validateNotificationId = (req, res, next) => validateSingleParamId('notificationId', req, res, next);
+
 /**
 * @param {Object} req
 * @param {Object} res

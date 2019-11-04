@@ -4,29 +4,41 @@
 
 /* ----------------------------------------------- */
 
+  /*Color Vars*/
+:root {
+  --dark-blue: #24659E;
+} 
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-html,
-body {
+html, body {
   background-color: #fff;
   color: #000;
-  height: 100%;
+  min-height: 100vh; /*Ensure footer isn't detached from the bottom of screen of small pages. Set minimum height to 100% of the viewport height.*/
+  width: 100vw;
   font-family: "Raleway", sans-serif;
   font-weight: 300;
   font-size: 15px;
   text-rendering: optimizeLegibility;
   display: flex;
   flex-direction: column;
-  /* overflow-x: hidden; */
+  overflow-x: hidden;
 }
 
-.content-body {
-  flex: 1 1 auto;
-  /*grow vertically*/
+body { /*Using flexbox to ensure the footer is always attached to the bottom of page, and the main content <main></main> is centered on the page.*/
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.content-body { /* The <main> content of every page.*/
+  flex: 1 1 auto; /*grow vertically*/
+  width: 100vw;
 }
 
 .go_back {
@@ -70,6 +82,12 @@ body {
   color: red;
 }
 
+@media screen and (max-width: 768px) {
+  .search-btn {
+    text-align: center;
+  }
+}
+
 .post-btn {
   width: 206px;
   height: 60px;
@@ -95,14 +113,14 @@ body {
   margin: 0.8rem auto;
 }
 
-.job-invites p {
+/* .job-invites p {
   font-family: Raleway;
   font-style: normal;
   font-weight: normal;
   font-size: 16px;
   line-height: 19px;
   color: #000000;
-}
+} */
 
 .job_invite_h4 {
   width: 191px;
@@ -118,17 +136,32 @@ body {
   left: -50px !important;
 }
 
-.job-invites div:nth-child(odd):not(.form-group) {
+/* .job-invites div:nth-child(odd):not(.form-group) {
   background: #e3e9ef;
   padding: 20px;
   border-radius: 6px;
-}
+} */
 
-.job-invites div:nth-child(even) {
+/* .job-invites div:nth-child(even) {
   padding: 20px;
   background: #ffffff;
   margin: 1em auto;
-}
+} */
+
+/* Posts page */
+
+@media screen and (min-width: 768px){
+  #posts-page.section {
+    margin: 0 3rem;
+  }
+
+  .mx-13 {
+    margin: 0 13rem;
+  }
+};
+
+
+/* ===== */
 
 /* SIngle Post */
 
@@ -212,8 +245,11 @@ body {
 }
 
 /* INDEX */
+.search-invites {
+  padding: 15px;
+}
 
-.page-desc {
+.search-invites .heading {
   color: #636b6f;
   font-weight: 700;
   font-size: 3rem;
@@ -221,7 +257,7 @@ body {
 }
 
 @media screen and (max-width: 900px) {
-  .page-desc {
+  .search-invites .heading {
     color: #636b6f;
     font-weight: 600;
     font-size: 2rem;
@@ -229,13 +265,21 @@ body {
   }
 }
 
-.under-text {
+.search-invites .heading__line2 {
+  display: block;
   font-size: 1.1rem;
   font-weight: 500;
   color: #636b6f;
 }
 
-.search {
+.search-invites .search-summary {
+  text-align: initial;
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #636b6f;
+}
+
+.search-invites .search {
   width: 70%;
   margin-left: auto;
   margin-right: auto;

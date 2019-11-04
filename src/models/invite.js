@@ -31,9 +31,6 @@ export default (sequelize, DataTypes) => {
         type: DataTypes.TEXT,
         allowNull: false,
       },
-      media: {
-        type: DataTypes.STRING
-      },
       upVotes: {
         type: DataTypes.INTEGER,
         defaultValue: 0

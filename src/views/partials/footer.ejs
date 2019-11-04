@@ -1,125 +1,133 @@
-</div> <!-- close div opened inside the nav.ejs or nav2.ejs -->
+</main> <!-- close main content container opened inside the nav.ejs or nav2.ejs -->
 <style>
   /* Footer */
-    .footer {
-      background-color: #24659e;
-      color: #fff;
-      margin-top: 4%;
-      position: static;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      margin-right: 0;
+  .footer {
+    background-color: #24659e;
+    color: #fff;
+    margin-top: 4%;
+    position: static;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    margin-right: 0;
+    margin-bottom: 0px;
+  }
+
+  .subscribe {
+    border-color: transparent !important;
+    height: 100%;
+    font-size: 70%;
+  }
+
+  .footer-heading {
+    margin-bottom: 1%;
+    margin-top: 5%;
+  }
+
+  .footer_email {
+    color: #fff;
+    font-weight: 600;
+    line-height: 18px;
+    font-size: 15px;
+  }
+
+  .footer_email:hover {
+    color: #aaa;
+    text-decoration: none;
+  }
+
+  .submit-div {
+    margin-left: 0%;
+  }
+
+  .submit-div {
+    font-size: 85%;
+  }
+
+  .footer_social {
+    color: #fff;
+    margin-left: 5%;
+  }
+
+  .footer_social:hover {
+    color: #aaa;
+  }
+
+  .first-social {
+    margin-left: 0%;
+  }
+
+  .links {
+    margin-right: 4%
+  }
+
+  .fix-align {
+    text-align: center;
+  }
+
+  @media screen and (max-width: 991px) {
+    .footer_email {
+      font-size: 10px;
+      line-height: 12px;
     }
 
-    .subscribe {
-      border-color: transparent !important;
-      height: 100%;
-      font-size: 70%;
+    .mobile-margin {
+      margin-left: 4%;
+      margin-top: 4%;
     }
 
     .footer-heading {
-      margin-bottom: 1%;
-      margin-top: 5%;
+      font-size: 15px
     }
+  }
 
+  @media screen and (max-width: 767px) {
     .footer_email {
-      color: #fff;
-      font-weight: 600;
-      line-height: 18px;
-      font-size: 15px;
+      font-size: 13px;
+      line-height: 10px;
     }
 
-    .footer_email:hover {
-      color: #aaa;
-      text-decoration: none;
+    .mobile-margin {
+      margin-left: 3%;
+      margin-top: 4%;
     }
 
-    .submit-div {
-      margin-left: 0%;
+    .footer-heading {
+      font-size: 10px
+    }
+  }
+
+  @media screen and (max-width: 479px) {
+    .footer_email {
+      font-size: 10px;
+      line-height: 8px;
     }
 
-    .submit-div {
-      font-size: 85%;
+    .mobile-margin {
+      margin-left: 2%;
+      margin-top: 4%;
     }
 
-    .footer_social {
-      color: #fff;
-      margin-left: 5%;
+    .footer-heading {
+      font-size: 10px
     }
-
-    .footer_social:hover {
-      color: #aaa;
-    }
-
-    .first-social {
-      margin-left: 0%;
-    }
-
-    .links {
-      margin-right: 4%
-    }
-    .fix-align {
-      text-align: center;
-    }
-    
-    
-    @media screen and (max-width: 991px) {
-      .footer_email {
-          font-size: 10px;
-          line-height: 12px;
-      }
-      .mobile-margin {
-        margin-left: 4%;
-        margin-top: 4%;
-      }
-
-      .footer-heading {
-        font-size: 15px
-      }
-    }
-
-    @media screen and (max-width: 767px) {
-      .footer_email {
-          font-size: 13px;
-          line-height: 10px;
-      }
-      .mobile-margin {
-        margin-left: 3%;
-        margin-top: 4%;
-      }
-      .footer-heading {
-        font-size: 10px
-      }
-    }
-
-    @media screen and (max-width: 479px) {
-      .footer_email {
-          font-size: 10px;
-          line-height: 8px;
-      }
-      .mobile-margin {
-        margin-left: 2%;
-        margin-top: 4%;
-      }
-      .footer-heading {
-        font-size: 10px
-      }
-    }
+  }
 </style>
 
 <footer class="footer">
   <div class="container">
     <div class="row">
-      <div class="col span-md-4 mobile-margin">
-        <div class="row">
-        <p class="footer-heading links"><a class="footer_email" href="/howitworks">How it works</a></p>
-        <p class="footer-heading links"><a class="footer_email" href="/about">About Us</a></p>
+      <div class="col col-md-6 col-sm-6 text-center">
+        <p class="footer-heading"><a class="footer_email" href="/howitworks">How it works</a></p>
+        <p><a class="footer_email" href="/about">About Us</a></p>
       </div>
-      </div>
-      <div class="col span-md-4 text-center">
+      <div class="col col-md-6 col-sm-6 text-center">
         <h6 class="footer-heading">Contact Us</h6>
-        <p><a href="mailto:info@isthisarealjob.ng" class="footer_email" target="_blank">info@isthisarealjob.ng</a></p>
+        <p>
+          <a href="mailto:info@isthisarealjob.ng" class="footer_email" target="_blank">
+            info@itarj.com
+          </a>
+        </p>
       </div>
     </div>
   </div>
@@ -128,6 +136,7 @@
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script src="/socket.io.js"></script>
 <script type="text/javascript" src="/api-helper.js"></script>
 
 <!-- signin has the notification component and preloader, let it maintain it's position here -->
@@ -137,10 +146,12 @@
 <script type="text/javascript" src="/updatePost.js"></script>
 <script type="text/javascript" src="/invite.js"></script>
 <script type="text/javascript" src="/blockUser.js"></script>
+<script type="text/javascript" src="/userProfile.js"></script>
 <script type="text/javascript" src="/blockUser.js"></script>
 <script type="text/javascript" src="/deleteInvite.js"></script>
 <script type="text/javascript" src="/notification.js"></script>
 <script type="text/javascript" src="/metrics.js"></script>
+<script type="text/javascript" src="/analysis.js"></script>
 </body>
 
 </html>
