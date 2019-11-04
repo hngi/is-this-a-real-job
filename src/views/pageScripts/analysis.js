@@ -2,14 +2,16 @@
 /* eslint-disable no-console */
 /* eslint-disable no-undef */
 
+
 function togglePreloader(state) {
   const preloader = document.querySelector('#cover');
   preloader.style.display = state;
 }
 
 function getAnalysis(btnType) {
-  $('#analysisModal').modal({ show: false });
-  const notification = document.querySelector('.notification');
+  $('#analysisModal').modal({
+    show: false
+  });
   const apiEndpoint = document.querySelector('#api_endpoint').innerHTML;
   const analysisText = document.querySelector('#analysis_text');
   togglePreloader('block');
@@ -29,15 +31,18 @@ function getAnalysis(btnType) {
     const company = document.querySelector('#company');
     const location = document.querySelector('#location');
     const jobDetails = document.querySelector('#jobDetails');
-    const data = { company, address: location, invite: jobDetails };
+    const data = {
+      company: company.value,
+      address: location.value,
+      invite: jobDetails.value
+    };
+    console.log('request payload =', JSON.stringify(data));
     options = {
       method: 'POST',
-      body: JSON.stringify({
-        company: 'NNPC',
-        address: 'no. 21 adesanya aguda, surulere',
-        invite: 'You are welcom'
-      }),
-      headers: new Headers({ 'Content-Type': 'application/json', Origin: 'x-requested-with' })
+      body: JSON.stringify(data),
+      headers: {
+        Origin: 'x-requested-with',
+      },
     };
   } else {
     formData.append('title', analysisText.value);
@@ -47,17 +52,17 @@ function getAnalysis(btnType) {
       mode: 'no-cors'
     };
   }
-
+  console.log('request uri =', uri);
   fetch(uri, options)
     .then(res => {
       togglePreloader('none');
       console.log(res);
       const analysisModal = document.querySelector('#result');
-      analysisModal.innerHTML = JSON.stringify(res);
+      analysisModal.innerHTML = JSON.stringify(res.body);
       $('#analysisModal').modal('show');
     })
     .catch(err => {
-      console.log(err);
+      console.error(err);
       const analysisModal = document.querySelector('#result');
       analysisModal.innerHTML = JSON.stringify(err);
       $('#analysisModal').modal('show');
@@ -65,7 +70,9 @@ function getAnalysis(btnType) {
 }
 
 function selectAnalysis(item) {
-  $('#analysisModal').modal({ show: false });
+  $('#analysisModal').modal({
+    show: false
+  });
   const x = item.selectedIndex;
   const invite = [];
   const inputForm = document.querySelector('#analysis_text');
