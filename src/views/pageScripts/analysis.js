@@ -16,27 +16,28 @@ function getAnalysis(btnType) {
   });
   togglePreloader('block');
 
-  const formData = new FormData();
   let options = {};
 
   if (btnType === 1) {
+    uri = 'http://34.66.66.215/upload';
     const media = document.querySelector('#media');
+    const formData = new FormData();
     formData.append('file', media.files[0]);
+    // console.log(files);
+    // const body = { files: { file: media.files[0] } };
     options = {
       method: 'POST',
-      body: formData,
       mode: 'no-cors',
-      headers: {
-        'Content-Type': 'multipart/form-data'
-      }
+      body: formData,
     };
+    console.log(uri);
     fetch(uri, options)
       .then(async res => {
-        console.log(res);
-        const result = await res.json();
+        console.log(await res.text());
+        const result = await res.text();
         console.log(result);
         const analysisModal = document.querySelector('#result');
-        analysisModal.innerHTML = `<h5>The confidence level for this job invite is ${result.confidence}</h5>`;
+        analysisModal.innerHTML = `<h5>${result}</h5>`;
         togglePreloader('none');
         $('#analysisModal').modal('show');
       })
@@ -44,15 +45,16 @@ function getAnalysis(btnType) {
         console.error(err);
         const analysisModal = document.querySelector('#result');
         analysisModal.innerHTML = '<h5>Our servers couldn\'t fetch data at the moment</h5>';
+        togglePreloader('none');
         $('#analysisModal').modal('show');
       });
   } else if (btnType === 2) {
     const selection = document.querySelector('#select_id');
     const inputForm = document.querySelector('#analysis_text');
     if (inputForm.value === '') {
-      togglePreloader('none');
       const analysisModal = document.querySelector('#result');
       analysisModal.innerHTML = '<h5>Type an email in textbox or select from dropdown</h5>';
+      togglePreloader('none');
       $('#analysisModal').modal('show');
       return null;
     }
@@ -79,6 +81,7 @@ function getAnalysis(btnType) {
         console.error(err);
         const analysisModal = document.querySelector('#result');
         analysisModal.innerHTML = '<h5>Our servers couldn\'t fetch data at the moment</h5>';
+        togglePreloader('none');
         $('#analysisModal').modal('show');
       });
   } else {
@@ -112,6 +115,7 @@ function getAnalysis(btnType) {
         console.error(err);
         const analysisModal = document.querySelector('#result');
         analysisModal.innerHTML = '<h5>Our servers couldn\'t fetch data at the moment</h5>';
+        togglePreloader('none');
         $('#analysisModal').modal('show');
       });
   }
