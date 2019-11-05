@@ -40,7 +40,7 @@ app.use((req, res, next) => {
   next();
 });
 // Handle image upload
-app.use(cors());
+app.use(cors('*'));
 app.use('*', cloudinaryConfig);
 
 
