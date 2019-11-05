@@ -40,17 +40,19 @@
     <section class="job-invites">
       <% if (invites.length === 0) { %>
       <!-- No invites -->
-      <div class="card card-secondary text-center container my-4">
+      <div class="card card-secondary text-center container my-4 p-3 bg-light">
         No matching invites were found 😢
         <p>Submit your invite <a href="/post">here</a>, to get feedback from the community.</p>
       </div>
       <% } %>
 
+      <% if (invites.length > 0) { %>
       <!-- Users choice wasn't in the list -->
-      <div class="card card-secondary text-center container p-2 bg-light my-4">
+      <div class="card card-secondary text-center container my-4 p-3 bg-light">
         Didn't find what you were looking for?
         <p>Submit your invite <a href="/post">here</a>, to get feedback from the community.</p>
       </div>
+      <% } %>
 
       <% if (invites.length > 0) { %>
       <% for (invite of invites) { %>
