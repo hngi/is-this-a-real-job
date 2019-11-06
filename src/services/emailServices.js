@@ -6,7 +6,7 @@ export async function sendMail(recipientAddr, title, messageBody) {
   let success;
 
   const transporter = nodemailer.createTransport({
-    service: "Mailjet",
+    service: 'Mailjet',
     auth: {
       user: EMAIL_ADDR,
       pass: EMAIL_PASSWORD
