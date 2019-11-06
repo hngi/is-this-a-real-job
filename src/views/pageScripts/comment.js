@@ -11,7 +11,7 @@ const commentBtn = document.querySelector('.comment-btn button');
 if (commentBtn) {
   const api = new ItarjApi('/api/v1');
   const commentField = document.querySelector('#comment-field');
-  const commentCount = document.querySelector('#comment-count');
+  const commentCount = document.querySelector('.commentCounter');
   const comments = document.querySelector('#comments');
   const postMeta = document.querySelector('.post-meta');
   const noComment = document.querySelector('#no-comments');
@@ -48,11 +48,11 @@ if (commentBtn) {
       .then(res => {
         comments.innerHTML = getCommentHTML(res.data) + comments.innerHTML;
         if (noComment) noComment.innerHTML = '';
-
         commentCount.textContent = Number(commentCount.textContent) + 1;
         togglePreloader('none');
       })
       .catch(err => {
+        console.error(err);
         togglePreloader('none');
         notification.innerHTML = `<strong>${err.data.message}:</strong> ${err.data.payload}`;
         notification.className += ' show';

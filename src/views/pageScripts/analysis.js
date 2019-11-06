@@ -54,11 +54,11 @@ if (document.querySelector('#submit_ocr')) {
   selectionBtn.addEventListener('click', (e) => {
     e.preventDefault();
     togglePreloader('block');
-    const selection = document.querySelector('#select_id');
-    const inputForm = document.querySelector('#analysis_text');
-    if (inputForm.value === '') {
+    const selection = document.querySelector('#select_id').selectedIndex;
+    const inputForm = document.querySelector('#analysis_text').value;
+    if (inputForm === '') {
       const analysisModal = document.querySelector('#result');
-      analysisModal.innerHTML = '<h5>Type an email in textbox or select from dropdown</h5>';
+      analysisModal.innerHTML = '<h5>Textbox must have an email or select from dropdown</h5>';
       togglePreloader('none');
       $('#analysisModal').modal('show');
       return null;
