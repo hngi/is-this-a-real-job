@@ -186,3 +186,27 @@ export const renderAdminReportedUsersPage = async (req, res) => {
     crypto
   });
 };
+
+/**
+ * Render login page
+ * @param {object} req
+ * @param {object} res
+ */
+export const renderLoginPage = async (req, res) => {
+  const { expired } = req.query;
+  let error;
+
+  if (Number(expired) === 1) {
+    error = 'Session has expired. Login to continue';
+  }
+
+  const title = 'Login - Is This A Real Job';
+  const description = 'Our app helps you check if job opportunities are real or not.';
+
+  return res.render('login', {
+    isAuth: req.isAuth,
+    isAdmin: req.auth.isAdmin,
+    meta: { title, description },
+    error
+  });
+};

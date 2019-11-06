@@ -55,7 +55,8 @@ import {
   getUserByUserId,
   renderAdminReportedUsersPage,
   checkRenderIsAdmin,
-  checkRenderIsAuth
+  checkRenderIsAuth,
+  renderLoginPage
 } from '../controllers/userController';
 import { getNotifications, markNotificationAsRead } from '../controllers/notificationController';
 import {
@@ -78,9 +79,8 @@ export const initRoutes = app => {
   app.use(signUserOut);
 
   // All EJS frontend routess below --------------------------------------------------
-  // app.get('/', (req, res) => res.render('index', { isAuth: req.isAuth, isAdmin: req.auth.isAdmin, meta: { title: 'Is This A Real Job', description: genericDescription } })); // Pass true or false to toggle state of navbar....
   app.get('/', renderHomePage);
-  app.get('/login', checkRenderIsAuth, (req, res) => res.render('login', { isAuth: req.isAuth, isAdmin: req.auth.isAdmi, meta: { title: 'Login - Is This A Real Job', description: genericDescription } }));
+  app.get('/login', checkRenderIsAuth, renderLoginPage);
   app.get('/register', checkRenderIsAuth, (req, res) => res.render('register', { isAuth: req.isAuth, isAdmin: req.auth.isAdmin, meta: { title: 'Register - Is This A Real Job', description: descriptions.register } }));
 
   app.get('/post', getUserByUserId, (req, res) => res.render('userPost', {

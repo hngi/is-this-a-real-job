@@ -7,7 +7,7 @@ body {
 .container {
   width: 80%;
   max-width: 900px;
-  margin: 0px auto;
+  margin: 20px auto;
 }
 
 .container-flex {
@@ -31,7 +31,8 @@ body {
   margin-bottom: 40px;
 }
 
-input, textarea {
+input,
+textarea {
   width: 80%;
   padding: 10px;
   border: 1px solid #636b6f;
@@ -43,22 +44,31 @@ input {
 
 button {
   margin-top: 20px;
-  border-radius: 10px;
+  /* border-radius: 10px; */
   padding: 10px 30px;
 }
 
 button#cancel {
-  background: #ffffff;
+  background: #dc3545;
+  border: #dc3545;
 }
 
 button#cancel a {
-  color: inherit;
+  color: #fff;
   text-decoration: none;
+}
+button#cancel:hover {
+  background: #af2a37;
 }
 
 button#report {
   background: #3087d1;
+  border: #3087d1;
   color: #fff;
+}
+
+button#report:hover {
+  background: #226097;
 }
 
 .success-dialog {
@@ -77,7 +87,7 @@ button#report {
 }
 
 .is-hidden {
-  display: none
+  display: none;
 }
 
 .success-dialog__icon {
@@ -122,7 +132,8 @@ button#report {
     padding-bottom: 5px;
   }
 
-  input, textarea {
+  input,
+  textarea {
     width: 100%;
   }
 }

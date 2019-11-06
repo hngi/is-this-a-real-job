@@ -82,6 +82,12 @@
     align-items: center;
     justify-content: space-between;
   }
+
+  .session-error {
+    text-align: center;
+    padding: 0.5rem 0;
+  }
+
   @media (max-width: 767px) {
     h3 {
       font-size: 35px;
@@ -101,6 +107,11 @@
   Simple Notification
 </div>
 <h3 class="bottom-footer">Login</h3>
+<% if (error) { %>
+<div class="session-error">
+  <%= error %>
+</div>
+<% } %>
 <form class="login-form" method="POST" action="javascript:void(0);">
   <div class="form-group">
     <input
