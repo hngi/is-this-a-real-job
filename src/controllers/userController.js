@@ -108,6 +108,31 @@ export const getUser = async (req, res) => {
 };
 
 /**
+ * Report User
+ * @param {*} req 
+ * @param {*} res 
+ */
+export const renderReportUserPage = async (req, res) => {
+  const { username } = req.params;
+
+  const user = await fetchSingleUser({ username });
+
+  if (!user) {
+    return respondWithWarning(res, 404, 'User not found');
+  }
+  return res.render('reportUser', {
+    isAuth: req.isAuth,
+    username: req.auth.username,
+    isAdmin: req.auth.isAdmin,
+    reportedUser: user,
+    meta: {
+      title: 'Report User - Is This A Real Job',
+      description: `Report ${user.username} - Is This A Real Job`
+    }
+  })
+};
+
+/**
  * Render user profile
  *
  * @param {*} req

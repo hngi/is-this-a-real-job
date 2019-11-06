@@ -56,7 +56,8 @@ import {
   renderAdminReportedUsersPage,
   checkRenderIsAdmin,
   checkRenderIsAuth,
-  renderLoginPage
+  renderLoginPage,
+  renderReportUserPage
 } from '../controllers/userController';
 import { getNotifications, markNotificationAsRead } from '../controllers/notificationController';
 import {
@@ -69,6 +70,7 @@ import { getMetrics } from '../controllers/metricsController';
 import { descriptions } from '../helpers/metatags';
 import { validateReport } from '../middlewares/validateReport';
 import { createReport } from '../controllers/reportController';
+import { checkIfSameUser } from '../middlewares/validateUser';
 
 const genericDescription = 'Our app helps you check if job opportunities are real or not.';
 
@@ -116,6 +118,7 @@ export const initRoutes = app => {
       }
     });
   });
+  app.get('/reportuser/:username', getUserByUserId, checkIfSameUser, renderReportUserPage);
   app.get('/users/:username', renderUserProfile);
   app.get('/admin/reportedusers', checkRenderIsAdmin, renderAdminReportedUsersPage);
   // Search Invites - Renders view
@@ -281,7 +284,7 @@ export const initRoutes = app => {
   app.patch('/api/v1/notifications', markNotificationAsRead);
 
   // Report a user
-  app.post('/api/v1/reports', authenticateUserToken, validateReport, createReport);
+  app.post('/api/v1/users/report', authenticateUserToken, validateReport, createReport);
 
   // Fallback case for unknown URIs.
   app.get('/notAuthorized', (req, res) => res.render('401', { meta: { title: '404 - Page Not Found', description: genericDescription } }));

@@ -9,7 +9,6 @@ function showSuccessDialog() {
 }
 
 function showErrorMessage(err) {
-
   const notification = document.querySelector('.notification');
   notification.innerHTML = `<strong>${err.data.message}:</strong> ${err.data.payload}`;
   notification.classList.add('show');
@@ -19,8 +18,7 @@ function showErrorMessage(err) {
   }, 8000);
 }
 
-window.onload = (event)=> {
-
+window.onload = (event) => {
   const notification = document.querySelector('.notification');
   const formData = {
     offender: document.querySelector('.report-form__username'),
@@ -29,11 +27,11 @@ window.onload = (event)=> {
   };
 
   const submit = document.querySelector('.report-form__submit');
-  submit.onclick = (event)=> {
+  submit.onclick = (event) => {
     event.preventDefault();
 
     if (!formData.offender || !formData.offence || !formData.details) {
-      return window.alert('Please fill in all fields.')
+      return window.alert('Please fill in all fields.');
     }
 
     if (formData.details.length < 20) {
@@ -42,7 +40,7 @@ window.onload = (event)=> {
 
     togglePreloader('block');
 
-    api.Post('/reportuser', JSON.stringify(formData), true)
+    api.Post('users/report', JSON.stringify(formData), true)
       .then(res => {
         showSuccessDialog();
       })
@@ -51,5 +49,5 @@ window.onload = (event)=> {
         togglePreloader('none');
         showErrorMessage(err);
       });
-  }
-}
+  };
+};
