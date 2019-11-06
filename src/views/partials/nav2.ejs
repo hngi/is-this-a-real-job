@@ -1,388 +1,403 @@
 <style>
-  .nav-link {
-    font-weight: 600;
-    font-size: 12px;
-    line-height: 14px;
-  }
-  
-  .nav-btn {
-    font-weight: 600;
-    font-size: 12px;
-    line-height: 14px;
-  }
-  
-  .nav-link:hover {
-    color: rgba(0, 0, 0, .5) !important;
-  }
-  
-  .nav-item {
-    margin-top: 5px;
-    margin-right: 50px;
-  }
-  
-  input[type="search"]::placeholder {
-    font-style: normal;
-  }
-  
-  .navbar-brand {
-    font-weight: 600;
-    font-size: 18px;
-    line-height: 21px;
-    color: #3087d1 !important;
-  }
-  
-  .navbar {
-    background-color: #fff;
-    border-top-color: #73A9D9;
-    border-top-style: solid;
-    border-top-width: 3px;
-    width: 100vw;
-    /*Ensure the nav bar covers full width of the screen. vw is viewport width.*/
-    /* box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.15); */
-    /* Using Bootstrap shadow class */
-  }
-  
-  li a {
-    color: #3087d1;
-  }
-  
-  .btn-primary {
-    background: #3087d1;
-  }
-  
-  nav.navbar.navbar-expand-lg.navbar-light {
-    margin-bottom: 2em;
-  }
-  
-  button {
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-  }
-  
-  .post-btn {
-    color: white;
-    border-radius: 5px;
-  }
-  
-  .nav-link a.post-btn:hover {
-    text-decoration: none;
-    color: white;
-  }
-  
-  .dropdown-menu {
-    margin: 0;
-    padding: 0;
-    min-width: 0;
-  }
-  
-  .dropdown-item {
-    padding: 2px 10px;
-    color: #73A9D9;
-    font-size: 1rem;
-  }
-  
-  .user-name-initials {
-    font-size: 14px;
-    font-weight: bold;
-  }
-  
-  @media screen and (min-width: 900px) {
-    .search-bar {
-      width: 400px !important;
-      border-radius: 5px;
+    .nav-link {
+        font-weight: 600;
+        font-size: 12px;
+        line-height: 14px;
     }
-  }
-  
-  .search-bar {
-    border-radius: 5px;
-  }
-  
-  .form-inline .form-control {
-    height: 36px;
-    border-color: lightgray;
-  }
-  
-  .notification-bar {
-    position: relative;
-  }
-  
-  .notification-icon {
-    position: relative;
-  }
-  
-  .badge {
-    position: absolute;
-    border-radius: 50px;
-    bottom: 23px;
-    left: 20px
-  }
-  
-  .notification-menu {
-    overflow-y: auto;
-    overflow-x: hidden;
-    max-height: 300px;
-    width: 300px;
-    border-top: 2px solid #73A9D9;
-    border-bottom: 2px solid #73A9D9;
-    z-index: 2000;
-    padding: 10px 20px;
-    font-size: 15px;
-    background-color: #fff;
-    position: absolute;
-    top: 3rem;
-    transition: 2s ease-in-out;
-  }
-  
-  .hide {
-    display: none;
-  }
-  
-  .show {
-    display: block;
-  }
-  
-  .notification-title {
-    margin-bottom: 0;
-  }
-  
-  .notification-title a {
-    /* font-size: 15px; */
-    font-weight: bold;
-    color: #24659e;
-    text-decoration: none;
-  }
-  
-  .notification-link:hover {
-    text-decoration: none;
-  }
-  
-  .notification-link:hover .notification-wrapper {
-    background: #e7f0f8;
-  }
-  
-  .notification-wrapper {
-    padding: 1rem 0.5rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .notification-image {
-    margin-right: 0.5rem;
-  }
-  
-  .notification-no-image {
-    display: flex;
-    width: 40px;
-    height: 40px;
-    margin-right: 0.5rem;
-    justify-content: center;
-    align-items: center;
-    background: var(--primary);
-    color: #fff;
-  }
-  
-  .badge {
-    background-color: #ffd740;
-    color: #fff;
-  }
-  /* Snackbar */
-  
-  #snackbar {
-    display: none;
-    min-width: 250px;
-    margin-left: -125px;
-    background-color: #333;
-    color: #fff;
-    text-align: center;
-    border-radius: 2px;
-    padding: 16px;
-    position: fixed;
-    z-index: 1;
-    left: 50%;
-    bottom: 30px;
-  }
-  
-  #snackbar.show {
-    display: block;
-    -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
-    animation: fadein 0.5s, fadeout 0.5s 3s;
-  }
-  /* Animations to fade the snackbar in and out */
-  
-  @-webkit-keyframes fadein {
-    from {
-      bottom: 0;
-      opacity: 0;
+
+    .nav-btn {
+        font-weight: 600;
+        font-size: 12px;
+        line-height: 14px;
     }
-    to {
-      bottom: 30px;
-      opacity: 1;
+
+    .nav-link:hover {
+        color: rgba(0, 0, 0, .5) !important;
     }
-  }
-  
-  @keyframes fadein {
-    from {
-      bottom: 0;
-      opacity: 0;
-    }
-    to {
-      bottom: 30px;
-      opacity: 1;
-    }
-  }
-  
-  @-webkit-keyframes fadeout {
-    from {
-      bottom: 30px;
-      opacity: 1;
-    }
-    to {
-      bottom: 0;
-      opacity: 0;
-    }
-  }
-  
-  @keyframes fadeout {
-    from {
-      bottom: 30px;
-      opacity: 1;
-    }
-    to {
-      bottom: 0;
-      opacity: 0;
-    }
-  }
-  
-  @media screen and (max-width: 990px) {
-    .badge {
-      left: 10px;
-    }
-  }
-  
-  @media screen and (min-width: 992px) and (max-width: 1012px) {
+
     .nav-item {
-      margin-top: 5px;
-      margin-right: 40px;
+        margin-top: 5px;
+        margin-right: 50px;
     }
-  }
-  
-  @media screen and (max-width: 1012px) and (min-width: 992px) {
-    .navbar-nav .notification-bar {
-      margin-right: 30px;
+
+    input[type="search"]::placeholder {
+        font-style: normal;
     }
-  }
+
+    .navbar-brand {
+        font-weight: 600;
+        font-size: 18px;
+        line-height: 21px;
+        color: #3087d1 !important;
+    }
+
+    .navbar {
+        background-color: #fff;
+        border-top-color: #73A9D9;
+        border-top-style: solid;
+        border-top-width: 3px;
+        width: 100vw;
+        /*Ensure the nav bar covers full width of the screen. vw is viewport width.*/
+        /* box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.15); */
+        /* Using Bootstrap shadow class */
+    }
+
+    li a {
+        color: #3087d1;
+    }
+
+    .btn-primary {
+        background: #3087d1;
+    }
+
+    nav.navbar.navbar-expand-lg.navbar-light {
+        margin-bottom: 2em;
+    }
+
+    button {
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+    }
+
+    .post-btn {
+        color: white;
+        border-radius: 5px;
+    }
+
+    .nav-link a.post-btn:hover {
+        text-decoration: none;
+        color: white;
+    }
+
+    .dropdown-menu {
+        margin: 0;
+        padding: 0;
+        min-width: 0;
+    }
+
+    .dropdown-item {
+        padding: 2px 10px;
+        color: #73A9D9;
+        font-size: 1rem;
+    }
+
+    .user-name-initials {
+        font-size: 14px;
+        font-weight: bold;
+    }
+
+    @media screen and (min-width: 900px) {
+        .search-bar {
+            width: 400px !important;
+            border-radius: 5px;
+        }
+    }
+
+    .search-bar {
+        border-radius: 5px;
+    }
+
+    .form-inline .form-control {
+        height: 36px;
+        border-color: lightgray;
+    }
+
+    .notification-bar {
+        position: relative;
+    }
+
+    .notification-icon {
+        position: relative;
+    }
+
+    .badge {
+        position: absolute;
+        border-radius: 50px;
+        bottom: 23px;
+        left: 20px
+    }
+
+    .notification-menu {
+        overflow-y: auto;
+        overflow-x: hidden;
+        max-height: 300px;
+        width: 300px;
+        border-top: 2px solid #73A9D9;
+        border-bottom: 2px solid #73A9D9;
+        z-index: 2000;
+        padding: 10px 20px;
+        font-size: 15px;
+        background-color: #fff;
+        position: absolute;
+        top: 3rem;
+        transition: 2s ease-in-out;
+    }
+
+    .hide {
+        display: none;
+    }
+
+    .show {
+        display: block;
+    }
+
+    .notification-title {
+        margin-bottom: 0;
+    }
+
+    .notification-title a {
+        /* font-size: 15px; */
+        font-weight: bold;
+        color: #24659e;
+        text-decoration: none;
+    }
+
+    .notification-link:hover {
+        text-decoration: none;
+    }
+
+    .notification-link:hover .notification-wrapper {
+        background: #e7f0f8;
+    }
+
+    .notification-wrapper {
+        padding: 1rem 0.5rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .notification-image {
+        margin-right: 0.5rem;
+    }
+
+    .notification-no-image {
+        display: flex;
+        width: 40px;
+        height: 40px;
+        margin-right: 0.5rem;
+        justify-content: center;
+        align-items: center;
+        background: var(--primary);
+        color: #fff;
+    }
+
+    .badge {
+        background-color: #4a3f11;
+        color: #fff;
+    }
+    .toggle-badge {
+        display: none;
+    }
+
+
+    /* Snackbar */
+
+    #snackbar {
+        display: none;
+        min-width: 250px;
+        margin-left: -125px;
+        background-color: #333;
+        color: #fff;
+        text-align: center;
+        border-radius: 2px;
+        padding: 16px;
+        position: fixed;
+        z-index: 1;
+        left: 50%;
+        bottom: 30px;
+    }
+
+    #snackbar.show {
+        display: block;
+        -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+        animation: fadein 0.5s, fadeout 0.5s 3s;
+    }
+
+    /* Animations to fade the snackbar in and out */
+
+    @-webkit-keyframes fadein {
+        from {
+            bottom: 0;
+            opacity: 0;
+        }
+
+        to {
+            bottom: 30px;
+            opacity: 1;
+        }
+    }
+
+    @keyframes fadein {
+        from {
+            bottom: 0;
+            opacity: 0;
+        }
+
+        to {
+            bottom: 30px;
+            opacity: 1;
+        }
+    }
+
+    @-webkit-keyframes fadeout {
+        from {
+            bottom: 30px;
+            opacity: 1;
+        }
+
+        to {
+            bottom: 0;
+            opacity: 0;
+        }
+    }
+
+    @keyframes fadeout {
+        from {
+            bottom: 30px;
+            opacity: 1;
+        }
+
+        to {
+            bottom: 0;
+            opacity: 0;
+        }
+    }
+
+    @media screen and (max-width: 990px) {
+        .badge {
+            left: 10px;
+        }
+    }
+
+    @media screen and (min-width: 992px) and (max-width: 1012px) {
+        .nav-item {
+            margin-top: 5px;
+            margin-right: 40px;
+        }
+    }
+
+    @media screen and (max-width: 1012px) and (min-width: 992px) {
+        .navbar-nav .notification-bar {
+            margin-right: 30px;
+        }
+    }
 </style>
 <nav class="navbar navbar-expand-lg shadow-sm">
-  <a class="navbar-brand " href="/">isthisarealjob</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon">
-      <i class="fas fa-bars" style="color: #73A9D9; font-size:28px;"></i>
+    <a class="navbar-brand " href="/">isthisarealjob</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon">
+            <i class="fas fa-bars" style="color: #73A9D9; font-size:28px;"></i>
 
-    </span>
-  </button>
-
-
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        </span>
+    </button>
 
 
-    <ul class="navbar-nav ml-auto">
-      <form class="form-inline" action="/invites/search" method="GET">
-        <input class="fa form-control mr-sm-4 search-bar" name="q" type="search" placeholder="&#xf002; Search" required aria-label="Search">
-      </form>
-      <!-- NOTIFICATION NUMBER GOES HERE -->
-      <% if(isAuth){ %>
-        <li class="nav-item dropdown notification-bar">
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
-          <a class="nav-link dropdown-toggle" style="padding-top: 3px;" href="javascript:void(0)"><i 
-             class="far fa-bell fa-2x notification-icon" onclick="notificationToggle()" id="bell-icon"></i><span class="badge"></span></a>
-          <div id="branded" class="notification-menu hide shadow">
-            <!-- notification goes here -->
-          </div>
-        </li>
 
-        <!-- USERNAME & LOG OUT GOES HERE  -->
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="javascript:void(0)" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <span class="user-name-initials">
-            <%=name.substr(0, 2).toUpperCase()%>
-          </span>
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="/users/<%=username%>">Profile</a>
-            <a href="javascript:void(0)" id="logout" class="dropdown-item">Log Out</a>
-          </div>
+        <ul class="navbar-nav ml-auto">
+            <form class="form-inline" action="/invites/search" method="GET">
+                <input class="fa form-control mr-sm-4 search-bar" name="q" type="search" placeholder="&#xf002; Search"
+                    required aria-label="Search">
+            </form>
+            <!-- NOTIFICATION NUMBER GOES HERE -->
+            <% if(isAuth){ %>
+            <li class="nav-item dropdown notification-bar">
 
-        </li>
-        <li class="nav-item">
-          <a class="post-btn" href="/post"><button type="button" class="btn-primary nav-btn" style="padding: 10px;"> NEW
-            POST</button></a>
-
-          <% } else { %>
-            <li class="nav-item mr-4">
-              <a class="nav-link" href="/register">REGISTER</a>
+                <a class="nav-link dropdown-toggle" style="padding-top: 3px;" href="javascript:void(0)"><i
+                        class="far fa-bell fa-2x notification-icon" onclick="notificationToggle()"
+                        id="bell-icon"></i><span class="badge toggle-badge"></span></a>
+                <div id="branded" class="notification-menu hide shadow">
+                    <!-- notification goes here -->
+                </div>
             </li>
-            <li class="nav-item mr-4">
-              <a class="nav-link" href="/login">LOG IN</a>
+
+            <!-- USERNAME & LOG OUT GOES HERE  -->
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="javascript:void(0)" id="navbarDropdown" role="button"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span class="user-name-initials">
+                        <%=name.substr(0, 2).toUpperCase()%>
+                    </span>
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="/users/<%=username%>">Profile</a>
+                    <a href="javascript:void(0)" id="logout" class="dropdown-item">Log Out</a>
+                </div>
+
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/posts">POSTS</a>
+                <a class="post-btn" href="/post"><button type="button" class="btn-primary nav-btn"
+                        style="padding: 10px;"> NEW
+                        POST</button></a>
+
+                <% } else { %>
+            <li class="nav-item mr-4">
+                <a class="nav-link" href="/register">REGISTER</a>
+            </li>
+            <li class="nav-item mr-4">
+                <a class="nav-link" href="/login">LOG IN</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/posts">POSTS</a>
             </li>
             <% } %>
 
 
-              <% if(isAuth){ %>
-                <a class="post-btn" href="/posts"><button type="button" class="btn-primary nav-btn" style="padding: 10px;">
-            POSTS</button></a>
-                <% } %>
-                  <% if (isAdmin) { %>
-                    <a class="post-btn" href="/admin"><button type="button" class="btn-primary nav-btn" style="padding: 10px;">
-            ADMIN</button></a>
-                    <% } %>
-        </li>
+            <% if(isAuth){ %>
+            <a class="post-btn" href="/posts"><button type="button" class="btn-primary nav-btn" style="padding: 10px;">
+                    POSTS</button></a>
+            <% } %>
+            <% if (isAdmin) { %>
+            <a class="post-btn" href="/admin"><button type="button" class="btn-primary nav-btn" style="padding: 10px;">
+                    ADMIN</button></a>
+            <% } %>
+            </li>
 
-    </ul>
+        </ul>
 
-  </div>
+    </div>
 </nav>
 <main class="content-body">
-  <!-- This div is closed in the footer.ejs file -->
+    <!-- This div is closed in the footer.ejs file -->
 
-  <div class="notification">
-    Simple Notification
-  </div>
-  <div id="snackbar">Sample Notification</div>
-  <script>
-    //Clicking notification icon will toggle display
-    function notificationToggle() {
-      document.getElementById("branded").classList.toggle("show");
-    }
-    //Menu does not close when clicked inside
-    document.getElementById("branded").addEventListener('click', function(event) {
-      event.stopPropagation();
-    });
-    // Close menu on click outside
-    window.onclick = function(event) {
-      if (!event.target.matches('#bell-icon')) {
-        var dropdowns = document.getElementsByClassName("notification-menu");
-        var i;
-        for (i = 0; i < dropdowns.length; i++) {
-          var openDropdown = dropdowns[i];
-          if (openDropdown.classList.contains('show')) {
-            openDropdown.classList.remove('show');
-          }
+    <div class="notification">
+        Simple Notification
+    </div>
+    <div id="snackbar">Sample Notification</div>
+    <script>
+        //Clicking notification icon will toggle display
+        function notificationToggle() {
+            document.getElementById("branded").classList.toggle("show");
         }
-      }
-    }
+        //Menu does not close when clicked inside
+        document.getElementById("branded").addEventListener('click', function (event) {
+            event.stopPropagation();
+        });
+        // Close menu on click outside
+        window.onclick = function (event) {
+            if (!event.target.matches('#bell-icon')) {
+                var dropdowns = document.getElementsByClassName("notification-menu");
+                var i;
+                for (i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('show')) {
+                        openDropdown.classList.remove('show');
+                    }
+                }
+            }
+        }
 
 
-    const links = document.getElementsByClassName('notification-wrapper');
+        const links = document.getElementsByClassName('notification-wrapper');
 
-    function changeColor(e) {
-      e.target.style.backgroundColor = e.target.style.backgroundColor ? null : 'white';
-    }
-    for (var i = 0; i < links.length; i++) {
-      links[i].addEventListener('click', changeColor);
-    }
-  </script>
+        function changeColor(e) {
+            e.target.style.backgroundColor = e.target.style.backgroundColor ? null : 'white';
+        }
+        for (var i = 0; i < links.length; i++) {
+            links[i].addEventListener('click', changeColor);
+        }
+    </script>
