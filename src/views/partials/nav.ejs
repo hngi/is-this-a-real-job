@@ -4,36 +4,36 @@
     font-size: 12px;
     line-height: 14px;
   }
-
+  
   .nav-link:hover {
     color: rgba(0, 0, 0, 0.5) !important;
   }
-
+  
   .nav-item {
     margin-right: 50px;
   }
-
+  
   .navbar-brand {
     font-weight: 600;
     font-size: 32px;
     line-height: 38px;
     color: #fff !important;
   }
-
+  
   .navbar {
     background-color: #3087d1;
     width: 100vw;
     /*Ensure the nav bar covers full width of the screen. vw is viewport width.*/
   }
-
+  
   text-white {
     color: #fff;
   }
-
+  
   nav.navbar.navbar-expand-lg.navbar-light {
     margin-bottom: 2em;
   }
-
+  
   @media screen and (max-width: 600px) {
     .navbar-brand {
       font-size: 20px;
@@ -43,8 +43,7 @@
 
 <nav class="navbar navbar-expand-lg navbar-light mb-0">
   <a class="navbar-brand" href="/" class="text-white">isthisarealjob</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
 
@@ -57,28 +56,30 @@
       <li class="nav-item">
         <a class="nav-link text-white" href="/howitworks">HOW IT WORKS</a>
       </li>
-      <!-- Pass login status here to determine naavbarstatus -->
-      <% if(isAuth){ %>
-      <li class="nav-item">
-        <a class="nav-link text-white" href="/post">NEW POST</a>
-      </li>
-      <% if(isAdmin){ %>
-      <li class="nav-item">
-        <a class="nav-link text-white" href="/admin/users">ADMIN</a>
-      </li>
-      <% } %>
-      <li><a href="javascript:void(0)" id="logout" class="nav-link text-white">LOGOUT</a></li>
-      <% } else { %>
       <li class="nav-item">
         <a class="nav-link text-white" href="/posts">POSTS</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link text-white" href="register">REGISTER</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link text-white" href="/login">LOG IN</a>
-      </li>
-      <% } %>
+      <!-- Pass login status here to determine naavbarstatus -->
+      <% if(isAuth){ %>
+        <li class="nav-item">
+          <a class="nav-link text-white" href="/post">NEW POST</a>
+        </li>
+        <% if(isAdmin){ %>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="/admin/users">ADMIN</a>
+          </li>
+          <% } %>
+            <li class="nav-item">
+              <a href="javascript:void(0)" id="logout" class="nav-link text-white">LOGOUT</a>
+            </li>
+            <% } else { %>
+              <li class="nav-item">
+                <a class="nav-link text-white" href="register">REGISTER</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-white" href="/login">LOG IN</a>
+              </li>
+              <% } %>
 
     </ul>
 
