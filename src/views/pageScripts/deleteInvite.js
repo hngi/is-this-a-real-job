@@ -5,18 +5,14 @@
 /* eslint-disable no-undef */
 // fetch all invites for admin
 
-if (document.querySelector('.invites-section')) {
+if (document.querySelectorAll('.delete')) {
   const api = new ItarjApi('/api/v1');
-  const deleteBtns = [...document.querySelectorAll('#delete-btn')];
-  const inviteIds = [...document.querySelectorAll("input[type='hidden']")];
+  const deleteBtns = document.querySelectorAll('.delete');
   const notification = document.querySelector('.notification');
 
-  const btns = deleteBtns.map(deleteBtn => deleteBtn);
-  const invites = inviteIds.map(invite => invite.value);
-
-  for (let i = 0; i < deleteBtns.length; i++) {
-    btns[i].addEventListener('click', () => {
-      api.Delete(`invites/${invites[i]}`, true)
+  deleteBtns.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      api.Delete(`invites/${btn.dataset.inviteid}`, true)
         .then(res => {
           window.location.href = '/admin/posts';
         })
@@ -34,5 +30,5 @@ if (document.querySelector('.invites-section')) {
           }, 5000);
         });
     });
-  }
+  });
 }

@@ -11,6 +11,10 @@
       .form-content {
         margin: 0 auto;
       }
+      
+      #input_err {
+        color: red;
+      }
     </style>
     <div id="cover">
       <div class="loader"></div>
@@ -20,6 +24,7 @@
         <div class="text-center m-5">
           <h2 class="font-weight-bold">Analyse Job Invites</h2>
           <p class="lead"> Analyse any information on your Job invite using the appropriate section below.</p>
+          <p style="color:red"> Kindly note that each request sent may take a while.</p>
         </div>
         <div style="display:none;">
           <span class="invite-data" data-info="<%=invite.inviteId%>"></span>
@@ -50,9 +55,11 @@
             <div class="row">
               <div class="col col-md-6 form-content">
                 <div class="row">
-                  <select onchange="selectAnalysis(this)" id="select_id" style="margin:1em">
+                  <p class="font-weight-bold" style="margin:1em"> Type an email in text box or select from dropdown</p>
+                </div>
+                <div class="row">
+                  <select onchange="selectAnalysis(this)" id="select_id" style="margin:1em" required>
                     <option>-Select-</option>
-                    <option value="1">Check if the email is valid</option>
                     <option value="2">Check the mail for grammatical errors</option>
                     <option value="3">Check if the address exists</option>
                     <option value="4">Check the companies' visibility on nairaland</option>
@@ -63,7 +70,6 @@
                 <br>
                 <div class="row">
                   <div class="input-group mb-2" style="margin:1em">
-                    <span style="display:none;" id="api_endpoint"></span>
                     <input type="text" placeholder="Enter text" name="analysis_text" id="analysis_text" class="form-control">
                     <div class="input-group-append">
                       <button type="submit" onclick="getAnalysis(btn=2)" class="btn btn-primary"><i
