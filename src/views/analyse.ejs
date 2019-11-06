@@ -23,7 +23,7 @@
       <div class="container">
         <div class="text-center m-5">
           <h2 class="font-weight-bold">Analyse Job Invites</h2>
-          <p class="lead"> Analyse any information on your Job invite using the appropriate section below.</p>
+          <p class="lead"> Analyse the authenticity of a job invite by supplying appropriate information below.</p>
           <p style="color:red"> Kindly note that each request sent may take a while.</p>
         </div>
         <% if(invite) { %>
@@ -36,53 +36,7 @@
           <% } %>
             <div class="">
               <form class="analysis-form" name="analysis" id="analysis" action="javascript:void(0);" method="POST">
-                <div class="row">
-                  <div class="col col-md-6 form-content">
-                    <div class="row">
-                      <p class="font-weight-bold" style="margin:1em"> Upload an image for Optical Character Recognition check</p>
-                    </div>
-                    <div class="row">
-                      <div class="input-group mb-2" style="margin:1em">
-                        <input type="file" class="form-control" name="media" id="media" placeholder="Media">
-                        <div class="input-group-append">
-                          <button type="submit" id="submit_ocr" class="btn btn-primary"><i
-                          class="fas fa-upload fa-lg" style="width: 30px;"></i></button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <br>
-                <hr><br>
-                <div class="row">
-                  <div class="col col-md-6 form-content">
-                    <div class="row">
-                      <p class="font-weight-bold" style="margin:1em"> Type an email in text box or select from dropdown</p>
-                    </div>
-                    <div class="row">
-                      <select id="select_id" style="margin:1em" required>
-                    <option>-Select-</option>
-                    <option value="2">Check the mail for grammatical errors</option>
-                    <option value="3">Check if the address exists</option>
-                    <option value="4">Check the companies' visibility on nairaland</option>
-                    <option value="5">Check the company exists on linkedin</option>
-                    <option value="6">Check the company exists on the CAC page</option>
-                  </select>
-                    </div>
-                    <br>
-                    <div class="row">
-                      <div class="input-group mb-2" style="margin:1em">
-                        <input type="text" placeholder="Enter email or select from dropdown" name="analysis_text" id="analysis_text" class="form-control">
-                        <div class="input-group-append">
-                          <button type="submit" id="submit_selection" class="btn btn-primary"><i
-                          class="fas fa-send" style="width: 30px;"></i></button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <br>
-                <hr><br>
+
                 <div class="row">
                   <div class="col-md-6 form-content">
                     <div class="row">
@@ -101,11 +55,58 @@
                       </div>
                     </div>
                     <div class="form-group">
-                      <textarea class="form-control" id="jobDetails" name="jobDetails" rows="2" placeholder="Type Something..." required><%=invite.body%></textarea>
+                      <textarea class="form-control" id="jobDetails" name="jobDetails" rows="2" placeholder="Message From Job Invite" required><%invite.body%></textarea>
                     </div>
                     <div class="text-left">
                       <button type="submit" id="submit_confidence" class="btn btn-primary"><i
                           class="fas fa-send" style="width: 30px;"></i>Submit</button>
+                    </div>
+                  </div>
+                </div>
+
+                <br>
+                <!-- <hr><br>
+                <div class="row">
+                  <div class="col col-md-6 form-content">
+                    <div class="row">
+                      <p class="font-weight-bold" style="margin:1em"> Type an email in text box or select from dropdown</p>
+                    </div>
+                    <div class="row">
+                      <select id="select_id" style="margin:1em">
+                    <option>-Select-</option>
+                    <option value="3">Check if the address exists</option>
+                    <option value="4">Check the companies' visibility on nairaland</option>
+                    <option value="5">Check the company exists on linkedin</option>
+                    <option value="6">Check the company exists on the CAC page</option>
+                  </select>
+                    </div>
+                    <br>
+                    <div class="row">
+                      <div class="input-group mb-2" style="margin:1em">
+                        <input type="text" placeholder="Enter email or select from dropdown" name="analysis_text" id="analysis_text" class="form-control">
+                        <div class="input-group-append">
+                          <button type="submit" id="submit_selection" class="btn btn-primary"><i
+                          class="fas fa-send" style="width: 30px;"></i></button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <br> -->
+                <hr><br>
+                <div class="row">
+                  <div class="col col-md-6 form-content">
+                    <div class="row">
+                      <p class="font-weight-bold" style="margin:1em"> Upload an image for Optical Character Recognition check</p>
+                    </div>
+                    <div class="row">
+                      <div class="input-group mb-2" style="margin:1em">
+                        <input type="file" class="form-control" name="media" id="media" placeholder="Media">
+                        <div class="input-group-append">
+                          <button type="submit" id="submit_ocr" class="btn btn-primary"><i
+                          class="fas fa-upload fa-lg" style="width: 30px;"></i></button>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
