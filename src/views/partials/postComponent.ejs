@@ -84,6 +84,16 @@
   .valign-middle {
     vertical-align: middle;
   }
+  .entry-tit {
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    display: -webkit-box !important;
+    -webkit-line-clamp: 3 !important;
+    -webkit-box-orient: vertical;
+    --x-height-multiplier: 0.342 !important;
+    --baseline-multiplier: 0.22 !important;
+    transform: translateY(0.96px);
+  }
 
   /* Media Queries */
 
@@ -131,9 +141,10 @@
 
 
         <!-- Post content -->
-        <p class="post-content">
+        <p class="post-content entry-tit"  id="single-page">
           <%=invite.body%>
         </p>
+        <button class = "btn btn-primary" id="button-page">Read more</button>
       </div>
 
       <% if(isAuth) { %>
@@ -244,5 +255,21 @@
 
 
 </div>
+<script>
+    
+  const singlePage =  document.querySelectorAll("#single-page");
+  const readMoreButton = document.querySelectorAll("#button-page");
+  list_length = readMoreButton.length
+  let n = 0;
+  while (n < list_length ) {
+      readMoreButton[n].addEventListener("click", function(event) {
+          let current_div = event.target.parentElement.getElementsByTagName("p")[1];
+          current_div.classList.remove("entry-tit");
+          let btn = readMoreButton[i]
+            btn.style.display = "none"
+      })
+    n++
+  }
+  </script>
 
 <% } %>
