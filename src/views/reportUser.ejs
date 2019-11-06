@@ -1,44 +1,60 @@
-<% include partials/header %>
-<% include partials/nav %>
-<link rel="stylesheet" href="/css/reportUser.css">
+<% include partials/header %> <% include partials/nav %>
+<link rel="stylesheet" href="/css/reportUser.css" />
 
 <div id="cover">
-    <div class="loader"></div>
+  <div class="loader"></div>
 </div>
 
 <div class="container">
-<div class=" container-flex">
-  <div class="heading">
-    <h3 class="heading-text">Report User</h3>
-  </div>
+  <div class=" container-flex">
+    <div class="heading">
+      <h3 class="heading-text">Report User</h3>
+    </div>
 
-  <div class="content">
-    <h5 class="content-header">Tell us more</h5>
-    <form class="report-form">
-      <input type="text" class="report-form__username" required
-        placeholder="user_name" aria-label="user name"
-      /><br />
-      <input type="text" class="report-form__offence" 
-        placeholder="Offence" aria-label="Offence" required
-      /><br />
-      <textarea cols="30" rows="10" class="report-form__details" required
-        placeholder="Give further details. Include links to the offending posts or comments."
-        aria-label="Give further details. Include links to the offending posts or comments."
-      ></textarea> <!--The closing textarea tag must be on the same line with the last character from opening tag in order for the placeholder to show.-->
-      <br />
-      <button id="cancel">
-        <a href="/posts">CANCEL</a>
-      </button>
-      <button id="report" type="submit" class="report-form__submit">REPORT</button>
-    </form>
+    <div class="content">
+      <h5 class="content-header">Tell us more</h5>
+      <form class="report-form">
+        <input
+          type="text"
+          class="report-form__username"
+          required
+          placeholder="user_name"
+          aria-label="user name"
+        /><br />
+        <input
+          type="text"
+          class="report-form__offence"
+          placeholder="Offence"
+          aria-label="Offence"
+          required
+        /><br />
+        <textarea
+          cols="30"
+          rows="10"
+          class="report-form__details"
+          required
+          placeholder="Give further details. Include links to the offending posts or comments."
+          aria-label="Give further details. Include links to the offending posts or comments."
+        ></textarea>
+        <!--The closing textarea tag must be on the same line with the last character from opening tag in order for the placeholder to show.-->
+        <br />
+        <button id="report" type="submit" class="report-form__submit">
+          REPORT
+        </button>
+        <button id="cancel">
+          <a href="/posts">CANCEL</a>
+        </button>
+      </form>
+    </div>
   </div>
-</div>
 </div>
 
 <div class="success-dialog is-hidden">
   <i class="fas fa-check-circle success-dialog__icon"></i>
   <span class=" success-dialog__message">Your report has been submitted.</span>
-  <a href="/posts" class="btn btn-primary success-dialog__action">Back to Posts</a>
+  <a href="/posts" class="btn btn-primary success-dialog__action"
+    >Back to Posts</a
+  >
 </div>
 
 <script type="text/javascript" src="/reportUser.js"></script>
