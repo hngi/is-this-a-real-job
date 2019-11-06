@@ -101,7 +101,7 @@
   /* ===== */
 </style>
 <!-- Render Post Component here (check partials/postComponent) -->
-<% renderPostComponent = function(invite) { %>
+<% renderPostComponent = function(invite, single) { %>
 
 
 <div class="post flex-row mb-3 post-meta" style="text-align: initial;" data-inviteId="<%=invite.inviteId%>">
@@ -178,13 +178,13 @@
     <div class="post-footer text-black-50 px-1 px-md-3">
       <% if (invite.comments ) { %>
       <a href="<%='/post/'+invite.inviteId %>" class="float-left btn text-black-50 p-1"><i class="fas fa-comment"></i>
-        <%= invite.comments.length %> <span class="d-none d-md-inline-block">Comments</span>
+        <% if (!single) { %> <span class="commentXYZ"><%=invite.comments.length %></span> <% } %> <span class="d-none d-md-inline-block">Comments</span>
       </a>
       <% } %>
 
       <% if ( typeof comments != 'undefined' ) { %>
       <a href="<%='/post/'+invite.inviteId %>" class="float-left btn text-black-50 p-1"><i class="fas fa-comment"></i>
-        <%= comments.length %> <span class="d-none d-md-inline-block">Comments</span>
+        <% if (!single) { %> <span class="commentXYZ"><%=invite.comments.length %></span> <% } %> <span class="d-none d-md-inline-block">Comments</span>
       </a>
       <% } %>
 
