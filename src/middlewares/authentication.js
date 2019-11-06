@@ -40,6 +40,10 @@ export const validUser = async (req, res, next) => {
   if (!findUser) {
     return respondWithWarning(res, 401, 'Incorrect email or password');
   }
+
+  if (findUser.isBlocked)
+    return respondWithWarning(res, 403, 'Forbidden! You have been banned from posting on this site. However, you may go on to browse existing posts.');
+
   req.user = findUser.toJSON();
   return next();
 };
