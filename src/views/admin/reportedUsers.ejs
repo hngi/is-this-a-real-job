@@ -112,13 +112,13 @@
       }
     }
   }
-
 </style>
 
 <!-- <section> -->
 <div class="container-fluid whole">
   <div class="row">
-    <div class="col-md-2  admin-nav">
+    <% include ../partials/adminSidenav %>
+    <!-- <div class="col-md-2  admin-nav">
 
       <div class="row padding-nav">
         <div class="col">
@@ -128,13 +128,13 @@
           <ul>
             <li class="li-item"><a class="admin-nav-link" href="/admin/users"> Users</a></li>
             <li class="li-item"><a class="admin-nav-link" href="#"> Admins</a></li>
-            <!-- <li class="li-item"><a class="admin-nav-link" href="/admin/reported"> Reported Users</a>
-            </li> -->
-            <li class="li-item"><a class="admin-nav-link" href="#"> Metrics</a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
+            <li class="li-item"><a class="admin-nav-link" href="/admin/reported"> Reported Users</a>
+            </li>
+    <li class="li-item"><a class="admin-nav-link" href="#"> Metrics</a></li>
+    </ul>
+  </div>
+</div>
+</div> -->
     <!-- Define things -->
     <% const createHash = (email) => { return crypto.createHash('md5').update(email.trim()).digest('hex')} %>
     <% const getGravatar = (email) => { return `https://www.gravatar.com/avatar/${createHash(email)}?d=identicon` } %>
@@ -151,7 +151,7 @@
           <span class="row">
             <span class="col-md-3">
               <img class="rounded-circle user-img"
-                src="<%=report.offender.profileImage || getGravatar(report.offender.email) %>" alt="">
+                   src="<%=report.offender.profileImage || getGravatar(report.offender.email) %>" alt="">
             </span>
             <span class="col-md-6 name-div">
               <span class="name"><%=report.offender.name%></span> <br>

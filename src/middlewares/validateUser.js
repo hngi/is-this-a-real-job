@@ -19,3 +19,18 @@ export const validateUserById = async (req, res, next) => {
   req.user = findUser.toJSON();
   return next();
 };
+/**
+ * Check if same user
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ */
+export const checkIfSameUser = async (req, res, next) => {
+  const { username } = req.params;
+
+  if (req.auth.username === username) {
+    return res.render('404', { status: 404 });
+  } else {
+    return next();
+  }
+};

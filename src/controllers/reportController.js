@@ -18,7 +18,6 @@ import { findReports, reportUser } from '../services/reportServices';
 export const createReport = async (req, res) => {
   try {
     const { offender, offence, details } = req.body;
-
     const report = await reportUser(res, {
       offence, offenderId: offender, reporterId: req.auth.userId, details
     }).catch(e => { throw e; });
