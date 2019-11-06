@@ -117,7 +117,7 @@
         bottom: 23px;
         left: 20px
     }
-    
+   
     .notification-menu {
         overflow-y: auto;
         overflow-x: hidden;
@@ -184,9 +184,13 @@
     }
     
     .badge {
-        background-color: #ffd740;
+        background-color: #4a3f11;
         color: #fff;
     }
+    .toggle-badge {
+        display: none;
+    }
+
     /* Snackbar */
     
     #snackbar {
@@ -296,7 +300,7 @@
                 <li class="nav-item dropdown notification-bar">
 
                     <a class="nav-link dropdown-toggle" style="padding-top: 3px;" href="javascript:void(0)"><i 
-             class="far fa-bell fa-2x notification-icon" onclick="notificationToggle()" id="bell-icon"></i><span class="badge"></span></a>
+            class="far fa-bell fa-2x notification-icon" onclick="notificationToggle()" id="bell-icon"></i><span class="badge toggle-badge"></span></a>
                     <div id="branded" class="notification-menu hide shadow">
                         <!-- notification goes here -->
                     </div>

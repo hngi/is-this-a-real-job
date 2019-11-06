@@ -51,7 +51,12 @@ const renderNotifications = (notifications) => {
   const notificationHTML = (notifications.length > 0) ? notifications.map(getNotificationHTML)
     : ['You have no notifications'];
   notificationContainer.innerHTML = notificationHTML.join('');
-  notificationBadge.innerHTML = notifications.filter(n => !n.isSeen).length;
+  const notificationCount = notifications.filter(n => !n.isSeen).length;
+  notificationBadge.innerHTML = notificationCount;
+  if (notificationCount === 0) {
+    return notificationBadge.classList.add('toggle-badge');
+  }
+  notificationBadge.classList.remove('toggle-badge');
 };
 
 if (notificationContainer && notificationBadge) {
@@ -94,11 +99,12 @@ const markNotificationsAsRead = () => {
           const elem = document.querySelector(`[data-notification="${n.notificationId}"]`);
           elem.outerHTML = getNotificationHTML(n);
         }
-      })
-      .catch(console.error);
+        if (Number(notificationBadge.innerHTML) === 0) {
+          notificationBadge.classList.add('toggle-badge');
+        }
+      }).catch(console.error);
   }
 };
-
 // eslint-disable-next-line max-len
 if (notificationContainer) { // mark `visible` notifications as seen when notification dropdown is scrolled
   notificationContainer.addEventListener('scroll', e => {
@@ -106,8 +112,10 @@ if (notificationContainer) { // mark `visible` notifications as seen when notifi
   });
 }
 
+
 if (bell) { // mark `visible` notifications as seen when notification dropdown is clicked
   bell.addEventListener('click', () => {
+    console.log('b4 notificationBadge.innerHTML :', notificationBadge.innerHTML);
     setTimeout(() => markNotificationsAsRead(), 500);
   });
 }
@@ -119,6 +127,10 @@ socket.on('new:notification', notification => {
     notificationBadge.innerHTML = Number(notificationBadge.innerHTML) + 1;
     notificationContainer.innerHTML = getNotificationHTML(notification)
     + notificationContainer.innerHTML;
+
+    if (Number(notificationBadge.innerHTML) !== 0) {
+      notificationBadge.classList.remove('toggle-badge');
+    }
 
     // show on-screen notification
     showSnackBar(notification.message);
