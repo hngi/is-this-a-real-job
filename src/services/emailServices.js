@@ -1,4 +1,4 @@
-import { EMAIL_ADDR, EMAIL_PASSWORD } from '../config/constants';
+import { EMAIL_ADDR, EMAIL_PASSWORD, SENDER_ADDR } from '../config/constants';
 
 const nodemailer = require('nodemailer');
 
@@ -6,7 +6,7 @@ export async function sendMail(recipientAddr, title, messageBody) {
   let success;
 
   const transporter = nodemailer.createTransport({
-    service: 'gmail',
+    service: "Mailjet",
     auth: {
       user: EMAIL_ADDR,
       pass: EMAIL_PASSWORD
@@ -14,7 +14,7 @@ export async function sendMail(recipientAddr, title, messageBody) {
   });
 
   const mailOptions = {
-    from: `ITARJ Notifications <${EMAIL_ADDR}>`,
+    from: `ITARJ Notifications <${SENDER_ADDR}>`,
     to: recipientAddr,
     subject: title,
     html: messageBody // html body

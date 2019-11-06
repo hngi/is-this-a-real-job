@@ -22,6 +22,7 @@ export const {
   CLOUDINARY_CLOUD_NAME,
   CLOUDINARY_API_KEY,
   CLOUDINARY_API_SECRET,
+  SENDER_ADDR,
 } = process.env;
 
 export const EXPIRATION_DURATION = 172800;
