@@ -155,6 +155,7 @@ export const initRoutes = app => {
   );
 
 
+  app.get('/terms', (req,res)=>res.render('terms'))
   // Twitter Auth
   app.get('/auth/twitter', twitterAuthenticate);
   app.get('/auth/twitter/redirect', twitterAuthCallback);
