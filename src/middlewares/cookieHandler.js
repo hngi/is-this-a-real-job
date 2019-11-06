@@ -2,6 +2,18 @@ import { respondWithWarning } from '../helpers/responseHandler';
 import { verifyToken, formatJWTErrorMessage } from '../helpers/jwt';
 import { findSingleUser } from '../services/userServices';
 
+
+/**
+ * Method to clear all logged in cookies
+ * @param {object} res
+ */
+const clearCookies = (res) => {
+  res.cookies.set('signOut');
+  res.cookies.set('token');
+  res.cookies.set('username');
+  res.cookies.set('name');
+};
+
 /**
  * Method to validate logged in cookies
  * @param {object} req
@@ -25,7 +37,9 @@ export const validateCookies = (req, res, next) => {
 
       return next();
     } catch (error) {
-      return respondWithWarning(res, 401, formatJWTErrorMessage(error.message));
+      clearCookies(res);
+      return res.redirect('/login?expired=1');
+      // return respondWithWarning(res, 401, formatJWTErrorMessage(error.message));
     }
   }
   req.auth = {};
@@ -36,7 +50,7 @@ export const validateCookies = (req, res, next) => {
 /**
  * Set httpOnly key after sign in
  * @param {object} req
- * @param {object} res
+ * @param {Express.Response} res
  * @param {Function} next
  * @returns {Function} next middleware
  */
@@ -62,7 +76,9 @@ export const signUserIn = async (req, res, next) => {
 
       return next();
     } catch (error) {
-      return respondWithWarning(res, 401, formatJWTErrorMessage(error.message));
+      clearCookies(res);
+      return res.redirect('/login?expired=1');
+      // return respondWithWarning(res, 401, formatJWTErrorMessage(error.message));
     }
   }
   return next();
@@ -78,10 +94,7 @@ export const signUserIn = async (req, res, next) => {
 export const signUserOut = (req, res, next) => {
   const signOut = req.cookies.get('signOut');
   if (signOut) {
-    res.cookies.set('signOut');
-    res.cookies.set('token');
-    res.cookies.set('username');
-    res.cookies.set('name');
+    clearCookies(res);
     req.auth = {};
     req.isAuth = false;
   }
