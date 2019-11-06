@@ -100,6 +100,15 @@ export const initRoutes = app => {
   app.get('/posts', renderJobInvitesPage);
   app.get('/post/:inviteId', renderSinglePostPage);
 
+  app.get('/terms', (req, res) => res.render('terms', {
+    isAuth: req.isAuth,
+    isAdmin: req.auth.isAdmin,
+    username: req.auth.username,
+    name: req.auth.name,
+    meta: { title: 'Terms - Is This A Real Job', description: genericDescription }
+  }));
+  
+
   app.get('/about', (req, res) => res.render('about', {
     isAuth: req.isAuth,
     isAdmin: req.auth.isAdmin,
