@@ -36,7 +36,8 @@
     border-top-color: #73A9D9;
     border-top-style: solid;
     border-top-width: 3px;
-    width: 100vw; /*Ensure the nav bar covers full width of the screen. vw is viewport width.*/
+    width: 100vw;
+    /*Ensure the nav bar covers full width of the screen. vw is viewport width.*/
     /* box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.15); */
     /* Using Bootstrap shadow class */
   }
@@ -187,8 +188,9 @@
     color: #fff;
   }
   /* Snackbar */
+  
   #snackbar {
-    display: none; 
+    display: none;
     min-width: 250px;
     margin-left: -125px;
     background-color: #333;
@@ -201,42 +203,73 @@
     left: 50%;
     bottom: 30px;
   }
-
+  
   #snackbar.show {
-    display: block; 
+    display: block;
     -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
     animation: fadein 0.5s, fadeout 0.5s 3s;
   }
-
   /* Animations to fade the snackbar in and out */
+  
   @-webkit-keyframes fadein {
-    from {bottom: 0; opacity: 0;}
-    to {bottom: 30px; opacity: 1;}
+    from {
+      bottom: 0;
+      opacity: 0;
+    }
+    to {
+      bottom: 30px;
+      opacity: 1;
+    }
   }
-
+  
   @keyframes fadein {
-    from {bottom: 0; opacity: 0;}
-    to {bottom: 30px; opacity: 1;}
+    from {
+      bottom: 0;
+      opacity: 0;
+    }
+    to {
+      bottom: 30px;
+      opacity: 1;
+    }
   }
-
+  
   @-webkit-keyframes fadeout {
-    from {bottom: 30px; opacity: 1;}
-    to {bottom: 0; opacity: 0;}
+    from {
+      bottom: 30px;
+      opacity: 1;
+    }
+    to {
+      bottom: 0;
+      opacity: 0;
+    }
   }
-
+  
   @keyframes fadeout {
-    from {bottom: 30px; opacity: 1;}
-    to {bottom: 0; opacity: 0;}
+    from {
+      bottom: 30px;
+      opacity: 1;
+    }
+    to {
+      bottom: 0;
+      opacity: 0;
+    }
   }
-
+  
   @media screen and (max-width: 990px) {
     .badge {
       left: 10px;
     }
   }
-
+  
+  @media screen and (min-width: 992px) and (max-width: 1012px) {
+    .nav-item {
+      margin-top: 5px;
+      margin-right: 40px;
+    }
+  }
+  
   @media screen and (max-width: 1012px) and (min-width: 992px) {
-    .navbar-nav .notification-bar{
+    .navbar-nav .notification-bar {
       margin-right: 30px;
     }
   }
@@ -260,20 +293,19 @@
       </form>
       <!-- NOTIFICATION NUMBER GOES HERE -->
       <% if(isAuth){ %>
-      <li class="nav-item dropdown notification-bar">
+        <li class="nav-item dropdown notification-bar">
 
-        <a class="nav-link dropdown-toggle" style="padding-top: 3px;" href="javascript:void(0)"><i 
+          <a class="nav-link dropdown-toggle" style="padding-top: 3px;" href="javascript:void(0)"><i 
              class="far fa-bell fa-2x notification-icon" onclick="notificationToggle()" id="bell-icon"></i><span class="badge"></span></a>
-        <div id="branded" class="notification-menu hide shadow">
-          <!-- notification goes here -->
-        </div>
-      </li>
+          <div id="branded" class="notification-menu hide shadow">
+            <!-- notification goes here -->
+          </div>
+        </li>
 
-      <!-- USERNAME & LOG OUT GOES HERE  -->
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="javascript:void(0)" id="navbarDropdown" role="button"
-           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <span class="user-name-initials">
+        <!-- USERNAME & LOG OUT GOES HERE  -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="javascript:void(0)" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span class="user-name-initials">
             <%=name.substr(0, 2).toUpperCase()%>
           </span>
           </a>
@@ -291,8 +323,11 @@
             <li class="nav-item mr-4">
               <a class="nav-link" href="/register">REGISTER</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item mr-4">
               <a class="nav-link" href="/login">LOG IN</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/posts">POSTS</a>
             </li>
             <% } %>
 
@@ -319,23 +354,22 @@
   </div>
   <div id="snackbar">Sample Notification</div>
   <script>
-
     //Clicking notification icon will toggle display
-    function notificationToggle(){
+    function notificationToggle() {
       document.getElementById("branded").classList.toggle("show");
     }
     //Menu does not close when clicked inside
-    document.getElementById("branded").addEventListener('click', function(event){
+    document.getElementById("branded").addEventListener('click', function(event) {
       event.stopPropagation();
     });
     // Close menu on click outside
-    window.onclick = function(event){
-      if(!event.target.matches('#bell-icon')){
+    window.onclick = function(event) {
+      if (!event.target.matches('#bell-icon')) {
         var dropdowns = document.getElementsByClassName("notification-menu");
         var i;
-        for(i=0; i< dropdowns.length; i++){
+        for (i = 0; i < dropdowns.length; i++) {
           var openDropdown = dropdowns[i];
-          if(openDropdown.classList.contains('show')){
+          if (openDropdown.classList.contains('show')) {
             openDropdown.classList.remove('show');
           }
         }

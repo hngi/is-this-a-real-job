@@ -97,7 +97,7 @@ export const createCommentForPost = async (res, commentData) => {
       return Notification.create(data, { transaction: t })
         .then(async notification => {
           SocketMethods.emitNotification(notification);
-          notification.mailSent = await notifyByEmail(res, { ...notification });
+          notification.mailSent = await notifyByEmail(res, notification);
           return Object.assign(comment, { notification });
         });
     }))

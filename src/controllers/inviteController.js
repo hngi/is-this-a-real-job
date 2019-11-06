@@ -294,7 +294,6 @@ export const renderHomePage = async (req, res) => {
     isAdmin: req.auth.isAdmin,
     meta: { title: 'Is This A Real Job', description: 'Our app helps you check if job opportunities are real or not.' }
   });
-
 };
 
 /**
@@ -372,6 +371,25 @@ export const renderInviteAnalysisPage = async (req, res) => {
 
   return res.render('analyse', {
     invite: invite || [],
+    isAuth: req.isAuth,
+    isAdmin: req.auth.isAdmin,
+    username: req.auth.username,
+    name: req.auth.name,
+    meta: { title, description }
+  });
+};
+
+/**
+ * Render invite analysis page
+ * @param {object} req
+ * @param {object} res
+ */
+export const renderAnalysisPage = async (req, res) => {
+  const title = 'Analyze - Is This A Real Job ?';
+  const description = 'Browse the Job Invites on Is This A Real Job; don\'t go for that interview until you verify it!';
+
+  return res.render('analyse', {
+    invite: [],
     isAuth: req.isAuth,
     isAdmin: req.auth.isAdmin,
     username: req.auth.username,
