@@ -22,6 +22,7 @@ if (forgotPasswordBtn) {
         togglePreloader('none');
       })
       .catch(err => {
+        togglePreloader('none');
         showNotification(`${err.data.message} ${err.data.payload[0]}` || 'We\'re unable to process you request right now. Try again after a while.');
       });
   });
@@ -77,6 +78,7 @@ if (document.querySelector('#changePasswordBtn')) {
         window.location.href = '/posts';
       })
       .catch(err => {
+        togglePreloader('none');
         showNotification(`${err.data.message} ${err.data.payload[0]}` || 'We\'re unable to process you request right now. Try again after a while.');
       });
   });
