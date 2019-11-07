@@ -109,7 +109,6 @@ export const initRoutes = app => {
     name: req.auth.name,
     meta: { title: 'Terms - Is This A Real Job', description: genericDescription }
   }));
-  
 
   app.get('/about', (req, res) => res.render('about', {
     isAuth: req.isAuth,
@@ -142,6 +141,23 @@ export const initRoutes = app => {
     meta: { title: 'Admin Home - Is This A Real Job', description: genericDescription }
   }));
 
+  app.get('/terms', (req, res) => res.render('terms'));
+
+  app.get('/forgotpassword', (req, res) => res.render('forgotPassword', {
+    isAuth: req.isAuth,
+    isAdmin: req.auth.isAdmin,
+    username: req.auth.username,
+    name: req.auth.name,
+    meta: { title: 'Forgot Password - Is This A Real Job', description: genericDescription }
+  }));
+
+  app.get('/resetpassword', (req, res) => res.render('resetPassword', {
+    isAuth: req.isAuth,
+    isAdmin: req.auth.isAdmin,
+    username: req.auth.username,
+    name: req.auth.name,
+    meta: { title: 'Reset Password - Is This A Real Job', description: genericDescription }
+  }));
 
   // Edit post endpoint
   app.get(
@@ -167,7 +183,6 @@ export const initRoutes = app => {
   );
 
 
-  app.get('/terms', (req,res)=>res.render('terms'))
   // Twitter Auth
   app.get('/auth/twitter', twitterAuthenticate);
   app.get('/auth/twitter/redirect', twitterAuthCallback);
