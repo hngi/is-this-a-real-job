@@ -22,7 +22,9 @@ import {
   facebookAuthCallback,
   multerUploads,
   verifyUniqueUserUsername,
-  verifyUniqueUserEmail
+  verifyUniqueUserEmail,
+  validateForgotPasswordForm,
+  validateUserByEmail
 } from '../middlewares/middlewares';
 
 import {
@@ -57,7 +59,9 @@ import {
   renderAdminReportedUsersPage,
   checkRenderIsAdmin,
   checkRenderIsAuth,
-  renderLoginPage
+  renderLoginPage,
+  renderReportUserPage,
+  forgotPassowrd
 } from '../controllers/userController';
 import { getNotifications, markNotificationAsRead } from '../controllers/notificationController';
 import {
@@ -70,6 +74,7 @@ import { getMetrics } from '../controllers/metricsController';
 import { descriptions } from '../helpers/metatags';
 import { validateReport } from '../middlewares/validateReport';
 import { createReport } from '../controllers/reportController';
+import { checkIfSameUser } from '../middlewares/validateUser';
 
 const genericDescription = 'Our app helps you check if job opportunities are real or not.';
 
@@ -100,6 +105,14 @@ export const initRoutes = app => {
   app.get('/posts', renderJobInvitesPage);
   app.get('/post/:inviteId', renderSinglePostPage);
 
+  app.get('/terms', (req, res) => res.render('terms', {
+    isAuth: req.isAuth,
+    isAdmin: req.auth.isAdmin,
+    username: req.auth.username,
+    name: req.auth.name,
+    meta: { title: 'Terms - Is This A Real Job', description: genericDescription }
+  }));
+
   app.get('/about', (req, res) => res.render('about', {
     isAuth: req.isAuth,
     isAdmin: req.auth.isAdmin,
@@ -118,6 +131,7 @@ export const initRoutes = app => {
       }
     });
   });
+  app.get('/reportuser/:username', getUserByUserId, checkIfSameUser, renderReportUserPage);
   app.get('/users/:username', renderUserProfile);
   app.get('/admin/reportedusers', checkRenderIsAdmin, renderAdminReportedUsersPage);
   // Search Invites - Renders view
@@ -130,6 +144,21 @@ export const initRoutes = app => {
     meta: { title: 'Admin Home - Is This A Real Job', description: genericDescription }
   }));
 
+  app.get('/forgotpassword', (req, res) => res.render('forgotPassword', {
+    isAuth: req.isAuth,
+    isAdmin: req.auth.isAdmin,
+    username: req.auth.username,
+    name: req.auth.name,
+    meta: { title: 'Forgot Password - Is This A Real Job', description: genericDescription }
+  }));
+
+  app.get('/resetpassword', (req, res) => res.render('resetPassword', {
+    isAuth: req.isAuth,
+    isAdmin: req.auth.isAdmin,
+    username: req.auth.username,
+    name: req.auth.name,
+    meta: { title: 'Reset Password - Is This A Real Job', description: genericDescription }
+  }));
 
   // Edit post endpoint
   app.get(
@@ -283,7 +312,13 @@ export const initRoutes = app => {
   app.patch('/api/v1/notifications', markNotificationAsRead);
 
   // Report a user
-  app.post('/api/v1/reports', authenticateUserToken, validateReport, createReport);
+  app.post('/api/v1/users/report', authenticateUserToken, validateReport, createReport);
+
+  // forgot password
+  app.post('/api/v1/users/forgot-password', validateForgotPasswordForm, validateUserByEmail, forgotPassowrd);
+
+  // reset password from email
+  // app.patch('/api/v1/users/reset-password', authenticateUserToken, validateResetUserPasswordForm, verifyUserAccount, compareResetUserPassword, resetUserPassword);
 
   // Fallback case for unknown URIs.
   app.get('/notAuthorized', (req, res) => res.render('401', { meta: { title: '404 - Page Not Found', description: genericDescription } }));

@@ -11,6 +11,10 @@ import {
   findSingleUser
 } from '../services/userServices';
 import { findReports } from '../services/reportServices';
+import { generateToken } from '../helpers/jwt';
+import { emailBody } from '../helpers/emailTemplates';
+import { SITE_URL } from '../config/constants';
+import { sendMail } from '../services/emailServices';
 
 
 /**
@@ -105,6 +109,31 @@ export const getUser = async (req, res) => {
   } catch (error) {
     return respondWithWarning(res, 400, 'Error fetching User');
   }
+};
+
+/**
+ * Report User
+ * @param {*} req request
+ * @param {*} res response
+ */
+export const renderReportUserPage = async (req, res) => {
+  const { username } = req.params;
+
+  const user = await fetchSingleUser({ username });
+
+  if (!user) {
+    return respondWithWarning(res, 404, 'User not found');
+  }
+  return res.render('reportUser', {
+    isAuth: req.isAuth,
+    username: req.auth.username,
+    isAdmin: req.auth.isAdmin,
+    reportedUser: user,
+    meta: {
+      title: 'Report User - Is This A Real Job',
+      description: `Report ${user.username} - Is This A Real Job`
+    }
+  });
 };
 
 /**
@@ -209,4 +238,23 @@ export const renderLoginPage = async (req, res) => {
     meta: { title, description },
     error
   });
+};
+
+/** Function for fogot password
+ *
+ * @param {Object} req the request object
+ * @param {Object} res the response object
+ * @returns {Object} this returns an object
+ */
+
+export const forgotPassowrd = async (req, res) => {
+  const token = await generateToken({ userId: req.user.id }, { expiresIn: '1h' });
+  const mailBody = emailBody(req.user.name, SITE_URL, token);
+
+  try {
+    const sendEmail = sendMail(req.body.email, 'ITARJ - Reset Password', mailBody);
+    return respondWithSuccess(res, 200, 'A link has been sent to your email. Kindly follow that link to reset your password');
+  } catch (error) {
+    return respondWithWarning(res, 500, 'Server Error');
+  }
 };

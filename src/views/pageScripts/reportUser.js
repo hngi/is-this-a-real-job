@@ -9,7 +9,6 @@ function showSuccessDialog() {
 }
 
 function showErrorMessage(err) {
-
   const notification = document.querySelector('.notification');
   notification.innerHTML = `<strong>${err.data.message}:</strong> ${err.data.payload}`;
   notification.classList.add('show');
@@ -19,37 +18,36 @@ function showErrorMessage(err) {
   }, 8000);
 }
 
-window.onload = (event)=> {
-
+window.onload = (event) => {
   const notification = document.querySelector('.notification');
-  const formData = {
-    offender: document.querySelector('.report-form__username'),
-    offence: document.querySelector('.report-form__offence'),
-    details: document.querySelector('.report-form__details')
-  };
+  let form = new FormData();
+  const reportForm = document.forms[0];
+
+  console.log('Form =>', form);
 
   const submit = document.querySelector('.report-form__submit');
-  submit.onclick = (event)=> {
+  submit.onclick = (event) => {
     event.preventDefault();
 
-    if (!formData.offender || !formData.offence || !formData.details) {
-      return window.alert('Please fill in all fields.')
-    }
+    form = {
+      offender: reportForm.offenderId.value,
+      offence: reportForm.offence.value,
+      details: reportForm.details.value
+    };
 
-    if (formData.details.length < 20) {
+    if (reportForm.details.value.length < 20) {
       return window.alert('Please fill in the details fields with enough information. Include links to the offending posts or comment. \n(We expect at least 20 characters)');
     }
 
     togglePreloader('block');
 
-    api.Post('/reportuser', JSON.stringify(formData), true)
+    api.Post('users/report', JSON.stringify(form), true)
       .then(res => {
         showSuccessDialog();
       })
       .catch(err => {
-        console.log(err);
         togglePreloader('none');
         showErrorMessage(err);
       });
-  }
-}
+  };
+};
