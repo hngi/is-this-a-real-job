@@ -195,7 +195,6 @@ export const renderAdminUsersPage = async (req, res) => {
  */
 export const renderAdminReportedUsersPage = async (req, res) => {
   const reports = await findReports();
-
   const title = `${reports.length} Reported Users - Admin - Is This A Real Job`;
   const description = 'Our app helps you check if job opportunities are real or not.';
 
