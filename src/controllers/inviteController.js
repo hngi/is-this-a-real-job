@@ -264,7 +264,7 @@ export const renderSinglePostPage = async (req, res) => {
  * @param {object} res
  */
 export const renderJobInvitesPage = async (req, res) => {
-  const perPage = 2;
+  const perPage = 10;
   let page;
 
   if (req.query.page == 1) {
