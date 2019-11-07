@@ -27,6 +27,17 @@
         transition: all ease-in 0.1s;
     } */
 
+  .post-info-container {
+    width: 100%;
+  }
+
+  @media screen and (min-width: 768px) {
+    .post-info-container {
+      padding-left: 2vw;
+      padding-right: 2vw;
+    }
+  }
+
   .post-title {
     font-family: 'Raleway';
     font-style: normal;
@@ -71,10 +82,16 @@
     color: #636B6F;
   }
 
+  .post-content-wrapper {
+    width: 100%;
+  }
+
   .post-content {
-    font-size: 16px;
-    line-height: 19px;
-    color: #2B4052;
+    font-size: 1em;
+    max-width: 700px; /* Text that is too wide is difficult to read*/
+    color: black; /*#2B4052;/
+    word-break: normal; /* Fallback */
+    word-break: break-word;
   }
 
   .dropdown-toggle {
@@ -113,13 +130,12 @@
 <!-- Render Post Component here (check partials/postComponent) -->
 <% renderPostComponent = function(invite, single) { %>
 
-
 <div class="post flex-row mb-3 post-meta" style="text-align: initial;" data-inviteId="<%=invite.inviteId%>">
 
   <div class="d-flex flex-column flex-fill">
     <!-- Main content -->
     <div class="d-flex flex-row justify-content-between p-3">
-      <div>
+      <div class="post-info-container">
         <h4 class="post-title mb-0">
           <a href="<%='/post/'+invite.inviteId%>">
             <%=invite.title%>
@@ -141,9 +157,11 @@
 
 
         <!-- Post content -->
-        <p class="post-content entry-tit"  id="single-page">
-          <%=invite.body%>
-        </p>
+        <div class="post-content-wrapper">
+          <p class="post-content entry-tit"  id="single-page">
+            <%=invite.body%>
+          </p>
+        </div>
         <button class = "btn btn-primary" id="button-page">Read more</button>
       </div>
 
