@@ -28,6 +28,7 @@ import {
   authenticateForgotToken,
   checkUserPasswordReset,
   validateNewPasswordForm,
+  validateUserByUsername,
 } from '../middlewares/middlewares';
 
 import {
@@ -124,31 +125,7 @@ export const initRoutes = app => {
     name: req.auth.name,
     meta: { title: 'About - Is This A Real Job', description: genericDescription }
   }));
-  app.get('/reportuser', getUserByUserId, (req, res) => {
-    res.render('reportUser', {
-      isAuth: req.isAuth,
-      username: req.auth.username,
-      isAdmin: req.auth.isAdmin,
-      meta: {
-        title: 'Report User - Is This A Real Job',
-        description: genericDescription
-      }
-    });
-  });
-  // password reset link from email
-  app.get('/users/reset-password/:token',
-    authenticateForgotToken,
-    validateUserById,
-    checkUserPasswordReset,
-    (req, res) => res.render('resetPassword', {
-      token: req.params.token,
-      isAuth: req.isAuth,
-      isAdmin: req.auth.isAdmin,
-      username: req.auth.username,
-      name: req.auth.name,
-      meta: { title: 'Reset Password - Is This A Real Job', description: genericDescription }
-    }));
-  app.get('/reportuser/:username', getUserByUserId, checkIfSameUser, renderReportUserPage);
+  app.get('/reportuser/:username', validateUserByUsername, checkIfSameUser, renderReportUserPage);
   app.get('/users/:username', renderUserProfile);
   app.get('/admin/reportedusers', checkRenderIsAdmin, renderAdminReportedUsersPage);
   // Search Invites - Renders view
@@ -166,16 +143,31 @@ export const initRoutes = app => {
     isAdmin: req.auth.isAdmin,
     username: req.auth.username,
     name: req.auth.name,
+    token: 'expired',
     meta: { title: 'Forgot Password - Is This A Real Job', description: genericDescription }
   }));
 
-  app.get('/resetpassword', (req, res) => res.render('resetPassword', {
+  app.get('/linkexpired', (req, res) => res.render('linkExpired', {
     isAuth: req.isAuth,
     isAdmin: req.auth.isAdmin,
     username: req.auth.username,
     name: req.auth.name,
-    meta: { title: 'Reset Password - Is This A Real Job', description: genericDescription }
+    meta: { title: 'Expired Link- Is This A Real Job', description: genericDescription }
   }));
+
+  // password reset link from email
+  app.get('/users/reset-password/:token',
+    authenticateForgotToken,
+    validateUserById,
+    checkUserPasswordReset,
+    (req, res) => res.render('resetPassword', {
+      token: req.params.token,
+      isAuth: req.isAuth,
+      isAdmin: req.auth.isAdmin,
+      username: req.auth.username,
+      name: req.auth.name,
+      meta: { title: 'Reset Password - Is This A Real Job', description: genericDescription }
+    }));
 
   // Edit post endpoint
   app.get(
