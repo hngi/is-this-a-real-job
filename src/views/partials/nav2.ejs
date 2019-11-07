@@ -391,6 +391,19 @@
             }
         }
 
+        //Close notifications dropdown when user-account dropdown is clicked.
+        document.querySelector('.user-name-initials')
+          .onclick = (event)=> {
+            let dropdowns = document.getElementsByClassName("notification-menu");
+            let i;
+            for (i = 0; i < dropdowns.length; i++) {
+              let openDropdown = dropdowns[i];
+              if (openDropdown.classList.contains('show')) {
+                openDropdown.classList.remove('show');
+              }
+            }
+          }
+        //
 
         const links = document.getElementsByClassName('notification-wrapper');
 
