@@ -17,11 +17,12 @@ import {
   validateUpvoteInput
 } from './validateUUID';
 import { validateAdmin } from './validateAdmin';
-import { validateUserById } from './validateUser';
+import { validateUserById, validateUserByEmail } from './validateUser';
 import { googleAuthenticate, googleAuthCallback } from './googleAuth';
 import { facebookAuthenticate, facebookAuthCallback } from './facebookAuth';
 import { twitterAuthenticate, twitterAuthCallback } from './twitterAuth';
 import { multerUploads } from './multer';
+import { validateForgotPasswordForm } from './validateResetPassword';
 
 export {
   validateSigninFormData,
@@ -47,4 +48,6 @@ export {
   multerUploads,
   verifyUniqueUserEmail,
   verifyUniqueUserUsername,
+  validateForgotPasswordForm,
+  validateUserByEmail,
 };
