@@ -13,7 +13,7 @@ if (forgotPasswordBtn) {
     };
 
     api
-      .Post('users/forgotpassword', JSON.stringify(data))
+      .Post('users/forgot-password', JSON.stringify(data))
       .then(console.log)
       .catch(console.error);
   });
@@ -59,7 +59,7 @@ if (changePasswordBtn) {
     };
 
     api
-      .Post('users/resetpassword', JSON.stringify(data))
+      .Post('users/reset-forgot-password', JSON.stringify(data))
       .then(console.log)
       .catch(console.error);
   });

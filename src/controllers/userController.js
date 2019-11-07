@@ -1,4 +1,5 @@
 /* eslint-disable no-unneeded-ternary */
+import _ from 'lodash';
 import crypto from 'crypto';
 import {
   respondWithSuccess,
@@ -8,13 +9,15 @@ import {
   updateOneUser,
   findUsers,
   fetchSingleUser,
-  findSingleUser
+  findSingleUser,
+  updatePassword,
 } from '../services/userServices';
 import { findReports } from '../services/reportServices';
-import { generateToken } from '../helpers/jwt';
+import { generateResetToken } from '../helpers/jwt';
 import { emailBody } from '../helpers/emailTemplates';
 import { SITE_URL } from '../config/constants';
 import { sendMail } from '../services/emailServices';
+import { passwordHash } from '../helpers/hash';
 
 
 /**
@@ -248,12 +251,38 @@ export const renderLoginPage = async (req, res) => {
  */
 
 export const forgotPassowrd = async (req, res) => {
-  const token = await generateToken({ userId: req.user.id }, { expiresIn: '1h' });
-  const mailBody = emailBody(req.user.name, SITE_URL, token);
+  const token = await generateResetToken({ userId: req.user.userId }, { expiresIn: '1h' });
+  const mailBody = emailBody(req.user.name, SITE_URL, token, req.body.email);
 
   try {
+    const user = await updateOneUser({ isPasswordReset: true }, { email: req.user.email });
     const sendEmail = sendMail(req.body.email, 'ITARJ - Reset Password', mailBody);
     return respondWithSuccess(res, 200, 'A link has been sent to your email. Kindly follow that link to reset your password');
+  } catch (error) {
+    return respondWithWarning(res, 500, 'Server Error');
+  }
+};
+
+/**
+ * Function to reset password with token
+ * @param {Object} req the request object
+ * @param {Object} res the response object
+ * @returns {Object} this returns an object
+ */
+export const resetForgotPassword = async (req, res) => {
+  const { password } = req.body;
+  const hashedPassword = await passwordHash(password);
+  try {
+    const user = await updateOneUser(
+      { password: hashedPassword, isPasswordReset: false },
+      { email: req.user.email }
+    );
+    return respondWithSuccess(
+      res,
+      200,
+      'Password reset successful',
+      _.omit(user.toJSON(), ['password'])
+    );
   } catch (error) {
     return respondWithWarning(res, 500, 'Server Error');
   }
