@@ -11,6 +11,7 @@ import {
   fetchSingleUser,
   findSingleUser,
   updatePassword,
+  findUsersWithPagination,
 } from '../services/userServices';
 import { findReports } from '../services/reportServices';
 import { generateResetToken } from '../helpers/jwt';
@@ -172,13 +173,26 @@ export const renderUserProfile = async (req, res) => {
  * @param {object} res
  */
 export const renderAdminUsersPage = async (req, res) => {
-  const users = await findUsers();
+  const limit = 15;
+  let page;
 
-  const title = `${users.length} Users - Admin - Is This A Real Job`;
+  if (req.query.page === 1 || req.query.page === 0 || !req.query.page) {
+    page = 0;
+  } else {
+    page = Number(req.query.page) - 1;
+  }
+  const offset = page * limit;
+  const { users, count } = await findUsersWithPagination({}, offset, limit);
+
+  const pages = Math.ceil(count / limit);
+
+  const title = `${offset} - ${offset + limit} Users - Admin - Is This A Real Job`;
   const description = 'Our app helps you check if job opportunities are real or not.';
 
   return res.render('admin/users', {
     users: users || [],
+    page: req.query.page || 1,
+    pages,
     isAuth: req.isAuth,
     isAdmin: req.auth.isAdmin,
     username: req.auth.username,
@@ -194,12 +208,30 @@ export const renderAdminUsersPage = async (req, res) => {
  * @param {object} res
  */
 export const renderAdminReportedUsersPage = async (req, res) => {
-  const reports = await findReports();
-  const title = `${reports.length} Reported Users - Admin - Is This A Real Job`;
+  const limit = 15;
+  let page;
+
+  if (req.query.page === 1 || req.query.page === 0 || !req.query.page) {
+    page = 0;
+  } else {
+    page = Number(req.query.page) - 1;
+  }
+  const offset = page * limit;
+  const { reports, count } = await findReports(
+    {},
+    offset,
+    limit
+  );
+
+  const pages = Math.ceil(count / limit);
+
+  const title = `${offset} - ${offset + limit} Reported Users - Admin - Is This A Real Job`;
   const description = 'Our app helps you check if job opportunities are real or not.';
 
   return res.render('admin/reportedUsers', {
     reports: reports || [],
+    page: req.query.page || 1,
+    pages,
     isAuth: req.isAuth,
     isAdmin: req.auth.isAdmin,
     username: req.auth.username,
