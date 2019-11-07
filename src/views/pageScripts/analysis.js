@@ -113,7 +113,7 @@ if (document.querySelector('#submit_ocr')) {
   //       const result = await res.json();
   //       console.log(result);
   //       const analysisModal = document.querySelector('#result');
-  //       analysisModal.innerHTML = `<h5>The confidence level for this job invite is ${result.confidence}</h5>`;
+  //       analysisModal.innerHTML = `<h5>${result.confidence}</h5>`;
   //       togglePreloader('none');
   //       $('#analysisModal').modal('show');
   //     })

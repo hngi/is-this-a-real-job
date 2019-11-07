@@ -22,7 +22,9 @@ import {
   facebookAuthCallback,
   multerUploads,
   verifyUniqueUserUsername,
-  verifyUniqueUserEmail
+  verifyUniqueUserEmail,
+  validateForgotPasswordForm,
+  validateUserByEmail
 } from '../middlewares/middlewares';
 
 import {
@@ -58,7 +60,8 @@ import {
   checkRenderIsAdmin,
   checkRenderIsAuth,
   renderLoginPage,
-  renderReportUserPage
+  renderReportUserPage,
+  forgotPassowrd
 } from '../controllers/userController';
 import { getNotifications, markNotificationAsRead } from '../controllers/notificationController';
 import {
@@ -140,8 +143,6 @@ export const initRoutes = app => {
     isAdmin: req.auth.isAdmin,
     meta: { title: 'Admin Home - Is This A Real Job', description: genericDescription }
   }));
-
-  app.get('/terms', (req, res) => res.render('terms'));
 
   app.get('/forgotpassword', (req, res) => res.render('forgotPassword', {
     isAuth: req.isAuth,
@@ -312,6 +313,12 @@ export const initRoutes = app => {
 
   // Report a user
   app.post('/api/v1/users/report', authenticateUserToken, validateReport, createReport);
+
+  // forgot password
+  app.post('/api/v1/users/forgot-password', validateForgotPasswordForm, validateUserByEmail, forgotPassowrd);
+
+  // reset password from email
+  // app.patch('/api/v1/users/reset-password', authenticateUserToken, validateResetUserPasswordForm, verifyUserAccount, compareResetUserPassword, resetUserPassword);
 
   // Fallback case for unknown URIs.
   app.get('/notAuthorized', (req, res) => res.render('401', { meta: { title: '404 - Page Not Found', description: genericDescription } }));
