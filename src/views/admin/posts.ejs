@@ -97,9 +97,11 @@
     .posts-list {
       width: 500px;
     }
+  }
 
-    .post-container {
-      margin-left: 100px;
+  @media screen and (max-width: 800px) and (min-width: 600px){
+    .post-container{
+      margin-left: 30px;
     }
   }
 
@@ -109,13 +111,16 @@
     }
   }
 
+  @media screen and (max-width: 590px){
+    .post-container{
+      margin-left: 8px;
+    }
+  }
+
+
   @media screen and (max-width: 500px) {
     .posts-list {
       width: 300px;
-    }
-
-    .post-container {
-      margin-left: 40px;
     }
 
     .navbar-brand {
@@ -127,13 +132,10 @@
     }
   }
 
+ 
   @media screen and (max-width: 400px) {
     .posts-list {
       width: 250px;
-    }
-
-    .post-container {
-      margin-left: 35px;
     }
   }
 </style>
