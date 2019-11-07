@@ -51,3 +51,13 @@ if (document.querySelector('#logout')) {
     window.location.href = '/';
   });
 }
+
+function showNotification(message, isError = true) {
+  const notification = document.querySelector('.notification');
+  notification.innerHTML = `<strong>${message.includes('expected') ? 'We\'re unable to process you request right now. Try again after a while.' : message}</strong>`;
+  notification.style.backgroundColor = isError ? '#f590888c' : '#79fc968c';
+  notification.className += ' show';
+  setTimeout(() => {
+    notification.className = 'notification';
+  }, 5000);
+}
