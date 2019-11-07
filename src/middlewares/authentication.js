@@ -80,3 +80,28 @@ export const verifyUniqueUserUsername = async (req, res, next) => {
   }
   return next();
 };
+
+/**
+ * Authenticate forgot password reset token
+ * @param {object} req
+ * @param {object} res
+ * @param {Function} next
+ * @returns {Function} next middleware
+ */
+export const authenticateForgotToken = async (req, res, next) => {
+  const { token } = req.params;
+  try {
+    const { key } = await verifyToken(token);
+    req.params.userId = key.userId;
+    return next();
+  } catch (error) {
+    let formattedMessage;
+    if (error.message.includes('invalid') || error.message.includes('malformed')) {
+      formattedMessage = 'Invalid token, initiate reset again';
+    }
+    if (error.message.includes('expired')) {
+      formattedMessage = 'Expired token, initiate reset again';
+    }
+    return respondWithWarning(res, 401, formattedMessage);
+  }
+};

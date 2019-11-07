@@ -38,6 +38,23 @@ export const validateUserByEmail = async (req, res, next) => {
   return next();
 };
 
+/**
+ * Function to check if a user has a pending password reset
+ * @param {Object} req this is the request object
+ * @param {Object} res this is the response object
+ * @param {Function} next this is the next function
+ * @returns {Function} response
+ */
+
+export const checkUserPasswordReset = async (req, res, next) => {
+  const { email } = req.user;
+  const findUser = await findSingleUser({ email, isPasswordReset: true });
+  if (!findUser) {
+    return respondWithWarning(res, 422, 'Password reset link expired');
+  }
+  return next();
+};
+
 
 /**
  * Check if same user

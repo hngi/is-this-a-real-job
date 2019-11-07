@@ -24,7 +24,10 @@ import {
   verifyUniqueUserUsername,
   verifyUniqueUserEmail,
   validateForgotPasswordForm,
-  validateUserByEmail
+  validateUserByEmail,
+  authenticateForgotToken,
+  checkUserPasswordReset,
+  validateNewPasswordForm,
 } from '../middlewares/middlewares';
 
 import {
@@ -61,7 +64,8 @@ import {
   checkRenderIsAuth,
   renderLoginPage,
   renderReportUserPage,
-  forgotPassowrd
+  forgotPassowrd,
+  resetForgotPassword
 } from '../controllers/userController';
 import { getNotifications, markNotificationAsRead } from '../controllers/notificationController';
 import {
@@ -131,6 +135,19 @@ export const initRoutes = app => {
       }
     });
   });
+  // password reset link from email
+  app.get('/users/reset-password/:token',
+    authenticateForgotToken,
+    validateUserById,
+    checkUserPasswordReset,
+    (req, res) => res.render('resetPassword', {
+      token: req.params.token,
+      isAuth: req.isAuth,
+      isAdmin: req.auth.isAdmin,
+      username: req.auth.username,
+      name: req.auth.name,
+      meta: { title: 'Reset Password - Is This A Real Job', description: genericDescription }
+    }));
   app.get('/reportuser/:username', getUserByUserId, checkIfSameUser, renderReportUserPage);
   app.get('/users/:username', renderUserProfile);
   app.get('/admin/reportedusers', checkRenderIsAdmin, renderAdminReportedUsersPage);
@@ -317,8 +334,13 @@ export const initRoutes = app => {
   // forgot password
   app.post('/api/v1/users/forgot-password', validateForgotPasswordForm, validateUserByEmail, forgotPassowrd);
 
-  // reset password from email
-  // app.patch('/api/v1/users/reset-password', authenticateUserToken, validateResetUserPasswordForm, verifyUserAccount, compareResetUserPassword, resetUserPassword);
+  // Reset forgot password
+  app.patch('/api/v1/users/reset-forgot-password/:token',
+    validateNewPasswordForm,
+    authenticateForgotToken,
+    validateUserById,
+    checkUserPasswordReset,
+    resetForgotPassword);
 
   // Fallback case for unknown URIs.
   app.get('/notAuthorized', (req, res) => res.render('401', { meta: { title: '404 - Page Not Found', description: genericDescription } }));
