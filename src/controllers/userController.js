@@ -119,25 +119,16 @@ export const getUser = async (req, res) => {
  * @param {*} req request
  * @param {*} res response
  */
-export const renderReportUserPage = async (req, res) => {
-  const { username } = req.params;
-
-  const user = await fetchSingleUser({ username });
-
-  if (!user) {
-    return respondWithWarning(res, 404, 'User not found');
+export const renderReportUserPage = async (req, res) => res.render('reportUser', {
+  isAuth: req.isAuth,
+  username: req.auth.username,
+  isAdmin: req.auth.isAdmin,
+  reportedUser: req.user,
+  meta: {
+    title: 'Report User - Is This A Real Job',
+    description: `Report ${req.user.username} - Is This A Real Job`
   }
-  return res.render('reportUser', {
-    isAuth: req.isAuth,
-    username: req.auth.username,
-    isAdmin: req.auth.isAdmin,
-    reportedUser: user,
-    meta: {
-      title: 'Report User - Is This A Real Job',
-      description: `Report ${user.username} - Is This A Real Job`
-    }
-  });
-};
+});
 
 /**
  * Render user profile
@@ -203,13 +194,13 @@ export const renderAdminUsersPage = async (req, res) => {
  * @param {object} res
  */
 export const renderAdminReportedUsersPage = async (req, res) => {
-  const users = await findReports();
+  const reports = await findReports();
 
-  const title = `${users.length} Reported Users - Admin - Is This A Real Job`;
+  const title = `${reports.length} Reported Users - Admin - Is This A Real Job`;
   const description = 'Our app helps you check if job opportunities are real or not.';
 
   return res.render('admin/reportedUsers', {
-    users: users || [],
+    reports: reports || [],
     isAuth: req.isAuth,
     isAdmin: req.auth.isAdmin,
     username: req.auth.username,
@@ -251,6 +242,12 @@ export const renderLoginPage = async (req, res) => {
  */
 
 export const forgotPassowrd = async (req, res) => {
+  if (req.user.isPasswordReset) {
+    updateOneUser(
+      { isPasswordReset: false },
+      { userId: req.user.userId }
+    );
+  }
   const token = await generateResetToken({ userId: req.user.userId }, { expiresIn: '1h' });
   const mailBody = emailBody(req.user.name, SITE_URL, token, req.body.email);
 

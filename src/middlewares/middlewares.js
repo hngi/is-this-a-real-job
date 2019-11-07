@@ -18,7 +18,9 @@ import {
   validateUpvoteInput
 } from './validateUUID';
 import { validateAdmin } from './validateAdmin';
-import { validateUserById, validateUserByEmail, checkUserPasswordReset } from './validateUser';
+import {
+  validateUserById, validateUserByEmail, checkUserPasswordReset, validateUserByUsername
+} from './validateUser';
 import { googleAuthenticate, googleAuthCallback } from './googleAuth';
 import { facebookAuthenticate, facebookAuthCallback } from './facebookAuth';
 import { twitterAuthenticate, twitterAuthCallback } from './twitterAuth';
@@ -53,5 +55,6 @@ export {
   validateUserByEmail,
   authenticateForgotToken,
   checkUserPasswordReset,
-  validateNewPasswordForm
+  validateNewPasswordForm,
+  validateUserByUsername
 };

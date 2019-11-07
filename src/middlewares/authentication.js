@@ -1,4 +1,4 @@
-import { findSingleUser } from '../services/userServices';
+import { findSingleUser, updateOneUser } from '../services/userServices';
 import { respondWithWarning } from '../helpers/responseHandler';
 import { verifyToken, formatJWTErrorMessage } from '../helpers/jwt';
 
@@ -95,13 +95,10 @@ export const authenticateForgotToken = async (req, res, next) => {
     req.params.userId = key.userId;
     return next();
   } catch (error) {
-    let formattedMessage;
-    if (error.message.includes('invalid') || error.message.includes('malformed')) {
-      formattedMessage = 'Invalid token, initiate reset again';
-    }
-    if (error.message.includes('expired')) {
-      formattedMessage = 'Expired token, initiate reset again';
-    }
-    return respondWithWarning(res, 401, formattedMessage);
+    const user = await updateOneUser(
+      { isPasswordReset: false },
+      { userId: req.params.userId }
+    );
+    return res.redirect('/linkexpired');
   }
 };
