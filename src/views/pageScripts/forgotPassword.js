@@ -14,8 +14,12 @@ if (forgotPasswordBtn) {
 
     api
       .Post('users/forgot-password', JSON.stringify(data))
-      .then(console.log)
-      .catch(console.error);
+      .then(res => {
+        showNotification(res.message, false);
+      })
+      .catch(err => {
+        showNotification(err.message || 'We\'re unable to process you request right now. Try again after a while.');
+      });
   });
 }
 
@@ -59,8 +63,13 @@ if (changePasswordBtn) {
     };
 
     api
-      .Post('users/reset-forgot-password', JSON.stringify(data))
-      .then(console.log)
-      .catch(console.error);
+      .Post('users/reset-password', JSON.stringify(data), true)
+      .then(res => {
+        showNotification(res.message, false);
+      })
+      .catch(err => {
+        console.error(err);
+        showNotification(err.message || 'We\'re unable to process you request right now. Try again after a while.');
+      });
   });
 }
