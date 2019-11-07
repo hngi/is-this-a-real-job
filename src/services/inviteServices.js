@@ -58,7 +58,6 @@ export const fetchAllInvites = async (offset = undefined, limit = undefined) => 
         limit,
         logging: false
       });
-
     } else {
       result = await Invite.findAndCountAll({
         include: [
@@ -79,6 +78,32 @@ export const fetchAllInvites = async (offset = undefined, limit = undefined) => 
     });
 
     return { invites: result.rows, count: result.count };
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+/**
+ * @returns {object} an array containing all submitted job invites in the database or null.
+ */
+export const fetchAllInvitesNoOffset = async () => {
+  try {
+    const invites = await Invite.findAll({
+      include: [
+        { model: User, as: 'user' },
+        { model: Comment, as: 'comments' },
+        { model: Vote, as: 'votes' }
+      ],
+      order: [['createdAt', 'DESC']],
+      logging: false
+    });
+
+    return invites.map(invite => {
+      invite = invite.dataValues;
+      invite.user = invite.user ? invite.user.dataValues : {};
+      invite.votes = invite.votes.map((vote) => vote.dataValues);
+      return invite;
+    });
   } catch (error) {
     console.log(error);
   }

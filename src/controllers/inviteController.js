@@ -14,6 +14,7 @@ import {
   downVoteOneInvite,
   fetchOneVoteCount,
   fetchAllInvitesWithLimit,
+  fetchAllInvitesNoOffset,
 } from '../services/inviteServices';
 import { findCommentsForPost } from '../services/commentServices';
 import { findSingleUser } from '../services/userServices';
@@ -267,9 +268,9 @@ export const renderJobInvitesPage = async (req, res) => {
   const perPage = 10;
   let page;
 
-  if (req.query.page == 1) {
+  if (req.query.page === 1) {
     page = 0;
-  } else if (req.query.page == 0) {
+  } else if (req.query.page === 0) {
     page = 0;
   } else if (!req.query.page) {
     page = 0;
@@ -280,7 +281,7 @@ export const renderJobInvitesPage = async (req, res) => {
   const limit = offset + perPage;
   const { invites, count } = await fetchAllInvites(offset, limit);
 
-  console.log('Offset, Page, Limit =>', offset, page, limit)
+  console.log('Offset, Page, Limit =>', offset, page, limit);
 
   const pages = Math.ceil(count / perPage);
 
@@ -322,7 +323,7 @@ export const renderHomePage = async (req, res) => {
  * @param {object} res
  */
 export const renderAdminJobInvitesPage = async (req, res) => {
-  const invites = await fetchAllInvites();
+  const invites = await fetchAllInvitesNoOffset();
 
   const title = `${invites.length} Posts - Is This A Real Job`;
   const description = 'Browse the Job Invites on Is This A Real Job; don\'t go for that interview until you verify it!';
