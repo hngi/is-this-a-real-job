@@ -13,6 +13,17 @@ export const generateToken = async (data, options = { expiresIn: EXPIRATION_DURA
 };
 
 /**
+ * Function to generate password reset token from userId
+ * @param {object} data
+ * @param {object} options
+ * @returns {string} generated token
+ */
+export const generateResetToken = async (data, options) => {
+  const token = await jwt.sign({ key: data }, SECRET_KEY, options);
+  return token;
+};
+
+/**
  * Verify a token
  * @param {object} token
  * @returns {Object} decoded data
