@@ -58,7 +58,6 @@ export const fetchAllInvites = async (offset = undefined, limit = undefined) => 
         limit,
         logging: false
       });
-
     } else {
       result = await Invite.findAndCountAll({
         include: [
