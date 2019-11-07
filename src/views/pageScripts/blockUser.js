@@ -23,15 +23,12 @@ if (document.querySelector('.users-section')) {
     btns[i].addEventListener('click', () => {
       api.Patch(`users/block/${users[i]}`, null, true)
         .then(res => {
-          window.location.href = '/admin/users';
+          window.location.href = '/admin/reportedusers';
         })
         .catch(error => {
           console.log(error);
           notification.innerHTML = error.data.message;
           notification.className += ' show';
-          setTimeout(() => {
-            notification.className = 'notification';
-          }, 5000);
         });
     });
   }

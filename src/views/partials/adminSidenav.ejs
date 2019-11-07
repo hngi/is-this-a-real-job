@@ -1,0 +1,27 @@
+<style>
+    .dtab-item[data-toggle].collapsed:after {
+        content: "▾";
+    }
+
+    .dtab-item[data-toggle]:not(.collapsed):after {
+        content: "▴";
+    }
+</style>
+
+
+<div class="col-2 collapse d-md-flex pt-2 min-vh-100 admin-nav" id="sidebar">
+    <ul class="nav flex-column padding-nav dashboard-tab flex-nowrap">
+        <li class="dashboard-tab-items dtab-margin"><a class="" href="/admin">Dashboard</a></li>
+        <li class="dashboard-tab-items dtab-margin nav-item">
+            <a class="dtab-item collapsed" href="#submenu1" data-toggle="collapse" data-target="#submenu1">Users</a>
+            <div class="collapse" id="submenu1" aria-expanded="false">
+                <ul class="flex-column pl-2 nav">
+                    <li class="dtab-item"><a class="py-0" href="/admin/users">All Users</a></li>
+                    <li class="dtab-item"><a class="py-0" href="/admin/reportedusers">Reported Users</a></li>
+                    <!-- <li class="dtab-item"><a class="py-0" href="#">Blocked Users</a></li> -->
+                </ul>
+            </div>
+        </li>
+        <li class="dashboard-tab-items dtab-item dtab-margin"><a class="" href="/admin/posts">Posts</a></li>
+    </ul>
+</div>

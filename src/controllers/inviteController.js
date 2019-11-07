@@ -14,6 +14,7 @@ import {
   downVoteOneInvite,
   fetchOneVoteCount,
   fetchAllInvitesWithLimit,
+  fetchAllInvitesNoOffset,
 } from '../services/inviteServices';
 import { findCommentsForPost } from '../services/commentServices';
 import { findSingleUser } from '../services/userServices';
@@ -264,7 +265,25 @@ export const renderSinglePostPage = async (req, res) => {
  * @param {object} res
  */
 export const renderJobInvitesPage = async (req, res) => {
-  const invites = await fetchAllInvites();
+  const perPage = 10;
+  let page;
+
+  if (req.query.page === 1) {
+    page = 0;
+  } else if (req.query.page === 0) {
+    page = 0;
+  } else if (!req.query.page) {
+    page = 0;
+  } else {
+    page = req.query.page - 1;
+  }
+  const offset = page * perPage;
+  const limit = offset + perPage;
+  const { invites, count } = await fetchAllInvites(offset, limit);
+
+  console.log('Offset, Page, Limit =>', offset, page, limit);
+
+  const pages = Math.ceil(count / perPage);
 
   // This variable is not referenced on this page, so... :shrug:
 
@@ -278,6 +297,8 @@ export const renderJobInvitesPage = async (req, res) => {
     username: req.auth.username,
     name: req.auth.name,
     invites: invites || [],
+    page: req.query.page || 1,
+    pages,
     isAuth: req.isAuth,
     isAdmin: req.auth.isAdmin,
     userId: req.auth.userId,
@@ -302,7 +323,7 @@ export const renderHomePage = async (req, res) => {
  * @param {object} res
  */
 export const renderAdminJobInvitesPage = async (req, res) => {
-  const invites = await fetchAllInvites();
+  const invites = await fetchAllInvitesNoOffset();
 
   const title = `${invites.length} Posts - Is This A Real Job`;
   const description = 'Browse the Job Invites on Is This A Real Job; don\'t go for that interview until you verify it!';

@@ -6,7 +6,42 @@
   .verify:hover {
     border: thin solid white;
   }
+
+  @media screen and (min-width: 1000px) {
+    .job-invites-container {
+      padding-left: 10vw;
+      padding-right: 10vw;
+    }
+  }
+
+  @media screen and (min-width: 768px) {
+    .job-invites-container {
+      padding-left: 5vw;
+      padding-right: 5vw;
+    }
+  }
+
+  .my-pagination {
+    display: inline-block;
+  }
+
+  .my-pagination a {
+    color: black;
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+  }
+
+  .my-pagination a.active {
+    background-color: #4CAF50;
+    color: white;
+  }
+
+  .my-pagination a:hover:not(.active) {
+    background-color: #ddd;
+  }
 </style>
+
 <div id="cover">
   <div class="loader"></div>
 </div>
@@ -16,7 +51,7 @@
 <!-- Post component - Section -->
 
 <div class="section" id="posts-page">
-  <div class="container">
+  <div class="container job-invites-container">
     <div class="header" id="main">
       <div class="container p-0 mb-md-4">
         <div style="display: none;" id="user" data-userid="<%=userId%>"></div>
@@ -41,6 +76,34 @@
         <% } %> <% } %>
       </section>
       <!-- Render Posts -->
+      <% if (pages > 0) { %>
+      <ul class="pagination text-center mt-4">
+        <% if (page == 1) { %>
+        <li class="page-item disabled"><a class="page-link">First</a></li>
+        <% } else { %>
+        <li class="page-item"><a class="page-link" href="/posts?page=1">First</a></li>
+        <% } %>
+        <% var i = (Number(page) > 5 ? Number(page) - 4 : 1) %>
+        <% if (i !== 1) { %>
+        <li class="page-item disabled"><a>...</a></li>
+        <% } %>
+        <% for (; i <= (Number(page) + 4) && i <= pages; i++) { %>
+        <% if (i == page) { %>
+        <li class="page-item active"><a class="page-link"><%= i %></a></li>
+        <% } else { %>
+        <li class="page-item"><a class="page-link" href="/posts?page=<%= i %>"><%= i %></a></li>
+        <% } %>
+        <% if (i == Number(page) + 4 && i < pages) { %>
+        <li class="page-item disabled"><a>...</a></li>
+        <% } %>
+        <% } %>
+        <% if (page == pages) { %>
+        <li class="page-item disabled"><a class="page-link">Last</a></li>
+        <% } else { %>
+        <li class="page-item"><a class="page-link" href="/posts?page=<%= pages %>">Last</a></li>
+        <% } %>
+      </ul>
+      <% } %>
     </div>
   </div>
 </div>

@@ -34,7 +34,7 @@ passport.use(new TwitterAuthStrategy(twitterConfig,
   async (token, tokenSecret, profile, done) => {
     try {
       const {
-        id, name, screen_name, profile_image_url_https
+        id, name, screen_name, email, profile_image_url_https
       } = profile._json;
       const user = await findSingleUser({ twitterId: id });
       const password = await passwordHash(token);
@@ -44,9 +44,9 @@ passport.use(new TwitterAuthStrategy(twitterConfig,
         const newData = {};
         newData.name = name;
         newData.twitterId = id;
-        newData.email = `${screen_name}@itarj-twitter.com`;
+        newData.email = email;
         newData.password = password;
-        // newData.profileImage = profile_image_url_https;
+        newData.profileImage = profile_image_url_https;
         if (usernameTaken) {
           newData.username = screen_name + randomstring.generate({ length: 7, charset: 'numeric' });
         } else {

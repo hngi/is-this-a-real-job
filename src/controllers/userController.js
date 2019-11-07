@@ -1,4 +1,5 @@
 /* eslint-disable no-unneeded-ternary */
+import _ from 'lodash';
 import crypto from 'crypto';
 import {
   respondWithSuccess,
@@ -8,9 +9,15 @@ import {
   updateOneUser,
   findUsers,
   fetchSingleUser,
-  findSingleUser
+  findSingleUser,
+  updatePassword,
 } from '../services/userServices';
 import { findReports } from '../services/reportServices';
+import { generateResetToken } from '../helpers/jwt';
+import { emailBody } from '../helpers/emailTemplates';
+import { SITE_URL } from '../config/constants';
+import { sendMail } from '../services/emailServices';
+import { passwordHash } from '../helpers/hash';
 
 
 /**
@@ -108,6 +115,22 @@ export const getUser = async (req, res) => {
 };
 
 /**
+ * Report User
+ * @param {*} req request
+ * @param {*} res response
+ */
+export const renderReportUserPage = async (req, res) => res.render('reportUser', {
+  isAuth: req.isAuth,
+  username: req.auth.username,
+  isAdmin: req.auth.isAdmin,
+  reportedUser: req.user,
+  meta: {
+    title: 'Report User - Is This A Real Job',
+    description: `Report ${req.user.username} - Is This A Real Job`
+  }
+});
+
+/**
  * Render user profile
  *
  * @param {*} req
@@ -171,13 +194,12 @@ export const renderAdminUsersPage = async (req, res) => {
  * @param {object} res
  */
 export const renderAdminReportedUsersPage = async (req, res) => {
-  const users = await findReports();
-
-  const title = `${users.length} Reported Users - Admin - Is This A Real Job`;
+  const reports = await findReports();
+  const title = `${reports.length} Reported Users - Admin - Is This A Real Job`;
   const description = 'Our app helps you check if job opportunities are real or not.';
 
   return res.render('admin/reportedUsers', {
-    users: users || [],
+    reports: reports || [],
     isAuth: req.isAuth,
     isAdmin: req.auth.isAdmin,
     username: req.auth.username,
@@ -209,4 +231,55 @@ export const renderLoginPage = async (req, res) => {
     meta: { title, description },
     error
   });
+};
+
+/** Function for fogot password
+ *
+ * @param {Object} req the request object
+ * @param {Object} res the response object
+ * @returns {Object} this returns an object
+ */
+
+export const forgotPassowrd = async (req, res) => {
+  if (req.user.isPasswordReset) {
+    updateOneUser(
+      { isPasswordReset: false },
+      { userId: req.user.userId }
+    );
+  }
+  const token = await generateResetToken({ userId: req.user.userId }, { expiresIn: '1h' });
+  const mailBody = emailBody(req.user.name, SITE_URL, token, req.body.email);
+
+  try {
+    const user = await updateOneUser({ isPasswordReset: true }, { email: req.user.email });
+    const sendEmail = sendMail(req.body.email, 'ITARJ - Reset Password', mailBody);
+    return respondWithSuccess(res, 200, 'A link has been sent to your email. Kindly follow that link to reset your password');
+  } catch (error) {
+    return respondWithWarning(res, 500, 'Server Error');
+  }
+};
+
+/**
+ * Function to reset password with token
+ * @param {Object} req the request object
+ * @param {Object} res the response object
+ * @returns {Object} this returns an object
+ */
+export const resetForgotPassword = async (req, res) => {
+  const { password } = req.body;
+  const hashedPassword = await passwordHash(password);
+  try {
+    const user = await updateOneUser(
+      { password: hashedPassword, isPasswordReset: false },
+      { email: req.user.email }
+    );
+    return respondWithSuccess(
+      res,
+      200,
+      'Password reset successful',
+      _.omit(user.toJSON(), ['password'])
+    );
+  } catch (error) {
+    return respondWithWarning(res, 500, 'Server Error');
+  }
 };

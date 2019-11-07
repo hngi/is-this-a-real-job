@@ -1,4 +1,4 @@
-import { findSingleUser } from '../services/userServices';
+import { findSingleUser, updateOneUser } from '../services/userServices';
 import { respondWithWarning } from '../helpers/responseHandler';
 import { verifyToken, formatJWTErrorMessage } from '../helpers/jwt';
 
@@ -41,8 +41,7 @@ export const validUser = async (req, res, next) => {
     return respondWithWarning(res, 401, 'Incorrect email or password');
   }
 
-  if (findUser.isBlocked)
-    return respondWithWarning(res, 403, 'Forbidden! You have been banned from posting on this site. However, you may go on to browse existing posts.');
+  if (findUser.isBlocked) { return respondWithWarning(res, 403, 'Forbidden! You have been banned from posting on this site. However, you may go on to browse existing posts.'); }
 
   req.user = findUser.toJSON();
   return next();
@@ -80,4 +79,26 @@ export const verifyUniqueUserUsername = async (req, res, next) => {
     return respondWithWarning(res, 409, 'Username already taken');
   }
   return next();
+};
+
+/**
+ * Authenticate forgot password reset token
+ * @param {object} req
+ * @param {object} res
+ * @param {Function} next
+ * @returns {Function} next middleware
+ */
+export const authenticateForgotToken = async (req, res, next) => {
+  const { token } = req.params;
+  try {
+    const { key } = await verifyToken(token);
+    req.params.userId = key.userId;
+    return next();
+  } catch (error) {
+    const user = await updateOneUser(
+      { isPasswordReset: false },
+      { userId: req.params.userId }
+    );
+    return res.redirect('/linkexpired');
+  }
 };

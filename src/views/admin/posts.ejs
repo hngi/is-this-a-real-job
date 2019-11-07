@@ -157,9 +157,9 @@
               <li class="dashboard-tab-items dtab-margin">
                 <a href="/admin/posts">Posts</a>
               </li>
-              <!-- <li class="dashboard-tab-items dtab-margin">
+              <li class="dashboard-tab-items dtab-margin">
                 <a href="/admin/reportedusers">Reports</a>
-              </li> -->
+              </li>
             </ul>
           </div>
       </div>
@@ -171,30 +171,6 @@
         <% if (invites.length > 0) { %>
         <% for (invite of invites) { %>
 
-        <!-- <div class="row posts-list posts-list-color shadow p-4 mb-4">
-                      <input type="hidden" class="inviteId" value="<%=invite.inviteId%>" />
-                      <div class="row post-item">
-                        <div class="col-md-3 post-avatar-container">
-                          <img class="post-avatar" src="<%=invite.media%>" alt="">
-                        </div>
-                        <div class="col-md-8">
-                          <h5>
-                            <a href="<%='/post/'+invite.inviteId%>">
-                              <%=invite.title%>
-                            </a>
-                          </h5>
-                          <small class="text-muted"><%=invite.company%>, <em><%=invite.location%></em></small><br>
-                          <small class="text-muted"><%=invite.body%></small><br>
-                          <a href="#">
-                            <small style="color:green;">@<%=invite.user.username%></small>
-                          </a>
-                        </div>
-                        <div class="col-md-1">
-                          <a class="far fa-edit" href="/post/<%=invite.inviteId%>/edit"></a>
-                          <a class="fas fa-trash" id="delete-btn" href="#"></a>
-                        </div>
-                      </div>
-                    </div> -->
         <%= renderPostComponent(invite) %>
 
         <% } %>

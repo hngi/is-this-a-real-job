@@ -3,7 +3,8 @@ import {
   validUser,
   verifyUniqueUserEmail,
   verifyUniqueUserUsername,
-  authenticateUserToken
+  authenticateUserToken,
+  authenticateForgotToken
 } from './authentication';
 import { validateCommentData } from './validateComment';
 import {
@@ -17,11 +18,14 @@ import {
   validateUpvoteInput
 } from './validateUUID';
 import { validateAdmin } from './validateAdmin';
-import { validateUserById } from './validateUser';
+import {
+  validateUserById, validateUserByEmail, checkUserPasswordReset, validateUserByUsername
+} from './validateUser';
 import { googleAuthenticate, googleAuthCallback } from './googleAuth';
 import { facebookAuthenticate, facebookAuthCallback } from './facebookAuth';
 import { twitterAuthenticate, twitterAuthCallback } from './twitterAuth';
 import { multerUploads } from './multer';
+import { validateForgotPasswordForm, validateNewPasswordForm } from './validateResetPassword';
 
 export {
   validateSigninFormData,
@@ -47,4 +51,10 @@ export {
   multerUploads,
   verifyUniqueUserEmail,
   verifyUniqueUserUsername,
+  validateForgotPasswordForm,
+  validateUserByEmail,
+  authenticateForgotToken,
+  checkUserPasswordReset,
+  validateNewPasswordForm,
+  validateUserByUsername
 };

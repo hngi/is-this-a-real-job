@@ -22,7 +22,13 @@ import {
   facebookAuthCallback,
   multerUploads,
   verifyUniqueUserUsername,
-  verifyUniqueUserEmail
+  verifyUniqueUserEmail,
+  validateForgotPasswordForm,
+  validateUserByEmail,
+  authenticateForgotToken,
+  checkUserPasswordReset,
+  validateNewPasswordForm,
+  validateUserByUsername,
 } from '../middlewares/middlewares';
 
 import {
@@ -57,7 +63,10 @@ import {
   renderAdminReportedUsersPage,
   checkRenderIsAdmin,
   checkRenderIsAuth,
-  renderLoginPage
+  renderLoginPage,
+  renderReportUserPage,
+  forgotPassowrd,
+  resetForgotPassword
 } from '../controllers/userController';
 import { getNotifications, markNotificationAsRead } from '../controllers/notificationController';
 import {
@@ -70,6 +79,7 @@ import { getMetrics } from '../controllers/metricsController';
 import { descriptions } from '../helpers/metatags';
 import { validateReport } from '../middlewares/validateReport';
 import { createReport } from '../controllers/reportController';
+import { checkIfSameUser } from '../middlewares/validateUser';
 
 const genericDescription = 'Our app helps you check if job opportunities are real or not.';
 
@@ -107,7 +117,6 @@ export const initRoutes = app => {
     name: req.auth.name,
     meta: { title: 'Terms - Is This A Real Job', description: genericDescription }
   }));
-  
 
   app.get('/about', (req, res) => res.render('about', {
     isAuth: req.isAuth,
@@ -116,17 +125,7 @@ export const initRoutes = app => {
     name: req.auth.name,
     meta: { title: 'About - Is This A Real Job', description: genericDescription }
   }));
-  app.get('/reportuser', getUserByUserId, (req, res) => {
-    res.render('reportUser', {
-      isAuth: req.isAuth,
-      username: req.auth.username,
-      isAdmin: req.auth.isAdmin,
-      meta: {
-        title: 'Report User - Is This A Real Job',
-        description: genericDescription
-      }
-    });
-  });
+  app.get('/reportuser/:username', validateUserByUsername, checkIfSameUser, renderReportUserPage);
   app.get('/users/:username', renderUserProfile);
   app.get('/admin/reportedusers', checkRenderIsAdmin, renderAdminReportedUsersPage);
   // Search Invites - Renders view
@@ -139,6 +138,36 @@ export const initRoutes = app => {
     meta: { title: 'Admin Home - Is This A Real Job', description: genericDescription }
   }));
 
+  app.get('/forgotpassword', (req, res) => res.render('forgotPassword', {
+    isAuth: req.isAuth,
+    isAdmin: req.auth.isAdmin,
+    username: req.auth.username,
+    name: req.auth.name,
+    token: 'expired',
+    meta: { title: 'Forgot Password - Is This A Real Job', description: genericDescription }
+  }));
+
+  app.get('/linkexpired', (req, res) => res.render('linkExpired', {
+    isAuth: req.isAuth,
+    isAdmin: req.auth.isAdmin,
+    username: req.auth.username,
+    name: req.auth.name,
+    meta: { title: 'Expired Link- Is This A Real Job', description: genericDescription }
+  }));
+
+  // password reset link from email
+  app.get('/users/reset-password/:token',
+    authenticateForgotToken,
+    validateUserById,
+    checkUserPasswordReset,
+    (req, res) => res.render('resetPassword', {
+      token: req.params.token,
+      isAuth: req.isAuth,
+      isAdmin: req.auth.isAdmin,
+      username: req.auth.username,
+      name: req.auth.name,
+      meta: { title: 'Reset Password - Is This A Real Job', description: genericDescription }
+    }));
 
   // Edit post endpoint
   app.get(
@@ -292,7 +321,18 @@ export const initRoutes = app => {
   app.patch('/api/v1/notifications', markNotificationAsRead);
 
   // Report a user
-  app.post('/api/v1/reports', authenticateUserToken, validateReport, createReport);
+  app.post('/api/v1/users/report', authenticateUserToken, validateReport, createReport);
+
+  // forgot password
+  app.post('/api/v1/users/forgot-password', validateForgotPasswordForm, validateUserByEmail, forgotPassowrd);
+
+  // Reset forgot password
+  app.patch('/api/v1/users/reset-forgot-password/:token',
+    validateNewPasswordForm,
+    authenticateForgotToken,
+    validateUserById,
+    checkUserPasswordReset,
+    resetForgotPassword);
 
   // Fallback case for unknown URIs.
   app.get('/notAuthorized', (req, res) => res.render('401', { meta: { title: '404 - Page Not Found', description: genericDescription } }));

@@ -42,10 +42,9 @@ import {
  * @returns {object} json response
  */
 export const getNotifications = async (req, res) => {
-  const notifications = await findNotificationsForUser(req.auth.userId)
-    .catch(error => respondWithWarning(res, error.status, error.message));
-
-  return respondWithSuccess(res, 200, 'Successful', notifications);
+  findNotificationsForUser(req.auth.userId)
+    .then((notifications)=> respondWithSuccess(res, 200, 'Successful', notifications))
+    .catch((error)=> respondWithWarning(res, error.status, error.message));
 };
 
 
