@@ -43,11 +43,12 @@ export const fetchOneInvite = async (queryOption = {}) => {
 /**
  * @returns {object} an array containing all submitted job invites in the database or null.
  */
-export const fetchAllInvites = async (offset = undefined, limit = undefined) => {
+export const fetchAllInvites = async (queryOption = {}, offset = 0, limit = 10) => {
   try {
     let result;
     if (offset >= 0) {
       result = await Invite.findAndCountAll({
+        where: queryOption,
         include: [
           { model: User, as: 'user' },
           { model: Comment, as: 'comments' },
@@ -60,6 +61,7 @@ export const fetchAllInvites = async (offset = undefined, limit = undefined) => 
       });
     } else {
       result = await Invite.findAndCountAll({
+        where: queryOption,
         include: [
           { model: User, as: 'user' },
           { model: Comment, as: 'comments' },
@@ -78,32 +80,6 @@ export const fetchAllInvites = async (offset = undefined, limit = undefined) => 
     });
 
     return { invites: result.rows, count: result.count };
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-/**
- * @returns {object} an array containing all submitted job invites in the database or null.
- */
-export const fetchAllInvitesNoOffset = async () => {
-  try {
-    const invites = await Invite.findAll({
-      include: [
-        { model: User, as: 'user' },
-        { model: Comment, as: 'comments' },
-        { model: Vote, as: 'votes' }
-      ],
-      order: [['createdAt', 'DESC']],
-      logging: false
-    });
-
-    return invites.map(invite => {
-      invite = invite.dataValues;
-      invite.user = invite.user ? invite.user.dataValues : {};
-      invite.votes = invite.votes.map((vote) => vote.dataValues);
-      return invite;
-    });
   } catch (error) {
     console.log(error);
   }
