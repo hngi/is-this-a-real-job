@@ -85,6 +85,32 @@ export const fetchAllInvites = async (offset = undefined, limit = undefined) => 
 };
 
 /**
+ * @returns {object} an array containing all submitted job invites in the database or null.
+ */
+export const fetchAllInvitesNoOffset = async () => {
+  try {
+    const invites = await Invite.findAll({
+      include: [
+        { model: User, as: 'user' },
+        { model: Comment, as: 'comments' },
+        { model: Vote, as: 'votes' }
+      ],
+      order: [['createdAt', 'DESC']],
+      logging: false
+    });
+
+    return invites.map(invite => {
+      invite = invite.dataValues;
+      invite.user = invite.user ? invite.user.dataValues : {};
+      invite.votes = invite.votes.map((vote) => vote.dataValues);
+      return invite;
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+/**
  * Fetch invites with limit
  */
 export const fetchAllInvitesWithLimit = async (limit) => {
