@@ -43,8 +43,8 @@ import {
  */
 export const getNotifications = async (req, res) => {
   findNotificationsForUser(req.auth.userId)
-    .then((notifications)=> respondWithSuccess(res, 200, 'Successful', notifications))
-    .catch((error)=> respondWithWarning(res, error.status, error.message));
+    .then((notifications) => respondWithSuccess(res, 200, 'Successful', notifications))
+    .catch((error) => respondWithWarning(res, error.status, error.message));
 };
 
 
