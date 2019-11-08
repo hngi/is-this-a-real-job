@@ -28,8 +28,7 @@ if (document.querySelector('.users-section')) {
           if (e.target.className.includes('block-btn-blue')) {
             e.target.classList.remove('block-btn-blue');
             e.target.innerHTML = 'Unblock';
-          }
-          if (e.target.className.includes('block-btn-blue')) {
+          } else { 
             e.target.classList.add('block-btn-blue');
             e.target.innerHTML = 'Block';
           }
