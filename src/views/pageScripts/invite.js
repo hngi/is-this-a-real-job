@@ -2,7 +2,6 @@
 /* eslint-disable no-undef */
 // create a new post
 
-
 function togglePreloader(state) {
   const preloader = document.querySelector('#cover');
   preloader.style.display = state;
@@ -52,6 +51,11 @@ if (document.querySelector('#newInviteBtn')) {
   const companyName = document.querySelector('#companyName');
   // const media = document.querySelector('#media'); //No more file upload.
 
+  function showSuccessDialog() {
+    successDialog = document.querySelector('.success-dialog');
+    successDialog.classList.remove('is-hidden');
+  }
+
   inviteBtn.addEventListener('click', e => {
     e.preventDefault();
     togglePreloader('block');
@@ -62,32 +66,12 @@ if (document.querySelector('#newInviteBtn')) {
       title: jobTitle.value,
       body: jobDetails.value
     };
-    console.log(JSON.stringify(formData));
-
-    /* Native form data object seems to send empty req.body. Using manually built formData above.
-    const formData = new FormData();
-    formData.append('title', jobTitle.value);
-    formData.append('location', jobLocation.value);
-    formData.append('body', jobDetails.value);
-    formData.append('company', companyName.value);
-    //formData.append('media', media.files[0]);  //No more file upload.
-    */
-
-    /* Switching to api-helper implementation. Options object no more needed.
-    const options = {
-      method: 'POST',
-      body: JSON.stringify(formData),
-      // if this is set, the coockieHandler middleware will set token with req.headers.authorization
-      addToken: true
-    };
-    */
 
     // fetch('api/v1/invites', options) //Now using api-helper.
     newApi.Post('invites', JSON.stringify(formData), true)
       .then(res => {
-        togglePreloader('none');
-        // Navigate to somewhere, created post maybe.
-        window.location.href = '/posts';
+        //Show success modal.
+        showSuccessDialog();
       })
       .catch(err => {
         console.log(err);
@@ -125,6 +109,7 @@ const upvotePostBtnHander = (event) => {
   const target = (event.target.nodeName === 'A') ? event.target : event.target.parentNode;
   const other = (event.target.nodeName === 'A') ? event.target.parentNode.querySelector('.downvote-btn') : event.target.parentNode.parentNode.querySelector('.downvote-btn');
 
+  // console.log('the target', target, 'the other', other);
 
   if (voted === 'false') {
     setUp(target, other);
