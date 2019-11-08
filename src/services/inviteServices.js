@@ -57,6 +57,7 @@ export const fetchAllInvites = async (queryOption = {}, offset = 0, limit = 10) 
         order: [['createdAt', 'DESC']],
         offset,
         limit,
+        distinct: true,
         logging: false
       });
     } else {

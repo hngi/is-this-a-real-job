@@ -274,6 +274,7 @@ export const renderJobInvitesPage = async (req, res) => {
     invites: invites || [],
     page: req.query.page || 1,
     pages,
+    count,
     isAuth: req.isAuth,
     isAdmin: req.auth.isAdmin,
     userId: req.auth.userId,
