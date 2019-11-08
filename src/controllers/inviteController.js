@@ -194,7 +194,7 @@ export const downvoteInvite = async (req, res) => {
   const { inviteId } = req.invite;
   const { userId } = req.auth;
 
-  await downVoteOneInvite(userId, inviteId)
+  await downVoteOneInvite(res, userId, inviteId)
     .then((vote) => respondWithSuccess(res, 200, 'Downvote successful', vote))
     .catch((error) => respondWithSuccess(res, error.status, error.message, JSON.stringify(error)));
 };
