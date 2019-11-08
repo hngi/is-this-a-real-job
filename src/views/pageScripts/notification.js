@@ -26,26 +26,22 @@ const showSnackBar = message => {
   snackBarTimeout = setTimeout(() => { sb.classList.remove('show'); }, 3500);
 };
 
-const getNotificationHTML = notification => {
-  let icon = '<i class="far fa-flag"></i>';
-  if (notification.type === 'comment') {
-    icon = '<i class="far fa-comments"></i>';
-  }
-
-  if (notification.type === 'upvote') {
-    icon = '<i class="far fa-arrow-alt-circle-up text-success"></i>';
-  }
-
-  return `
-    <a class="notification-link" data-seen="${notification.isSeen}" data-notification="${notification.notificationId}" href="/post/${notification.inviteId}">
-      <div class="notification-wrapper">
-      <div class="notification-image">${icon}</div>
-      <p class="notification-title text-dark">${notification.message}</p>
-      ${!notification.isSeen ? '<span class="unread-indicator">&#x25CF;</span>' : ''}
-      </div>
-    </a>
-  `;
+const icons = {
+  comment: 'comments',
+  report: 'flag',
+  upvote: 'arrow-alt-circle-up text-success',
+  downvote: 'arrow-alt-circle-down text-danger'
 };
+
+const getNotificationHTML = notification => `
+  <a class="notification-link" data-seen="${notification.isSeen}" data-notification="${notification.notificationId}" href="/post/${notification.inviteId}">
+    <div class="notification-wrapper">
+    <div class="notification-image"><i class="far fa-${icons[notification.type]}"></i></div>
+    <p class="notification-title text-dark">${notification.message}</p>
+    ${!notification.isSeen ? '<span class="unread-indicator">&#x25CF;</span>' : ''}
+    </div>
+  </a>
+`;
 
 const renderNotifications = (notifications) => {
   const notificationHTML = (notifications.length > 0) ? notifications.map(getNotificationHTML)

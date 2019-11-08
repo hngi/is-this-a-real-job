@@ -12,7 +12,7 @@
       <section class="job-invites">
         <!-- Render Post Component here (check partials/postComponent) -->
         <%= renderPostComponent(invite, true) %>
-        
+
         <div class="container p-0">
           <div class="form-group <%= !isAuth ? 'd-none': '' %>">
             <textarea class="form-control" id="comment-field" style="border: 1px solid #3087d1"
@@ -46,7 +46,7 @@
                 guest
                 <% } %>
               </small>
-              <small class="text-muted"><%=new Date(comment.createdAt).toDateString()%></small>
+              <small class="text-muted"><%=new Date(comment.createdAt).toLocaleString()%></small>
             </div>
           </div>
           <% } %>

@@ -14,6 +14,7 @@ import {
   downVoteOneInvite,
   fetchOneVoteCount,
   fetchAllInvitesWithLimit,
+  fetchAllInvitesNoOffset,
 } from '../services/inviteServices';
 import { findCommentsForPost } from '../services/commentServices';
 import { findSingleUser } from '../services/userServices';
@@ -193,7 +194,7 @@ export const downvoteInvite = async (req, res) => {
   const { inviteId } = req.invite;
   const { userId } = req.auth;
 
-  await downVoteOneInvite(userId, inviteId)
+  await downVoteOneInvite(res, userId, inviteId)
     .then((vote) => respondWithSuccess(res, 200, 'Downvote successful', vote))
     .catch((error) => respondWithSuccess(res, error.status, error.message, JSON.stringify(error)));
 };
@@ -239,23 +240,6 @@ export const renderSinglePostPage = async (req, res) => {
     name: req.auth.name,
     meta: { title, description }
   });
-
-  // const invite = await fetchOneInvite({ inviteId });
-  // console.log('Invite =>', invite)
-  // if (invite) {
-  //   return res.render('singlepost', {
-  //     comments: invite.comments,
-  //     invite: invite,
-  //     user: invite.user,
-  //     isAuth: req.isAuth,
-  //     isAdmin: req.auth.isAdmin,
-  //     userId: req.auth.userId,
-  //     username: req.auth.username,
-  //     name: req.auth.name
-  //   });
-  // } else {
-  //   res.render('404', { status: 404 });
-  // }
 };
 
 /**
@@ -264,13 +248,23 @@ export const renderSinglePostPage = async (req, res) => {
  * @param {object} res
  */
 export const renderJobInvitesPage = async (req, res) => {
-  const invites = await fetchAllInvites();
+  const limit = 15;
+  let page;
 
-  // This variable is not referenced on this page, so... :shrug:
+  if (req.query.page === 1 || req.query.page === 0 || !req.query.page) {
+    page = 0;
+  } else {
+    page = Number(req.query.page) - 1;
+  }
 
-  // const user = await findSingleUser({ userId: req.auth.userId });
+  const offset = page * limit;
+  const { invites, count } = await fetchAllInvites({}, offset, limit);
 
-  const title = `${invites.length} Posts - Is This A Real Job`;
+  // console.log('Offset, Page, Limit =>', offset, page, limit);
+
+  const pages = Math.ceil(count / limit);
+
+  const title = `${offset} - ${offset + limit} Posts - Is This A Real Job`;
   const description = 'Browse the Job Invites on Is This A Real Job; don\'t go for that interview until you verify it!';
 
   return res.render('jobInvites', {
@@ -278,6 +272,9 @@ export const renderJobInvitesPage = async (req, res) => {
     username: req.auth.username,
     name: req.auth.name,
     invites: invites || [],
+    page: req.query.page || 1,
+    pages,
+    count,
     isAuth: req.isAuth,
     isAdmin: req.auth.isAdmin,
     userId: req.auth.userId,
@@ -302,13 +299,29 @@ export const renderHomePage = async (req, res) => {
  * @param {object} res
  */
 export const renderAdminJobInvitesPage = async (req, res) => {
-  const invites = await fetchAllInvites();
+  const limit = 15;
+  let page;
 
-  const title = `${invites.length} Posts - Is This A Real Job`;
+  if (req.query.page === 1 || req.query.page === 0 || !req.query.page) {
+    page = 0;
+  } else {
+    page = Number(req.query.page) - 1;
+  }
+
+  const offset = page * limit;
+  const { invites, count } = await fetchAllInvites({}, offset, limit);
+
+  // console.log('Offset, Page, Limit =>', offset, page, limit);
+
+  const pages = Math.ceil(count / limit);
+
+  const title = `${offset} - ${offset + limit} Posts - Is This A Real Job`;
   const description = 'Browse the Job Invites on Is This A Real Job; don\'t go for that interview until you verify it!';
 
   return res.render('admin/posts', {
     invites: invites || [],
+    page: req.query.page || 1,
+    pages,
     isAuth: req.isAuth,
     isAdmin: req.auth.isAdmin,
     username: req.auth.username,

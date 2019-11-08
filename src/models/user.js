@@ -46,6 +46,10 @@ export default (sequelize, DataTypes) => {
       isAdmin: {
         type: DataTypes.BOOLEAN,
         defaultValue: false
+      },
+      isPasswordReset: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false
       }
     },
     {}
