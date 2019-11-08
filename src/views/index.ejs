@@ -127,12 +127,14 @@
     <div class="mx-4 d-block d-md-inline">
       <span class="text-primary" id="no-of-comments"></span> <span>Discussions</span>
     </div>
+    <% if (!isAuth) { %>
     <div>
       <p class="text-dark mb-0 mt-4 d-none d-md-block">Join the community</p>
       <p class="mb-0 mt-4 mt-md-0">
         <a href="/register" class="btn btn-primary" style="width: 160px;">Join</a>
       </p>
     </div>
+    <% } %>
   </div>
 </section>
 
