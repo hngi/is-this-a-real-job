@@ -29,7 +29,7 @@ if (commentBtn) {
   ${comment.user.username ? `<a href="/users/${comment.user.username}">@${comment.user.username}</a>`
     : 'guest'}
 </small>
-    <small class="text-muted">${new Date(comment.createdAt).toDateString()}</small>
+    <small class="text-muted">${new Date(comment.createdAt).toLocaleString()}}</small>
   </div>
 </div>`;
 
