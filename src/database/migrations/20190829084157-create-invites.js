@@ -18,11 +18,9 @@ export default {
     },
     company: {
       type: Sequelize.STRING,
-      allowNull: false,
     },
     location: {
       type: Sequelize.STRING,
-      allowNull: false,
     },
     body: {
       type: Sequelize.TEXT,
