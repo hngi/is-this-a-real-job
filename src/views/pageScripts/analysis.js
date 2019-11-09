@@ -43,9 +43,7 @@ if (document.querySelector('#submit_ocr')) {
   const selectionBtn = document.querySelector('#submit_selection');
   const confidenceBtn = document.querySelector('#submit_confidence');
 
-  $('#analysisModal').modal({
-    show: false
-  });
+  $('#analysisModal').modal({ show: false });
   let options = {};
 
   ocrBtn.addEventListener('click', (e) => {
@@ -148,15 +146,13 @@ if (document.querySelector('#submit_ocr')) {
     options = {
       method: 'POST',
       body: JSON.stringify(data),
-      headers: {
-        Origin: 'x-requested-with',
-      },
+      headers: { Origin: 'x-requested-with', },
     };
     fetch(uri, options)
       .then(async res => {
         const result = await res.json();
         const analysisModal = document.querySelector('#result');
-        analysisModal.innerHTML = `<h5>The confidence level for this job invite is ${result.confidence}</h5>`;
+        analysisModal.innerHTML = `<h5>Our confidence level for this job invite is ${result.confidence}%</h5>`;
         togglePreloader('none');
         $('#analysisModal').modal('show');
       })

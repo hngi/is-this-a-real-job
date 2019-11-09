@@ -297,19 +297,29 @@
 
 </div>
 <script>
-  const singlePage = document.querySelectorAll("#single-page");
-  const readMoreButton = document.querySelectorAll("#button-page");
-  list_length = readMoreButton.length
-  let n = 0;
-  while (n < list_length) {
-    readMoreButton[n].addEventListener("click", function (event) {
-      let current_div = event.target.parentElement.getElementsByTagName("p")[1];
-      current_div.classList.remove("entry-tit");
-      let btn = readMoreButton[i]
-      btn.style.display = "none"
-    })
-    n++
-  }
+  // const readMoreButton = document.querySelectorAll("#button-page");
+  // list_length = readMoreButton.length
+  // let n = 0;
+  // while (n < list_length) {
+  //   readMoreButton[n].addEventListener("click", function (event) {
+  //     let current_div = event.target.parentElement.getElementsByTagName("p")[1];
+  //     current_div.classList.remove("entry-tit");
+  //     let btn = readMoreButton[i]
+  //     btn.style.display = "none"
+  //   })
+  //   n++
+  // }
+
+  // better solution than above. Gets rid of console errors
+    for (let i = 0; i < document.querySelectorAll("#button-page").length; i++) {
+        const readMoreButton = document.querySelectorAll("#button-page");
+        readMoreButton[i].addEventListener("click", function (event) {
+          let current_div = event.target.parentElement.getElementsByTagName("p")[1];
+          current_div.classList.remove("entry-tit");
+          let btn = readMoreButton[i]
+          btn.style.display = "none"
+        })
+      }
 </script>
 
 <% } %>

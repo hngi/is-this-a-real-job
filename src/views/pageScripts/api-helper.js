@@ -36,7 +36,9 @@ function ItarjApi(apiBase) {
    * @param {boolean} includeToken specify if this endpoints is `JWT` protected
    * @returns {Promise<{ message: string, data }>}
    *  */
-  const _fetch = (method, endpoint, body, includeToken = false) => (
+  const _fetch = (
+    method, endpoint, body, includeToken = false
+  ) => (
     new Promise((resolve, reject) => {
       if (endpoint.startsWith('/')) {
         e.message = 'Endpoint cannot start with a slash. Consider taking out the slash.';
@@ -74,7 +76,6 @@ function ItarjApi(apiBase) {
           if (!res.ok) {
             e.message = `It seems there's a problem with your request.\n\nRequest URL: ${url}/${endpoint}.\n\nKindly check it or ensure you have an internet connection.`;
             e.data = await res.json(); // add API response data (if available)
-
             throw e; // send readable error message to client
           }
           return res.json();
@@ -82,7 +83,6 @@ function ItarjApi(apiBase) {
           if (!data.success) {
             e.message = data.message;
             e.data = data.payload;
-
             throw e; // send readable error message to client
           }
 
@@ -92,7 +92,7 @@ function ItarjApi(apiBase) {
           });
         })
         .catch(err => { // handle exception
-          console.log(err);
+          // console.log(err);
           reject(err);
         });
     })
@@ -103,7 +103,9 @@ function ItarjApi(apiBase) {
    * @param {boolean} includeToken specify if this endpoints is `JWT` protected
    * @returns {Promise<{ message: string, data }>}
    *  */
-  const Get = (endpoint, includeToken = false) => _fetch('GET', endpoint, null, includeToken);
+  const Get = (endpoint, includeToken = false) => _fetch(
+    'GET', endpoint, null, includeToken
+  );
 
   /**
    * @param {string} endpoint the endpoint to `POST` excluding slash (`/`)
@@ -111,7 +113,9 @@ function ItarjApi(apiBase) {
    * @param {boolean} includeToken specify if this endpoints is `JWT` protected
    * @returns {Promise<{ message: string, data }>}
    *  */
-  const Post = (endpoint, body, includeToken = false) => _fetch('POST', endpoint, body, includeToken);
+  const Post = (endpoint, body, includeToken = false) => _fetch(
+    'POST', endpoint, body, includeToken
+  );
 
   /**
    * @param {string} endpoint the endpoint to `PUT` excluding slash (`/`)
@@ -119,7 +123,9 @@ function ItarjApi(apiBase) {
    * @param {boolean} includeToken specify if this endpoints is `JWT` protected
    * @returns {Promise<{ message: string, data }>}
    *  */
-  const Put = (endpoint, body, includeToken = false) => _fetch('PUT', endpoint, body, includeToken);
+  const Put = (endpoint, body, includeToken = false) => _fetch(
+    'PUT', endpoint, body, includeToken
+  );
 
   /**
    * @param {string} endpoint the endpoint to `PATCH` excluding slash (`/`)
@@ -127,14 +133,18 @@ function ItarjApi(apiBase) {
    * @param {boolean} includeToken specify if this endpoints is `JWT` protected
    * @returns {Promise<{ message: string, data }>}
    *  */
-  const Patch = (endpoint, body, includeToken = false) => _fetch('PATCH', endpoint, body, includeToken);
+  const Patch = (endpoint, body, includeToken = false) => _fetch(
+    'PATCH', endpoint, body, includeToken
+  );
 
   /**
    * @param {string} endpoint the endpoint to `DELETE` excluding slash (`/`)
    * @param {boolean} includeToken specify if this endpoints is `JWT` protected
    * @returns {Promise<{ message: string, data }>}
    *  */
-  const Delete = (endpoint, includeToken = false) => _fetch('DELETE', endpoint, null, includeToken);
+  const Delete = (endpoint, includeToken = false) => _fetch(
+    'DELETE', endpoint, null, includeToken
+  );
 
   return {
     Get,

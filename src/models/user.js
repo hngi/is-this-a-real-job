@@ -1,8 +1,7 @@
 import uuid from 'uuid';
 
 export default (sequelize, DataTypes) => {
-  const User = sequelize.define(
-    'User',
+  const User = sequelize.define('User',
     {
       userId: {
         type: DataTypes.UUID,
@@ -10,15 +9,9 @@ export default (sequelize, DataTypes) => {
         defaultValue: DataTypes.UUIDV4,
         primaryKey: true
       },
-      twitterId: {
-        type: DataTypes.STRING
-      },
-      googleId: {
-        type: DataTypes.STRING
-      },
-      facebookId: {
-        type: DataTypes.STRING
-      },
+      twitterId: { type: DataTypes.STRING },
+      googleId: { type: DataTypes.STRING },
+      facebookId: { type: DataTypes.STRING },
       username: {
         type: DataTypes.STRING,
         allowNull: false
@@ -40,9 +33,7 @@ export default (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false
       },
-      profileImage: {
-        type: DataTypes.STRING
-      },
+      profileImage: { type: DataTypes.STRING },
       isAdmin: {
         type: DataTypes.BOOLEAN,
         defaultValue: false
@@ -50,10 +41,13 @@ export default (sequelize, DataTypes) => {
       isPasswordReset: {
         type: DataTypes.BOOLEAN,
         defaultValue: false
+      },
+      isVerified: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false
       }
     },
-    {}
-  );
+    {});
 
   User.associate = models => {
     User.hasMany(models.Invite, { foreignKey: 'userId', onDelete: 'CASCADE' });

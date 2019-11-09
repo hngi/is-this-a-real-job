@@ -1,6 +1,5 @@
 import { signin, signup } from '../controllers/authController';
-import {
-  validateSigninFormData,
+import { validateSigninFormData,
   validateSignupFormData,
   validateCommentData,
   validUser,
@@ -28,11 +27,9 @@ import {
   authenticateForgotToken,
   checkUserPasswordReset,
   validateNewPasswordForm,
-  validateUserByUsername,
-} from '../middlewares/middlewares';
+  validateUserByUsername, } from '../middlewares/middlewares';
 
-import {
-  deleteInvite,
+import { deleteInvite,
   saveNewInvite,
   getOneInvite,
   getAllInvites,
@@ -49,12 +46,10 @@ import {
   fetchVoteCount,
   renderInviteAnalysisPage,
   renderHomePage,
-  renderAnalysisPage
-} from '../controllers/inviteController';
+  renderAnalysisPage } from '../controllers/inviteController';
 
 import { getComments, createComment } from '../controllers/commentController';
-import {
-  blockUser,
+import { blockUser,
   getUsers,
   renderAdminUsersPage,
   getUser,
@@ -66,14 +61,13 @@ import {
   renderLoginPage,
   renderReportUserPage,
   forgotPassowrd,
-  resetForgotPassword
-} from '../controllers/userController';
+  resetForgotPassword,
+  checkUserVerification,
+  sendUserVerification } from '../controllers/userController';
 import { getNotifications, markNotificationAsRead } from '../controllers/notificationController';
-import {
-  validateCookies,
+import { validateCookies,
   signUserIn,
-  signUserOut
-} from '../middlewares/cookieHandler';
+  signUserOut } from '../middlewares/cookieHandler';
 import { getMetrics } from '../controllers/metricsController';
 
 import { descriptions } from '../helpers/metatags';
@@ -94,16 +88,19 @@ export const initRoutes = app => {
   app.get('/login', checkRenderIsAuth, renderLoginPage);
   app.get('/register', checkRenderIsAuth, (req, res) => res.render('register', { isAuth: req.isAuth, isAdmin: req.auth.isAdmin, meta: { title: 'Register - Is This A Real Job', description: descriptions.register } }));
 
-  app.get('/post', getUserByUserId, (req, res) => res.render('userPost', {
-    isAuth: req.isAuth,
-    isAdmin: req.auth.isAdmin,
-    user: req.user,
-    username: req.auth.username,
-    name: req.auth.name,
-    meta: { title: 'New Post - Is This A Real Job', descripiton: genericDescription }
-  }));
+  app.get(
+    '/post',
+    checkUserVerification, getUserByUserId, (req, res) => res.render('userPost', {
+      isAuth: req.isAuth,
+      isAdmin: req.auth.isAdmin,
+      user: req.user,
+      username: req.auth.username,
+      name: req.auth.name,
+      meta: { title: 'New Post - Is This A Real Job', descripiton: genericDescription }
+    })
+  );
 
-  app.get('/verify', (req, res) => res.render('verify', { isAuth: req.isAuth, isAdmin: req.auth.isAdmi, meta: { title: 'Verify Post - Is This A Real Job', description: genericDescription } }));
+  app.get('/verify', (req, res) => res.render('verify', { isAuth: req.isAuth, isAdmin: req.auth.isAdmin, meta: { title: 'Verify Post - Is This A Real Job', description: genericDescription } }));
   app.get('/howitworks', (req, res) => res.render('howitworks', { isAuth: req.isAuth, isAdmin: req.auth.isAdmin, meta: { title: 'How It Works - Is This A Real Job', description: genericDescription } }));
   app.get('/analyse/:inviteId', renderInviteAnalysisPage);
   app.get('/analyse', renderAnalysisPage);
@@ -125,7 +122,9 @@ export const initRoutes = app => {
     name: req.auth.name,
     meta: { title: 'About - Is This A Real Job', description: genericDescription }
   }));
-  app.get('/reportuser/:username', validateUserByUsername, checkIfSameUser, renderReportUserPage);
+  app.get(
+    '/reportuser/:username', validateUserByUsername, checkIfSameUser, renderReportUserPage
+  );
   app.get('/users/:username', renderUserProfile);
   app.get('/admin/reportedusers', checkRenderIsAdmin, renderAdminReportedUsersPage);
   // Search Invites - Renders view
@@ -156,7 +155,8 @@ export const initRoutes = app => {
   }));
 
   // password reset link from email
-  app.get('/users/reset-password/:token',
+  app.get(
+    '/users/reset-password/:token',
     authenticateForgotToken,
     validateUserById,
     checkUserPasswordReset,
@@ -167,11 +167,18 @@ export const initRoutes = app => {
       username: req.auth.username,
       name: req.auth.name,
       meta: { title: 'Reset Password - Is This A Real Job', description: genericDescription }
-    }));
+    })
+  );
+
+  // Resend verification email
+  app.get('/resendVerification',
+    authenticateUserToken,
+    sendUserVerification);
 
   // Edit post endpoint
   app.get(
     '/post/:inviteId/edit',
+    checkUserVerification,
     validateInviteId,
     validateInvite,
     getUserByUserId,
@@ -183,7 +190,9 @@ export const initRoutes = app => {
 
   // All backend API endpoints below -----------------------------------------------------
   // Auth
-  app.post('/api/v1/auth/signin', validateSigninFormData, validUser, signin);
+  app.post(
+    '/api/v1/auth/signin', validateSigninFormData, validUser, signin
+  );
   app.post(
     '/api/v1/auth/signup',
     validateSignupFormData,
@@ -207,7 +216,9 @@ export const initRoutes = app => {
 
 
   // Get all Users
-  app.get('/api/v1/users', authenticateUserToken, validateAdmin, getUsers);
+  app.get(
+    '/api/v1/users', authenticateUserToken, validateAdmin, getUsers
+  );
 
   // Get single User - return JSON
   app.get('/api/v1/users/json/:username', getUser);
@@ -218,6 +229,7 @@ export const initRoutes = app => {
     '/api/v1/users/block/:userId',
     validateUserId,
     authenticateUserToken,
+
     validateAdmin,
     validateUserById,
     blockUser
@@ -227,6 +239,7 @@ export const initRoutes = app => {
   app.post(
     '/api/v1/invites',
     authenticateUserToken,
+
     // multerUploads, //No more file upload.
     validateInviteData,
     saveNewInvite
@@ -247,6 +260,7 @@ export const initRoutes = app => {
     validateInviteUpdateData,
     validateInviteId,
     authenticateUserToken,
+
     validateInvite,
     validateInviteOwner,
     updateInvite
@@ -257,6 +271,7 @@ export const initRoutes = app => {
     '/api/v1/invites/:inviteId',
     validateInviteId,
     authenticateUserToken,
+
     validateAdmin,
     validateInvite,
     deleteInvite
@@ -271,6 +286,7 @@ export const initRoutes = app => {
     validateCommentData,
     validateInviteId,
     authenticateUserToken,
+
     validateInvite,
     createComment
   );
@@ -286,6 +302,7 @@ export const initRoutes = app => {
   app.patch(
     '/api/v1/invites/:inviteId/upvote',
     authenticateUserToken,
+
     validateInviteId,
     validateInvite,
     upvoteInvite
@@ -294,6 +311,7 @@ export const initRoutes = app => {
   app.patch(
     '/api/v1/invites/:inviteId/downvote',
     authenticateUserToken,
+
     validateInviteId,
     validateInvite,
     downvoteInvite
@@ -302,6 +320,7 @@ export const initRoutes = app => {
   app.delete(
     '/api/v1/invites/:inviteId/vote',
     authenticateUserToken,
+
     validateInviteId,
     validateInvite,
     unvoteInvite
@@ -321,18 +340,24 @@ export const initRoutes = app => {
   app.patch('/api/v1/notifications', markNotificationAsRead);
 
   // Report a user
-  app.post('/api/v1/users/report', authenticateUserToken, validateReport, createReport);
+  app.post(
+    '/api/v1/users/report', authenticateUserToken, validateReport, createReport
+  );
 
   // forgot password
-  app.post('/api/v1/users/forgot-password', validateForgotPasswordForm, validateUserByEmail, forgotPassowrd);
+  app.post(
+    '/api/v1/users/forgot-password', validateForgotPasswordForm, validateUserByEmail, forgotPassowrd
+  );
 
   // Reset forgot password
-  app.patch('/api/v1/users/reset-forgot-password/:token',
+  app.patch(
+    '/api/v1/users/reset-forgot-password/:token',
     validateNewPasswordForm,
     authenticateForgotToken,
     validateUserById,
     checkUserPasswordReset,
-    resetForgotPassword);
+    resetForgotPassword
+  );
 
   // Fallback case for unknown URIs.
   app.get('/notAuthorized', (req, res) => res.render('401', { meta: { title: '404 - Page Not Found', description: genericDescription } }));
