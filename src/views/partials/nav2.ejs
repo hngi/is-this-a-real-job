@@ -330,8 +330,8 @@
 
             </li>
             <li class="nav-item">
-                <a class="post-btn" href="/post"><button type="button" class="btn-primary nav-btn"
-                        style="padding: 10px;"> NEW
+                <a class="post-btn" href="/post"><button type="button" class="btn-primary nav-btn newPosts"
+                     style="padding: 10px;"> NEW
                         POST</button></a>
 
                 <% } else { %>
@@ -351,7 +351,7 @@
 
 
             <% if(isAuth){ %>
-            <a class="post-btn" href="/posts"><button type="button" class="btn-primary nav-btn" style="padding: 10px;">
+            <a class="post-btn" href="/posts"><button type="button" class="btn-primary nav-btn postsBtn" style="padding: 10px;">
                     POSTS</button></a>
             <% } %>
             <% if (isAdmin) { %>
