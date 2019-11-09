@@ -27,7 +27,7 @@ export default {
       onDelete: 'CASCADE'
     },
     type: {
-      type: Sequelize.ENUM('upvote', 'comment', 'report'),
+      type: Sequelize.ENUM('upvote', 'downvote', 'comment', 'report'),
       allowNull: false,
     },
     message: {
@@ -48,6 +48,10 @@ export default {
       allowNull: false,
       type: Sequelize.DATE,
       defaultValue: new Date(),
+    },
+    deletedAt: {
+      type: Sequelize.DATE,
+      defaultValue: null
     }
   }),
   down: queryInterface => queryInterface.dropTable('Notifications')

@@ -34,7 +34,7 @@ export default (sequelize, DataTypes) => {
       onDelete: 'CASCADE'
     },
     type: {
-      type: DataTypes.ENUM('upvote', 'comment', 'report'),
+      type: DataTypes.ENUM('upvote', 'downvote', 'comment', 'report'),
       allowNull: false,
     },
     message: {

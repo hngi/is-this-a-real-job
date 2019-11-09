@@ -1,3 +1,4 @@
+import Sequelize from 'sequelize';
 import { findSingleUser, updateOneUser } from '../services/userServices';
 import { respondWithWarning } from '../helpers/responseHandler';
 import { verifyToken, formatJWTErrorMessage } from '../helpers/jwt';
@@ -36,7 +37,8 @@ export const authenticateUserToken = (req, res, next) => {
 export const validUser = async (req, res, next) => {
   const { email } = req.body;
 
-  const findUser = await findSingleUser({ email });
+  // user should login with both email and username
+  const findUser = await findSingleUser({ [Sequelize.Op.or]: [{ email }, { username: email }] });
   if (!findUser) {
     return respondWithWarning(res, 401, 'Incorrect email or password');
   }

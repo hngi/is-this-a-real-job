@@ -30,22 +30,40 @@ export const getSingleReport = async (reportId) => {
 /**
  * @returns {array} an array of the reports or empty array
  */
-export const findReports = async () => {
+export const findReports = async (queryOption = {}, offset = 0, limit = 10) => {
   try {
-    const reports = await Report.findAll({
-      include: [
-        { model: User, as: 'offender' },
-        { model: User, as: 'reporter' }
-      ],
-      logging: false
-    });
-
-    return reports.map(report => {
+    let result;
+    if (offset >= 0) {
+      result = await Report.findAndCountAll({
+        where: queryOption,
+        include: [
+          { model: User, as: 'offender' },
+          { model: User, as: 'reporter' }
+        ],
+        order: [['createdAt', 'DESC']],
+        offset,
+        limit,
+        logging: false
+      });
+    } else {
+      result = await Report.findAllAndCount({
+        where: queryOption,
+        include: [
+          { model: User, as: 'offender' },
+          { model: User, as: 'reporter' }
+        ],
+        order: [['createdAt', 'DESC']],
+        logging: false
+      });
+    }
+    result.rows.map(report => {
       report = report.dataValues;
       report.offender = report.offender ? report.offender.dataValues : {};
       report.reporter = report.reporter ? report.reporter.dataValues : {};
       return report;
     });
+
+    return { reports: result.rows, count: result.count };
   } catch (error) {
     console.log(error);
   }

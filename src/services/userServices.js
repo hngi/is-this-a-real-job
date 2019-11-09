@@ -51,6 +51,35 @@ export const findUsers = async (queryOption = {}) => {
 };
 
 /**
+ * Get all users
+ * @returns {object} an object containing the information of the user or null
+ */
+export const findUsersWithPagination = async (queryOption = {}, offset = 0, limit = 10) => {
+  try {
+    let result;
+    if (offset >= 0) {
+      result = await User.findAndCountAll({
+        where: queryOption,
+        order: [['name', 'ASC']],
+        offset,
+        limit,
+        logging: false
+      });
+    } else {
+      result = await User.findAll({
+        where: queryOption,
+        logging: false,
+        order: [['name', 'ASC']]
+      });
+    }
+
+    return { users: result.rows, count: result.count };
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+/**
  * return a single user
  */
 export const fetchSingleUser = async query => {
