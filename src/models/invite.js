@@ -21,11 +21,9 @@ export default (sequelize, DataTypes) => {
       },
       company: {
         type: DataTypes.STRING,
-        allowNull: false,
       },
       location: {
         type: DataTypes.STRING,
-        allowNull: false,
       },
       body: {
         type: DataTypes.TEXT,

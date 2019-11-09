@@ -27,7 +27,6 @@ export default {
     },
     email: {
       type: Sequelize.STRING,
-      allowNull: false,
     },
     isBlocked: {
       type: Sequelize.BOOLEAN,
@@ -60,6 +59,10 @@ export default {
       allowNull: false,
       type: Sequelize.DATE,
       defaultValue: new Date()
+    },
+    deletedAt: {
+      type: Sequelize.DATE,
+      defaultValue: null
     }
   }),
   down: queryInterface => queryInterface.dropTable('Users')
