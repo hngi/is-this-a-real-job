@@ -117,25 +117,27 @@
 
 <!-- Stats -->
 <section class="mt-4" id="site-stats">
-  <div class="mt-5 text-center ribbon">
-    <div class="mx-4 d-block d-md-inline">
-      <span class="text-primary" id="no-of-users"></span> <span>Users</span>
+  <div class="row ribbon mt-5">
+    <div class="text-center col-md-6 offset-md-3">
+      <div class="col-xs-12 col-sm-4 col-md-4">
+        <span class="mx-1 stat-text" id="no-of-users"></span> <span>Users</span>
+      </div>
+      <div class="col-xs-12 col-sm-4 col-md-4">
+        <span class="mx-1 stat-text" id="no-of-posts"></span> <span>Posts</span>
+      </div>
+      <div class="col-xs-12 col-sm-4 col-md-4">
+        <span class="mx-1 stat-text" id="no-of-comments"></span> <span>Discussions</span>
+      </div>
+      <% if (!isAuth) { %>
+      <div>
+        <p class="text-dark mb-0 mt-4 d-none d-md-block">Join the community</p>
+        <p class="mb-0 mt-4 mt-md-0">
+          <a href="/register" class="btn btn-primary" style="width: 160px;">Join</a>
+        </p>
+      </div>
+      <% } %>
     </div>
-    <div class="mx-4 d-block d-md-inline">
-      <span class="text-primary" id="no-of-posts"></span> <span>Posts</span>
-    </div>
-    <div class="mx-4 d-block d-md-inline">
-      <span class="text-primary" id="no-of-comments"></span> <span>Discussions</span>
-    </div>
-    <% if (!isAuth) { %>
-    <div>
-      <p class="text-dark mb-0 mt-4 d-none d-md-block">Join the community</p>
-      <p class="mb-0 mt-4 mt-md-0">
-        <a href="/register" class="btn btn-primary" style="width: 160px;">Join</a>
-      </p>
-    </div>
-    <% } %>
   </div>
 </section>
-
+  
 <% include partials/footer %>
