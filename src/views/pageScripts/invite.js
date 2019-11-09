@@ -1,3 +1,4 @@
+/* eslint-disable no-inner-declarations */
 /* eslint-disable no-console */
 /* eslint-disable no-undef */
 // create a new post
@@ -70,7 +71,7 @@ if (document.querySelector('#newInviteBtn')) {
     // fetch('api/v1/invites', options) //Now using api-helper.
     newApi.Post('invites', JSON.stringify(formData), true)
       .then(res => {
-        //Show success modal.
+        // Show success modal.
         showSuccessDialog();
       })
       .catch(err => {

@@ -1,12 +1,12 @@
 import _ from 'lodash';
 import crypto from 'crypto';
 import { generateToken } from '../helpers/jwt';
-import {
-  respondWithWarning,
-  respondWithSuccess
-} from '../helpers/responseHandler';
+import { respondWithWarning, respondWithSuccess } from '../helpers/responseHandler';
 import { comparePasswords, passwordHash } from '../helpers/hash';
 import { createUser } from '../services/userServices';
+import { newUserVerificationEmail } from '../helpers/emailTemplates';
+import { SITE_URL } from '../config/constants';
+import { sendMail } from '../services/emailServices';
 
 /**
  * class handles user authentication
@@ -54,7 +54,10 @@ const createGravatar = (email) => {
 
 export const signup = async (req, res) => {
   const {
-    username, name, email, password
+    username,
+    name,
+    email,
+    password
   } = req.body;
 
   const gravatar = createGravatar(email);
@@ -76,6 +79,12 @@ export const signup = async (req, res) => {
     };
     const token = await generateToken(payload);
     _user.user.dataValues.token = token;
+
+    const mailBody = newUserVerificationEmail(
+      req.user.name, SITE_URL, token, req.body.email
+    );
+    const sendEmail = sendMail(req.body.email, 'ITARJ - Verify Email', mailBody);
+
     return respondWithSuccess(
       res,
       200,

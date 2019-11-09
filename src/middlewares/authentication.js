@@ -97,10 +97,8 @@ export const authenticateForgotToken = async (req, res, next) => {
     req.params.userId = key.userId;
     return next();
   } catch (error) {
-    const user = await updateOneUser(
-      { isPasswordReset: false },
-      { userId: req.params.userId }
-    );
+    const user = await updateOneUser({ isPasswordReset: false },
+      { userId: req.params.userId });
     return res.redirect('/linkexpired');
   }
 };

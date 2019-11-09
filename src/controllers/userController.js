@@ -1,21 +1,17 @@
 /* eslint-disable no-unneeded-ternary */
 import _ from 'lodash';
 import crypto from 'crypto';
-import {
-  respondWithSuccess,
-  respondWithWarning
-} from '../helpers/responseHandler';
-import {
-  updateOneUser,
+import { respondWithSuccess,
+  respondWithWarning } from '../helpers/responseHandler';
+import { updateOneUser,
   findUsers,
   fetchSingleUser,
   findSingleUser,
   updatePassword,
-  findUsersWithPagination,
-} from '../services/userServices';
+  findUsersWithPagination, } from '../services/userServices';
 import { findReports } from '../services/reportServices';
-import { generateResetToken } from '../helpers/jwt';
-import { emailBody } from '../helpers/emailTemplates';
+import { generateResetToken, generateToken } from '../helpers/jwt';
+import { resetPasswordEmail, newUserVerificationEmail } from '../helpers/emailTemplates';
 import { SITE_URL } from '../config/constants';
 import { sendMail } from '../services/emailServices';
 import { passwordHash } from '../helpers/hash';
@@ -34,7 +30,9 @@ export const blockUser = async (req, res) => {
     const user = await updateOneUser({ isBlocked }, { userId }).catch(e => {
       throw e;
     });
-    respondWithSuccess(res, 200, 'User successfully blocked', user.toJSON());
+    respondWithSuccess(
+      res, 200, 'User successfully blocked', user.toJSON()
+    );
   } catch (error) {
     return respondWithWarning(res, error.status, error.message);
   }
@@ -49,7 +47,9 @@ export const blockUser = async (req, res) => {
 export const getUsers = async (req, res) => {
   const users = await findUsers();
 
-  return respondWithSuccess(res, 200, 'Successful', users);
+  return respondWithSuccess(
+    res, 200, 'Successful', users
+  );
 };
 
 /**
@@ -109,7 +109,9 @@ export const getUser = async (req, res) => {
     if (!user) {
       return respondWithWarning(res, 404, 'User not found');
     }
-    return respondWithSuccess(res, 200, 'User found', user);
+    return respondWithSuccess(
+      res, 200, 'User found', user
+    );
   } catch (error) {
     return respondWithWarning(res, 400, 'Error fetching User');
   }
@@ -220,11 +222,9 @@ export const renderAdminReportedUsersPage = async (req, res) => {
     page = Number(req.query.page) - 1;
   }
   const offset = page * limit;
-  const { reports, count } = await findReports(
-    {},
+  const { reports, count } = await findReports({},
     offset,
-    limit
-  );
+    limit);
 
   const pages = Math.ceil(count / limit);
 
@@ -278,13 +278,13 @@ export const renderLoginPage = async (req, res) => {
 
 export const forgotPassowrd = async (req, res) => {
   if (req.user.isPasswordReset) {
-    updateOneUser(
-      { isPasswordReset: false },
-      { userId: req.user.userId }
-    );
+    updateOneUser({ isPasswordReset: false },
+      { userId: req.user.userId });
   }
   const token = await generateResetToken({ userId: req.user.userId }, { expiresIn: '1h' });
-  const mailBody = emailBody(req.user.name, SITE_URL, token, req.body.email);
+  const mailBody = resetPasswordEmail(
+    req.user.name, SITE_URL, token, req.body.email
+  );
 
   try {
     const user = await updateOneUser({ isPasswordReset: true }, { email: req.user.email });
@@ -305,10 +305,8 @@ export const resetForgotPassword = async (req, res) => {
   const { password } = req.body;
   const hashedPassword = await passwordHash(password);
   try {
-    const user = await updateOneUser(
-      { password: hashedPassword, isPasswordReset: false },
-      { email: req.user.email }
-    );
+    const user = await updateOneUser({ password: hashedPassword, isPasswordReset: false },
+      { email: req.user.email });
     return respondWithSuccess(
       res,
       200,
@@ -318,4 +316,43 @@ export const resetForgotPassword = async (req, res) => {
   } catch (error) {
     return respondWithWarning(res, 500, 'Server Error');
   }
+};
+
+/**
+ * Function to check if user has been verified
+ * @param {Object} req the request object
+ * @param {Object} res the response object
+ * @returns {Object} this returns an object
+ */
+export const checkUserVerification = async (req, res, next) => {
+  if (req.isAuth) {
+    const user = await findSingleUser({ userId: req.auth.userId });
+    if (!user.isVerified) {
+      const description = 'Our app helps you check if job opportunities are real or not.';
+      return res.render('verifyAccount', { isAuth: req.isAuth, isAdmin: req.auth.isAdmin, meta: { title: 'Verify Account - ITARJ', description } });
+    }
+  }
+  return next();
+};
+
+/**
+ * Function to check if user has been verified
+ * @param {Object} req the request object
+ * @param {Object} res the response object
+ * @returns {Object} this returns an object
+ */
+export const sendUserVerification = async (req, res, next) => {
+  const payload = {
+    userId: req.auth.userId,
+    isAdmin: req.isAdmin
+  };
+  const token = await generateToken(payload);
+  const user = await findSingleUser({ userId: req.auth.userId });
+
+  const mailBody = newUserVerificationEmail(
+    user.name, SITE_URL, token, req.body.email
+  );
+  const sendEmail = sendMail(req.body.email, 'ITARJ - Verify Email', mailBody);
+  const description = 'Our app helps you check if job opportunities are real or not.';
+  return res.render('verifyAccount', { isAuth: req.isAuth, isAdmin: req.auth.isAdmin, meta: { title: 'Verify Account - ITARJ', description } });
 };

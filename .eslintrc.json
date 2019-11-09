@@ -28,6 +28,30 @@
         "commonjs": true
       }
     ],
+    "function-paren-newline": [
+      "error",
+      {
+        "minItems": 4
+      }
+    ],
+    "object-curly-newline": [
+      "error",
+      {
+        "ObjectExpression": {
+          "multiline": true,
+          "minProperties": 4
+        },
+        "ObjectPattern": {
+          "multiline": true,
+          "minProperties": 4
+        },
+        "ImportDeclaration": "never",
+        "ExportDeclaration": {
+          "multiline": true,
+          "minProperties": 4
+        }
+      }
+    ],
     "no-shadow": [
       "error",
       {
