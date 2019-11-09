@@ -1,12 +1,18 @@
 /* eslint-disable no-undef */
 
+const notification = document.querySelector('.notification');
 
 function togglePreloader(state) {
   const preloader = document.querySelector('#cover');
   preloader.style.display = state;
 }
 
+/**
+ * The deleteComment function is defined in a separate file: deleteComment.js
+ */
+
 const commentBtn = document.querySelector('.comment-btn button');
+let deleteCommentBtns = document.querySelectorAll('.delete-comment');
 
 if (commentBtn) {
   const api = new ItarjApi('/api/v1');
@@ -17,6 +23,16 @@ if (commentBtn) {
   const noComment = document.querySelector('#no-comments');
 
   const inviteid = postMeta ? postMeta.dataset.inviteid : null; // invite id
+
+  const updateCommentDeleteBtnsList = function () {
+    deleteCommentBtns = document.querySelectorAll('.delete-comment');
+    deleteCommentBtns.forEach((c) => {
+      c.addEventListener('click', (e) => { deleteComment(e, api, c); });
+    });
+  };
+
+  // new comment elements have been made. Update them :)
+  updateCommentDeleteBtnsList();
 
   const getCommentHTML = (comment) => `
   <div class="card mb-2">
@@ -29,7 +45,10 @@ if (commentBtn) {
   ${comment.user.username ? `<a href="/users/${comment.user.username}">@${comment.user.username}</a>`
     : 'guest'}
 </small>
-    <small class="text-muted">${new Date(comment.createdAt).toLocaleString()}}</small>
+    <small class="text-muted">${new Date(comment.createdAt).toLocaleString()}</small>
+    <small><button type="button" class="btn btn-link text-danger float-right p-0 delete-comment"
+    data-inviteid="${inviteid}"
+    data-commentid="${comment.commentId}">Delete</button></small>
   </div>
 </div>`;
 
@@ -40,7 +59,6 @@ if (commentBtn) {
     const body = {
       body: commentField.value
     };
-    const notification = document.querySelector('.notification');
 
     commentField.value = '';
 
@@ -49,6 +67,7 @@ if (commentBtn) {
         comments.innerHTML = getCommentHTML(res.data) + comments.innerHTML;
         if (noComment) noComment.innerHTML = '';
         commentCount.textContent = Number(commentCount.textContent) + 1;
+        updateCommentDeleteBtnsList();
         togglePreloader('none');
       })
       .catch(err => {

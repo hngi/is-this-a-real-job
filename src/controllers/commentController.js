@@ -45,7 +45,7 @@ export const createComment = async (req, res) => {
  * @returns {object} json response
  */
 export const deleteComment = async (req, res) => {
-  const { commentId } = req.invite;
+  const { commentId } = req.params;
   if (!commentId) {
     respondWithWarning(res, 400, 'Bad Request');
   }
@@ -53,8 +53,7 @@ export const deleteComment = async (req, res) => {
     commentId
   });
   if (!deleted.error) {
-    let co = deleted.comment.body.substr(0, 15);
-    respondWithSuccess(res, 200, `${co} deleted successfully!`);
+    respondWithSuccess(res, 200, `Comment deleted successfully!`);
   } else {
     respondWithWarning(res, 400, 'Error deleting comment');
   }

@@ -1,6 +1,6 @@
 import Joi from '@hapi/joi';
 import { joiValidator } from '../helpers/joiValidator';
-import { respondWithWarning } from '../helpers/responseHandler';
+import { respondWithWarning, respondWithSuccess } from '../helpers/responseHandler';
 import { getSingleComment, findPostForComment } from '../services/commentServices';
 
 /**
@@ -37,7 +37,7 @@ export const validateComment = async (req, res, next) => {
     findPostForComment(inviteId)
   ]);
 
-  if (!data[1].error) {
+  if (data[0].error) {
     return respondWithWarning(res, 404, 'Comment does not exist!');
   }
   let comment = data[0];
@@ -53,11 +53,9 @@ export const validateComment = async (req, res, next) => {
  * @param {*} next 
  */
 export const canDeleteComment = async (req, res, next) => {
-  // if (req.auth.userId !== req.comment.invite.inviteId || !req.auth.isAdmin) {
-  //   return respondWithWarning(res, 401, 'You are not authorized to perform this action, thou fellow');
-  // }
-
-  console.log('Comment =>', req.comment);
-  return respondWithSuccess(res, 200, 'Just testing :)');
-  // return next();
+  if (req.auth.userId === req.comment.invite.userId || req.auth.userId === req.comment.userId || req.auth.isAdmin) {
+    return next();
+  } else {
+    return respondWithWarning(res, 401, 'You are not authorized to perform this action, thou fellow');
+  }
 };

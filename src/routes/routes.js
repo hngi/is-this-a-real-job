@@ -268,8 +268,8 @@ export const initRoutes = app => {
     '/api/v1/comments/:inviteId/:commentId',
     authenticateUserToken,
     validateComment,
-    canDeleteComment
-    // deleteComment
+    canDeleteComment,
+    deleteComment
   );
 
   // Get all comments for a given Invite.
