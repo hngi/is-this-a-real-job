@@ -13,7 +13,7 @@ export const validateSigninFormData = (req, res, next) => {
   const createSignInSchema = Joi.object().keys({
     password: Joi.string().required(),
     email: Joi.string()
-      .email()
+      // .email()
       .required()
       .trim()
   });
