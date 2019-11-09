@@ -275,14 +275,21 @@
   <div class="d-flex flex-column action-buttons">
     <div class="d-flex flex-column justify-content-around flex-fill actions">
       <a class="m-0 align-items-center d-flex flex-column upvote-btn" data-inviteid="<%= invite.inviteId %>"
-         data-voted="<%= invite.votes.some( (vote) => (vote.userId === userId) && (vote.type === 'up') )%>">
+          <% if(isAuth) { %>
+         data-voted="<%= invite.votes.some( (vote) => (vote.userId === userId) && (vote.type === 'up') )%>"
+         <% } %>
+  
+         >
         <i class="fas fa-arrow-alt-circle-up"></i>
         <span class="count">
           <%= invite.votes.reduce((p,vote) => (vote.type === 'up') ? ++p : p ,0) %>
         </span>
       </a>
       <a class="m-0 align-items-center d-flex flex-column downvote-btn" data-inviteid="<%= invite.inviteId %>"
-         data-voted="<%= invite.votes.some( (vote) => (vote.userId === userId) && (vote.type === 'down') ) %>">
+          <% if(isAuth) { %>
+         data-voted="<%= invite.votes.some( (vote) => (vote.userId === userId) && (vote.type === 'down') ) %>"
+         <% } %>
+         >
         <i class="fas fa-arrow-alt-circle-down"></i>
         <span class="count">
           <%= invite.votes.reduce((p,vote) => (vote.type === 'down') ? ++p : p ,0) %>
@@ -296,6 +303,8 @@
 
 
 </div>
+
+
 <script>
   const singlePage = document.querySelectorAll("#single-page");
   const readMoreButton = document.querySelectorAll("#button-page");
