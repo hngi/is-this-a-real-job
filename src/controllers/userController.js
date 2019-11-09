@@ -352,7 +352,7 @@ export const sendUserVerification = async (req, res, next) => {
   const mailBody = newUserVerificationEmail(
     user.name, SITE_URL, token, req.body.email
   );
-  const sendEmail = sendMail(req.body.email, 'ITARJ - Verify Email', mailBody);
+  const sendEmail = sendMail(user.email, 'ITARJ - Verify Email', mailBody);
   const description = 'Our app helps you check if job opportunities are real or not.';
   return res.render('verifyAccount', { isAuth: req.isAuth, isAdmin: req.auth.isAdmin, meta: { title: 'Verify Account - ITARJ', description } });
 };
