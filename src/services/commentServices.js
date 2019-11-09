@@ -2,6 +2,7 @@
 import Model from '../models';
 import { notifyByEmail } from './notificationServices';
 import { SocketMethods } from '../routes/events';
+import { fetchOneInvite } from './inviteServices';
 
 const {
   Comment, Invite, User, Notification
@@ -11,8 +12,8 @@ export const getSingleComment = async (commentId) => {
   try {
     const data = await Comment.findOne({
       include: [
-        { model: User, as: 'user' },
-        { model: Invite, as: 'invite' }
+        { model: User, as: 'user' }
+        // { model: Invite, as: 'invite' }
       ],
       where: { commentId },
       logging: false
@@ -20,7 +21,7 @@ export const getSingleComment = async (commentId) => {
 
     const comment = data.dataValues;
     comment.user = comment.user ? comment.user.dataValues : {};
-    comment.invite = comment.invite ? comment.invite.dataValues : {};
+    // comment.invite = comment.invite ? comment.invite.dataValues : {};
     return comment;
   } catch (error) {
     console.log(error);
@@ -49,6 +50,17 @@ export const findCommentsForPost = async (inviteId) => {
     });
   } catch (error) {
     console.log(error);
+  }
+};
+
+export const findPostForComment = async (inviteId) => {
+  try {
+
+    let invite = await fetchOneInvite(inviteId);
+    invite = invite.dataValues;
+    return { error: false, invite }
+  } catch (error) {
+    return { error: true, message: 'Error getting invite for comment' }
   }
 };
 
@@ -107,4 +119,21 @@ export const createCommentForPost = async (res, commentData) => {
       e.message = 'A technical error occured. Contact support.';
       throw e;
     });
+};
+
+/**
+ * Delete a comment by Id
+ * @param {} queryOption 
+ */
+export const deleteOneComment = async (queryOption = {}) => {
+  try {
+    const comment = await Comment.destroy({
+      where: queryOption,
+      logging: false
+    });
+    return { error: false, comment };
+  } catch (err) {
+    console.log(error);
+    return { error: true, e: err };
+  }
 };
