@@ -44,6 +44,7 @@
       }
           
       .btn-custom {
+        width: 206px;
         line-height: 20px;
         height: 40px;
         background: #3087D1;
@@ -53,6 +54,13 @@
       .btn-custom:hover {
         line-height: 20px;
         background: rgb(44, 120, 187);
+      }
+
+      .button-special {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
       }
       
       .register {
@@ -67,7 +75,7 @@
       #error{
         display: none;
       }
-      @media (max-width: 767px) {
+      @media (max-width: 1067px) {
         h3 {
           font-size: 35px;
         }
@@ -86,20 +94,6 @@
       <div id="register-flex">
         <div class="register-form-container register-item" id="register-form">
           <h3>Register</h3>
-          <div class="text-center">
-            <a href="/auth/twitter" class="btn btn-info social"
-            ><span class="fa fa-twitter"></span> Continue with Twitter</a
-            >
-            
-            <a href="/auth/google" class="btn btn-danger social"
-              ><span class="fa fa-google"></span> Continue with Google</a
-            >
-            
-            <a href="/auth/facebook" class="btn btn-primary social"
-            ><span class="fa fa-facebook"></span> Continue with Facebook</a
-            >
-            <p>OR</p>
-          </div>
           <form class="register-form" name="signup" action="javascript:void(0);" method="POST">
             <div class="form-group">
               <input type="text" placeholder="Name" name="name" class="form-control">
@@ -116,11 +110,24 @@
             <div class="form-group">
               <input type="password" placeholder="Password Confirmation" class="form-control" name="password2" id="password2">
             </div>
-            <div class="form-group">
+            <div class="form-group button-special">
               <button class="btn btn-success btn-block btn-custom" id="signup-btn">Register</button>
             </div><span id="error">Passwords do not match</span>
             <div class="register">
               <p><a href="/login">Login</a></p>
+            </div>
+            <div class="text-center">
+              <p>OR</p>
+              <a href="/auth/twitter" class="btn btn-info social"><span class="fa fa-twitter"></span> Continue with Twitter</a
+                >
+              
+                <a href="/auth/google" class="btn btn-danger social"
+                  ><span class="fa fa-google"></span> Continue with Google</a
+                >
+              
+                <a href="/auth/facebook" class="btn btn-primary social"
+                  ><span class="fa fa-facebook"></span> Continue with Facebook</a
+                >
             </div>
           </form>
         </div>

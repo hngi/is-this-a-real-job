@@ -5,7 +5,7 @@
 
 /* @LeanKhan */
 #hero {
-  background-image: url('https://res.cloudinary.com/leankhan/image/upload/v1572775964/itarj/hero_image.jpg');
+  background-image: url('https://res.cloudinary.com/dulniapvg/image/upload/v1573313248/icons%20-hng/hero_vjm9vd.jpg');
   background-position: 50% 0;
   box-shadow: inset 0 0 0 100vw rgba(0,0,0,0.6);
   min-height: 600px;
@@ -70,7 +70,7 @@ height: 100%;
 }
 
 .ribbon div {
-  display: inline;
+  display: inline-block;
 }
 
 .ribbon-small {
@@ -174,4 +174,12 @@ margin-bottom: 0px;
 .usage-stats__cta__reason {
   display: block;
   color: black;
+}
+
+#site-stats .ribbon {
+  padding: 2rem 4.5rem;
+}
+
+.stat-text {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
