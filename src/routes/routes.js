@@ -99,6 +99,7 @@ export const initRoutes = app => {
     isAdmin: req.auth.isAdmin,
     user: req.user,
     username: req.auth.username,
+    profileImage: req.auth.profileImage,
     name: req.auth.name,
     meta: { title: 'New Post - Is This A Real Job', descripiton: genericDescription }
   }));
@@ -114,6 +115,7 @@ export const initRoutes = app => {
     isAuth: req.isAuth,
     isAdmin: req.auth.isAdmin,
     username: req.auth.username,
+    profileImage: req.auth.profileImage,
     name: req.auth.name,
     meta: { title: 'Terms - Is This A Real Job', description: genericDescription }
   }));
@@ -122,6 +124,7 @@ export const initRoutes = app => {
     isAuth: req.isAuth,
     isAdmin: req.auth.isAdmin,
     username: req.auth.username,
+    profileImage: req.auth.profileImage,
     name: req.auth.name,
     meta: { title: 'About - Is This A Real Job', description: genericDescription }
   }));
@@ -133,6 +136,7 @@ export const initRoutes = app => {
   app.get('/admin', checkRenderIsAdmin, (req, res) => res.render('./admin/index', {
     isAuth: req.isAuth,
     username: req.auth.username,
+    profileImage: req.auth.profileImage,
     name: req.auth.name,
     isAdmin: req.auth.isAdmin,
     meta: { title: 'Admin Home - Is This A Real Job', description: genericDescription }
