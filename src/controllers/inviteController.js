@@ -72,6 +72,7 @@ export const renderSearchResults = async (req, res) => {
     const { q } = req.query;
 
     const invites = await searchInvites(q);
+    const user = findSingleUser({ username: req.auth.username });
 
     const title = `Search for '${q}' - Is This A Real Job`;
     const description = `Search results for ${q}`;
@@ -82,6 +83,7 @@ export const renderSearchResults = async (req, res) => {
       isAdmin: req.auth.isAdmin,
       username: req.auth.username,
       name: req.auth.name,
+      userId: user.userId,
       isVerified: req.auth.isVerified,
       profileImage: req.auth.profileImage,
       meta: { title, description }
