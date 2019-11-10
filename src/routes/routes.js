@@ -52,7 +52,7 @@ import {
   renderAnalysisPage
 } from '../controllers/inviteController';
 
-import { getComments, createComment } from '../controllers/commentController';
+import { getComments, createComment, deleteComment } from '../controllers/commentController';
 import {
   blockUser,
   getUsers,
@@ -80,6 +80,7 @@ import { descriptions } from '../helpers/metatags';
 import { validateReport } from '../middlewares/validateReport';
 import { createReport } from '../controllers/reportController';
 import { checkIfSameUser } from '../middlewares/validateUser';
+import { canDeleteComment, validateComment } from '../middlewares/validateComment';
 
 const genericDescription = 'Our app helps you check if job opportunities are real or not.';
 
@@ -264,6 +265,15 @@ export const initRoutes = app => {
     validateAdmin,
     validateInvite,
     deleteInvite
+  );
+
+  // Delete an existing comment.
+  app.delete(
+    '/api/v1/comments/:inviteId/:commentId',
+    authenticateUserToken,
+    validateComment,
+    canDeleteComment,
+    deleteComment
   );
 
   // Get all comments for a given Invite.

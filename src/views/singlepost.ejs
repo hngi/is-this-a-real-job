@@ -33,7 +33,7 @@
           <% if (comments.length > 0) { %>
           <% for (comment of comments) { %>
 
-          <div class="card mb-2">
+          <div class="card mb-2 comment" id="<%= comment.commentId %>">
 
             <div class="card-body">
               <%=comment.body%>
@@ -47,6 +47,11 @@
                 <% } %>
               </small>
               <small class="text-muted"><%=new Date(comment.createdAt).toLocaleString()%></small>
+              <% if(userId === invite.userId || userId === comment.userId || isAdmin) { %>
+              <small><button type="button" class="btn btn-link text-danger float-right delete-comment p-0"
+                        data-inviteid="<%= invite.inviteId %>"
+                        data-commentid="<%= comment.commentId %>">Delete</button></small>
+              <% } %>
             </div>
           </div>
           <% } %>
