@@ -166,6 +166,7 @@ export const renderUserProfile = async (req, res) => {
   return res.render('userProfile', {
     user,
     invites,
+    userId: user.userId,
     isAuth: req.isAuth,
     isAdmin: req.auth.isAdmin,
     username: req.auth.username,
