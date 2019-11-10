@@ -128,6 +128,8 @@ export const renderReportUserPage = async (req, res) => res.render('reportUser',
   isAdmin: req.auth.isAdmin,
   profileImage: req.auth.profileImage,
   reportedUser: req.user,
+  name: req.auth.name,
+  isVerified: req.auth.isVerified,
   meta: {
     title: 'Report User - Is This A Real Job',
     description: `Report ${req.user.username} - Is This A Real Job`
@@ -167,6 +169,7 @@ export const renderUserProfile = async (req, res) => {
     profileImage: req.auth.profileImage,
     name: req.auth.name,
     meta: { title, description },
+    isVerified: req.auth.isVerified,
     crypto
   });
 };
@@ -202,6 +205,7 @@ export const renderAdminUsersPage = async (req, res) => {
     isAdmin: req.auth.isAdmin,
     username: req.auth.username,
     name: req.auth.name,
+    isVerified: req.auth.isVerified,
     meta: { title, description },
     crypto
   });
@@ -240,6 +244,7 @@ export const renderAdminReportedUsersPage = async (req, res) => {
     username: req.auth.username,
     profileImage: req.auth.profileImage,
     name: req.auth.name,
+    isVerified: req.auth.isVerified,
     meta: { title, description },
     crypto
   });
@@ -325,18 +330,15 @@ export const resetForgotPassword = async (req, res) => {
  * @returns {Object} this returns an object
  */
 export const checkUserVerification = async (req, res, next) => {
-  if (req.isAuth) {
-    const user = await findSingleUser({ userId: req.auth.userId });
-    if (!user.isVerified) {
-      const description = 'Our app helps you check if job opportunities are real or not.';
-      return res.render('verifyAccount', { isAuth: req.isAuth, isAdmin: req.auth.isAdmin, meta: { title: 'Verify Account - ITARJ', description } });
-    }
+  const user = await findSingleUser({ userId: req.auth.userId });
+  if (!user.isVerified) {
+    return respondWithWarning(res, 403, 'Please verify your account to perform this action');
   }
   return next();
 };
 
 /**
- * Function to check if user has been verified
+ * Function sends verification code to user email
  * @param {Object} req the request object
  * @param {Object} res the response object
  * @returns {Object} this returns an object
@@ -348,11 +350,36 @@ export const sendUserVerification = async (req, res, next) => {
   };
   const token = await generateToken(payload);
   const user = await findSingleUser({ userId: req.auth.userId });
-
+  if (user.isVerified) {
+    return res.redirect('/posts');
+  }
   const mailBody = newUserVerificationEmail(
     user.name, SITE_URL, token, req.body.email
   );
   const sendEmail = sendMail(user.email, 'ITARJ - Verify Email', mailBody);
   const description = 'Our app helps you check if job opportunities are real or not.';
-  return res.render('verifyAccount', { isAuth: req.isAuth, isAdmin: req.auth.isAdmin, meta: { title: 'Verify Account - ITARJ', description } });
+  return res.render('verifyAccount', {
+    isAuth: req.isAuth,
+    isAdmin: req.auth.isAdmin,
+    isVerified: req.auth.isVerified,
+    meta: { title: 'Verify Account - ITARJ', description }
+  });
+};
+
+/**
+ * Function sets user verification to true
+ * @param {Object} req the request object
+ * @param {Object} res the response object
+ * @returns {Object} this returns an object
+ */
+export const verifyEmailLink = async (req, res, next) => {
+  const user = await updateOneUser({ isVerified: true },
+    { userId: req.user.userId });
+  if (!user) {
+    return res.redirect('/verificationLinkExpired');
+  }
+  // handle get started email here
+  req.isVerified = true;
+  res.cookies.set('isVerified', user.isVerified, { signed: true });
+  return res.redirect('/posts');
 };

@@ -13,7 +13,8 @@ export const facebookAuthCallback = (req, res, next) => passport.authenticate('f
     userId,
     isAdmin,
     username,
-    name
+    name,
+    isVerified
   } = sanitizedUser;
 
   const payload = { userId, isAdmin };
@@ -24,6 +25,7 @@ export const facebookAuthCallback = (req, res, next) => passport.authenticate('f
   res.cookies.set('token', token, { signed: true }); // create token and send to client
   res.cookies.set('username', username, { signed: true });
   res.cookies.set('name', name, { signed: true });
-  res.cookies.set('isAdmin', user.isAdmin, { signed: true });
+  res.cookies.set('isAdmin', isAdmin, { signed: true });
+  res.cookies.set('isVerified', isVerified, { signed: true });
   return res.redirect('/posts');
 })(req, res, next);

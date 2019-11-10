@@ -81,7 +81,6 @@ if (document.querySelector('#newInviteBtn')) {
         notification.classList.add('show');
         setTimeout(() => {
           notification.classList.remove('show');
-          // notification.className = 'notification'; //Using classList is better.
         }, 8000);
       });
   });
@@ -122,10 +121,10 @@ const upvotePostBtnHander = (event) => {
         console.log(err);
         notification.innerHTML = `<strong>${err.data ? err.data.message : 'Something happened while processing your request. Contact support or try again.'}:</strong> ${err.data.payload}`;
         refresh(inviteId);
-        notification.className += ' show';
+        notification.classList.add('show');
         setTimeout(() => {
-          notification.className = 'notification';
-        }, 5000);
+          notification.classList.remove('show');
+        }, 8000);
       });
   } else {
     setUp(target, other, 'del');

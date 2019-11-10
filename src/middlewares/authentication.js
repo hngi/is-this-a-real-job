@@ -102,3 +102,21 @@ export const authenticateForgotToken = async (req, res, next) => {
     return res.redirect('/linkexpired');
   }
 };
+
+/**
+ * Function validate verification code link from email
+ * @param {object} req
+ * @param {object} res
+ * @param {Function} next
+ * @returns {Function} next middleware
+ */
+export const authenticateVerifyEmailToken = async (req, res, next) => {
+  const { token } = req.params;
+  try {
+    const { key } = await verifyToken(token);
+    req.params.userId = key.userId;
+    return next();
+  } catch (error) {
+    return res.redirect('/verificationLinkExpired');
+  }
+};

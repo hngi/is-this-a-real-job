@@ -5,9 +5,7 @@ import FacebookStrategy from 'passport-facebook';
 import randomstring from 'randomstring';
 import Model from '../models';
 import { passwordHash } from '../helpers/hash';
-import {
-  findSingleUser, createUser, updateOneUser
-} from '../services/userServices';
+import { findSingleUser, createUser, updateOneUser } from '../services/userServices';
 import { twitterConfig, googleConfig, facebookConfig } from './socialAuth';
 
 const TwitterAuthStrategy = TwitterStrategy.Strategy;
@@ -47,6 +45,7 @@ passport.use(new TwitterAuthStrategy(twitterConfig,
         newData.email = email;
         newData.password = password;
         newData.profileImage = profile_image_url_https;
+        newData.isVerified = true;
         if (usernameTaken) {
           newData.username = screen_name + randomstring.generate({ length: 7, charset: 'numeric' });
         } else {
@@ -91,6 +90,7 @@ passport.use(new GoogleStrategy(googleConfig,
         newData.email = email;
         newData.username = username;
         newData.password = password;
+        newData.isVerified = true;
         if (usernameTaken) {
           newData.username = username + randomstring.generate({ length: 7, charset: 'numeric' });
         } else {
@@ -135,6 +135,7 @@ passport.use(new FacebookAuthStrategy(facebookConfig,
         newData.email = email;
         newData.username = username;
         newData.password = password;
+        newData.isVerified = true;
         if (usernameTaken) {
           newData.username = username + randomstring.generate({ length: 7, charset: 'numeric' });
         } else {

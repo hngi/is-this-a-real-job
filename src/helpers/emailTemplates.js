@@ -13,11 +13,11 @@ export const resetPasswordEmail = (name, URL, token) => {
 
 
 export const newUserVerificationEmail = (name, URL, token) => {
-  const url = `${URL}/users/verify/${token}`;
-  return `Hello ${name},<br>
+  const url = `${URL}/verify/${token}`;
+  return `Hello ${name},<br><br>
   You are receiving this email because you have registered on ${URL}.<br>
-  Verify your account by clicking the link below. <br><br>
-  Kindly note that this link will expire in 48 hours
+  Verify your account by clicking the link below. <br>
+  Kindly note that this link will expire in 48 hours <br><br>
 
   ${url}
 

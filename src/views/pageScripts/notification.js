@@ -111,14 +111,14 @@ if (notificationContainer) { // mark `visible` notifications as seen when notifi
 
 if (bell) { // mark `visible` notifications as seen when notification dropdown is clicked
   bell.addEventListener('click', () => {
-    console.log('b4 notificationBadge.innerHTML :', notificationBadge.innerHTML);
+    // console.log('b4 notificationBadge.innerHTML :', notificationBadge.innerHTML);
     setTimeout(() => markNotificationsAsRead(), 500);
   });
 }
 
 socket.on('connect', () => console.log('connected socket'));
 socket.on('new:notification', notification => {
-  console.log(notification, localStorage.getItem('userId'));
+  // console.log(notification, localStorage.getItem('userId'));
   if (notification.userId === localStorage.getItem('userId')) {
     notificationBadge.innerHTML = Number(notificationBadge.innerHTML) + 1;
     notificationContainer.innerHTML = getNotificationHTML(notification)

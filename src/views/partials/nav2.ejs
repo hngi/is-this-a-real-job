@@ -215,6 +215,12 @@
         animation: fadein 0.5s, fadeout 0.5s 3s;
     }
 
+    .verify-info {
+      background: #eba2a2;
+      padding: 3px;
+      text-align: center;
+    }
+
     /* Animations to fade the snackbar in and out */
 
     @-webkit-keyframes fadein {
@@ -374,7 +380,12 @@
         Simple Notification
     </div>
     <div id="snackbar">Sample Notification</div>
+    <% if (!isVerified) { %>
+    <div class="verify-info">Your account is not verified, check your email for verification link or  <a
+        href="/resendVerification">resend</a></div>
+    <% } %>
     <script>
+    
         //Clicking notification icon will toggle display
         function notificationToggle() {
             document.getElementById("branded").classList.toggle("show");

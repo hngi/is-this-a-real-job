@@ -1,45 +1,46 @@
 <% include partials/header %>
-<% include partials/nav %>
+<% include partials/nav2 %>
 <link rel="stylesheet" href="/css/reportUser.css" />
 
 <div id="cover">
   <div class="loader"></div>
 </div>
 
-<div class="container">
-  <div class=" container-flex">
-    <div class="heading">
-      <h3 class="heading-text">Report User:</h3>
-    </div>
-
-    <div class="content">
-      <h5 class="content-header">Tell us more</h5>
-      <form class="report-form" name="report-user">
+<div class="container mt-5">
+  <form class="report-form" name="report-user">
+    <input type="text" readonly disabled name="offenderId" value="<%= reportedUser.userId %>" hidden />
+    <div class="row">
+      <div class="col col-md-7 col-sm-12" style="margin: 0 auto;">
+        <h4>Report User:</h4>
+        <h6>Tell us more</h6>
         <% if(typeof reportedUser != 'undefined') { %>
-        <input type="text" class="report-form__username" readonly disabled required placeholder="user_name"
-               aria-label="user name" name="offender" value="<%= reportedUser.username %>" /><br />
-               <input type="text" readonly disabled
-               name="offenderId" value="<%= reportedUser.userId %>" hidden />
+        <div class=" form-group ">
+          <input type="text" class="form-control" readonly disabled required placeholder="user_name"
+            aria-label="user name" name="offender" value="<%= reportedUser.username %>" />
+        </div>
         <% } else { %>
-        <input type="text" class="report-form__username" required placeholder="user_name" aria-label="user name"
-               name="offender" /><br />
+        <div class=" form-group ">
+          <input type="text" class="form-control" required placeholder="user_name" aria-label="user name"
+            name="offender" />
+        </div>
         <% } %>
-        <input type="text" class="report-form__offence" placeholder="Offence" aria-label="Offence" name="offence"
-               required /><br />
-        <textarea cols="30" rows="10" class="report-form__details" required name="details"
-                  placeholder="Give further details. Include links to the offending posts or comments."
-                  aria-label="Give further details. Include links to the offending posts or comments."></textarea>
-        <!--The closing textarea tag must be on the same line with the last character from opening tag in order for the placeholder to show.-->
-        <br />
-        <button id="report" type="submit" class="report-form__submit">
-          REPORT
-        </button>
-        <button id="cancel">
-          <a href="/posts">CANCEL</a>
-        </button>
-      </form>
+        <div class=" form-group ">
+          <input type="text" class="form-control" placeholder="Offence" aria-label="Offence" name="offence" required />
+        </div>
+        <div class="form-group">
+          <textarea class="form-control" id="body" name="details" rows="5"
+            placeholder="Give further details. Include links to the offending posts or comments."
+            aria-label="Give further details. Include links to the offending posts or comments." required></textarea>
+        </div>
+        <div class="text-left">
+          <button id="report" type="submit" class="btn btn-primary">Report</button>
+          <a href="/post" class="btn btn-danger">Cancel</a>
+        </div>
+      </div>
+
     </div>
-  </div>
+  </form>
+
 </div>
 
 <div class="success-dialog is-hidden">

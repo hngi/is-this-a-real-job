@@ -1,26 +1,19 @@
 import { validateSigninFormData, validateSignupFormData } from './validateAuth';
-import {
-  validUser,
+import { validUser,
   verifyUniqueUserEmail,
   verifyUniqueUserUsername,
   authenticateUserToken,
-  authenticateForgotToken
-} from './authentication';
+  authenticateForgotToken,
+  authenticateVerifyEmailToken, } from './authentication';
 import { validateCommentData } from './validateComment';
-import {
-  validateInviteData,
-  validateInviteUpdateData
-} from './validateInviteData';
+import { validateInviteData,
+  validateInviteUpdateData } from './validateInviteData';
 import { validateInvite, validateInviteOwner } from './validateInvite';
-import {
-  validateInviteId,
+import { validateInviteId,
   validateUserId,
-  validateUpvoteInput
-} from './validateUUID';
+  validateUpvoteInput } from './validateUUID';
 import { validateAdmin } from './validateAdmin';
-import {
-  validateUserById, validateUserByEmail, checkUserPasswordReset, validateUserByUsername
-} from './validateUser';
+import { validateUserById, validateUserByEmail, checkUserPasswordReset, validateUserByUsername } from './validateUser';
 import { googleAuthenticate, googleAuthCallback } from './googleAuth';
 import { facebookAuthenticate, facebookAuthCallback } from './facebookAuth';
 import { twitterAuthenticate, twitterAuthCallback } from './twitterAuth';
@@ -56,5 +49,6 @@ export {
   authenticateForgotToken,
   checkUserPasswordReset,
   validateNewPasswordForm,
-  validateUserByUsername
+  validateUserByUsername,
+  authenticateVerifyEmailToken,
 };
