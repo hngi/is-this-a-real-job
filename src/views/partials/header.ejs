@@ -3,6 +3,16 @@
 <!-- Header -->
 
 <head>
+      <!-- Global site tag (gtag.js) - Google Analytics -->
+      <script async src="https://www.googletagmanager.com/gtag/js?id=UA-151908902-1"></script>
+      <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag() { dataLayer.push(arguments); }
+            gtag('js', new Date());
+
+            gtag('config', 'UA-151908902-1');
+      </script>
+
       <title>
             <%= typeof meta != 'undefined' ? meta.title : 'Is This A Real Job' %>
       </title>
