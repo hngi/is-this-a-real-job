@@ -15,6 +15,7 @@ import { resetPasswordEmail, newUserVerificationEmail } from '../helpers/emailTe
 import { SITE_URL } from '../config/constants';
 import { sendMail } from '../services/emailServices';
 import { passwordHash } from '../helpers/hash';
+import { fetchUserInvites } from '../services/inviteServices';
 
 
 /**
@@ -146,6 +147,7 @@ export const renderUserProfile = async (req, res) => {
   const { username } = req.params;
 
   const user = await fetchSingleUser({ username });
+  const invites = await fetchUserInvites({ userId: user.userId });
   if (!user) {
     return res.render('404', { status: 404 });
   }
@@ -163,6 +165,7 @@ export const renderUserProfile = async (req, res) => {
 
   return res.render('userProfile', {
     user,
+    invites,
     isAuth: req.isAuth,
     isAdmin: req.auth.isAdmin,
     username: req.auth.username,

@@ -114,6 +114,33 @@ export const fetchAllInvitesWithLimit = async (limit) => {
 };
 
 /**
+ * Fetch invites with limit
+ */
+export const fetchUserInvites = async (queryOption = {}) => {
+  try {
+    const invites = await Invite.findAll({
+      where: queryOption,
+      include: [
+        { model: User, as: 'user' },
+        { model: Comment, as: 'comments' },
+        { model: Vote, as: 'votes' }
+      ],
+      order: [['createdAt', 'DESC']],
+      logging: false,
+    });
+
+    return invites.map(invite => {
+      invite = invite.dataValues;
+      invite.user = invite.user ? invite.user.dataValues : {};
+      invite.votes = invite.votes.map((vote) => vote.dataValues);
+      return invite;
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+/**
  * @param {object} inviteData Data to be stored for the new job invite.
  * @returns {object} an object containing the newly created invite data.
  */
@@ -302,7 +329,7 @@ export const searchInvites = async string => {
       where: Sequelize.literal('MATCH (body, title, company, location) AGAINST(:string)'),
       include: [
         { model: User, as: 'user' },
-        // { model: Comment, as: "comments" }
+        { model: Vote, as: 'votes' },
       ],
       replacements: { string },
       order: [['createdAt']],
