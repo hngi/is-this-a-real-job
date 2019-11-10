@@ -1,14 +1,10 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import app from '../index';
-import {
-  SEED_USER_ID,
-  SEED_INVITE_ID
-} from '../config/constants';
+import { SEED_USER_ID,
+  SEED_INVITE_ID } from '../config/constants';
 
-const {
-  expect
-} = chai;
+const { expect } = chai;
 chai.use(chaiHttp);
 
 const commentUrl = `/api/v1/comments/${SEED_INVITE_ID}`;
@@ -34,9 +30,7 @@ describe('COMMENT CONTROLLER', () => {
           chai.request(app)
             .post(commentUrl)
             .set('Authorization', `${res.body.payload.token}`) // add jwt header
-            .send({
-              body: 'A test comment on a nice post?'
-            })
+            .send({ body: 'A test comment on a nice post?' })
             .end((err, res) => {
               expect(res).to.have.status(200);
               expect(res.body.success).to.equal(true);
@@ -76,9 +70,7 @@ describe('COMMENT CONTROLLER', () => {
           chai.request(app)
             .post('/api/v1/comments/fdbd468a-2976-4f2f-8fe0-ae12dd8d5123')
             .set('Authorization', `${res.body.payload.token}`) // add jwt header
-            .send({
-              body: 'A test comment on a nice post?'
-            })
+            .send({ body: 'A test comment on a nice post?' })
             .end((err, res) => {
               expect(res).to.have.status(404);
               expect(res.body.success).to.equal(false);
@@ -90,9 +82,7 @@ describe('COMMENT CONTROLLER', () => {
     it('it should respond 401 session expired for missing/expired token', (done) => {
       chai.request(app)
         .post(commentUrl) // omit token
-        .send({
-          body: 'A test comment on a nice post?'
-        })
+        .send({ body: 'A test comment on a nice post?' })
         .end((err, res) => {
           expect(res).to.have.status(401);
           expect(res.body.success).to.equal(false);
@@ -134,9 +124,7 @@ describe('COMMENT CONTROLLER', () => {
         chai.request(app)
           .post(commentUrl)
           .set('Authorization', `${currentToken}`) // add jwt header
-          .send({
-            body: 'A test comment on a nice post?'
-          })
+          .send({ body: 'A test comment on a nice post?' })
           .end((err, res) => {
             chai.request(app)
               .delete(`${deleteCommentUrl}/${res.body.payload.commentId}`)
@@ -154,9 +142,7 @@ describe('COMMENT CONTROLLER', () => {
         chai.request(app)
           .post(commentUrl)
           .set('Authorization', `${currentToken}`) // add jwt header
-          .send({
-            body: 'A test comment on a nice post?'
-          })
+          .send({ body: 'A test comment on a nice post?' })
           .end((err, res) => {
             chai.request(app)
               .delete(`${deleteCommentUrl}/randomfakeid=yooo`)
@@ -173,9 +159,7 @@ describe('COMMENT CONTROLLER', () => {
         chai.request(app)
           .post(commentUrl)
           .set('Authorization', `${currentToken}`) // add jwt header
-          .send({
-            body: 'A test comment on a nice post?'
-          })
+          .send({ body: 'A test comment on a nice post?' })
           .end((err, res) => {
             chai.request(app)
               .delete(`${deleteCommentUrl}/${res.body.payload.commentId}`)

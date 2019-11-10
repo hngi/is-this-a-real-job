@@ -141,6 +141,36 @@
   }
 
   /* ===== */
+  .success-dialog {
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 999999999;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+  }
+
+  .is-hidden {
+    display: none;
+  }
+
+  .success-dialog__message {
+    display: block;
+    font-size: 1em;
+    margin: 20px;
+    text-align: center;
+  }
+
+  .success-dialog__action {
+    display: block;
+    margin: 20px;
+  }
 </style>
 <!-- Render Post Component here (check partials/postComponent) -->
 <% renderPostComponent = function(invite, single) { %>
@@ -193,7 +223,7 @@
             <% if (typeof invite.user != 'undefined' && typeof username != 'undefined') { %>
             <% if ( (invite.user.username === username) || isAdmin ) { %>
             <i class=" fas fa-ellipsis-h  dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown"
-               aria-haspopup="true" aria-expanded="false">
+              aria-haspopup="true" aria-expanded="false">
             </i>
             <span class="dropdown-menu" aria-labelledby="dropdownMenuButton">
               <a class="dropdown-item" href="/post/<%=invite.inviteId%>/edit">Edit</a>
@@ -206,7 +236,7 @@
             <% if (typeof user != 'undefined') { %>
             <% if ( (invite.userId === user.userId) || isAdmin ) { %>
             <i class=" fas fa-ellipsis-h  dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown"
-               aria-haspopup="true" aria-expanded="false">
+              aria-haspopup="true" aria-expanded="false">
             </i>
             <span class="dropdown-menu" aria-labelledby="dropdownMenuButton">
               <a class="dropdown-item" href="/post/<%=invite.inviteId%>/edit">Edit</a>
@@ -228,20 +258,20 @@
       <% if (typeof invite.comments != 'undefined') { %>
       <a href="<%='/post/'+invite.inviteId %>" class="float-left btn p-1"><i class="fas fa-comment"></i>
         <% if (!single) { %> <span class="commentXYZ"><%=invite.comments.length %></span> <% } %> <span
-              class="d-none d-md-inline-block">Comments</a>
+          class="d-none d-md-inline-block">Comments</a>
       </a>
       <% } %>
 
       <% if ( typeof comments != 'undefined' ) { %>
       <a href="<%='/post/'+invite.inviteId %>" class="float-left btn p-1"><i class="fas fa-comment"></i>
         <% if (!single) { %> <span class="commentXYZ"><%=invite.comments.length %></span> <% } %> <span
-              class="d-none d-md-inline-block">Comments</span>
+          class="d-none d-md-inline-block">Comments</span>
       </a>
       <% } %>
 
 
       <a href="/analyse/<%=invite.inviteId%>" title="Analyse this post to see its confidence rating"
-         class="float-left ml-3 btn p-1"><i class="fas fa-check"></i>
+        class="float-left ml-3 btn p-1"><i class="fas fa-check"></i>
         <span class="d-none d-md-inline-block">Analyse</span>
       </a>
 
@@ -249,16 +279,16 @@
 
       <span class="float-right share-buttons btn">
         <a target="_blank" class="m-0"
-           href=" https://www.facebook.com/sharer.php?u=http://itarj.com/post/'<%=invite.inviteId%>">
+          href=" https://www.facebook.com/sharer.php?u=http://itarj.com/post/'<%=invite.inviteId%>">
           <i class="fab fa-facebook"></i>
         </a>
 
         <a target="_blank" class="m-0"
-           href="https://twitter.com/intent/tweet?text=<%=invite.title+' - Is this a real job? \n Let us know: http://itarj.com/post/'+invite.inviteId%>">
+          href="https://twitter.com/intent/tweet?text=<%=invite.title+' - Is this a real job? \n Let us know: http://itarj.com/post/'+invite.inviteId%>">
           <i class="fab fa-twitter"></i></a>
 
         <a target="_blank" class="m-0"
-           href="https://api.whatsapp.com/send?&text=<%=invite.title+' - Is this a real job? \n Let us know: http://itarj.com/post/'+invite.inviteId%>">
+          href="https://api.whatsapp.com/send?&text=<%=invite.title+' - Is this a real job? \n Let us know: http://itarj.com/post/'+invite.inviteId%>">
           <span style="color:#25D366;">
             <i class="fab fa-whatsapp"></i>
           </span>
@@ -274,27 +304,37 @@
   <!-- Side content -->
   <div class="d-flex flex-column action-buttons">
     <div class="d-flex flex-column justify-content-around flex-fill actions">
+      <% if(isVerified && typeof userId !== 'undefined') { %>
       <a class="m-0 align-items-center d-flex flex-column upvote-btn" data-inviteid="<%= invite.inviteId %>"
-          <% if(isAuth) { %>
-         data-voted="<%= invite.votes.some( (vote) => (vote.userId === userId) && (vote.type === 'up') )%>"
-         <% } %>
-  
-         >
+        <% if(isAuth) { %>
+        data-voted="<%= invite.votes.some( (vote) => (vote.userId === userId) && (vote.type === 'up') )%>" <% } %>>
         <i class="fas fa-arrow-alt-circle-up"></i>
         <span class="count">
           <%= invite.votes.reduce((p,vote) => (vote.type === 'up') ? ++p : p ,0) %>
         </span>
       </a>
       <a class="m-0 align-items-center d-flex flex-column downvote-btn" data-inviteid="<%= invite.inviteId %>"
-          <% if(isAuth) { %>
-         data-voted="<%= invite.votes.some( (vote) => (vote.userId === userId) && (vote.type === 'down') ) %>"
-         <% } %>
-         >
+        <% if(isAuth) { %>
+        data-voted="<%= invite.votes.some( (vote) => (vote.userId === userId) && (vote.type === 'down') ) %>" <% } %>>
         <i class="fas fa-arrow-alt-circle-down"></i>
         <span class="count">
           <%= invite.votes.reduce((p,vote) => (vote.type === 'down') ? ++p : p ,0) %>
         </span>
       </a>
+      <% } else if(!isAuth) { %>
+      <a class="m-0 align-items-center d-flex flex-column no-upvote-btn">
+        <i class="fas fa-arrow-alt-circle-up"></i>
+        <span class="count">
+          <%= invite.votes.reduce((p,vote) => (vote.type === 'up') ? ++p : p ,0) %>
+        </span>
+      </a>
+      <a class="m-0 align-items-center d-flex flex-column no-downvote-btn">
+        <i class="fas fa-arrow-alt-circle-down"></i>
+        <span class="count">
+          <%= invite.votes.reduce((p,vote) => (vote.type === 'down') ? ++p : p ,0) %>
+        </span>
+      </a>
+      <% }%>
     </div>
     <span class="whats-this text-center"><a href="/howitworks">What's this?</a></span>
 
@@ -303,22 +343,38 @@
 
 
 </div>
-
-
 <script>
-  const singlePage = document.querySelectorAll("#single-page");
-  const readMoreButton = document.querySelectorAll("#button-page");
-  list_length = readMoreButton.length
-  let n = 0;
-  while (n < list_length) {
-    readMoreButton[n].addEventListener("click", function (event) {
+  // better solution than above. Gets rid of console errors
+  for (let i = 0; i < document.querySelectorAll("#button-page").length; i++) {
+    const readMoreButton = document.querySelectorAll("#button-page");
+    readMoreButton[i].addEventListener("click", function (event) {
       let current_div = event.target.parentElement.getElementsByTagName("p")[1];
       current_div.classList.remove("entry-tit");
       let btn = readMoreButton[i]
       btn.style.display = "none"
     })
-    n++
   }
+
+  document.querySelectorAll('.no-upvote-btn').forEach((element) => {
+    element.addEventListener('click', () => {
+      const notification = document.querySelector('.notification');
+      notification.innerHTML = '<strong>Please verify your accoutn to perform this action.</strong>';
+      notification.classList.add('show');
+      setTimeout(() => {
+        notification.classList.remove('show');
+      }, 8000);
+    });
+  });
+  document.querySelectorAll('.no-downvote-btn').forEach((element) => {
+    element.addEventListener('click', () => {
+      const notification = document.querySelector('.notification');
+      notification.innerHTML = '<strong>Please verify your accoutn to perform this action.</strong>';
+      notification.classList.add('show');
+      setTimeout(() => {
+        notification.classList.remove('show');
+      }, 8000);
+    });
+  });
 </script>
 
 <% } %>

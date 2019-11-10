@@ -3,14 +3,14 @@
   .notification {
     font-size: 1em;
     padding: 10px;
-    background-color: #dd3c30ee;
+    background-color: #dd3c30;
     color: #fff;
     text-align: center;
     width: 100%;
     transition: transform .5s;
     display: none;
     position: fixed;
-    font-weight:'600';
+    z-index: 9999999;
   }
   
   .notification.show {

@@ -25,9 +25,7 @@ export default (sequelize, DataTypes) => {
     // Comment.belongsTo(models.Invite, {
     //   foreignKey: 'inviteId', as: 'invite', timestamps: false
     // });
-    Comment.belongsTo(models.User, {
-      foreignKey: 'userId', as: 'user', timestamps: false
-    });
+    Comment.belongsTo(models.User, { foreignKey: 'userId', as: 'user', timestamps: false });
   };
   return Comment;
 };

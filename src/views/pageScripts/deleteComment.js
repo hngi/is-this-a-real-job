@@ -17,10 +17,10 @@ const deleteComment = function (ev, api, el) {
     })
     .catch(err => {
       console.log(err);
-      notification.innerHTML = error.data.message;
-      notification.className += ' show';
+      notification.innerHTML = err.data.message;
+      notification.classList.add('show');
       setTimeout(() => {
-        notification.className = 'notification';
+        notification.classList.remove('show');
       }, 5000);
     });
 };

@@ -9,9 +9,7 @@ if (forgotPasswordBtn) {
   forgotPasswordBtn.addEventListener('click', e => {
     togglePreloader('block');
     // consume forgot password api; change properties as required
-    const data = {
-      email: emailField.value
-    };
+    const data = { email: emailField.value };
 
     api
       .Post('users/forgot-password', JSON.stringify(data))
@@ -65,9 +63,7 @@ if (document.querySelector('#changePasswordBtn')) {
       return;
     }
     // consume reset password api; change properties as required
-    const data = {
-      password: newPasswordField.value
-    };
+    const data = { password: newPasswordField.value };
     api
       .Patch(`users/reset-forgot-password/${token}`, JSON.stringify(data))
       .then(res => {

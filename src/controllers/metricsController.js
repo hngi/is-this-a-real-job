@@ -1,7 +1,5 @@
-import {
-  respondWithSuccess,
-  respondWithWarning
-} from '../helpers/responseHandler';
+import { respondWithSuccess,
+  respondWithWarning } from '../helpers/responseHandler';
 
 import { findMetrics } from '../services/metricsServices';
 
@@ -16,7 +14,9 @@ export const getMetrics = async (req, res) => {
     const metricsList = await findMetrics();
     console.log(metricsList);
 
-    return respondWithSuccess(res, 200, 'Successful', metricsList);
+    return respondWithSuccess(
+      res, 200, 'Successful', metricsList
+    );
   } catch (error) {
     respondWithWarning(res, 500, 'Server error');
   }

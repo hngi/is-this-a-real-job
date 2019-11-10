@@ -1,9 +1,6 @@
-import {
-  respondWithSuccess,
-  respondWithWarning
-} from '../helpers/responseHandler';
-import {
-  deleteOneInvite,
+import { respondWithSuccess,
+  respondWithWarning } from '../helpers/responseHandler';
+import { deleteOneInvite,
   upvoteOneInvite,
   fetchOneInvite,
   fetchAllInvites,
@@ -14,8 +11,7 @@ import {
   downVoteOneInvite,
   fetchOneVoteCount,
   fetchAllInvitesWithLimit,
-  fetchAllInvitesNoOffset,
-} from '../services/inviteServices';
+  fetchAllInvitesNoOffset, } from '../services/inviteServices';
 import { findCommentsForPost } from '../services/commentServices';
 import { findSingleUser } from '../services/userServices';
 
@@ -23,12 +19,12 @@ export const getOneInvite = async (req, res) => {
   try {
     const { inviteId } = req.params;
 
-    const invite = await fetchOneInvite({
-      inviteId
-    });
+    const invite = await fetchOneInvite({ inviteId });
 
     if (invite) {
-      return respondWithSuccess(res, 200, 'Invite found', invite);
+      return respondWithSuccess(
+        res, 200, 'Invite found', invite
+      );
     }
     respondWithWarning(res, 404, 'Invite not found');
   } catch (error) {
@@ -40,7 +36,9 @@ export const getAllInvites = async (req, res) => {
   try {
     const invitesList = await fetchAllInvites();
 
-    respondWithSuccess(res, 200, 'Retrieved invites', invitesList);
+    respondWithSuccess(
+      res, 200, 'Retrieved invites', invitesList
+    );
   } catch (error) {
     respondWithWarning(res, 500, 'Server error');
   }
@@ -55,7 +53,9 @@ export const saveNewInvite = async (req, res) => {
       throw error;
     });
 
-    respondWithSuccess(res, 201, 'Job Invite submitted successfully', invite);
+    respondWithSuccess(
+      res, 201, 'Job Invite submitted successfully', invite
+    );
   } catch (error) {
     respondWithWarning(res, error.status, error.message);
   }
@@ -82,6 +82,8 @@ export const renderSearchResults = async (req, res) => {
       isAdmin: req.auth.isAdmin,
       username: req.auth.username,
       name: req.auth.name,
+      isVerified: req.auth.isVerified,
+      profileImage: req.auth.profileImage,
       meta: { title, description }
     });
   } catch (error) {
@@ -103,7 +105,9 @@ export const searchInvitesApi = async (req, res) => {
     const invites = await searchInvites(q);
 
     if (invites) {
-      return respondWithSuccess(res, 200, 'Invites found', invites);
+      return respondWithSuccess(
+        res, 200, 'Invites found', invites
+      );
     }
     respondWithWarning(res, 404, 'Invite not found');
   } catch (error) {
@@ -131,7 +135,9 @@ export const updateInvite = async (req, res) => {
   try {
     const invite = await updateOneInvite(inviteId, toUpdate);
 
-    respondWithSuccess(res, 200, 'Job Invite updated successfully', invite);
+    respondWithSuccess(
+      res, 200, 'Job Invite updated successfully', invite
+    );
   } catch (error) {
     respondWithWarning(res, error.status, error.message);
   }
@@ -148,9 +154,7 @@ export const deleteInvite = async (req, res) => {
   if (!inviteId) {
     respondWithWarning(res, 400, 'Bad Request');
   }
-  await deleteOneInvite({
-    inviteId
-  });
+  await deleteOneInvite({ inviteId });
   respondWithSuccess(res, 200, `${title} deleted successfully`);
 };
 
@@ -165,8 +169,12 @@ export const fetchVoteCount = async (req, res) => {
   const { userId } = req.auth;
 
   await fetchOneVoteCount(inviteId, userId)
-    .then((votes) => respondWithSuccess(res, 200, 'Successfully fetched all votes', votes))
-    .catch((error) => respondWithSuccess(res, error.status, error.message, JSON.stringify(error)));
+    .then((votes) => respondWithSuccess(
+      res, 200, 'Successfully fetched all votes', votes
+    ))
+    .catch((error) => respondWithSuccess(
+      res, error.status, error.message, JSON.stringify(error)
+    ));
 };
 
 /**
@@ -180,8 +188,12 @@ export const upvoteInvite = async (req, res) => {
   const { userId } = req.auth;
 
   await upvoteOneInvite(res, userId, inviteId)
-    .then((vote) => respondWithSuccess(res, 200, 'Upvote successful', vote))
-    .catch((error) => respondWithSuccess(res, error.status, error.message, JSON.stringify(error)));
+    .then((vote) => respondWithSuccess(
+      res, 200, 'Upvote successful', vote
+    ))
+    .catch((error) => respondWithSuccess(
+      res, error.status, error.message, JSON.stringify(error)
+    ));
 };
 
 /**
@@ -195,8 +207,12 @@ export const downvoteInvite = async (req, res) => {
   const { userId } = req.auth;
 
   await downVoteOneInvite(res, userId, inviteId)
-    .then((vote) => respondWithSuccess(res, 200, 'Downvote successful', vote))
-    .catch((error) => respondWithSuccess(res, error.status, error.message, JSON.stringify(error)));
+    .then((vote) => respondWithSuccess(
+      res, 200, 'Downvote successful', vote
+    ))
+    .catch((error) => respondWithSuccess(
+      res, error.status, error.message, JSON.stringify(error)
+    ));
 };
 
 export const unvoteInvite = async (req, res) => {
@@ -207,7 +223,9 @@ export const unvoteInvite = async (req, res) => {
     .then((vote) => {
       respondWithSuccess(res, 200, 'Upvote is deleted');
     })
-    .catch((error) => respondWithSuccess(res, 200, 'Deletion failed', JSON.stringify(error)));
+    .catch((error) => respondWithSuccess(
+      res, 200, 'Deletion failed', JSON.stringify(error)
+    ));
 };
 
 /**
@@ -219,9 +237,7 @@ export const renderSinglePostPage = async (req, res) => {
   const { inviteId } = req.params;
   const data = await Promise.all([
     findCommentsForPost(inviteId),
-    fetchOneInvite({
-      inviteId
-    })
+    fetchOneInvite({ inviteId })
   ]);
 
 
@@ -239,6 +255,7 @@ export const renderSinglePostPage = async (req, res) => {
     profileImage: req.auth.profileImage,
     username: req.auth.username,
     name: req.auth.name,
+    isVerified: req.auth.isVerified,
     meta: { title, description }
   });
 };
@@ -280,6 +297,7 @@ export const renderJobInvitesPage = async (req, res) => {
     isAuth: req.isAuth,
     isAdmin: req.auth.isAdmin,
     userId: req.auth.userId,
+    isVerified: req.auth.isVerified,
     meta: { title, description }
   });
 };
@@ -291,6 +309,8 @@ export const renderHomePage = async (req, res) => {
     invites: invites || [],
     isAuth: req.isAuth,
     isAdmin: req.auth.isAdmin,
+    isVerified: req.auth.isVerified,
+    profileImage: req.auth.profileImage,
     meta: { title: 'Is This A Real Job', description: 'Our app helps you check if job opportunities are real or not.' }
   });
 };
@@ -330,6 +350,7 @@ export const renderAdminJobInvitesPage = async (req, res) => {
     profileImage: req.auth.profileImage,
     name: req.auth.name,
     userId: req.auth.userId,
+    isVerified: req.auth.isVerified,
     meta: { title, description }
   });
 };
@@ -345,7 +366,8 @@ export const renderEditInvitePage = async (req, res) => {
     return res.render('401', {
       isAuth: req.isAuth,
       isAdmin: req.auth.isAdmin,
-      user: req.user
+      user: req.user,
+      isVerified: req.auth.isVerified,
     });
   }
 
@@ -360,6 +382,7 @@ export const renderEditInvitePage = async (req, res) => {
     user: req.user,
     username: req.auth.username,
     name: req.auth.name,
+    isVerified: req.auth.isVerified,
     meta: { title, description }
   });
 };
@@ -372,14 +395,14 @@ export const renderEditInvitePage = async (req, res) => {
 export const renderInviteAnalysisPage = async (req, res) => {
   const { inviteId } = req.params;
 
-  const invite = await fetchOneInvite({
-    inviteId
-  });
+  const invite = await fetchOneInvite({ inviteId });
   if (!invite) {
     return res.render('404', {
       isAuth: req.isAuth,
       isAdmin: req.auth.isAdmin,
-      user: req.user
+      user: req.user,
+      isVerified: req.auth.isVerified,
+      profileImage: req.auth.profileImage,
     });
   }
 
@@ -392,6 +415,8 @@ export const renderInviteAnalysisPage = async (req, res) => {
     isAdmin: req.auth.isAdmin,
     username: req.auth.username,
     name: req.auth.name,
+    isVerified: req.auth.isVerified,
+    profileImage: req.auth.profileImage,
     meta: { title, description }
   });
 };
@@ -411,6 +436,8 @@ export const renderAnalysisPage = async (req, res) => {
     isAdmin: req.auth.isAdmin,
     username: req.auth.username,
     name: req.auth.name,
+    isVerified: req.auth.isVerified,
+    profileImage: req.auth.profileImage,
     meta: { title, description }
   });
 };

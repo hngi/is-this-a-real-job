@@ -43,9 +43,6 @@ if (document.forms.signup) {
           togglePreloader('none');
           notification.innerHTML = `<strong>${err.data.message || ''}:</strong> ${err.data.payload || ''}`;
           notification.className += ' show';
-          setTimeout(() => {
-            notification.className = 'notification';
-          }, 5000);
         });
     }
   });

@@ -1,0 +1,30 @@
+<% include partials/header %>
+<% include partials/nav %>
+
+
+<style>
+  .go_back {
+    color: #ee331f;
+  }
+
+  .go_back:hover {
+    color: #343fdd;
+  }
+</style>
+<div class="content-body">
+  <!-- This div is closed in the footer.ejs file -->
+
+  <div class="container">
+    <div class="text-center">
+      <div class="card-body mt-5">
+        <h4 class="text-dark text-center">Verification Link Sent</h4><br>
+        <p>We have sent a verification email kindly check</p>
+        <p>Click below if you did not get any link</p>
+        <span class="text-dark text-center"> <a class="go_back" id="resendVerification" href="/resendVerification">Resend Verification</a></span>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+<% include partials/footer %>

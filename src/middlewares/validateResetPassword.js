@@ -21,7 +21,9 @@ export const validateForgotPasswordForm = (req, res, next) => {
   if (!errors) {
     return next();
   }
-  return respondWithWarning(res, 400, 'Bad Input', errors);
+  return respondWithWarning(
+    res, 400, 'Bad Input', errors
+  );
 };
 
 /**
@@ -32,13 +34,13 @@ export const validateForgotPasswordForm = (req, res, next) => {
  * @returns {Object} error
  */
 export const validateNewPasswordForm = (req, res, next) => {
-  const forgotPasswordSchema = Joi.object().keys({
-    password: Joi.string().min(6).max(15).required(),
-  });
+  const forgotPasswordSchema = Joi.object().keys({ password: Joi.string().min(6).max(15).required(), });
 
   const errors = joiValidator(req.body, forgotPasswordSchema);
   if (!errors) {
     return next();
   }
-  return respondWithWarning(res, 400, 'Bad Input', errors);
+  return respondWithWarning(
+    res, 400, 'Bad Input', errors
+  );
 };

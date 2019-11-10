@@ -23,9 +23,8 @@ export const getSingleComment = async (commentId) => {
       const comment = data.dataValues;
       comment.user = comment.user ? comment.user.dataValues : {};
       return { error: false, comment };
-    } else {
-      return { error: true, message: 'Comment not found!' };
     }
+    return { error: true, message: 'Comment not found!' };
   } catch (error) {
     console.log(error);
   }
@@ -42,6 +41,7 @@ export const findCommentsForPost = async (inviteId) => {
         { model: User, as: 'user' }
       ],
       where: { inviteId },
+      order: [['createdAt', 'DESC']],
       logging: false
     });
 
@@ -58,12 +58,11 @@ export const findCommentsForPost = async (inviteId) => {
 
 export const findPostForComment = async (inviteId) => {
   try {
-
-    let invite = await fetchOneInvite({ inviteId });
+    const invite = await fetchOneInvite({ inviteId });
     // console.log('fethed invite =>', invite);
-    return { error: false, invite }
+    return { error: false, invite };
   } catch (error) {
-    return { error: true, message: 'Error getting invite for comment' }
+    return { error: true, message: 'Error getting invite for comment' };
   }
 };
 
@@ -75,9 +74,7 @@ export const findPostForComment = async (inviteId) => {
 export const createCommentForPost = async (res, commentData) => {
   const e = new Error();
   const objs = await Promise.all([User.findOne({
-    where: {
-      userId: commentData.userId
-    },
+    where: { userId: commentData.userId },
     logging: false
   }), Invite.findOne({ where: { inviteId: commentData.inviteId }, logging: false })]).catch(err => {
     console.log(err);
@@ -126,7 +123,7 @@ export const createCommentForPost = async (res, commentData) => {
 
 /**
  * Delete a comment by Id
- * @param {} queryOption 
+ * @param {} queryOption
  */
 export const deleteOneComment = async (queryOption = {}) => {
   try {
@@ -136,7 +133,7 @@ export const deleteOneComment = async (queryOption = {}) => {
     });
     return { error: false, comment };
   } catch (err) {
-    console.log(error);
+    console.log(err);
     return { error: true, e: err };
   }
 };

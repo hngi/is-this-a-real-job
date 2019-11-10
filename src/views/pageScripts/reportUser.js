@@ -14,14 +14,17 @@ function showErrorMessage(err) {
   const notification = document.querySelector('.notification');
   notification.innerHTML = `<strong>${err.data.message}:</strong> ${err.data.payload}`;
   notification.classList.add('show');
+  setTimeout(() => {
+    notification.classList.remove('show');
+  }, 8000);
 }
 
 
-if (document.querySelector('.report-form__submit')) {
-  const submit = document.querySelector('.report-form__submit');
+if (document.querySelector('.report-form')) {
+  const submit = document.querySelector('#report');
   submit.addEventListener('click', (e) => {
     let form = new FormData();
-    const reportForm = document.forms[0];
+    const reportForm = document.querySelector('.report-form');
 
     e.preventDefault();
 
@@ -32,7 +35,14 @@ if (document.querySelector('.report-form__submit')) {
     };
 
     if (reportForm.details.value.length < 20) {
-      return window.alert('Please fill in the details fields with enough information. Include links to the offending posts or comment');
+      const err = 'Please fill in the details fields with enough information. Include links to the offending posts or comment';
+      const notification = document.querySelector('.notification');
+      notification.innerHTML = `<strong>${err}:</strong>`;
+      notification.classList.add('show');
+      setTimeout(() => {
+        notification.classList.remove('show');
+      }, 8000);
+      return null;
     }
 
     togglePreloader('block');

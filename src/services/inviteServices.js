@@ -120,9 +120,7 @@ export const fetchAllInvitesWithLimit = async (limit) => {
 export const saveInvite = async inviteData => {
   const e = new Error();
   const userObj = await User.findOne({
-    where: {
-      userId: inviteData.userId
-    },
+    where: { userId: inviteData.userId },
     logging: false
   }).catch(err => {
     console.log(err);
@@ -265,9 +263,13 @@ const voteInvite = async (res, userId, inviteId, type) => {
   }
 };
 
-export const upvoteOneInvite = (res, userId, inviteId) => voteInvite(res, userId, inviteId, 'up');
+export const upvoteOneInvite = (res, userId, inviteId) => voteInvite(
+  res, userId, inviteId, 'up'
+);
 
-export const downVoteOneInvite = async (res, userId, inviteId) => voteInvite(res, userId, inviteId, 'down');
+export const downVoteOneInvite = async (res, userId, inviteId) => voteInvite(
+  res, userId, inviteId, 'down'
+);
 
 export const unvoteOneInvite = async (userId, inviteId) => {
   try {
@@ -302,9 +304,7 @@ export const searchInvites = async string => {
         { model: User, as: 'user' },
         // { model: Comment, as: "comments" }
       ],
-      replacements: {
-        string
-      },
+      replacements: { string },
       order: [['createdAt']],
       logging: false
     });
