@@ -1,7 +1,7 @@
 <% include partials/header %>
 <% include partials/nav %>
 <% include partials/postComponent %>
-
+<script src="https://kit.fontawesome.com/b2d9357a8e.js" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="/css/index.css">
 <script src="https://kit.fontawesome.com/b2d9357a8e.js" crossorigin="anonymous"></script>
 
@@ -15,11 +15,13 @@
     <div class="row align-items-center hero-container">
       <div class="col-12 text-center mb-md-5">
         <h2 class="text-white text-bold heading">Scam or Real?</h2>
+        <span id="searchForm"></span>
         <p class="text-white">
           Don’t go for that interview until you’re sure it’s real.
         </p>
+        
 
-        <form action="/invites/search" method="GET">
+        <form id action="/invites/search" method="GET">
           <div class="row">
             <div class="col-12 col-md-9">
               <input type="search" name="q" class="shadow-sm bg-white searchbar-1 my-md-0 form-control"
@@ -32,6 +34,7 @@
           </div>
         </form>
 
+     
         <div class="col-12 mt-2 mt-md-4 text-center">
           <small class="text-muted-white">
             Search by company name, location, or other keywords. Like <span><a class="btn-link"

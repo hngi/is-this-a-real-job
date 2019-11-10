@@ -79,11 +79,18 @@
       align-self: center;
     }
   }
+p.text{
+    line-height: 1.6 !important;
+    font-weight: 500;
+    word-wrap: break-word;
+  }
 </style>
 <div class="container mt-5">
   <div class="heading">
     <h2>How it Works</h2>
-    <p>Learn more about our features</p>
+    <p id="header-text">It would really hurt us to see you go for that fake job interview. Yes, really. Our platform helps you verify each job invite you get.</p>
+
+    <p>Here's what you should do:</p>
   </div>
   <div class="cards ">
     <div class="card ">
@@ -95,9 +102,10 @@
       </div>
       <div class="content">
         <h3>Search</h3>
-        <p>
+        <p class="text">
           Did you get an email inviting you to an interview but you're not sure if it's legit? 
-          Search on our homepage to find out.<br>
+          Chances are, someone else got the same invite and has made a post about it on our platform.
+        <br> <a href="/#hero"> Search on our homepage</a> to find out.<br>
           Search with company name, location, or other keywords.
         </p>
       </div>
@@ -111,11 +119,11 @@
       </div>
       <div class="content">
         <h3>Post</h3>
-        <p>
-          All content is community generated. So if you don't find what you're looking for, 
-          please go ahead and create a new post with your job invite.
+        <p class="text">
+          All content is community generated, there's still a chance that no one has posted about this job invite you got.
+         If so, please go ahead and <a href="/post">create a new post</a> about your job invite.
           Other users can then share their experiences in the comments 
-          and vote on the authenticity of your invite.
+          and vote on the authenticity of your invite. 
         </p>
       </div>
     </div>
@@ -128,10 +136,10 @@
       </div>
       <div class="content">
         <h3>Verify</h3>
-        <p>
+        <p class="text">
           Review upvotes and comments to get a sense of how legitimate your invite is based on 
           what others are saying.<br>
-          Want to get instant feedback? Use <a href="/analyse">our AI powered analysis tool</a> to do a quick verification based
+          Can't wait that long? Not to worry. You can <a href="/analyse">make use of our our AI powered analysis tool</a> to do a quick verification based
           on the details included in the invite sent to you.
         </p>
       </div>
