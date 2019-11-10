@@ -195,7 +195,7 @@
             @<%= invite.user.username %>
           </a>
           <span class="text-muted" style="font-size: 12px;">Posted on
-            <%= new Date(invite.createdAt).toDateString() %></span>
+            <%= new Date(invite.createdAt).toDateString() %> - <%= new Date(invite.createdAt).toLocaleTimeString() %></span>
         </p>
 
         <% } %>
