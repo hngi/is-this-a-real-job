@@ -229,12 +229,12 @@
         <% } %>
       </div>
     </div>
-    <% if (user.Invites.length === 0) { %>
+    <% if (invites.length === 0) { %>
     <span id="no-comments" class="bg-transparent container">The world is your oyseter. Fill it.</span>
     <% } %>
 
-    <% if (user.Invites.length > 0) {%>
-    <% user.Invites.forEach(invite => { %>
+    <% if (invites.length > 0) {%>
+    <% invites.forEach(invite => { %>
 
     <!-- Render Post Component here (check partials/postComponent) -->
     <%= renderPostComponent(invite) %>

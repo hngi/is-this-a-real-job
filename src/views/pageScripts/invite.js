@@ -173,7 +173,7 @@ const downvotePostBtnHander = (event) => {
       .catch((err) => {
         console.log(err);
         notification.innerHTML = `<strong>${err.data ? err.data.message : 'Something happened while processing your request. Contact support or try again.'}:</strong> ${err.data.payload}`;
-        refresh(inviteId);
+        // refresh(inviteId);
         notification.className += ' show';
         setTimeout(() => {
           notification.className = 'notification';

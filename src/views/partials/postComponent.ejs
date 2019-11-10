@@ -70,6 +70,10 @@
     color: #2B4052 !important;
   }
 
+  .no-upvote-btn i, .no-downvote-btn i {
+    cursor: pointer;
+  }
+
   .action-buttons a i {
     font-size: 25px !important;
   }
@@ -306,22 +310,33 @@
     <div class="d-flex flex-column justify-content-around flex-fill actions">
       <% if(isVerified && typeof userId !== 'undefined') { %>
       <a class="m-0 align-items-center d-flex flex-column upvote-btn" data-inviteid="<%= invite.inviteId %>"
-        <% if(isAuth) { %>
-        data-voted="<%= invite.votes.some( (vote) => (vote.userId === userId) && (vote.type === 'up') )%>" <% } %>>
+        data-voted="<%=invite.votes.some( (vote) => (vote.userId === userId) && (vote.type === 'up') )%>">
         <i class="fas fa-arrow-alt-circle-up"></i>
         <span class="count">
           <%= invite.votes.reduce((p,vote) => (vote.type === 'up') ? ++p : p ,0) %>
         </span>
       </a>
       <a class="m-0 align-items-center d-flex flex-column downvote-btn" data-inviteid="<%= invite.inviteId %>"
-        <% if(isAuth) { %>
-        data-voted="<%= invite.votes.some( (vote) => (vote.userId === userId) && (vote.type === 'down') ) %>" <% } %>>
+        data-voted="<%=invite.votes.some( (vote) => (vote.userId === userId) && (vote.type === 'down') ) %>">
         <i class="fas fa-arrow-alt-circle-down"></i>
         <span class="count">
           <%= invite.votes.reduce((p,vote) => (vote.type === 'down') ? ++p : p ,0) %>
         </span>
       </a>
-      <% } else if(!isAuth && typeof userId !== 'undefined') { %>
+      <% } else if(isAuth) { %>
+      <a class="m-0 align-items-center d-flex flex-column no-upvote-btn">
+        <i class="fas fa-arrow-alt-circle-up"></i>
+        <span class="count">
+          <%= invite.votes.reduce((p,vote) => (vote.type === 'up') ? ++p : p ,0) %>
+        </span>
+      </a>
+      <a class="m-0 align-items-center d-flex flex-column no-downvote-btn">
+        <i class="fas fa-arrow-alt-circle-down"></i>
+        <span class="count">
+          <%= invite.votes.reduce((p,vote) => (vote.type === 'down') ? ++p : p ,0) %>
+        </span>
+      </a>
+      <% } else { %>
       <a class="m-0 align-items-center d-flex flex-column no-upvote-btn">
         <i class="fas fa-arrow-alt-circle-up"></i>
         <span class="count">
@@ -358,7 +373,7 @@
   document.querySelectorAll('.no-upvote-btn').forEach((element) => {
     element.addEventListener('click', () => {
       const notification = document.querySelector('.notification');
-      notification.innerHTML = '<strong>Please verify your accoutn to perform this action.</strong>';
+      notification.innerHTML = '<strong>Login or verify your account to perform this action.</strong>';
       notification.classList.add('show');
       setTimeout(() => {
         notification.classList.remove('show');
@@ -368,7 +383,7 @@
   document.querySelectorAll('.no-downvote-btn').forEach((element) => {
     element.addEventListener('click', () => {
       const notification = document.querySelector('.notification');
-      notification.innerHTML = '<strong>Please verify your accoutn to perform this action.</strong>';
+      notification.innerHTML = '<strong>Login or verify your account to perform this action.</strong>';
       notification.classList.add('show');
       setTimeout(() => {
         notification.classList.remove('show');
