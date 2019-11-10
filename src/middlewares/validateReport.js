@@ -23,5 +23,7 @@ export const validateReport = (req, res, next) => {
     return next();
   }
 
-  return respondWithWarning(res, 400, 'Bad Input', errors);
+  return respondWithWarning(
+    res, 400, 'Bad Input', errors
+  );
 };

@@ -42,13 +42,9 @@ export const signin = async (req, res) => {
  * @returns json body containing user data
  */
 
-const createHash = (email) => {
-  return crypto.createHash('md5').update(email.trim()).digest('hex');
-};
+const createHash = (email) => crypto.createHash('md5').update(email.trim()).digest('hex');
 
-const createGravatar = (email) => {
-  return `https://www.gravatar.com/avatar/${createHash(email)}?d=identicon`;
-};
+const createGravatar = (email) => `https://www.gravatar.com/avatar/${createHash(email)}?d=identicon`;
 
 // const image = user.profileImage || `https://www.gravatar.com/avatar/${createHash(user.email)}?d=identicon`;
 

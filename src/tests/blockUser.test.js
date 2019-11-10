@@ -1,8 +1,6 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
-import app from '../index'; import {
-  SEED_USER_ID_2,
-} from '../config/constants';
+import app from '../index'; import { SEED_USER_ID_2, } from '../config/constants';
 
 const { expect } = chai;
 chai.use(chaiHttp);

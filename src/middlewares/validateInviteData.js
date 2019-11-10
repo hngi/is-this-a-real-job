@@ -25,7 +25,9 @@ export const validateInviteData = (req, res, next) => {
   }
 
   // potential bug: media still gets uploaded to cloudinary even when post creation fails
-  return respondWithWarning(res, 400, 'Bad Input', errors);
+  return respondWithWarning(
+    res, 400, 'Bad Input', errors
+  );
 };
 
 /**
@@ -50,5 +52,7 @@ export const validateInviteUpdateData = (req, res, next) => {
   if (!errors) {
     return next();
   }
-  return respondWithWarning(res, 400, 'Bad Input', errors);
+  return respondWithWarning(
+    res, 400, 'Bad Input', errors
+  );
 };

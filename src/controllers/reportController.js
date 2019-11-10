@@ -1,8 +1,6 @@
 import _ from 'lodash';
-import {
-  respondWithWarning,
-  respondWithSuccess
-} from '../helpers/responseHandler';
+import { respondWithWarning,
+  respondWithSuccess } from '../helpers/responseHandler';
 import { findReports, reportUser } from '../services/reportServices';
 
 /**
@@ -23,7 +21,9 @@ export const createReport = async (req, res) => {
     }).catch(e => { throw e; });
 
     if (report) {
-      return respondWithSuccess(res, 200, 'User has been reported successfully', report);
+      return respondWithSuccess(
+        res, 200, 'User has been reported successfully', report
+      );
     }
   } catch (error) {
     return respondWithWarning(res, error.status, error.message);
@@ -39,5 +39,7 @@ export const createReport = async (req, res) => {
 export const getReports = async (req, res) => {
   const reports = await findReports();
 
-  return respondWithSuccess(res, 200, 'Successful', reports);
+  return respondWithSuccess(
+    res, 200, 'Successful', reports
+  );
 };

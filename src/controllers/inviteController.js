@@ -83,6 +83,7 @@ export const renderSearchResults = async (req, res) => {
       username: req.auth.username,
       name: req.auth.name,
       isVerified: req.auth.isVerified,
+      profileImage: req.auth.profileImage,
       meta: { title, description }
     });
   } catch (error) {
@@ -308,6 +309,8 @@ export const renderHomePage = async (req, res) => {
     invites: invites || [],
     isAuth: req.isAuth,
     isAdmin: req.auth.isAdmin,
+    isVerified: req.auth.isVerified,
+    profileImage: req.auth.profileImage,
     meta: { title: 'Is This A Real Job', description: 'Our app helps you check if job opportunities are real or not.' }
   });
 };
@@ -379,7 +382,7 @@ export const renderEditInvitePage = async (req, res) => {
     user: req.user,
     username: req.auth.username,
     name: req.auth.name,
-    isVerified: req.isVerified,
+    isVerified: req.auth.isVerified,
     meta: { title, description }
   });
 };
@@ -399,6 +402,7 @@ export const renderInviteAnalysisPage = async (req, res) => {
       isAdmin: req.auth.isAdmin,
       user: req.user,
       isVerified: req.auth.isVerified,
+      profileImage: req.auth.profileImage,
     });
   }
 
@@ -412,6 +416,7 @@ export const renderInviteAnalysisPage = async (req, res) => {
     username: req.auth.username,
     name: req.auth.name,
     isVerified: req.auth.isVerified,
+    profileImage: req.auth.profileImage,
     meta: { title, description }
   });
 };
@@ -432,6 +437,7 @@ export const renderAnalysisPage = async (req, res) => {
     username: req.auth.username,
     name: req.auth.name,
     isVerified: req.auth.isVerified,
+    profileImage: req.auth.profileImage,
     meta: { title, description }
   });
 };

@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import Model from '../models';
 
-const { User, Invite } = Model;
+const { User, Invite, Vote } = Model;
 
 /**
  * @param {object} queryOption
@@ -41,9 +41,7 @@ export const createUser = async userData => {
  */
 export const findUsers = async (queryOption = {}) => {
   try {
-    const users = await User.findAll({
-      logging: false
-    });
+    const users = await User.findAll({ logging: false });
     return users;
   } catch (error) {
     console.log(error);
@@ -85,7 +83,9 @@ export const findUsersWithPagination = async (queryOption = {}, offset = 0, limi
 export const fetchSingleUser = async query => {
   try {
     const user = await User.findOne({
-      include: [{ model: Invite, as: 'Invites' }],
+      include: [
+        { model: Invite, as: 'Invites' },
+      ],
       where: query,
       order: [[{ model: Invite }, 'createdAt', 'DESC']],
       logging: false
@@ -109,14 +109,12 @@ export const fetchSingleUser = async query => {
  */
 export const updateOneUser = async (data, queryOption = {}) => {
   try {
-    const user = await User.update(
-      { ...data },
+    const user = await User.update({ ...data },
       {
         where: queryOption,
         returning: true,
         logging: false
-      }
-    )
+      })
       .then(() => User.findOne({ where: queryOption }))
       .then(updatedUser => updatedUser);
     return user;

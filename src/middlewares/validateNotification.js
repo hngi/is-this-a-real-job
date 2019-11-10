@@ -1,13 +1,7 @@
 import Joi from '@hapi/joi';
-import {
-  joiValidator
-} from '../helpers/joiValidator';
-import {
-  respondWithWarning
-} from '../helpers/responseHandler';
-import {
-  VALID_UUID
-} from '../config/constants';
+import { joiValidator } from '../helpers/joiValidator';
+import { respondWithWarning } from '../helpers/responseHandler';
+import { VALID_UUID } from '../config/constants';
 
 /**
  * validate comment entry
@@ -19,9 +13,7 @@ import {
 export const validateNotificationData = (req, res, next) => {
   const { type } = req.query;
 
-  const schemaMap = {
-    target: Joi.string().pattern(VALID_UUID).required().trim()
-  };
+  const schemaMap = { target: Joi.string().pattern(VALID_UUID).required().trim() };
 
   if (!type) {
     return respondWithWarning(res, 400, 'Query param \'type\' must be specified.');
@@ -38,5 +30,7 @@ export const validateNotificationData = (req, res, next) => {
   if (!errors) {
     return next();
   }
-  return respondWithWarning(res, 400, 'Bad Input', errors);
+  return respondWithWarning(
+    res, 400, 'Bad Input', errors
+  );
 };

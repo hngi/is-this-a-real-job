@@ -379,7 +379,7 @@ export const verifyEmailLink = async (req, res, next) => {
     return res.redirect('/verificationLinkExpired');
   }
   // handle get started email here
-  req.isVerified = true;
+  req.auth.isVerified = true;
   res.cookies.set('isVerified', user.isVerified, { signed: true });
   return res.redirect('/posts');
 };

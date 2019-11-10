@@ -56,9 +56,7 @@ if (commentBtn) {
     e.preventDefault();
     togglePreloader('block');
 
-    const body = {
-      body: commentField.value
-    };
+    const body = { body: commentField.value };
 
     commentField.value = '';
 

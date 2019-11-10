@@ -1,8 +1,6 @@
 import _ from 'lodash';
-import {
-  respondWithWarning,
-  respondWithSuccess
-} from '../helpers/responseHandler';
+import { respondWithWarning,
+  respondWithSuccess } from '../helpers/responseHandler';
 import { findCommentsForPost, createCommentForPost, deleteOneComment } from '../services/commentServices';
 
 /**
@@ -24,7 +22,9 @@ export const createComment = async (req, res) => {
       .catch(e => { throw e; });
 
     if (comment) {
-      return respondWithSuccess(res, 200, 'Comment added successfully', comment);
+      return respondWithSuccess(
+        res, 200, 'Comment added successfully', comment
+      );
     }
   } catch (error) {
     return respondWithWarning(res, error.status, error.message);
@@ -39,7 +39,7 @@ export const createComment = async (req, res) => {
  */
 
 /**
- * Delete comment 
+ * Delete comment
  * @param {object} req
  * @param {object} res
  * @returns {object} json response
@@ -49,13 +49,11 @@ export const deleteComment = async (req, res) => {
   if (!commentId) {
     respondWithWarning(res, 400, 'Bad Request');
   }
-  const deleted = await deleteOneComment({
-    commentId
-  });
+  const deleted = await deleteOneComment({ commentId });
   if (!deleted.error) {
-    respondWithSuccess(res, 200, `Comment deleted successfully!`);
+    respondWithSuccess(res, 200, 'Comment deleted successfully!');
   } else {
-    respondWithWarning(res, 400, 'Error deleting comment');
+    respondWithWarning(res, 500, 'Error deleting comment');
   }
 };
 
@@ -70,5 +68,7 @@ export const getComments = async (req, res) => {
 
   const comments = await findCommentsForPost(inviteId);
 
-  return respondWithSuccess(res, 200, 'Successful', comments);
+  return respondWithSuccess(
+    res, 200, 'Successful', comments
+  );
 };

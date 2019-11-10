@@ -34,7 +34,9 @@ export default (sequelize, DataTypes) => {
       onDelete: 'CASCADE'
     },
     type: {
-      type: DataTypes.ENUM('upvote', 'downvote', 'comment', 'report'),
+      type: DataTypes.ENUM(
+        'upvote', 'downvote', 'comment', 'report'
+      ),
       allowNull: false,
     },
     message: {
@@ -48,18 +50,10 @@ export default (sequelize, DataTypes) => {
     }
   }, {});
   Notification.associate = (models) => {
-    Notification.belongsTo(models.Invite, {
-      foreignKey: 'inviteId', as: 'invite', timestamps: false
-    });
-    Notification.belongsTo(models.Comment, {
-      foreignKey: 'commentId', as: 'comment', timestamps: false
-    });
-    Notification.belongsTo(models.Report, {
-      foreignKey: 'reportId', as: 'report', timestamps: false
-    });
-    Notification.belongsTo(models.User, {
-      foreignKey: 'userId', as: 'target', timestamps: false
-    });
+    Notification.belongsTo(models.Invite, { foreignKey: 'inviteId', as: 'invite', timestamps: false });
+    Notification.belongsTo(models.Comment, { foreignKey: 'commentId', as: 'comment', timestamps: false });
+    Notification.belongsTo(models.Report, { foreignKey: 'reportId', as: 'report', timestamps: false });
+    Notification.belongsTo(models.User, { foreignKey: 'userId', as: 'target', timestamps: false });
   };
   return Notification;
 };

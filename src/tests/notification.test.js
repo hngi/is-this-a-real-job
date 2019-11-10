@@ -1,14 +1,10 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import app from '../index';
-import {
-  SEED_USER_ID,
-  SEED_INVITE_ID
-} from '../config/constants';
+import { SEED_USER_ID,
+  SEED_INVITE_ID } from '../config/constants';
 
-const {
-  expect
-} = chai;
+const { expect } = chai;
 chai.use(chaiHttp);
 
 const commentUrl = `/api/v1/comments/${SEED_INVITE_ID}`;
@@ -30,9 +26,7 @@ describe('NOTIFICATION CONTROLLER', () => {
           chai.request(app)
             .post(commentUrl) // comment on post
             .set('Authorization', `${res.body.payload.token}`) // add jwt header
-            .send({
-              body: 'A test comment on a nice post?'
-            })
+            .send({ body: 'A test comment on a nice post?' })
             .end((err, res) => {
               expect(res).to.have.status(200);
               expect(res.body.success).to.equal(true);
@@ -122,8 +116,7 @@ describe('NOTIFICATION CONTROLLER', () => {
     it('it should respond with status 400 for invalid or missing query params', (done) => {
       chai.request(app)
         .post(notificationUrl) // omitted `type`
-        .send({
-          target: SEED_USER_ID, // test user
+        .send({ target: SEED_USER_ID, // test user
         })
         .end((err, res) => {
           expect(res).to.have.status(400);

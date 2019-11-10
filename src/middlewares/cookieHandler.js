@@ -39,7 +39,6 @@ export const validateCookies = (req, res, next) => {
       req.auth.profileImage = profileImage;
       req.isAuth = true;
       req.auth.isVerified = isVerified;
-
       return next();
     } catch (error) {
       clearCookies(res);
@@ -81,7 +80,6 @@ export const signUserIn = async (req, res, next) => {
       res.cookies.set('name', user.name, { signed: true });
       res.cookies.set('isAdmin', user.isAdmin, { signed: true });
       res.cookies.set('profileImage', user.profileImage, { signed: true });
-
       res.cookies.set('isVerified', user.isVerified, { signed: true });
 
       return next();
@@ -107,7 +105,6 @@ export const signUserOut = (req, res, next) => {
     clearCookies(res);
     req.auth = {};
     req.isAuth = false;
-    req.isVerified = false;
   }
   return next();
 };

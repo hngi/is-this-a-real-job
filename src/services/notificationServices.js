@@ -20,9 +20,7 @@ export const findNotificationsForUser = async (userId) => {
         model: User,
         as: 'target'
       }],
-      where: {
-        userId
-      },
+      where: { userId },
       order: [['createdAt', 'DESC']],
       logging: false
     });

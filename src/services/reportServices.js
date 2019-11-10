@@ -139,9 +139,7 @@ export const reportUser = async (res, reportData) => {
           data.forEach(n => {
             SocketMethods.emitNotification(n);
             emails.push(notifyByEmail(res,
-              Object.assign(n, {
-                email: adminObjs.find(a => a.userId === n.userId).email
-              })).then(mailSent => {
+              Object.assign(n, { email: adminObjs.find(a => a.userId === n.userId).email })).then(mailSent => {
               n.mailSent = mailSent;
               console.log(`Sent email to ${adminObjs.find(a => a.userId === n.userId).email}.`);
             }));
