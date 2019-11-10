@@ -321,7 +321,7 @@
           <%= invite.votes.reduce((p,vote) => (vote.type === 'down') ? ++p : p ,0) %>
         </span>
       </a>
-      <% } else if(!isAuth) { %>
+      <% } else if(!isAuth && typeof userId !== 'undefined') { %>
       <a class="m-0 align-items-center d-flex flex-column no-upvote-btn">
         <i class="fas fa-arrow-alt-circle-up"></i>
         <span class="count">
