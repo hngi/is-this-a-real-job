@@ -184,7 +184,7 @@
     }
 
     .badge {
-        background-color: #4a3f11;
+        background-color: #f44336;
         color: #fff;
     }
     .toggle-badge {
@@ -318,10 +318,13 @@
             <!-- USERNAME & LOG OUT GOES HERE  -->
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="javascript:void(0)" id="navbarDropdown" role="button"
-                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="padding-top: 0;">
                     <span class="user-name-initials">
+                      <img src="<%= profileImage %> " onerror="this.src='https://res.cloudinary.com/gabicle/image/upload/v1573322778/avatar-undefined_hmsag5.png'"  style=" width: 32px; height: 32px; border-radius: 30px;">  
+                  </span>
+                    <!-- <span class="user-name-initials">
                         <%=name.substr(0, 2).toUpperCase()%>
-                    </span>
+                    </span>  -->
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" href="/users/<%=username%>">Profile</a>
@@ -330,11 +333,14 @@
 
             </li>
             <li class="nav-item">
-                <a class="post-btn" href="/post"><button type="button" class="btn-primary nav-btn"
-                        style="padding: 10px;"> NEW
+                <a class="post-btn" href="/post"><button type="button" class="btn-primary nav-btn newPosts"
+                     style="padding: 10px;"> NEW
                         POST</button></a>
 
                 <% } else { %>
+            <li class="nav-item mr-4">
+                <a class="nav-link" href="/howitworks">HOW IT WORKS</a>
+            </li>
             <li class="nav-item mr-4">
               <a class="nav-link" href="/posts">POSTS</a>
             </li>
@@ -348,7 +354,7 @@
 
 
             <% if(isAuth){ %>
-            <a class="post-btn" href="/posts"><button type="button" class="btn-primary nav-btn" style="padding: 10px;">
+            <a class="post-btn" href="/posts"><button type="button" class="btn-primary nav-btn postsBtn" style="padding: 10px;">
                     POSTS</button></a>
             <% } %>
             <% if (isAdmin) { %>
@@ -412,5 +418,9 @@
         }
         for (var i = 0; i < links.length; i++) {
             links[i].addEventListener('click', changeColor);
+        }
+
+        function imageFallback(){
+          alert("not loaded");
         }
     </script>

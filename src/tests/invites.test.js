@@ -162,7 +162,7 @@ describe('INVITES CONTROLLER', () => {
             expect(res.body.payload).to.have.length.that.is.at.least(0);
             expect(res.body.payload[0])
               .property('title')
-              .to.equal('Test post title');
+              .to.equal('A test title');
             done();
           });
       });

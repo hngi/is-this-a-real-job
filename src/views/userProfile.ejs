@@ -187,12 +187,10 @@
 <div class="container overall">
 
   <!-------Profile Section------->
-  <% const createHash = (email) => { return crypto.createHash('md5').update(email.trim()).digest('hex')} %>
-  <% const image = user.profileImage || `https://www.gravatar.com/avatar/${createHash(user.email)}?d=identicon` %> <div
-       class="first-section">
+   <div class="first-section">
     <div class="first-sec-row row">
       <div class="profile-img">
-        <img class="user-avatar" src="<%= image %>" alt="Profile picture">
+        <img class="user-avatar" src="<%= user.profileImage %>" onerror="this.src='https://res.cloudinary.com/gabicle/image/upload/v1573322778/avatar-undefined_hmsag5.png'">
       </div>
       <div class="user">
         <h2 class="username" id="user-profile">

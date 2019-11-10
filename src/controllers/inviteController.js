@@ -236,6 +236,7 @@ export const renderSinglePostPage = async (req, res) => {
     isAuth: req.isAuth,
     isAdmin: req.auth.isAdmin,
     userId: req.auth.userId,
+    profileImage: req.auth.profileImage,
     username: req.auth.username,
     name: req.auth.name,
     meta: { title, description }
@@ -271,6 +272,7 @@ export const renderJobInvitesPage = async (req, res) => {
     // user,
     username: req.auth.username,
     name: req.auth.name,
+    profileImage: req.auth.profileImage,
     invites: invites || [],
     page: req.query.page || 1,
     pages,
@@ -325,6 +327,7 @@ export const renderAdminJobInvitesPage = async (req, res) => {
     isAuth: req.isAuth,
     isAdmin: req.auth.isAdmin,
     username: req.auth.username,
+    profileImage: req.auth.profileImage,
     name: req.auth.name,
     userId: req.auth.userId,
     meta: { title, description }
@@ -353,6 +356,7 @@ export const renderEditInvitePage = async (req, res) => {
     invite: req.invite,
     isAuth: req.isAuth,
     isAdmin: req.auth.isAdmin,
+    profileImage: req.auth.profileImage,
     user: req.user,
     username: req.auth.username,
     name: req.auth.name,

@@ -124,6 +124,7 @@ export const renderReportUserPage = async (req, res) => res.render('reportUser',
   isAuth: req.isAuth,
   username: req.auth.username,
   isAdmin: req.auth.isAdmin,
+  profileImage: req.auth.profileImage,
   reportedUser: req.user,
   meta: {
     title: 'Report User - Is This A Real Job',
@@ -161,6 +162,7 @@ export const renderUserProfile = async (req, res) => {
     isAuth: req.isAuth,
     isAdmin: req.auth.isAdmin,
     username: req.auth.username,
+    profileImage: req.auth.profileImage,
     name: req.auth.name,
     meta: { title, description },
     crypto
@@ -194,6 +196,7 @@ export const renderAdminUsersPage = async (req, res) => {
     page: req.query.page || 1,
     pages,
     isAuth: req.isAuth,
+    profileImage: req.auth.profileImage,
     isAdmin: req.auth.isAdmin,
     username: req.auth.username,
     name: req.auth.name,
@@ -235,6 +238,7 @@ export const renderAdminReportedUsersPage = async (req, res) => {
     isAuth: req.isAuth,
     isAdmin: req.auth.isAdmin,
     username: req.auth.username,
+    profileImage: req.auth.profileImage,
     name: req.auth.name,
     meta: { title, description },
     crypto

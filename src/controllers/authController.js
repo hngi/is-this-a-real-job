@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import crypto from 'crypto';
 import { generateToken } from '../helpers/jwt';
 import {
   respondWithWarning,
@@ -40,10 +41,23 @@ export const signin = async (req, res) => {
  * @param res Express.Response
  * @returns json body containing user data
  */
+
+const createHash = (email) => {
+  return crypto.createHash('md5').update(email.trim()).digest('hex');
+};
+
+const createGravatar = (email) => {
+  return `https://www.gravatar.com/avatar/${createHash(email)}?d=identicon`;
+};
+
+// const image = user.profileImage || `https://www.gravatar.com/avatar/${createHash(user.email)}?d=identicon`;
+
 export const signup = async (req, res) => {
   const {
     username, name, email, password
   } = req.body;
+
+  const gravatar = createGravatar(email);
 
   const hashedPassword = await passwordHash(password);
 
@@ -51,7 +65,8 @@ export const signup = async (req, res) => {
     username,
     name,
     email,
-    password: hashedPassword
+    password: hashedPassword,
+    profileImage: gravatar
   });
 
   if (_user.success) {
