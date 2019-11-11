@@ -1,11 +1,7 @@
 /* eslint-disable max-len */
-import {
-  respondWithWarning,
-  respondWithSuccess
-} from '../helpers/responseHandler';
-import {
-  findNotificationsForUser, createNotificationForUser, setNotificationStatus, notifyByEmail
-} from '../services/notificationServices';
+import { respondWithWarning,
+  respondWithSuccess } from '../helpers/responseHandler';
+import { findNotificationsForUser, createNotificationForUser, setNotificationStatus, notifyByEmail } from '../services/notificationServices';
 
 /**
  * class handles notifications
@@ -42,10 +38,11 @@ import {
  * @returns {object} json response
  */
 export const getNotifications = async (req, res) => {
-  const notifications = await findNotificationsForUser(req.auth.userId)
-    .catch(error => respondWithWarning(res, error.status, error.message));
-
-  return respondWithSuccess(res, 200, 'Successful', notifications);
+  findNotificationsForUser(req.auth.userId)
+    .then((notifications) => respondWithSuccess(
+      res, 200, 'Successful', notifications
+    ))
+    .catch((error) => respondWithWarning(res, error.status, error.message));
 };
 
 
@@ -60,5 +57,7 @@ export const markNotificationAsRead = async (req, res) => {
 
   const notification = await setNotificationStatus(notifications, true).catch(e => { throw e; });
 
-  return respondWithSuccess(res, 200, 'Successful', notification);
+  return respondWithSuccess(
+    res, 200, 'Successful', notification
+  );
 };

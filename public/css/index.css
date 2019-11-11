@@ -3,14 +3,50 @@
   margin-bottom: 7%;
 }
 
+/* @LeanKhan */
+#hero {
+  background-image: url('https://res.cloudinary.com/dulniapvg/image/upload/v1573313248/icons%20-hng/hero_vjm9vd.jpg');
+  background-position: 50% 0;
+  box-shadow: inset 0 0 0 100vw rgba(0,0,0,0.6);
+  min-height: 600px;
+  height: calc(100vh - 47.275px);
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+
+#hero .container, #hero .hero-container {
+  height: 100%;
+}
+
+.search-invites-btn {
+height: 100%;
+}
+
+/* ------------- */
+
 .search-summary {
   max-width: 700px;
   margin: auto;
 }
 
-body {
-  background-image: linear-gradient(to top, #24659E, white); /*Fallback for browsers without support for --vars*/
-  background-image: linear-gradient(to top, var(--dark-blue), white);
+#how-it-works .card.point {
+  background: #e6e6e6;
+    padding: 20px;
+    text-align: center;
+    border-radius: 4px;
+    display: block;
+}
+
+@media screen and (min-width: 1100px) {
+  
+#recent-posts {
+  margin: 0 13rem;
+}
+}
+
+.footer {
+  margin-top: 0px !important;
 }
 
 .usage-stats {
@@ -22,6 +58,32 @@ body {
   margin: 50px 0px;
   width: 100vw;
 }
+
+.ribbon {
+  text-align: center;
+  padding: 2rem 1.5rem;
+  font-size: 20px;
+  background-color:#e6e6e6;
+  position: relative;
+  font-weight: 500;
+  color: #1f232c;
+}
+
+.ribbon div {
+  display: inline;
+}
+
+.ribbon-small {
+  text-align: center;
+  padding: 30px 0px;
+  font-size: 20px;
+  background-color: #1f232c;
+  color: #f4f4f4;
+}
+
+.navbar {
+margin-bottom: 0px;
+};
 
 .usage-stats__wrapper {
   max-width: 100%;
@@ -61,6 +123,28 @@ body {
   }
 }
 
+#hero small.text-muted-white {
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.text-muted-white {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+@media screen and (min-width: 900px) {
+  .heading {
+    font-size: 38px !important;
+  }
+  .sub-heading {
+    font-size: 17px;
+    font-weight: 500;
+  }
+  #hero small.text-muted-white {
+    font-size: 15px;
+  }
+}
+
 .stat-card__figure {
   display: block;
   font-size: 2rem;
@@ -90,4 +174,12 @@ body {
 .usage-stats__cta__reason {
   display: block;
   color: black;
+}
+
+#site-stats .ribbon {
+  padding: 2rem 4.5rem;
+}
+
+.stat-text {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }

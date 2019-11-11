@@ -21,11 +21,25 @@
     background-clip: border-box;
     border-radius: 0.25rem;
   }
+
   /* .post:hover {
         box-shadow: 0 .125rem .25rem rgba(0, 0, 0, .075) !important;
         transition: all ease-in 0.1s;
     } */
-  
+
+  .post-info-container {
+    width: 100%;
+  }
+
+  @media screen and (min-width: 768px) {
+    /* .post-info-container {
+      padding-left: 2vw;
+      padding-right: 2vw;
+    } */
+
+    /* The padding does not line up with the padding of the footer */
+  }
+
   .post-title {
     font-family: 'Raleway';
     font-style: normal;
@@ -34,11 +48,11 @@
     line-height: 24px;
     /* colors/dark */
   }
-  
+
   .post-title a {
     color: #2B4052 !important;
   }
-  
+
   .post-footer {
     border-radius: 0 0 calc(0.25rem - 1px) calc(0.25rem - 1px);
     padding: 0.25rem 0.2rem;
@@ -48,190 +62,349 @@
     border-top: 1px solid #dddddd;
     font-size: 16px !important;
   }
-  
+
   .action-buttons {
     padding: 0.15rem 0.25rem;
     /* border-left: 1px solid #e6e6e6; */
     background-color: #e6e6e6;
     color: #2B4052 !important;
   }
-  
+
+  .no-upvote-btn i, .no-downvote-btn i {
+    cursor: pointer;
+  }
+
   .action-buttons a i {
     font-size: 25px !important;
   }
-  
+
   .whats-this {
     font-size: 9px;
   }
-  
+
   .post-detail {
     font-size: 12px;
     line-height: 12px;
     color: #636B6F;
   }
-  
-  .post-content {
-    font-size: 16px;
-    line-height: 19px;
-    color: #2B4052;
+
+  .post-content-wrapper {
+    width: 100%;
   }
-  
+
+  .post-content {
+    font-size: 1em;
+    /* max-width: 700px; */
+    /* Text that is too wide is difficult to read*/
+    color: black;
+    /*#2B4052; */
+    word-break: normal;
+    /* Fallback */
+    word-break: break-word;
+  }
+
   .dropdown-toggle {
     cursor: pointer !important;
   }
-  
+
   .valign-middle {
     vertical-align: middle;
   }
+
+  .entry-tit {
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    display: -webkit-box !important;
+    -webkit-line-clamp: 3 !important;
+    -webkit-box-orient: vertical;
+    --x-height-multiplier: 0.342 !important;
+    --baseline-multiplier: 0.22 !important;
+    transform: translateY(0.96px);
+  }
+
   /* Media Queries */
-  
+
   @media screen and (max-width: 768px) {
     .post-title {
       font-size: 20px;
       line-height: 20px;
     }
+
     .action-buttons a i {
       font-size: 22px !important;
     }
   }
+
+  .post-footer a.btn {
+    color: rgba(0, 0, 0, .6) !important;
+    transition: all 0.2s;
+  }
+
+  .post-footer a.btn:hover {
+    color: rgba(0, 0, 0, .8) !important;
+  }
+
   /* ===== */
+  .success-dialog {
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 999999999;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+  }
+
+  .is-hidden {
+    display: none;
+  }
+
+  .success-dialog__message {
+    display: block;
+    font-size: 1em;
+    margin: 20px;
+    text-align: center;
+  }
+
+  .success-dialog__action {
+    display: block;
+    margin: 20px;
+  }
 </style>
 <!-- Render Post Component here (check partials/postComponent) -->
-<% renderPostComponent = function(invite) { %>
+<% renderPostComponent = function(invite, single) { %>
+
+<div class="post flex-row mb-3 post-meta" style="text-align: initial;" data-inviteId="<%=invite.inviteId%>">
+
+  <div class="d-flex flex-column flex-fill">
+    <!-- Main content -->
+    <div class="d-flex flex-row justify-content-between p-3">
+      <div class="post-info-container">
+        <h4 class="post-title mb-0">
+          <a href="<%='/post/'+invite.inviteId%>">
+            <%=invite.title%>
+          </a>
+        </h4>
+
+        <small class="post-detail text-muted"><em><%=invite.company%>, <%=invite.location%></em></small><br>
+        <% if (invite.user) { %>
+
+        <p>
+          <a href="/users/<%=invite.user.username %>">
+            @<%= invite.user.username %>
+          </a>
+          <span class="text-muted" style="font-size: 12px;">Posted on
+            <%= new Date(invite.createdAt).toDateString() %> - <%= new Date(invite.createdAt).toLocaleTimeString() %></span>
+        </p>
+
+        <% } %>
 
 
-  <div class="post flex-row mb-3 post-meta" data-inviteId="<%=invite.inviteId%>">
-
-    <div class="d-flex flex-column flex-fill">
-      <!-- Main content -->
-      <div class="d-flex flex-row justify-content-between p-3">
-        <div>
-          <h4 class="post-title mb-0">
-            <a href="<%='/post/'+invite.inviteId%>">
-              <%=invite.title%>
-            </a>
-          </h4>
-
-          <small class="post-detail text-muted"><em><%=invite.company%>, <%=invite.location%></em></small><br>
-          <% if (invite.user) { %>
-
-            <p>
-              <a href="/users/<%=invite.user.username %>">
-                        @<%= invite.user.username %>
-                    </a>
-            </p>
-
+        <!-- Post content -->
+        <div class="post-content-wrapper">
+          <p class="post-content" id="single-page">
+            <% if (invite.body.length > 150 && single != true) { %>
+            <%=invite.body.substr(0, 150)%> <a href="<%='/post/'+invite.inviteId%>" class="" id="button-page">...Read
+              more</a>
+            <%= single %>
+            <% } else { %>
+            <%=invite.body%>
             <% } %>
-
-
-              <!-- Post content -->
-              <p class="post-content">
-                <%=invite.body%>
-              </p>
+          </p>
         </div>
+      </div>
 
-        <% if(isAuth) { %>
-          <div>
-            <span class="d-flex flex-row-reverse justify-content-between">
+      <% if(isAuth) { %>
+      <div>
+        <span class="d-flex flex-row-reverse justify-content-between">
 
-                    <span class="dropdown text-black-50">
-                        <% if (typeof invite.user != 'undefined') { %>
-                        <% if ( (invite.user.username === username) || isAdmin ) { %>
-                        <i class=" fas fa-ellipsis-h  dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown"
-                           aria-haspopup="true" aria-expanded="false">
-                        </i>
-                        <span class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" href="/post/<%=invite.inviteId%>/edit">Edit</a>
-                            <!-- <a class="dropdown-item" href="#">Report</a> -->
-                            <a class="dropdown-item" href="#">Delete Post </a>
-                        </span>
+          <span class="dropdown text-black-50">
+            <% if (typeof invite.user != 'undefined' && typeof username != 'undefined') { %>
+            <% if ( (invite.user.username === username) || isAdmin ) { %>
+            <i class=" fas fa-ellipsis-h  dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false">
+            </i>
+            <span class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <a class="dropdown-item" href="/post/<%=invite.inviteId%>/edit">Edit</a>
+              <!-- <a class="dropdown-item" href="#">Report</a> -->
+              <a class="dropdown-item delete" data-inviteid="<%= invite.inviteId %>" href="#">Delete Post </a>
+            </span>
             <% } %>
-              <% } else { %>
+            <% } else { %>
 
-                <% if ( (invite.userId === user.userId) || isAdmin ) { %>
-                  <i class=" fas fa-ellipsis-h  dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        </i>
-                  <span class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" href="/post/<%=invite.inviteId%>/edit">Edit</a>
-                            <!-- <a class="dropdown-item" href="#">Report</a> -->
-                            <a class="dropdown-item" href="#">Delete Post </a>
-                        </span>
-                  <% } %>
-                    <% } %>
-                      </span>
+            <% if (typeof user != 'undefined') { %>
+            <% if ( (invite.userId === user.userId) || isAdmin ) { %>
+            <i class=" fas fa-ellipsis-h  dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false">
+            </i>
+            <span class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <a class="dropdown-item" href="/post/<%=invite.inviteId%>/edit">Edit</a>
+              <!-- <a class="dropdown-item" href="#">Report</a> -->
+              <a class="dropdown-item delete" data-inviteid="<%= invite.inviteId %>" href="#">Delete Post </a>
+            </span>
+            <% } %>
+            <% } %>
+            <% } %>
+          </span>
 
-                      </span>
-          </div>
-          <% } %>
+        </span>
       </div>
-
-      <!-- Footer content -->
-      <div class="post-footer text-black-50 px-1 px-md-3">
-        <% if (invite.comments ) { %>
-          <a href="<%='/post/'+invite.inviteId %>" class="btn text-black-50 p-1"><i class="fas fa-comment"></i>
-                <%= invite.comments.length %> <span class="d-none d-md-inline-block">Comments</span>
-            </a>
-          <% } %>
-
-            <% if ( typeof comments != 'undefined' ) { %>
-              <a href="<%='/post/'+invite.inviteId %>" class="btn text-black-50 p-1"><i class="fas fa-comment"></i>
-                <%= comments.length %> <span class="d-none d-md-inline-block">Comments</span>
-            </a>
-              <% } %>
-
-
-                <a href="/analyse/<%=invite.inviteId%>" class="ml-3 btn text-black-50 p-1"><i class="fas fa-check"></i>
-                <span class="d-none d-md-inline-block">Analyse</span>
-            </a>
-
-                <!-- Share button -->
-
-                <span class="float-right share-buttons btn">
-                <a target="_blank" class="m-0"
-                   href=" https://www.facebook.com/sharer.php?u=http://itarj.com/post/'<%=invite.inviteId%>">
-                    <i class="fab fa-facebook"></i>
-                </a>
-
-                <a target="_blank" class="m-0"
-                   href="https://twitter.com/intent/tweet?text=<%=invite.title+' - Is this a real job? \n Let us know: http://itarj.com/post/'+invite.inviteId%>">
-                    <i class="fab fa-twitter"></i></a>
-
-                <a target="_blank" class="m-0"
-                   href="https://api.whatsapp.com/send?&text=<%=invite.title+' - Is this a real job? \n Let us know: http://itarj.com/post/'+invite.inviteId%>">
-                    <span style="color:#25D366;">
-                        <i class="fab fa-whatsapp"></i>
-                    </span>
-                </a>
-                </span>
-      </div>
+      <% } %>
     </div>
 
+    <!-- Footer content -->
+    <div class="post-footer text-black-50 px-1 px-md-3">
+      <% if (typeof invite.comments != 'undefined') { %>
+      <a href="<%='/post/'+invite.inviteId %>" class="float-left btn p-1"><i class="fas fa-comment"></i>
+        <% if (!single) { %> <span class="commentXYZ"><%=invite.comments.length %></span> <% } %> <span
+          class="d-none d-md-inline-block">Comments</a>
+      </a>
+      <% } %>
 
-
-
-    <% if (invite.votes) { %>
-      <!-- Side content -->
-      <div class="d-flex flex-column action-buttons">
-        <div class="d-flex flex-column justify-content-around flex-fill actions">
-          <a class="m-0 align-items-center d-flex flex-column upvote-btn" data-inviteid="<%= invite.inviteId %>" data-upvoted="<%= invite.votes.some( (vote) => (vote.userId === userId) && (vote.type === 'up') )%>">
-            <i class="fas fa-arrow-alt-circle-up"></i>
-            <span class="count">
-                    <%= invite.votes.reduce((p,vote) => (vote.type === 'up') ? ++p : p ,0) %>
-                </span>
-          </a>
-          <a class="m-0 align-items-center d-flex flex-column downvote-btn" data-inviteid="<%= invite.inviteId %>" data-downvoted="<%= invite.votes.some( (vote) => (vote.userId === userId) && (vote.type === 'down') ) %>">
-            <i class="fas fa-arrow-alt-circle-down"></i>
-            <span class="count">
-                    <%= invite.votes.reduce((p,vote) => (vote.type === 'down') ? ++p : p ,0) %>
-                </span>
-          </a>
-        </div>
-        <span class="whats-this text-center"><a href="/how-it-works">What's this?</a></span>
-
-      </div>
+      <% if ( typeof comments != 'undefined' ) { %>
+      <a href="<%='/post/'+invite.inviteId %>" class="float-left btn p-1"><i class="fas fa-comment"></i>
+        <% if (!single) { %> <span class="commentXYZ"><%=invite.comments.length %></span> <% } %> <span
+          class="d-none d-md-inline-block">Comments</span>
+      </a>
       <% } %>
 
 
+      <a href="/analyse/<%=invite.inviteId%>" title="Analyse this post to see its confidence rating"
+        class="float-left ml-3 btn p-1"><i class="fas fa-check"></i>
+        <span class="d-none d-md-inline-block">Analyse</span>
+      </a>
+
+      <!-- Share button -->
+
+      <span class="float-right share-buttons btn">
+        <a target="_blank" class="m-0"
+          href=" https://www.facebook.com/sharer.php?u=http://itarj.com/post/'<%=invite.inviteId%>">
+          <i class="fab fa-facebook"></i>
+        </a>
+
+        <a target="_blank" class="m-0"
+          href="https://twitter.com/intent/tweet?text=<%=invite.title+' - Is this a real job? \n Let us know: http://itarj.com/post/'+invite.inviteId%>">
+          <i class="fab fa-twitter"></i></a>
+
+        <a target="_blank" class="m-0"
+          href="https://api.whatsapp.com/send?&text=<%=invite.title+' - Is this a real job? \n Let us know: http://itarj.com/post/'+invite.inviteId%>">
+          <span style="color:#25D366;">
+            <i class="fab fa-whatsapp"></i>
+          </span>
+        </a>
+      </span>
+    </div>
   </div>
 
+
+
+
+  <% if (invite) { %>
+  <!-- Side content -->
+  <div class="d-flex flex-column action-buttons">
+    <div class="d-flex flex-column justify-content-around flex-fill actions">
+      <% if(isVerified && typeof userId !== 'undefined') { %>
+      <a class="m-0 align-items-center d-flex flex-column upvote-btn" data-inviteid="<%= invite.inviteId %>"
+        data-voted="<%=invite.votes.some( (vote) => (vote.userId === userId) && (vote.type === 'up') )%>">
+        <i class="fas fa-arrow-alt-circle-up"></i>
+        <span class="count">
+          <%= invite.votes.reduce((p,vote) => (vote.type === 'up') ? ++p : p ,0) %>
+        </span>
+      </a>
+      <a class="m-0 align-items-center d-flex flex-column downvote-btn" data-inviteid="<%= invite.inviteId %>"
+        data-voted="<%=invite.votes.some( (vote) => (vote.userId === userId) && (vote.type === 'down') ) %>">
+        <i class="fas fa-arrow-alt-circle-down"></i>
+        <span class="count">
+          <%= invite.votes.reduce((p,vote) => (vote.type === 'down') ? ++p : p ,0) %>
+        </span>
+      </a>
+      <% } else if(isAuth && isVerified) { %>
+      <a class="m-0 align-items-center d-flex flex-column upvote-btn" data-inviteid="<%= invite.inviteId %>"
+        data-voted="<%=invite.votes.some( (vote) => (vote.userId === userId) && (vote.type === 'up') )%>">
+        <i class="fas fa-arrow-alt-circle-up"></i>
+        <span class="count">
+          <%= invite.votes.reduce((p,vote) => (vote.type === 'up') ? ++p : p ,0) %>
+        </span>
+      </a>
+      <a class="m-0 align-items-center d-flex flex-column downvote-btn" data-inviteid="<%= invite.inviteId %>"
+        data-voted="<%=invite.votes.some( (vote) => (vote.userId === userId) && (vote.type === 'down') ) %>">
+        <i class="fas fa-arrow-alt-circle-down"></i>
+        <span class="count">
+          <%= invite.votes.reduce((p,vote) => (vote.type === 'down') ? ++p : p ,0) %>
+        </span>
+      </a>
+      <% } else if(isAuth) { %>
+      <a class="m-0 align-items-center d-flex flex-column no-upvote-btn">
+        <i class="fas fa-arrow-alt-circle-up"></i>
+        <span class="count">
+          <%= invite.votes.reduce((p,vote) => (vote.type === 'up') ? ++p : p ,0) %>
+        </span>
+      </a>
+      <a class="m-0 align-items-center d-flex flex-column no-downvote-btn">
+        <i class="fas fa-arrow-alt-circle-down"></i>
+        <span class="count">
+          <%= invite.votes.reduce((p,vote) => (vote.type === 'down') ? ++p : p ,0) %>
+        </span>
+      </a>
+      <% } else { %>
+      <a class="m-0 align-items-center d-flex flex-column no-upvote-btn">
+        <i class="fas fa-arrow-alt-circle-up"></i>
+        <span class="count">
+          <%= invite.votes.reduce((p,vote) => (vote.type === 'up') ? ++p : p ,0) %>
+        </span>
+      </a>
+      <a class="m-0 align-items-center d-flex flex-column no-downvote-btn">
+        <i class="fas fa-arrow-alt-circle-down"></i>
+        <span class="count">
+          <%= invite.votes.reduce((p,vote) => (vote.type === 'down') ? ++p : p ,0) %>
+        </span>
+      </a>
+      <% }%>
+    </div>
+    <span class="whats-this text-center"><a href="/howitworks">What's this?</a></span>
+
+  </div>
   <% } %>
+
+
+</div>
+<script>
+  // better solution than above. Gets rid of console errors
+  for (let i = 0; i < document.querySelectorAll("#button-page").length; i++) {
+    const readMoreButton = document.querySelectorAll("#button-page");
+    readMoreButton[i].addEventListener("click", function (event) {
+      let current_div = event.target.parentElement.getElementsByTagName("p")[1];
+      current_div.classList.remove("entry-tit");
+      let btn = readMoreButton[i]
+      btn.style.display = "none"
+    })
+  }
+
+  document.querySelectorAll('.no-upvote-btn').forEach((element) => {
+    element.addEventListener('click', () => {
+      const notification = document.querySelector('.notification');
+      notification.innerHTML = '<strong>Login or verify your account to perform this action.</strong>';
+      notification.classList.add('show');
+      setTimeout(() => {
+        notification.classList.remove('show');
+      }, 8000);
+    });
+  });
+  document.querySelectorAll('.no-downvote-btn').forEach((element) => {
+    element.addEventListener('click', () => {
+      const notification = document.querySelector('.notification');
+      notification.innerHTML = '<strong>Login or verify your account to perform this action.</strong>';
+      notification.classList.add('show');
+      setTimeout(() => {
+        notification.classList.remove('show');
+      }, 8000);
+    });
+  });
+</script>
+
+<% } %>

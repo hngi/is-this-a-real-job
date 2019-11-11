@@ -27,7 +27,6 @@ export default {
     },
     email: {
       type: Sequelize.STRING,
-      allowNull: false,
     },
     isBlocked: {
       type: Sequelize.BOOLEAN,
@@ -46,6 +45,16 @@ export default {
       allowNull: false,
       defaultValue: false,
     },
+    isPasswordReset: {
+      type: Sequelize.BOOLEAN,
+      allowNull: false,
+      defaultValue: false,
+    },
+    isVerified: {
+      type: Sequelize.BOOLEAN,
+      allowNull: false,
+      defaultValue: false,
+    },
     createdAt: {
       allowNull: false,
       type: Sequelize.DATE,
@@ -55,6 +64,10 @@ export default {
       allowNull: false,
       type: Sequelize.DATE,
       defaultValue: new Date()
+    },
+    deletedAt: {
+      type: Sequelize.DATE,
+      defaultValue: null
     }
   }),
   down: queryInterface => queryInterface.dropTable('Users')

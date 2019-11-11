@@ -10,10 +10,8 @@ chai.use(chaiHttp);
 const invitesUrl = '/api/v1/invites';
 const singleInviteUrl = `/api/v1/invites/${SEED_INVITE_ID}`;
 const invalidSingleInviteUrl = '/api/v1/invites/invalidUUID';
-const unknownSingleInviteUrl = `/api/v1/invites/${SEED_INVITE_ID.replace(
-  /\w/,
-  1
-)}`; // Create an unknown invite id.
+const unknownSingleInviteUrl = `/api/v1/invites/${SEED_INVITE_ID.replace(/\w/,
+  1)}`; // Create an unknown invite id.
 const signinUrl = '/api/v1/auth/signin';
 const authDetails = {
   email: 'johndoe@mail.com', // valid login details
@@ -63,8 +61,7 @@ describe('INVITES CONTROLLER', () => {
             .request(app)
             .post(invitesUrl)
             .set('Authorization', `Bearer ${res.body.payload.token}`) // add jwt header
-            .send({
-              body: 'A test invite' // omitted other fields
+            .send({ body: 'A test invite' // omitted other fields
             })
             .end((err, res) => {
               expect(res).to.have.status(400);
@@ -162,7 +159,7 @@ describe('INVITES CONTROLLER', () => {
             expect(res.body.payload).to.have.length.that.is.at.least(0);
             expect(res.body.payload[0])
               .property('title')
-              .to.equal('Test post title');
+              .to.equal('A test title');
             done();
           });
       });

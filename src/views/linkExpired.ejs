@@ -1,0 +1,28 @@
+<% include partials/header %>
+  <% include partials/nav %>
+
+
+    <style>
+      .go_back {
+        color: #ee331f;
+      }
+      
+      .go_back:hover {
+        color: #343fdd;
+      }
+    </style>
+    <div class="content-body">
+      <!-- This div is closed in the footer.ejs file -->
+
+      <div class="container">
+        <div class="text-center">
+          <div class="card-body mt-5">
+            <span class="text-dark text-center">Your password reset link has expired</span><br><br>
+            <span class="text-dark text-center"> <a class="go_back" href="/forgotpassword">Generate New Reset Link</a></span>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <% include partials/footer %>

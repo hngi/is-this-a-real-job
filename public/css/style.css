@@ -152,7 +152,7 @@ body { /*Using flexbox to ensure the footer is always attached to the bottom of 
 
 @media screen and (min-width: 768px){
   #posts-page.section {
-    margin: 0 13rem;
+    margin: 0 3rem;
   }
 
   .mx-13 {

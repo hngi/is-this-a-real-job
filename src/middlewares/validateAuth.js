@@ -13,7 +13,7 @@ export const validateSigninFormData = (req, res, next) => {
   const createSignInSchema = Joi.object().keys({
     password: Joi.string().required(),
     email: Joi.string()
-      .email()
+      // .email()
       .required()
       .trim()
   });
@@ -22,7 +22,9 @@ export const validateSigninFormData = (req, res, next) => {
   if (!errors) {
     return next();
   }
-  return respondWithWarning(res, 400, 'Bad Input', errors);
+  return respondWithWarning(
+    res, 400, 'Bad Input', errors
+  );
 };
 
 export const validateSignupFormData = async (req, res, next) => {
@@ -41,5 +43,7 @@ export const validateSignupFormData = async (req, res, next) => {
   if (!errors) {
     return next();
   }
-  return respondWithWarning(res, 400, 'Bad Sign up Input', errors);
+  return respondWithWarning(
+    res, 400, 'Bad Sign up Input', errors
+  );
 };

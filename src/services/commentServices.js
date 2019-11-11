@@ -2,6 +2,7 @@
 import Model from '../models';
 import { notifyByEmail } from './notificationServices';
 import { SocketMethods } from '../routes/events';
+import { fetchOneInvite } from './inviteServices';
 
 const {
   Comment, Invite, User, Notification
@@ -11,17 +12,19 @@ export const getSingleComment = async (commentId) => {
   try {
     const data = await Comment.findOne({
       include: [
-        { model: User, as: 'user' },
-        { model: Invite, as: 'invite' }
+        { model: User, as: 'user' }
+        // { model: Invite, as: 'invite' }
       ],
       where: { commentId },
       logging: false
     });
 
-    const comment = data.dataValues;
-    comment.user = comment.user ? comment.user.dataValues : {};
-    comment.invite = comment.invite ? comment.invite.dataValues : {};
-    return comment;
+    if (data) {
+      const comment = data.dataValues;
+      comment.user = comment.user ? comment.user.dataValues : {};
+      return { error: false, comment };
+    }
+    return { error: true, message: 'Comment not found!' };
   } catch (error) {
     console.log(error);
   }
@@ -38,6 +41,7 @@ export const findCommentsForPost = async (inviteId) => {
         { model: User, as: 'user' }
       ],
       where: { inviteId },
+      order: [['createdAt', 'DESC']],
       logging: false
     });
 
@@ -52,6 +56,16 @@ export const findCommentsForPost = async (inviteId) => {
   }
 };
 
+export const findPostForComment = async (inviteId) => {
+  try {
+    const invite = await fetchOneInvite({ inviteId });
+    // console.log('fethed invite =>', invite);
+    return { error: false, invite };
+  } catch (error) {
+    return { error: true, message: 'Error getting invite for comment' };
+  }
+};
+
 /**
  * @param {object} res http response object
  * @param {object} commentData id of the job invite to retrieve comments for
@@ -60,9 +74,7 @@ export const findCommentsForPost = async (inviteId) => {
 export const createCommentForPost = async (res, commentData) => {
   const e = new Error();
   const objs = await Promise.all([User.findOne({
-    where: {
-      userId: commentData.userId
-    },
+    where: { userId: commentData.userId },
     logging: false
   }), Invite.findOne({ where: { inviteId: commentData.inviteId }, logging: false })]).catch(err => {
     console.log(err);
@@ -97,7 +109,7 @@ export const createCommentForPost = async (res, commentData) => {
       return Notification.create(data, { transaction: t })
         .then(async notification => {
           SocketMethods.emitNotification(notification);
-          notification.mailSent = await notifyByEmail(res, { ...notification });
+          notification.mailSent = await notifyByEmail(res, notification);
           return Object.assign(comment, { notification });
         });
     }))
@@ -107,4 +119,21 @@ export const createCommentForPost = async (res, commentData) => {
       e.message = 'A technical error occured. Contact support.';
       throw e;
     });
+};
+
+/**
+ * Delete a comment by Id
+ * @param {} queryOption
+ */
+export const deleteOneComment = async (queryOption = {}) => {
+  try {
+    const comment = await Comment.destroy({
+      where: queryOption,
+      logging: false
+    });
+    return { error: false, comment };
+  } catch (err) {
+    console.log(err);
+    return { error: true, e: err };
+  }
 };

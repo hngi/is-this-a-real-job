@@ -1,6 +1,7 @@
 <% include partials/header %>
 <% include partials/nav2 %>
 <% include partials/postComponent %>
+
 <!-- Should be nav if unauthenticated... -->
 <div id="cover">
   <div class="loader"></div>
@@ -10,18 +11,20 @@
     <div class="header mt-5">
       <section class="job-invites">
         <!-- Render Post Component here (check partials/postComponent) -->
-        <%= renderPostComponent(invite) %>
+        <%= renderPostComponent(invite, true) %>
+
         <div class="container p-0">
-          <div class="form-group">
+          <div class="form-group <%= !isAuth ? 'd-none': '' %>">
             <textarea class="form-control" id="comment-field" style="border: 1px solid #3087d1"
                       placeholder="Type something..." rows="3"></textarea>
           </div>
           <span class="comment-btn">
-            <button type="button" class="btn btn-primary">Comment</button>
+            <button type="button" class="btn btn-primary <%= !isAuth ? 'd-none': '' %>">Comment</button>
           </span>
+          <span class="<%= isAuth ? 'd-none': '' %>">You must be <a href="/login">logged in</a> to comment</span>
         </div>
 
-        <h5 class="container p-0 mt-3"><%= comments.length %> Comments</h5>
+        <h5 class="container p-0 mt-3"><span class="commentCounter"><%=comments.length %></span> Comments</h5>
         <section id="comments">
           <% if (comments.length === 0) { %>
           <div id="no-comments" class="bg-transparent container">There no comments for this post.</div>
@@ -30,7 +33,7 @@
           <% if (comments.length > 0) { %>
           <% for (comment of comments) { %>
 
-          <div class="card mb-2">
+          <div class="card mb-2 comment" id="<%= comment.commentId %>">
 
             <div class="card-body">
               <%=comment.body%>
@@ -43,7 +46,12 @@
                 guest
                 <% } %>
               </small>
-              <small class="text-muted"><%=new Date(comment.createdAt).toDateString()%></small>
+              <small class="text-muted"><%=new Date(comment.createdAt).toLocaleString()%></small>
+              <% if(userId === invite.userId || userId === comment.userId || isAdmin) { %>
+              <small><button type="button" class="btn btn-link text-danger float-right delete-comment p-0"
+                        data-inviteid="<%= invite.inviteId %>"
+                        data-commentid="<%= comment.commentId %>">Delete</button></small>
+              <% } %>
             </div>
           </div>
           <% } %>
@@ -54,6 +62,5 @@
     </div>
   </div>
 </div>
-
 
 <% include partials/footer %>

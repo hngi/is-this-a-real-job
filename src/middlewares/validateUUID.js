@@ -23,7 +23,9 @@ export const validateInviteId = (req, res, next) => {
   if (!errors) {
     return next();
   }
-  return respondWithWarning(res, 400, 'Bad Request', errors);
+  return respondWithWarning(
+    res, 400, 'Bad Request', errors
+  );
 };
 
 export const validateUserId = (req, res, next) => {
@@ -38,11 +40,15 @@ export const validateUserId = (req, res, next) => {
   if (!errors) {
     return next();
   }
-  return respondWithWarning(res, 400, 'Bad Request', errors);
+  return respondWithWarning(
+    res, 400, 'Bad Request', errors
+  );
 };
 
 
-const validateSingleParamId = (key, req, res, next) => {
+const validateSingleParamId = (
+  key, req, res, next
+) => {
   const schema = Joi.object().keys({
     [key]: Joi.string()
       .pattern(VALID_UUID)
@@ -54,10 +60,14 @@ const validateSingleParamId = (key, req, res, next) => {
   if (!errors) {
     return next();
   }
-  return respondWithWarning(res, 400, 'Bad Request', errors);
+  return respondWithWarning(
+    res, 400, 'Bad Request', errors
+  );
 };
 
-export const validateNotificationId = (req, res, next) => validateSingleParamId('notificationId', req, res, next);
+export const validateNotificationId = (req, res, next) => validateSingleParamId(
+  'notificationId', req, res, next
+);
 
 /**
 * @param {Object} req
@@ -78,5 +88,7 @@ export const validateUpvoteInput = (req, res, next) => {
   if (!errors) {
     return next();
   }
-  return respondWithWarning(res, 400, 'Bad Request', errors);
+  return respondWithWarning(
+    res, 400, 'Bad Request', errors
+  );
 };

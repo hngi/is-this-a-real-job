@@ -3,66 +3,88 @@
 <!-- Header -->
 
 <head>
-  <title>
-    <%= typeof meta != 'undefined' ? meta.title : 'Is This A Real Job' %>
-  </title>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+      <!-- Global site tag (gtag.js) - Google Analytics -->
+      <script async src="https://www.googletagmanager.com/gtag/js?id=UA-151908902-1"></script>
+      <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag() { dataLayer.push(arguments); }
+            gtag('js', new Date());
 
-  <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
-  <link rel="manifest" href="/favicon/site.webmanifest">
+            gtag('config', 'UA-151908902-1');
+      </script>
 
-  <!-- SEO META TAGS -->
-  <!-- Primary Meta Tags -->
-  <meta name="title" content="<%= typeof meta != 'undefined' ? meta.title : 'Is This A Real Job' %>" />
-  <meta name="description"
-        content="<%= typeof meta != 'undefined' ? meta.description : 'Our app helps you check if job oppurtunities are real or not.' %>" />
-  <meta name="image" content="https://res.cloudinary.com/goldolar/image/upload/v1571871893/Desktop_-_15.png" />
-  <meta name="keywords" content="Real,Job, Scam, job oppurtunity, " />
-  <meta name="robots" content="index, follow" />
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <meta name="language" content="English" />
+      <title>
+            <%= typeof meta != 'undefined' ? meta.title : 'Is This A Real Job' %>
+      </title>
+      <meta charset="utf-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta http-equiv="X-UA-Compatible" content="ie=edge" />
 
-  <!-- Schema.org : Google -->
-  <meta itemprop="name" content="<%= typeof meta != 'undefined' ? meta.name : 'Is This A Real Job' %>" />
-  <meta itemprop="description"
-        content="<%= typeof meta != 'undefined' ? meta.description : 'Our app helps you check if job oppurtunities are real or not.' %>" />
-  <meta itemprop="image" content="https://res.cloudinary.com/goldolar/image/upload/v1571871893/Desktop_-_15.png" />
-  <!-- Schema.org : Google -->
+      <link rel="apple-touch-icon" sizes="180x180"
+            href="https://res.cloudinary.com/leankhan/image/upload/v1572773815/itarj/apple-touch-icon.png">
+      <link rel="icon" type="image/png" sizes="32x32"
+            href="https://res.cloudinary.com/leankhan/image/upload/v1572773814/itarj/favicon-32x32.png">
+      <link rel="icon" type="image/png" sizes="16x16"
+            href="https://res.cloudinary.com/leankhan/image/upload/v1572773814/itarj/favicon-16x16.png">
+      <link rel="manifest" href="/site.webmanifest">
+      <link rel="mask-icon"
+            href="https://res.cloudinary.com/leankhan/image/upload/v1572773813/itarj/safari-pinned-tab.svg"
+            color="#5bbad5">
+      <meta name="msapplication-TileColor" content="#da532c">
+      <meta name="theme-color" content="#ffffff">
 
-  <!-- Open Graph / Facebook -->
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="http://isthisarealjob.ng" />
-  <meta property="og:title"
-        content="<%= typeof meta != 'undefined' ? meta.title : 'Is-This-A-Real-Job : Check if job oppurtunities are real...' %>" />
-  <meta property="og:site_name" content="Is-This-A-Real-Job" />
-  <meta property="og:description"
-        content="<%= typeof meta != 'undefined' ? meta.description : 'Our app helps you check if job oppurtunities are real or not.' %>" />
-  <meta property="og:image" content="https://res.cloudinary.com/goldolar/image/upload/v1571871893/Desktop_-_15.png" />
+      <!-- SEO META TAGS -->
+      <!-- Primary Meta Tags -->
+      <meta name="title" content="<%= typeof meta != 'undefined' ? meta.title : 'Is This A Real Job' %>" />
+      <meta name="description"
+            content="<%= typeof meta != 'undefined' ? meta.description : 'Our app helps you check if job oppurtunities are real or not.' %>" />
+      <meta name="image"
+            content="https://res.cloudinary.com/leankhan/image/upload/v1572768113/itarj/itarj_metaimage.jpg" />
+      <meta name="keywords" content="Real,Job, Scam, job oppurtunity, " />
+      <meta name="robots" content="index, follow" />
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+      <meta name="language" content="English" />
 
-  <!-- Twitter -->
-  <meta property="twitter:card" content="summary_large_image" />
-  <meta property="twitter:url" content="http://isthisarealjob.ng" />
-  <meta property="twitter:title"
-        content="<%= typeof meta != 'undefined' ? meta.title : 'Is-This-A-Real-Job : Check if job oppurtunities are real...' %>" />
-  <meta property="twitter:description"
-        content="<%= typeof meta != 'undefined' ? meta.description : 'Our app helps you check if job oppurtunities are real or not.' %>" />
-  <meta property="twitter:image"
-        content="https://res.cloudinary.com/goldolar/image/upload/v1571871893/Desktop_-_15.png" />
+      <!-- Schema.org : Google -->
+      <meta itemprop="name" content="<%= typeof meta != 'undefined' ? meta.name : 'Is This A Real Job' %>" />
+      <meta itemprop="description"
+            content="<%= typeof meta != 'undefined' ? meta.description : 'Our app helps you check if job oppurtunities are real or not.' %>" />
+      <meta itemprop="image"
+            content="https://res.cloudinary.com/leankhan/image/upload/v1572768113/itarj/itarj_metaimage.jpg" />
+      <!-- Schema.org : Google -->
 
-  <!-- RALEWAY FONT -->
-  <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,700,800&display=swap" rel="stylesheet">
-  <!-- BOOTSRAP -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
-  <!-- FONT AWESOME -->
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" />
-  <!-- CUSTOM STYLESHEET -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link href="/css/style.css" rel="stylesheet" type="text/css">
-  <link href="/css/notification.css" rel="stylesheet" type="text/css">
+      <!-- Open Graph / Facebook -->
+      <meta property="og:type" content="website" />
+      <meta property="og:url" content="https://itarj.com" />
+      <meta property="og:title"
+            content="<%= typeof meta != 'undefined' ? meta.title : 'Is-This-A-Real-Job : Check if job oppurtunities are real...' %>" />
+      <meta property="og:site_name" content="Is-This-A-Real-Job" />
+      <meta property="og:description"
+            content="<%= typeof meta != 'undefined' ? meta.description : 'Our app helps you check if job oppurtunities are real or not.' %>" />
+      <meta property="og:image"
+            content="https://res.cloudinary.com/leankhan/image/upload/v1572768113/itarj/itarj_metaimage.jpg" />
+      <meta property="fb:app_id" content="2128697074105566" />
+
+      <!-- Twitter -->
+      <meta property="twitter:card" content="summary_large_image" />
+      <meta property="twitter:url" content="https://itarj.com" />
+      <meta property="twitter:title"
+            content="<%= typeof meta != 'undefined' ? meta.title : 'Is-This-A-Real-Job : Check if job oppurtunities are real...' %>" />
+      <meta property="twitter:description"
+            content="<%= typeof meta != 'undefined' ? meta.description : 'Our app helps you check if job oppurtunities are real or not.' %>" />
+      <meta property="twitter:image"
+            content="https://res.cloudinary.com/leankhan/image/upload/v1572768113/itarj/itarj_metaimage.jpg" />
+
+      <!-- RALEWAY FONT -->
+      <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,700,800&display=swap" rel="stylesheet">
+      <!-- BOOTSRAP -->
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+      <!-- FONT AWESOME -->
+      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" />
+      <!-- CUSTOM STYLESHEET -->
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+      <link href="/css/style.css" rel="stylesheet" type="text/css">
+      <link href="/css/notification.css" rel="stylesheet" type="text/css">
 </head>
 
 <body>

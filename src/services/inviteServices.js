@@ -43,7 +43,53 @@ export const fetchOneInvite = async (queryOption = {}) => {
 /**
  * @returns {object} an array containing all submitted job invites in the database or null.
  */
-export const fetchAllInvites = async () => {
+export const fetchAllInvites = async (queryOption = {}, offset = 0, limit = 10) => {
+  try {
+    let result;
+    if (offset >= 0) {
+      result = await Invite.findAndCountAll({
+        where: queryOption,
+        include: [
+          { model: User, as: 'user' },
+          { model: Comment, as: 'comments' },
+          { model: Vote, as: 'votes' }
+        ],
+        order: [['createdAt', 'DESC']],
+        offset,
+        limit,
+        distinct: true,
+        logging: false
+      });
+    } else {
+      result = await Invite.findAndCountAll({
+        where: queryOption,
+        include: [
+          { model: User, as: 'user' },
+          { model: Comment, as: 'comments' },
+          { model: Vote, as: 'votes' }
+        ],
+        order: [['createdAt', 'DESC']],
+        logging: false
+      });
+    }
+
+    result.rows.map(invite => {
+      invite = invite.dataValues;
+      invite.user = invite.user ? invite.user.dataValues : {};
+      invite.votes = invite.votes.map((vote) => vote.dataValues);
+      return invite;
+    });
+
+    return { invites: result.rows, count: result.count };
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+/**
+ * Fetch invites with limit
+ */
+export const fetchAllInvitesWithLimit = async (limit) => {
   try {
     const invites = await Invite.findAll({
       include: [
@@ -52,7 +98,35 @@ export const fetchAllInvites = async () => {
         { model: Vote, as: 'votes' }
       ],
       order: [['createdAt', 'DESC']],
-      logging: false
+      logging: false,
+      limit
+    });
+
+    return invites.map(invite => {
+      invite = invite.dataValues;
+      invite.user = invite.user ? invite.user.dataValues : {};
+      invite.votes = invite.votes.map((vote) => vote.dataValues);
+      return invite;
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+/**
+ * Fetch invites with limit
+ */
+export const fetchUserInvites = async (queryOption = {}) => {
+  try {
+    const invites = await Invite.findAll({
+      where: queryOption,
+      include: [
+        { model: User, as: 'user' },
+        { model: Comment, as: 'comments' },
+        { model: Vote, as: 'votes' }
+      ],
+      order: [['createdAt', 'DESC']],
+      logging: false,
     });
 
     return invites.map(invite => {
@@ -73,9 +147,7 @@ export const fetchAllInvites = async () => {
 export const saveInvite = async inviteData => {
   const e = new Error();
   const userObj = await User.findOne({
-    where: {
-      userId: inviteData.userId
-    },
+    where: { userId: inviteData.userId },
     logging: false
   }).catch(err => {
     console.log(err);
@@ -164,7 +236,8 @@ export const fetchOneVoteCount = async (inviteId, userId) => {
   }
 };
 
-export const upvoteOneInvite = async (res, userId, inviteId) => {
+
+const voteInvite = async (res, userId, inviteId, type) => {
   try {
     const vote = await Vote.findOne({
       where: {
@@ -173,31 +246,34 @@ export const upvoteOneInvite = async (res, userId, inviteId) => {
       }
     });
 
-    const userObj = await User.findOne({
-      where: { userId },
-      logging: false
-    });
+    const objs = await Promise.all([
+      User.findOne({ where: { userId }, logging: false }),
+      Invite.findOne({ where: { inviteId }, logging: false })
+    ]);
 
-    if (!userObj) {
-      const e = new Error('User not found');
+    if (!Array.isArray(objs) || objs.length !== 2) {
+      const e = new Error('User/Invite not found');
       e.status = 400;
       throw e;
     }
 
+    const userObj = objs[0];
+    const inviteObj = objs[1];
+
     if (vote) {
-      await vote.update({ type: 'up' });
+      await vote.update({ type });
       return vote.dataValues;
     }
 
     return Model.sequelize.transaction(t => Vote
-      .create({ userId, inviteId, type: 'up' })
+      .create({ userId, inviteId, type })
       .then(v => v.dataValues)
       .then(voteObj => {
         const data = {
-          userId,
-          type: 'upvote',
+          userId: inviteObj.userId,
+          type: `${type}vote`,
           inviteId,
-          message: `@${userObj.username} has upvoted your post`,
+          message: `@${userObj.username} has ${type}voted your post`,
         };
         return Notification.create(data, { transaction: t })
           .then(async notification => {
@@ -214,29 +290,13 @@ export const upvoteOneInvite = async (res, userId, inviteId) => {
   }
 };
 
-export const downVoteOneInvite = async (userId, inviteId) => {
-  try {
-    let vote = await Vote.findOne({
-      where: {
-        userId,
-        inviteId,
-      }
-    });
+export const upvoteOneInvite = (res, userId, inviteId) => voteInvite(
+  res, userId, inviteId, 'up'
+);
 
-    if (vote) {
-      await vote.update({ type: 'down' });
-      return vote.dataValues;
-    }
-
-    vote = await Vote.create({ userId, inviteId, type: 'down' });
-    return vote.dataValues;
-  } catch (error) {
-    console.log(error);
-    error.status = 500;
-    error.message = 'A technical error occured. Contact Support';
-    throw error;
-  }
-};
+export const downVoteOneInvite = async (res, userId, inviteId) => voteInvite(
+  res, userId, inviteId, 'down'
+);
 
 export const unvoteOneInvite = async (userId, inviteId) => {
   try {
@@ -269,11 +329,9 @@ export const searchInvites = async string => {
       where: Sequelize.literal('MATCH (body, title, company, location) AGAINST(:string)'),
       include: [
         { model: User, as: 'user' },
-        // { model: Comment, as: "comments" }
+        { model: Vote, as: 'votes' },
       ],
-      replacements: {
-        string
-      },
+      replacements: { string },
       order: [['createdAt']],
       logging: false
     });

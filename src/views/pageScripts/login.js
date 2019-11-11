@@ -22,7 +22,7 @@ if (document.querySelector('#login-btn')) {
 
     api.Post('auth/signin', JSON.stringify(formVals))
       .then(res => {
-        console.log(res);
+        // console.log(res);
         togglePreloader('none');
 
         document.cookie = `login=${res.data.token};path=/`; // path required so cookie always sends.
@@ -50,4 +50,12 @@ if (document.querySelector('#logout')) {
 
     window.location.href = '/';
   });
+}
+
+function showNotification(message, isError = true) {
+  const notification = document.querySelector('.notification');
+  notification.innerHTML = `<strong>${message.includes('expected') ? 'We\'re unable to process you request right now. Try again after a while.' : message}</strong>`;
+  notification.style.backgroundColor = isError ? '#f590888c' : '#79fc968c';
+  notification.style.color = '#000';
+  notification.className += ' show';
 }

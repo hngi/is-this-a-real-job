@@ -31,7 +31,11 @@ export default {
       allowNull: false,
       type: Sequelize.DATE,
       defaultValue: new Date(),
-    }
+    },
+    deletedAt: {
+      type: Sequelize.DATE,
+      defaultValue: null
+    },
   }),
   down: queryInterface => queryInterface.dropTable('Comments')
 };

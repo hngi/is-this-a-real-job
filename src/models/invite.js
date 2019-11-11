@@ -1,6 +1,5 @@
 export default (sequelize, DataTypes) => {
-  const Invite = sequelize.define(
-    'Invite',
+  const Invite = sequelize.define('Invite',
     {
       inviteId: {
         type: DataTypes.UUID,
@@ -19,27 +18,17 @@ export default (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      company: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
-      location: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
+      company: { type: DataTypes.STRING, },
+      location: { type: DataTypes.STRING, },
       body: {
         type: DataTypes.TEXT,
         allowNull: false,
       },
-      /*media: {
-        type: DataTypes.STRING
-      },*/ //No more file upload.
       upVotes: {
         type: DataTypes.INTEGER,
         defaultValue: 0
       }
-    }, {}
-  );
+    }, {});
   Invite.associate = models => {
     Invite.belongsTo(models.User, {
       foreignKey: 'userId',
