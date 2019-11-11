@@ -1,0 +1,99 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <title>ITARJ Notification</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+</head>
+
+<% 
+{ author, recipient, report, comment, vote, invite }
+%>
+<body style="box-sizing:border-box; min-width:350px; max-width:768px; padding:0px; margin:0px; font-family:sans-serif;">
+<table style="box-sizing:border-box; padding:0px; margin:0px; background-color:#3087D1; padding:20px; min-width:350px; max-width:768px; margin:0px;">
+ 
+  <!--Header-->
+  <tr style="box-sizing:border-box; background-color:white; padding:5%; margin:0px;">
+    <td>
+    <em style="box-sizing:border-box; display:inline-block; width:45%; padding:0px; text-align:left; font-weight:500; margin:0px;">
+      New Notification
+    </em>
+    </td>
+
+    <td>
+    <strong style="box-sizing:border-box; display:inline-block; width:45%; padding-right:5%; text-align:right; margin:0px;">
+      <a style="box-sizing:border-box; color:black; padding:0px; margin:0px; text-decoration: none;"
+          href="http://itarj.com">
+        Is-This-A-Real-Job? &nbsp;
+        <img src="http://itarj.com/favicon.ico" alt="ITARJ Icon">
+      </a>
+    </strong>
+    </td>
+  </tr>
+
+  <!--Main Content-->
+  <tr>
+    <td>
+    <table style="box-sizing:border-box; padding:0px; margin:0px;  width:100%; text-align: center; color:white;">
+      <tr> <!--Greeting-->
+        <td style="box-sizing:border-box; text-align:left; padding-left:20px;">
+        <h6>
+          <img src="<%= recipient.profileImage %>" alt="User picture" width="50px;" style= "border-radius:50%; margin-top: 0; padding: 0; display: block; text-align: left;">
+          Hello <%= recipient.name.split(' ')[0] %>
+        </h6>
+        </td>
+      </tr>
+
+      <tr> <!--Message-->
+        <td style="text-align: center; font-size: 1.5rem;">
+          You have a new comment on your <a href="#">post.>
+        </td>
+      </tr>
+
+      <tr> <!--Detail-->
+        <td>
+        <table>
+          <tr> <!--Detail.Text-->
+            <td>
+            <a href="#">
+              @rizqah
+            </a>commented on your post.
+            </td>
+          </tr>
+
+          <tr> <!--Detail.Snippet-->
+            <td>
+            <p>
+              <a href="#">
+                @feranmi
+              </a> I like your post. Really insightful.
+            </p>
+            </td>
+          </tr>
+        </table>
+        </td>
+      </tr>
+
+      <tr><td style="text-align:center; box-sizing:border-box;">
+        <a style="background-color:white; color:black; padding:15px 25px; font-size:16px; cursor:pointer; border-radius:5px; text-decoration: none;"
+          href="http://itarj.com/login">
+          View Post
+        </a>
+      </td></tr>
+    </table>
+    </td>
+  </tr>
+
+  <!--Footer-->
+  <!--tr>
+    <td style="text-align:center;">
+    <a href="#" style="float: inline-end; margin-right: 1cm; margin-top: 1cm;">
+      Unsubscribe Notification
+    </a>
+    </td>
+  </tr-->
+
+<!--End-->  
+</table>
+</body>
+</html>

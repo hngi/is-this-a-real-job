@@ -238,6 +238,8 @@ export const fetchOneVoteCount = async (inviteId, userId) => {
 
 
 const voteInvite = async (res, userId, inviteId, type) => {
+  const emailData = {};
+
   try {
     const vote = await Vote.findOne({
       where: {
@@ -257,28 +259,37 @@ const voteInvite = async (res, userId, inviteId, type) => {
       throw e;
     }
 
-    const userObj = objs[0];
-    const inviteObj = objs[1];
+    const userObj = objs[0].dataValues;
+    const inviteObj = objs[1].dataValues;
+
+    emailData.author = userObj;
+    emailData.invite = inviteObj;
 
     if (vote) {
       await vote.update({ type });
+
+      //Consider adding notification for this, a user changing their vote.
+
       return vote.dataValues;
     }
 
     return Model.sequelize.transaction(t => Vote
       .create({ userId, inviteId, type })
-      .then(v => v.dataValues)
+      .then(vote => vote.dataValues)
       .then(voteObj => {
+        emailData.vote = voteObj;
+
         const data = {
           userId: inviteObj.userId,
           type: `${type}vote`,
           inviteId,
           message: `@${userObj.username} has ${type}voted your post`,
         };
+        
         return Notification.create(data, { transaction: t })
           .then(async notification => {
             SocketMethods.emitNotification(notification);
-            notification.mailSent = await notifyByEmail(res, notification);
+            notification.mailSent = await notifyByEmail(res, {notification, emailData});
             return Object.assign(voteObj, { notification });
           });
       }));
