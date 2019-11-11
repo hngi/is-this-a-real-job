@@ -84,10 +84,11 @@ export const findReports = async (queryOption = {}, offset = 0, limit = 10) => {
  */
 export const reportUser = async (res, reportData) => {
   const e = new Error();
+  const emailData = {};
 
   if (reportData.offenderId === reportData.reporterId) { // user or invite does not exist
     e.status = 400;
-    e.message = 'you cannot report yourself';
+    e.message = 'You cannot report yourself';
     throw e;
   }
 
@@ -117,13 +118,20 @@ export const reportUser = async (res, reportData) => {
 
   const reporterObj = objs[0].dataValues;
   const offenderObj = objs[1].dataValues;
-  const adminObjs = objs[2].map(a => a.dataValues);
+  const adminObjs = objs[2].map(admin => admin.dataValues);
+
+  emailData.author = reporterObj;
 
   return Model.sequelize.transaction(t => Report
     .create(reportData, { transaction: t })
+    .then(report => report.dataValues)
     .then(report => {
-      report.dataValues.reporter = reporterObj;
-      return report.dataValues;
+      emailData.report = {
+        reporter: reporterObj,
+        offender: offenderObj,
+        offence: report.offence,
+        details: report.details
+      };
     })
     .then(report => {
       const data = adminObjs.map(adminObj => ({
@@ -135,14 +143,19 @@ export const reportUser = async (res, reportData) => {
 
       return Notification.bulkCreate(data, { transaction: t, validate: true })
         .then(async () => {
-          const emails = [];
-          data.forEach(n => {
-            SocketMethods.emitNotification(n);
-            emails.push(notifyByEmail(res,
-              Object.assign(n, { email: adminObjs.find(a => a.userId === n.userId).email })).then(mailSent => {
-              n.mailSent = mailSent;
-              console.log(`Sent email to ${adminObjs.find(a => a.userId === n.userId).email}.`);
-            }));
+          data.forEach((notif, index) => {
+            const admin = adminObjs.find(admin => admin.userId === notif.userId);
+            emailData.recipient = admin;
+
+            SocketMethods.emitNotification(notif);
+            
+            notifyByEmail(res, {notif, emailData})
+              .then(mailSent => {
+                notif.mailSent = mailSent;
+                data[index] = notif;
+                console.log(`Sent email to ${admin.email}.`);
+              });
+            //
           });
 
           await Promise.all(emails);

@@ -73,6 +73,8 @@ export const findPostForComment = async (inviteId) => {
  */
 export const createCommentForPost = async (res, commentData) => {
   const e = new Error();
+  const emailData = {};
+
   const objs = await Promise.all([User.findOne({
     where: { userId: commentData.userId },
     logging: false
@@ -92,6 +94,9 @@ export const createCommentForPost = async (res, commentData) => {
   const userObj = objs[0].dataValues;
   const inviteObj = objs[1].dataValues;
 
+  emailData.author = userObj;
+  emailData.invite = inviteObj;
+
   return Model.sequelize.transaction(t => Comment
     .create(commentData, { transaction: t })
     .then(comment => {
@@ -99,6 +104,8 @@ export const createCommentForPost = async (res, commentData) => {
       return comment.dataValues;
     })
     .then(comment => {
+      emailData.comment = comment;
+
       const data = {
         userId: inviteObj.userId,
         type: 'comment',
@@ -106,10 +113,11 @@ export const createCommentForPost = async (res, commentData) => {
         inviteId: comment.inviteId,
         message: `@${userObj.username} commented on your post`,
       };
+
       return Notification.create(data, { transaction: t })
         .then(async notification => {
           SocketMethods.emitNotification(notification);
-          notification.mailSent = await notifyByEmail(res, notification);
+          notification.mailSent = await notifyByEmail(res, {notification, emailData});
           return Object.assign(comment, { notification });
         });
     }))

@@ -34,55 +34,6 @@ export const findNotificationsForUser = async (userId) => {
   }
 };
 
-// /**
-//  * @typedef NotificationData
-//  * @property {string} type ENUM('comment' || 'upvote')
-//  * @property {string} userId user that will receive the notification
-//  * @property {string} inviteId id of invite
-//  * @property {string} [commentId] id of comment that was created.
-//  * OPTIONAL and depends on type = 'comment'
-//  */
-
-// /**
-//  * Creates a new notification for a specified user
-//  * @param {NotificationData} notificationData
-//  * @returns {object} an object containing created notification data
-//  */
-// export const createNotificationForUser = async (notificationData) => {
-//   const e = new Error();
-//   const userObj = await User.findOne({
-//     where: {
-//       userId: notificationData.userId
-//     },
-//     logging: false
-//   }).catch(err => {
-//     console.error(err);
-//     e.status = 500;
-//     e.message = 'A technical error occured. Contact support.';
-//     throw e;
-//   });
-
-
-//   if (!userObj) { // user does not exist
-//     e.status = 404;
-//     e.message = 'user not found';
-//     throw e;
-//   }
-
-// eslint-disable-next-line max-len
-//   notificationData.message = `@${userObj.username} ${notificationData.type === 'comment' ? 'commented your post' : 'upvoted your post'}`;
-
-//   const notification = await Notification.create(notificationData).catch(err => {
-//     console.error(err);
-//     e.status = 500;
-//     e.message = 'A technical error occured. Contact support.';
-//     throw e;
-//   });
-
-//   return notification.dataValues;
-// };
-
-
 /**
  * Updates the status for a notification
  * @param {string} notifications an array of notifications
@@ -120,26 +71,61 @@ export const setNotificationStatus = async (notifications, isSeen) => {
   }
 };
 
-
-export const notifyByEmail = async (res, notif) => {
+/** Sends a notification to the relevant user.
+ * @param {any} res The express response object. Used to call the render() method on the email template file.
+ * @param {any} data An object with two properties defined below:
+ * @param {any} data.notif The notification object as stored in the database,
+ * @param {any} data.emailData - Data values for any details available to the calling function, that would otherwise be retrieved from the database. {author, recipient, report, comment, vote, invite}.
+ */
+export const notifyByEmail = async (res, {notif, emailData}) => {
   let mailSent;
 
   try {
-    notif.title = (notif.type === 'comment') ? 'One New Comment On Your Job Invite' : 'Your Job Invite Was Upvoted';
-    notif.recipient = await findSingleUser({ userId: notif.userId });
-    notif.recipient = notif.recipient.dataValues;
-    notif.target = notif.target || notif.recipient; // set target if not present
-    notif.details = notif.details || '';
+    switch (notif.type) {
+      case 'upvote':
+      case 'downvote': {
+        const { author, recipient, vote, invite } = emailData;
+        if (!author || !vote || !invite)
+          throw new Error('Missing required property in emailData object. `author`, `vote`, and `invite` objects are required for "vote" type notifications');
+        //
+        recipient = await findSingleUser({userId: notif.userId});
+        emailData = { author, recipient, vote, invite };
+        break;
+      }
+      case 'comment': {
+        const { author, recipient, comment, invite } = emailData;
+        if (!author || !comment || !invite)
+          throw new Error('Missing required property in emailData object. `author`, `comment`, and `invite` objects are required for "comment" type notifications');
+        //
+        recipient = await findSingleUser({userId: notif.userId});
+        emailData = { author, recipient, comment, invite };
+        break;
+      }
+      case 'report': {
+        const { author, recipient, report } = emailData;
+        if (!author || !recipient || !report)
+          throw new Error('Missing required property in emailData object. `author`, `recipient`, and `report` objects are required for "report" type notifications');
+        //
+        emailData = { author, recipient, report };
+        break;
+      }
+      default:
+        throw new Error("The notification type is not recognized by the notification service.");
+    }
+
+    // Consider setting a custom title based on the email type, so the user sees useful info before even opening the mail.
+    emailData.title = "[ITARJ] New Notification From Is-This-A-Real-Job?";
 
     // Use callback syntax for res.render to recieve the html text into a variable.
-    res.render('notificationEmail', notif, (error, renderedEmail) => {
+    res.render('emailNotif', emailData, (error, renderedEmail) => {
       if (error) throw error;
 
-      mailSent = sendMail(notif.recipient.email, notif.title, renderedEmail);
+      mailSent = sendMail(emailData.recipient.email, emailData.title, renderedEmail);
     });
 
     return mailSent;
-  } catch (error) {
+  } 
+  catch (error) {
     mailSent = false;
     console.log(error);
     return mailSent;
