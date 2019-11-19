@@ -23,5 +23,9 @@ export const getQueryString = (string) => {
     return quotes.concat(String(string).match(matchWords)).join(',');
   }
   // if there is no string in quotation just join the single words e.g single,word
-  return String(string).match(matchWords).join(',');
+  const words = String(string).match(matchWords);
+  if (words.length > 5) {
+    return `"${words.join(' ')}"`;
+  }
+  return words.join(",");
 };
