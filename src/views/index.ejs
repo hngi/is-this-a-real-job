@@ -19,7 +19,7 @@
         <p class="text-white">
           Don’t go for that interview until you’re sure it’s real.
         </p>
-        
+
 
         <form id action="/invites/search" method="GET">
           <div class="row">
@@ -34,12 +34,13 @@
           </div>
         </form>
 
-     
+
         <div class="col-12 mt-2 mt-md-4 text-center">
           <small class="text-muted-white">
-            Search by company name, location, or other keywords. Like <span><a class="btn-link"
-                 href="/invites/search?q=Lagos">Lagos</a></span>
-            or <span><a class="btn-link" href="/invites/search?q=Dangote%20Cement">Dangote Cement</a></span>
+            Search a phrase like <a href='/invites/search?q="Chief+Economist"'>"Chief Economist"</a> or use
+            comma separated keywords i.e <span><a class="btn-link"
+                 href="/invites/search?q=Lagos%2C+Dangote+Cement">Lagos,
+                Dangote Cement</a></span>
           </small>
         </div>
 
@@ -73,7 +74,7 @@
         <div class="card point">
           <span style="color: #24659E; padding: 0.5em;">
             <!-- Icon -->
-           <i class="far fa-check-square fa-3x"></i>
+            <i class="far fa-check-square fa-3x"></i>
           </span>
           <h3>Verify</h3>
           <span>
@@ -104,22 +105,23 @@
 <!-- Recent posts section -->
 <section id="recent-posts">
   <div class="container">
-  <div class="mt-5 text-center">
-    <h4 class="mb-5 text-primary">Recent Posts</h4>
-    <div class="mr-auto">
-      <% if (invites.length === 0) { %>
-      <span id="no-invites" class="bg-transparent container">Woops! No posts yet</span>
-      <p>Create a <a class="nav-link" href="/post">New Post</a></p>
-      <% } %>
+    <div class="mt-5 text-center">
+      <h4 class="mb-5 text-primary">Recent Posts</h4>
+      <div class="mr-auto">
+        <% if (invites.length === 0) { %>
+        <span id="no-invites" class="bg-transparent container">Woops! No posts yet</span>
+        <p>Create a <a class="nav-link" href="/post">New Post</a></p>
+        <% } %>
 
-      <% if (invites.length > 0) { %>
-      <% for (invite of invites) { %>
-      <%= renderPostComponent(invite) %>
+        <% if (invites.length > 0) { %>
+        <% for (invite of invites) { %>
+        <%= renderPostComponent(invite) %>
 
-      <% } %>
-      <% } %>
+        <% } %>
+        <% } %>
+      </div>
+      <p class="text-center"><a href="/posts">All Posts</a></p>
     </div>
-  </div>
   </div>
 </section>
 
@@ -135,17 +137,17 @@
       </div>
       <div class="col-xs-12 col-sm-4 col-md-4">
         <span class="mx-1 stat-text" id="no-of-comments"></span> <span>Discussions</span>
-      </div>      
-    </div>
-      <% if (!isAuth) { %>
-      <div class="row" style="margin: 0 auto;">
-        <p class="text-dark mb-0 mt-4 d-none d-md-block">Join the community</p>
-        <p class="mb-0 mt-4 mt-md-0">
-          <a href="/register" class="btn btn-primary" style="width: 160px;">Join</a>
-        </p>
       </div>
-      <% } %>
+    </div>
+    <% if (!isAuth) { %>
+    <div class="row" style="margin: 0 auto;">
+      <p class="text-dark mb-0 mt-4 d-none d-md-block">Join the community</p>
+      <p class="mb-0 mt-4 mt-md-0">
+        <a href="/register" class="btn btn-primary" style="width: 160px;">Join</a>
+      </p>
+    </div>
+    <% } %>
   </div>
 </section>
-  
+
 <% include partials/footer %>

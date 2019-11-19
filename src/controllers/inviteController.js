@@ -1,6 +1,9 @@
-import { respondWithSuccess,
-  respondWithWarning } from '../helpers/responseHandler';
-import { deleteOneInvite,
+import {
+  respondWithSuccess,
+  respondWithWarning
+} from '../helpers/responseHandler';
+import {
+  deleteOneInvite,
   upvoteOneInvite,
   fetchOneInvite,
   fetchAllInvites,
@@ -11,9 +14,11 @@ import { deleteOneInvite,
   downVoteOneInvite,
   fetchOneVoteCount,
   fetchAllInvitesWithLimit,
-  fetchAllInvitesNoOffset, } from '../services/inviteServices';
+  fetchAllInvitesNoOffset,
+} from '../services/inviteServices';
 import { findCommentsForPost } from '../services/commentServices';
 import { findSingleUser } from '../services/userServices';
+import { getQueryString } from '../helpers/stringplay';
 
 export const getOneInvite = async (req, res) => {
   try {
@@ -68,11 +73,23 @@ export const saveNewInvite = async (req, res) => {
  * @returns Invites
  */
 export const renderSearchResults = async (req, res) => {
+  const limit = 15;
+  let page;
+
+  if (req.query.page === 1 || req.query.page === 0 || !req.query.page || !Number(req.query.page)) {
+    page = 0;
+  } else {
+    page = Number(req.query.page) - 1;
+  }
+
+  const offset = page * limit;
   try {
     const { q } = req.query;
 
-    const invites = await searchInvites(q);
-    const user = findSingleUser({ username: req.auth.username });
+    const { invites, count } = await searchInvites(getQueryString(q), offset, limit);
+    // const user = findSingleUser({ username: req.auth.username });
+
+    const pages = Math.ceil(count / limit);
 
     const title = `Search for '${q}' - Is This A Real Job`;
     const description = `Search results for ${q}`;
@@ -83,13 +100,18 @@ export const renderSearchResults = async (req, res) => {
       isAdmin: req.auth.isAdmin,
       username: req.auth.username,
       name: req.auth.name,
-      userId: user.userId,
+      userId: req.auth.userId,
+      page: req.query.page || 1,
+      query: q,
+      pages,
+      count,
       isVerified: req.auth.isVerified,
       profileImage: req.auth.profileImage,
       meta: { title, description }
     });
   } catch (error) {
-    respondWithWarning(res, 500, 'Server error');
+    console.log(error)
+    respondWithWarning(res, 500, 'Server error', error);
   }
 };
 
