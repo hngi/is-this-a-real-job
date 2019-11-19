@@ -323,24 +323,35 @@ export const unvoteOneInvite = async (userId, inviteId) => {
  * given string matches
  * Returns the matching posts
  */
-export const searchInvites = async string => {
+export const searchInvites = async (string, offset = 0, limit = 0) => {
   try {
-    const result = await Invite.findAll({
-      where: Sequelize.literal('MATCH (body, title, company, location) AGAINST(:string)'),
+    const result = await Invite.findAndCountAll({
+      where: Sequelize.literal('MATCH (body, title, company, location) AGAINST(:string IN BOOLEAN MODE)'),
       include: [
         { model: User, as: 'user' },
         { model: Vote, as: 'votes' },
       ],
       replacements: { string },
-      order: [['createdAt']],
+      order: [['createdAt', 'DESC']],
+      offset,
+      limit,
+      distinct: true,
       logging: false
     });
 
-    return result.map(invite => {
+    // return result.map(invite => {
+    //   invite = invite.dataValues;
+    //   invite.user = invite.user ? invite.user.dataValues : {};
+    //   return invite;
+    // });
+
+    result.rows.map(invite => {
       invite = invite.dataValues;
       invite.user = invite.user ? invite.user.dataValues : {};
+      invite.votes = invite.votes.map((vote) => vote.dataValues);
       return invite;
     });
+    return { invites: result.rows, count: result.count };
   } catch (error) {
     console.log('Error! ', error);
     return error;
