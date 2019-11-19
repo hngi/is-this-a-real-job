@@ -86,7 +86,7 @@ export const renderSearchResults = async (req, res) => {
   try {
     const { q } = req.query;
 
-    const { invites, count } = await searchInvites(q, offset, limit);
+    const { invites, count } = await searchInvites(getQueryString(q), offset, limit);
     // const user = findSingleUser({ username: req.auth.username });
 
     const pages = Math.ceil(count / limit);
