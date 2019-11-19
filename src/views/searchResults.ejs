@@ -30,8 +30,8 @@
 
     <div class="">
       <p class="text-muted" style="font-size: smaller;">
-        Found <b class="text-primary text-bold"><%= invites.length %></b> <%=
-          invites.length > 1 ? 'posts' : 'post' %>
+        Found <b class="text-primary text-bold"><%= count %></b> <%=
+          invites.length > 1 ? 'posts' : 'post' %> for <i><%= query %></i>
       </p>
     </div>
 
@@ -58,34 +58,39 @@
       <% for (invite of invites) { %>
 
       <%= renderPostComponent(invite) %>
-
-      <!-- <div class="container post-meta p-4" id="<%=invite.inviteId%>">
-              <h4>
-                <a href="<%='/post/'+invite.inviteId%>">
-                  <%=invite.title%>
-                </a>
-              </h4>
-              <p>
-                <%=invite.body%>
-              </p>
-              <span class="float-right share-buttons">
-                <a target="_blank"
-                  href=" https://www.facebook.com/sharer.php?u=http://itarj.com/post/'<%=invite.inviteId%>"> 
-                  <i class="fab fa-facebook"></i>
-                </a>
-                <a target="_blank"
-                    href="https://twitter.com/intent/tweet?text=<%=invite.title+' - Is this a real job? \n Let us know: http://itarj.com/post/'+invite.inviteId%>">
-                    <i class="fab fa-twitter"></i>
-                </a>
-                <a target="_blank"
-                    href="https://api.whatsapp.com/send?&text=<%=invite.title+' - Is this a real job? \n Let us know: http://itarj.com/post/'+invite.inviteId%>">
-                    <span style="color:#25D366;">
-                      <i class="fab fa-whatsapp"></i>
-                    </span>
-                </a>
-              </span>
-            </div> -->
       <% } %>
+      <% } %>
+    </section>
+
+    <!-- Pagination bishh -->
+    <section id="pagination-bishh">
+      <% if (pages > 0) { %>
+      <ul class="pagination text-center mt-4">
+        <% if (page == 1) { %>
+        <li class="page-item disabled"><a class="page-link">First</a></li>
+        <% } else { %>
+        <li class="page-item"><a class="page-link" href="/invites/search?q=<%= query %>&page=1">First</a></li>
+        <% } %>
+        <% var i = (Number(page) > 5 ? Number(page) - 4 : 1) %>
+        <% if (i !== 1) { %>
+        <li class="page-item disabled"><a>...</a></li>
+        <% } %>
+        <% for (; i <= (Number(page) + 4) && i <= pages; i++) { %>
+        <% if (i == page) { %>
+        <li class="page-item active"><a class="page-link"><%= i %></a></li>
+        <% } else { %>
+        <li class="page-item"><a class="page-link" href="/invites/search?q=<%= query %>&page=<%= i %>"><%= i %></a></li>
+        <% } %>
+        <% if (i == Number(page) + 4 && i < pages) { %>
+        <li class="page-item disabled"><a class="page-link">...</a></li>
+        <% } %>
+        <% } %>
+        <% if (page == pages) { %>
+        <li class="page-item disabled"><a class="page-link">Last</a></li>
+        <% } else { %>
+        <li class="page-item"><a class="page-link" href="/invites/search?q=<%= query %>&page=<%= pages %>">Last</a></li>
+        <% } %>
+      </ul>
       <% } %>
     </section>
   </div>
