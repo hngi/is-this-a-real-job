@@ -73,7 +73,7 @@ export const saveNewInvite = async (req, res) => {
  * @returns Invites
  */
 export const renderSearchResults = async (req, res) => {
-  const limit = 4;
+  const limit = 15;
   let page;
 
   if (req.query.page === 1 || req.query.page === 0 || !req.query.page || !Number(req.query.page)) {
